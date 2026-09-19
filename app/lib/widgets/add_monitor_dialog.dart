@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants.dart';
 import '../../models/monitor.dart';
-import '../../services/api_service.dart';
 import '../../services/firestore_service.dart';
 
 class AddMonitorDialog extends StatefulWidget {
@@ -57,39 +57,22 @@ class _AddMonitorDialogState extends State<AddMonitorDialog> {
     });
 
     try {
-      Monitor newMonitor;
-      if (widget.userId != null && widget.userId!.isNotEmpty) {
-        final firestoreService = FirestoreService();
-        newMonitor = await firestoreService.addMonitor(
-          userId: widget.userId!,
-          userEmail: _emailController.text.trim(),
-          title: _titleController.text.trim().isEmpty ? 'Yeni Takip Sayfası' : _titleController.text.trim(),
-          url: _urlController.text.trim(),
-        );
+      final effectiveUid = (widget.userId != null && widget.userId!.isNotEmpty)
+          ? widget.userId!
+          : FirebaseAuth.instance.currentUser?.uid ?? 'default_user';
 
-        // İsteğe bağlı: Yerel sunucu açıksa oraya da ekle
-        try {
-          final apiService = ApiService();
-          await apiService.addMonitor(
-            title: _titleController.text.trim(),
-            url: _urlController.text.trim(),
-            userEmail: _emailController.text.trim(),
-            userId: widget.userId,
-          );
-        } catch (_) {}
-      } else {
-        final apiService = ApiService();
-        newMonitor = await apiService.addMonitor(
-          title: _titleController.text.trim(),
-          url: _urlController.text.trim(),
-          userEmail: _emailController.text.trim(),
-        );
-      }
+      final firestoreService = FirestoreService();
+      final newMonitor = await firestoreService.addMonitor(
+        userId: effectiveUid,
+        userEmail: _emailController.text.trim(),
+        title: _titleController.text.trim().isEmpty ? 'Yeni Takip Sayfası' : _titleController.text.trim(),
+        url: _urlController.text.trim(),
+      );
 
       widget.onAdded(newMonitor);
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
-      setState(() => _error = e.toString().replaceAll('Exception: ', ''));
+      setState(() => _error = 'Kaydedilemedi: ${e.toString().replaceAll('Exception: ', '')}');
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

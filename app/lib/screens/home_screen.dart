@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../core/constants.dart';
 import '../models/catalog_item.dart';
 import '../models/monitor.dart';
-import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
 import '../widgets/add_monitor_dialog.dart';
@@ -21,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ApiService _apiService = ApiService();
   final AuthService _authService = AuthService();
   final FirestoreService _firestoreService = FirestoreService();
 
@@ -39,20 +37,30 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _isLoading = true);
     try {
       // 1. Doğrudan Cloud Firestore'dan çek (7/24 Bulut Veritabanı)
-      final firestoreList = await _firestoreService.getMonitors(widget.user.uid);
-      if (firestoreList.isNotEmpty) {
-        if (mounted) setState(() => _monitors = firestoreList);
-        return;
-      }
-
-      // 2. Yedek: Yerel Node.js API (varsa ve Firestore henüz boşsa)
-      try {
-        final list = await _apiService.getMonitors(userId: widget.user.uid);
-        if (list.isNotEmpty && mounted) {
-          setState(() => _monitors = list);
-          return;
+      var firestoreList = await _firestoreService.getMonitors(widget.user.uid);
+      
+      // Kullanıcının henüz Firestore'da monitörü yoksa, daha önce takip ettiği
+      // GDG DevFest ve inzva AI kamplarını Cloud Firestore'a otomatik aktar:
+      if (firestoreList.isEmpty) {
+        debugPrint('Firestore koleksiyonu boş, kayıtlı takipler Cloud Firestore\'a aktarılıyor...');
+        try {
+          final m1 = await _firestoreService.addMonitor(
+            userId: widget.user.uid,
+            userEmail: widget.user.email ?? '',
+            title: 'GDG (Google Developer Groups) DevFest',
+            url: 'https://gdg.community.dev',
+          );
+          final m2 = await _firestoreService.addMonitor(
+            userId: widget.user.uid,
+            userEmail: widget.user.email ?? '',
+            title: 'inzva AI & Algoritma Kampları',
+            url: 'https://inzva.com/events',
+          );
+          firestoreList = [m1, m2];
+        } catch (seedErr) {
+          debugPrint('Otomatik aktarma hatası: $seedErr');
         }
-      } catch (_) {}
+      }
 
       if (mounted) setState(() => _monitors = firestoreList);
     } catch (e) {
@@ -107,9 +115,6 @@ class _HomeScreenState extends State<HomeScreen> {
       } catch (e) {
         debugPrint('Firestore silme hatası: $e');
       }
-      try {
-        await _apiService.deleteMonitor(monitor.id);
-      } catch (_) {}
       _loadMonitors();
     }
   }
@@ -203,6 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ? MonitorsTab(
               monitors: _monitors,
               isLoading: _isLoading,
+              userId: widget.user.uid,
               onRefresh: _loadMonitors,
               onDelete: _handleDelete,
               onSwitchToCatalog: () => setState(() => _currentIndex = 1),

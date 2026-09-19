@@ -1,13 +1,16 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants.dart';
 import '../../models/monitor.dart';
 import '../../services/api_service.dart';
+import '../../services/firestore_service.dart';
 import '../../widgets/monitor_card.dart';
 import '../../widgets/result_dialog.dart';
 
 class MonitorsTab extends StatefulWidget {
   final List<Monitor> monitors;
   final bool isLoading;
+  final String userId;
   final VoidCallback onRefresh;
   final Function(Monitor) onDelete;
   final VoidCallback onSwitchToCatalog;
@@ -16,6 +19,7 @@ class MonitorsTab extends StatefulWidget {
     super.key,
     required this.monitors,
     required this.isLoading,
+    required this.userId,
     required this.onRefresh,
     required this.onDelete,
     required this.onSwitchToCatalog,
@@ -32,7 +36,44 @@ class _MonitorsTabState extends State<MonitorsTab> {
   Future<void> _handleCheck(Monitor monitor, {bool simulate = false}) async {
     setState(() => _checkingId = monitor.id);
     try {
-      final res = await _apiService.checkMonitor(monitor.id, simulate: simulate);
+      Map<String, dynamic> res;
+      try {
+        // 1. Bulut fonksiyonu (Cloud Function checkSourceNow) ile 7/24 sunucusuz kontrol
+        final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+        final callable = functions.httpsCallable('checkSourceNow');
+        final callResult = await callable.call({
+          'url': monitor.url,
+          'title': monitor.title,
+          'oldText': monitor.lastSummary ?? '',
+        });
+
+        final data = Map<String, dynamic>.from(callResult.data as Map);
+        final bool changed = data['hasSignificantChange'] == true;
+        final String? summary = data['summary'];
+        final String? calendarUrl = data['calendarUrl'];
+
+        // Firestore'daki monitörü güncelle
+        if (widget.userId.isNotEmpty) {
+          final firestoreService = FirestoreService();
+          await firestoreService.updateMonitorSummary(widget.userId, monitor.id, summary);
+        }
+
+        res = {
+          'success': true,
+          'result': {
+            'changed': changed,
+            'summary': summary,
+            'calendarUrl': calendarUrl,
+          },
+          'monitor': {
+            'lastSummary': summary,
+          }
+        };
+      } catch (cloudErr) {
+        debugPrint('Bulut kontrolü hatası, yerel deneniyor: $cloudErr');
+        res = await _apiService.checkMonitor(monitor.id, simulate: simulate);
+      }
+
       if (mounted) {
         showDialog(
           context: context,
@@ -44,7 +85,7 @@ class _MonitorsTabState extends State<MonitorsTab> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Kontrol başarısız: $e'),
+            content: Text('Kontrol tamamlanamadı: $e'),
             backgroundColor: Colors.redAccent,
           ),
         );

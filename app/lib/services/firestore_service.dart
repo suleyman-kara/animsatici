@@ -68,6 +68,32 @@ class FirestoreService {
     await _userMonitorsRef(userId).doc(monitorId).delete();
   }
 
+  // Monitör durumunu / özetini güncelle
+  Future<void> updateMonitorSummary(String userId, String monitorId, String? summary) async {
+    await _userMonitorsRef(userId).doc(monitorId).update({
+      'lastSummary': summary,
+      'lastCheckedAt': DateTime.now().toIso8601String(),
+    });
+  }
+
+  // Topluluk aday havuzuna yeni kanal önerisi ekle
+  Future<void> suggestChannel({
+    required String title,
+    required String url,
+    required String category,
+    String? userEmail,
+  }) async {
+    await _firestore.collection('candidatePool').add({
+      'title': title,
+      'url': url,
+      'category': category,
+      'suggestedBy': userEmail ?? 'anonymous',
+      'votes': 1,
+      'status': 'pending_review',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
   // --- KULLANICI BİLDİRİM TERCİHLERİ ---
 
   // Kullanıcının bildirim tercihlerini getir

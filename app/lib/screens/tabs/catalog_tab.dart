@@ -4,6 +4,7 @@ import '../../core/default_catalog.dart';
 import '../../models/catalog_item.dart';
 import '../../models/monitor.dart';
 import '../../services/api_service.dart';
+import '../../services/firestore_service.dart';
 import '../../widgets/catalog_card.dart';
 
 class CatalogTab extends StatefulWidget {
@@ -24,6 +25,7 @@ class CatalogTab extends StatefulWidget {
 
 class _CatalogTabState extends State<CatalogTab> {
   final ApiService _apiService = ApiService();
+  final FirestoreService _firestoreService = FirestoreService();
   List<CatalogCategory> _categories = [];
   List<CatalogItem> _items = [];
   bool _isLoading = true;
@@ -36,22 +38,25 @@ class _CatalogTabState extends State<CatalogTab> {
   }
 
   Future<void> _loadCatalog() async {
-    setState(() => _isLoading = true);
+    // 1. Yerleşik varsayılan kataloğu anında yükle (0 gecikme)
+    final fallback = DefaultCatalog.getCatalog(category: _selectedCategory);
+    setState(() {
+      _categories = fallback['categories'] ?? [];
+      _items = fallback['items'] ?? [];
+      _isLoading = false;
+    });
+
+    // 2. İsteğe bağlı: Yerel sunucu veya dinamik API varsa arka planda güncelle
     try {
       final res = await _apiService.getCatalog(category: _selectedCategory);
-      setState(() {
-        _categories = res['categories'] ?? [];
-        _items = res['items'] ?? [];
-      });
-    } catch (e) {
-      debugPrint('API katalog yüklenemedi, yerel varsayılan katalog yükleniyor: $e');
-      final fallback = DefaultCatalog.getCatalog(category: _selectedCategory);
-      setState(() {
-        _categories = fallback['categories'] ?? [];
-        _items = fallback['items'] ?? [];
-      });
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
+      if (mounted) {
+        setState(() {
+          _categories = res['categories'] ?? [];
+          _items = res['items'] ?? [];
+        });
+      }
+    } catch (_) {
+      // Yerel sunucu kapalı olduğunda zaten varsayılan katalog kusursuz çalışır
     }
   }
 
@@ -95,12 +100,26 @@ class _CatalogTabState extends State<CatalogTab> {
                 if (urlCtrl.text.trim().isEmpty) return;
                 final messenger = ScaffoldMessenger.of(context);
                 final nav = Navigator.of(ctx);
-                await _apiService.suggestChannel(
-                  title: titleCtrl.text.trim(),
-                  url: urlCtrl.text.trim(),
-                  category: category,
-                  suggestedBy: widget.userEmail,
-                );
+
+                try {
+                  await _firestoreService.suggestChannel(
+                    title: titleCtrl.text.trim(),
+                    url: urlCtrl.text.trim(),
+                    category: category,
+                    userEmail: widget.userEmail,
+                  );
+                } catch (e) {
+                  debugPrint('Firestore öneri kaydetme hatası: $e');
+                  try {
+                    await _apiService.suggestChannel(
+                      title: titleCtrl.text.trim(),
+                      url: urlCtrl.text.trim(),
+                      category: category,
+                      suggestedBy: widget.userEmail,
+                    );
+                  } catch (_) {}
+                }
+
                 if (mounted) {
                   nav.pop();
                   messenger.showSnackBar(
