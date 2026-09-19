@@ -1,0 +1,31 @@
+{
+  "name": "animsatici",
+  "version": "1.0.0",
+  "description": "Akıllı Web Takip ve Google Takvim Asistanı",
+  "main": "src/core/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node test-runner.js && node test-runner-phase2.js && node test-server.js",
+    "check-sites": "node src/runner.js",
+    "server": "node src/server.js",
+    "client": "npm.cmd --prefix client run dev",
+    "build:client": "npm.cmd --prefix client run build"
+  },
+  "keywords": [
+    "web-monitoring",
+    "gemini-ai",
+    "google-calendar",
+    "diff-checker"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.22.0",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1"
+  }
+}

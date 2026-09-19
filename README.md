@@ -1,83 +1,75 @@
-# 🔔 Anımsatıcı (Akıllı Web Takip & Takvim Asistanı)
+# 🔔 Anımsatıcı (Akıllı Web Takip, RSS Okuyucu & Kişisel Takvim Asistanı)
 
-Web sitelerindeki duyuru, etkinlik, kadro ve son başvuru tarihlerini senin yerine her gün izleyen; değişiklikleri yapay zeka (Google Gemini) ile özetleyip **tek tıkla Google Takvim'e ekleme** imkanı sunan modern takip asistanı.
-
----
-
-## 🎯 Projenin Amacı ve Vizyonu
-
-Geleneksel web takip araçları (Visualping vb.) sitelerdeki değişiklikleri yalnızca görsel ekran görüntüsü veya ham HTML farkı olarak iletir. Bu durum; reklamların, saat sayaçlarının veya menü oynamalarının sahte alarm (false positive) üretmesine neden olur.
-
-**Anımsatıcı** bu süreci yapay zeka ile dönüştürür:
-1. Sayfadaki gürültüyü (reklam, saat, sayaç) ayıklar.
-2. Gerçek bir duyuru, etkinlik veya son başvuru tarihi var mı tespit eder.
-3. Değişimi 1-2 cümleyle Türkçe özetler.
-4. **En büyük farkı:** Tespit edilen etkinliği tek tıkla kullanıcının Google Takvimine işleyebilmesi için e-postaya hazır bir **[📅 Google Takvime Ekle]** bağlantısı yerleştirir.
+Web sitelerindeki duyuruları, etkinlikleri, iş/burs ilanlarını ve RSS beslemelerini senin yerine her gün izleyen; değişiklikleri yapay zeka (**Google Gemini 3.6 Flash**) ile süzüp özetleyen ve **tek tıkla Google Takvim'e ekleme** imkanı sunan yeni nesil takip asistanı.
 
 ---
 
-## 🏗️ Mimari ve Çalışma Mantığı
+## 🎯 Genişletilmiş Proje Vizyonu
+
+Geleneksel takip araçları (Visualping vb.) yalnızca ham sayfa farkı sunarken; standart RSS okuyucular (Feedly vb.) ise her yazıyı ayıklamadan kullanıcının önüne yığar.
+
+**Anımsatıcı**, bu iki dünyayı yapay zekayla birleştirir:
+1. **Hibrit İzleme (Web + RSS):** Kullanıcı bir bağlantı girdiğinde sistem sayfada RSS beslemesi varsa otomatik algılar (`rss-parser`); yoksa akıllı web kazıyıcı ve açık kaynak takip araçlarıyla sayfayı izler.
+2. **Gürültüden Arındırılmış Günlük Bülten (Daily Digest):** Kullanıcıyı gün boyu onlarca maille boğmak yerine, her akşam tek bir derli toplu bülten gönderir: *"Bugün takip ettiğin 10 kaynaktan 3 tanesinde yeni gelişme oldu."*
+3. **Tek Tıkla Google Takvim Entegrasyonu:** Duyurudaki sınav, seminer, hackathon veya son başvuru tarihini yapay zeka otomatik yakalar ve mailin içerisine doğrudan **[📅 Google Takvim'e Ekle]** butonu koyar.
+4. **Çift Yönlü Giriş Kolaylığı (Firebase Auth):** Hem **Google Hesabı** hem de şifresiz **Telefon Numarası (SMS / OTP)** ile mobil ve web'de anında oturum açma.
+5. **Mobil ve Web'de Sade Panel (PWA):** Hem masaüstünde temiz bir web paneli hem de telefonda uygulama gibi ana ekrana eklenebilen hafif arayüz.
+
+---
+
+## 📌 Öncelikli Takip Listesi (Kişisel Notlar & Test Hedefleri)
+
+Sistem canlıya alınırken ve test edilirken öncelikli olarak izlenecek platformlar:
+
+1. **inzva:** Yapay zeka ve algoritma kampları, hackathonlar, topluluk buluşmaları ve başvuru takvimleri.
+2. **SKS (Sağlık, Kültür ve Spor Daire Bşk. - ÇÜ vb.):** Kısmi zamanlı öğrenci iş ilanları, mülakat tarihleri, yemek bursları ve kulüp duyuruları.
+3. **Coderspace:** Yazılım bootcamp'leri, şirketlerin işe alım maratonları ve kodlama yarışmaları.
+4. **MÜSİAD İstanbul:** Zirveler, ekonomi bültenleri, sektör buluşmaları ve girişimcilik etkinlikleri.
+
+---
+
+## 🏗️ Yeni Sistem Mimarisi ve Çalışma Mantığı
 
 ```
-[ Kullanıcı ]
-      │
-      ▼ (Google ile Oturum Açma)
-[ Firebase Auth ]
-      │
-      ▼ (URL Ekle / Düzenle)
-[ Cloud Firestore ] ──► URL, Kullanıcı E-postası, Son İçerik Özeti (Hash)
-      ▲
-      │ (Her akşam otomatik tetikleme - Cron: 21:00)
-[ Cloud Scheduler ]
-      │
-      ▼
-[ Cloud Functions (Node.js) ]
-      │
-      ├── 1. Sayfanın HTML'ini çek (Axios / Cheerio)
-      ├── 2. Reklam/menü/script temizliği yap, metni çıkar
-      ├── 3. SHA-256 Hash kontrolü yap (Fark yoksa sonlandır: $0 Maliyet)
-      ├── 4. Değişiklik varsa ──► Gemini API'ye gönder:
-      │       - "Değişimi Türkçe özetle"
-      │       - "Varsa etkinlik başlığı ve tarihini ISO formatında çıkar"
-      ├── 5. Google Calendar şablon linki üret:
-      │       https://calendar.google.com/calendar/render?action=TEMPLATE&text=...
-      └── 6. Kullanıcıya şık bir e-posta gönder (Resend API)
+                                [ KULLANICI ]
+                       (Web veya Mobil PWA Arayüzü)
+                                     │
+                 ┌───────────────────┴───────────────────┐
+                 ▼                                       ▼
+       [ Google ile Giriş ]                     [ Telefon (SMS / OTP) ]
+                 └───────────────────┬───────────────────┘
+                                     │
+                                     ▼
+                          [ Firebase Firestore ]
+                 (Kullanıcılar, Takip Edilen Web & RSS Kaynakları)
+                                     │
+                 ┌───────────────────┴───────────────────┐
+                 │ (Akşam Otomatik Tarama - Cron: 20:00) │
+                 ▼                                       ▼
+       ┌───────────────────┐                   ┌───────────────────┐
+       │   RSS Beslemeleri │                   │   Web Sayfaları   │
+       │   (`rss-parser`)  │                   │ (Scraper / Diff)  │
+       └─────────┬─────────┘                   └─────────┬─────────┘
+                 │                                       │
+                 └───────────────────┬───────────────────┘
+                                     │ (Yeni Gelişmeler Toplanır)
+                                     ▼
+                    [ Gemini 3.6 Flash Toplu Analiz ]
+                    - Önemsiz sayaç/reklamları temizle.
+                    - Günlük bülten formatında Türkçe özet çıkar.
+                    - Etkinlik/tarih varsa Google Takvim URL'i üret.
+                                     │
+                                     ▼
+                     [ Tekil "Günlük Özet Bülteni" ]
+                     - Kullanıcının mailine tek parça gönderilir.
+                     - Panelde "Bugünün Özeti" olarak listelenir.
 ```
-
----
-
-## 💻 Teknoloji Yığını (Tech Stack) Seçenekleri ve Öneri
-
-Frontend için alternatifler ve MVP için en mantıklı rota:
-
-### 1. Seçenek: React + Vite + Tailwind CSS (⭐ ÖNERİLEN)
-* **Neden?** Next.js gibi sunucu yapılandırması gerektirmez. Saf bir SPA (Single Page Application) olarak çalışır.
-* **Öğrenme Eğrisi:** Çok düşüktür. State (giriş yapıldı/yapılmadı, link listesi, ekleme formu) yönetimini en temiz şekilde yapar.
-* **Firebase Uyumu:** `firebase deploy --only hosting` komutuyla saniyeler içinde tamamen ücretsiz olarak yayına alınır.
-
-### 2. Seçenek: Next.js (App Router)
-* **Neden?** İleride pazarlama/landing page için SEO gerekirse faydalıdır.
-* **Dezavantajı:** Sunucu taraflı render (SSR) ve Node.js sunucusu veya Vercel gerektirir. Firebase Backend (Cloud Functions + Firestore) kullanacağımız için Next.js'in sunucu yetenekleri MVP için fazla karmaşık kalabilir.
-
-### 3. Seçenek: Vanilla JS (Düz HTML/CSS/JS)
-* **Neden?** Sıfır kütüphane bağımlılığı.
-* **Dezavantajı:** Kullanıcı girişi, link ekleme/silme, hata/yükleniyor durumları geliştikçe JavaScript kodu "spagetti" haline gelir ve yönetmesi zorlaşır.
-
-> 💡 **MVP Kararı:** Geliştirme hızını artırmak ve kod karmaşasını önlemek adına **React + Vite + Tailwind CSS** ile başlanması tavsiye edilir.
-
-### Arka Plan ve Altyapı
-* **Kimlik Doğrulama:** Firebase Authentication (Google Sign-In)
-* **Veritabanı:** Cloud Firestore
-* **Zamanlanmış Görevler:** Cloud Scheduler
-* **Sunucusuz Fonksiyonlar:** Cloud Functions for Firebase (Node.js)
-* **Yapay Zeka:** Google Gemini API (`@google/genai`)
-* **E-posta İletimi:** Resend API (Geliştirici dostu, yüksek teslimat oranı)
 
 ---
 
 ## 🔌 Ayrık Mimari & Kendi Sunucuna Taşıma Kolaylığı (Portability)
 
-MVP aşamasında hız, maliyetsiz test ve pratiklik için **Firebase** altyapısını tercih ediyoruz. Ancak projeyi ileride **kendi bağımsız sunucuna (VPS, Docker, SQLite/PostgreSQL)** taşımak istediğinde satıcı kilidine (Vendor Lock-in) takılmaman için mimariyi **"Ayrık (Decoupled)"** inşa ediyoruz:
+MVP aşamasında hız, sıfır maliyet ve pratiklik için **Firebase** altyapısını tercih ediyoruz. Ancak projeyi ileride **kendi bağımsız sunucuna (VPS, Docker, SQLite/PostgreSQL)** taşımak istediğinde satıcı kilidine (Vendor Lock-in) takılmaman için mimariyi **"Ayrık (Decoupled)"** olarak inşa ettik:
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -97,58 +89,47 @@ MVP aşamasında hız, maliyetsiz test ve pratiklik için **Firebase** altyapıs
 ```
 
 ### Bu Mimari Bize Ne Kazandırır?
-1. **Sıfır Bağımlılıkla Yazılan Motor (`src/core`):**
-   * Sayfayı çeken (`cheerio`), reklam/script temizleyen, SHA-256 hash alan, Gemini API'ye sorup tarihi ve özeti çıkaran ve Google Calendar URL'i üreten tüm mantık **saf Node.js** modülü olarak yazılır. İçinde hiçbir Firebase kodu bulunmaz.
-2. **Veritabanı Köprüsü (Adapter Pattern):**
-   * Veritabanı sorguları tek bir servis dosyası (`dbAdapter.js`) üzerinden yapılır. İleride kendi sunucuna geçtiğinde sadece bu dosya içindeki Firestore çağrılarını PostgreSQL/SQLite sorgularıyla değiştirmek yeterli olur.
-3. **Zahmetsiz Göç (Migration):**
-   * Kodun %80'ini oluşturan iş mantığına dokunmadan, sadece birkaç dosyalık adaptör değişikliğiyle projeyi kendi kiraladığın 5 dolarlık bir Linux sunucuya (Docker ile) taşıyabilirsin.
+1. **Sıfır Bağımlılıkla Yazılan Motor (`src/core`):** Sayfayı çeken (`cheerio`), reklam/script temizleyen, SHA-256 hash alan, Gemini API'ye sorup tarihi ve özeti çıkaran ve Google Calendar URL'i üreten tüm mantık **saf Node.js** modülü olarak yazıldı.
+2. **Veritabanı Köprüsü (Adapter Pattern - `src/adapters/dbAdapter.js`):** Veritabanı sorguları tek bir adaptör dosyası üzerinden yapılıyor. İleride kendi sunucuna geçtiğinde sadece bu dosya içindeki Firestore çağrılarını PostgreSQL/SQLite sorgularıyla değiştirmek yeterli olur.
+3. **Zahmetsiz Göç (Migration):** İş mantığına dokunmadan, sadece adaptör katmanını değiştirerek projeyi 5 dolarlık bir Linux sunucuda (Docker ile) çalıştırabilirsin.
 
 ---
 
-## ⚠️ MVP Öncesi Risk Analizi ve Çözümleri (Pre-Mortem)
+## ⚡ Hibrit / Polyglot Mimari: Go (Golang) + Node.js İş Birliği
 
-Projeyi hayata geçirirken karşılaşabileceğimiz 6 kritik risk ve aldığımız mühendislik önlemleri:
+Sistem ölçeği yüzbinlerce web sitesi ve RSS akışına ulaştığında donanım maliyetlerini minimumda tutmak için **Go (Golang)** ve **Node.js** dillerinin en güçlü yönlerini birleştiren hibrit bir mimari kullanıyoruz:
+
+```
+┌────────────────────────────────────────┐       ┌────────────────────────────────────────┐
+│          GO (GOLANG) MİKROSERVİSİ      │       │          NODE.JS & REACT ALTYAPISI     │
+│             "KAS GÜCÜ / WORKER"        │       │          "BEYİN & KULLANICI ALANI"     │
+├────────────────────────────────────────┤       ├────────────────────────────────────────┤
+│ • 10.000+ RSS ve Web Sayfasını         │       │ • React / Vite Web & Mobil PWA Paneli  │
+│   Goroutine'lerle paralel tarama       │       │ • Firebase Auth (Google + SMS Girişi)  │
+│ • Devasa ağ (I/O) ve soket yönetimi    │       │ • Gemini 3.6 Flash Entegrasyonu        │
+│ • Aşırı düşük RAM tüketimi (~30-50 MB) │  ◄──► │ • Türkçe Özetleme & Takvim URL Üretimi │
+│ • Hızlı SHA-256 Hash ve Diff kontrolü  │       │ • Resend ile Şık HTML E-posta Bülteni  │
+│ • Değişiklik yoksa Node'u hiç yormaz   │       │ • Kullanıcı Ayarları & REST API        │
+└────────────────────────────────────────┘       └────────────────────────────────────────┘
+```
+
+### Neden Bu İkili?
+* **Go'nun Rolü (Kas Gücü):** Milyonlarca ağ isteğini, Goroutine'ler sayesinde yalnızca ~50 MB RAM tüketerek saniyeler içinde paralel tarar. Sitede değişiklik yoksa süreci hemen kapatarak gereksiz kaynak kullanımını engeller.
+* **Node.js'in Rolü (Beyin):** Yapay zeka orkestrasyonu (Gemini 3.6), HTML mail şablonları, Google Takvim linkleri ve kullanıcı paneli gibi hızlı geliştirme ve zengin ekosistem gerektiren alanları yönetir.
+* **Haberleşme:** İki servis ortak veritabanı (Firestore / PostgreSQL / Redis) veya hafif REST/gRPC API üzerinden konuşur.
+
+---
+
+## ⚠️ Risk Analizi ve Çözümleri (Pre-Mortem)
 
 | # | Risk | Potansiyel Tehlike | Çözüm & Önlem |
 |---|---|---|---|
-| **1** | **Sahte Değişiklik Alarmları** | Saat, sayaç, dönen reklamlar yüzünden her gün *"Sayfa değişti"* uyarısı gitmesi. | Ham HTML yerine; `<script>`, `<nav>`, `<footer>` temizlenmiş **gövde metni** kıyaslanacak. |
-| **2** | **Firestore 1 MB Limiti** | Web sayfalarının kaynak kodlarının Firestore tek doküman sınırını aşması. | Firestore'a ham sayfa kodu **asla yazılmayacak**. Yalnızca 64 karakterlik SHA-256 Hash'i ve kısa metin özeti saklanacak. |
-| **3** | **Sunucu IP Blokajı** | Google Cloud IP'lerinin bazı sitelerce bot zannedilip engellenmesi (403/Captcha). | İsteklere gerçekçi `User-Agent` ve `Accept-Language` eklenecek. Aşılamayan siteler için arayüzde şeffaf uyarı verilecek. |
-| **4** | **Yapay Zekanın Tarih Şaşırması** | "Önümüzdeki cuma" gibi ifadelerde referans tarih bilinmezse yanlış yıl/gün üretilmesi. | Gemini'ye sistem promptunda **o günün tam tarihi** verilecek ve katı JSON şemasıyla çıktı alınacak. Net tarih yoksa takvim linki üretilmeyecek. |
-| **5** | **Cloud Function Zaman Aşımı** | 50+ sitenin sırayla taranması durumunda 60 saniyelik limitin dolması ve fonksiyonun çökmesi. | Siteler `Promise.allSettled` ile kontrollü paralel (batch) taranacak, her siteye 8-10 saniye zaman aşımı (timeout) konacak. |
-| **6** | **E-postaların Spama Gitmesi** | Link içeren maillerin Gmail/Outlook tarafından gereksiz kutusuna atılması. | Resend altyapısı kullanılacak, SPF ve DKIM DNS doğrulamaları baştan tamamlanacak. |
-
----
-
-## 🗄️ Firestore Veri Modeli Taslağı
-
-### `users` Koleksiyonu
-```json
-{
-  "uid": "google_user_123",
-  "email": "kullanici@gmail.com",
-  "displayName": "Ahmet Yılmaz",
-  "plan": "free", // free, pro
-  "maxUrls": 3,
-  "createdAt": "2026-09-15T09:00:00Z"
-}
-```
-
-### `monitors` Koleksiyonu
-```json
-{
-  "id": "monitor_abc",
-  "userId": "google_user_123",
-  "userEmail": "kullanici@gmail.com",
-  "title": "İTÜ Duyurular",
-  "url": "https://www.itu.edu.tr/duyurular",
-  "lastContentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "lastCheckedAt": "2026-09-15T21:00:00Z",
-  "lastChangeDetectedAt": "2026-09-15T21:00:00Z",
-  "isActive": true
-}
-```
+| **1** | **Sahte Değişiklik Alarmları** | Saat, sayaç, dönen reklamlar yüzünden her gün *"Sayfa değişti"* uyarısı gitmesi. | Ham HTML yerine; `<script>`, `<nav>`, `<footer>` temizlenmiş **gövde metni** kıyaslanıyor. |
+| **2** | **Mail Kirliliği (Inbox Fatigue)** | 10 site takip edildiğinde günde 10-15 ayrı e-posta gelmesi. | **Günlük Özet Bülteni (Daily Digest):** Akşamları tek bir toplu bülten gönderilir. |
+| **3** | **Sunucu IP Blokajı** | Bazı sitelerin veri merkezi IP'lerini engellemesi (403/Captcha). | Varsa otomatik **RSS beslemesi** kullanılır; yoksa gerçekçi `User-Agent` ve açık kaynak proxy çözümleri devreye girer. |
+| **4** | **Yapay Zekanın Tarih Şaşırması** | "Önümüzdeki cuma" gibi ifadelerde yanlış yıl/gün üretilmesi. | Gemini'ye sistem promptunda **o günün tam tarihi** veriliyor ve katı JSON şemasıyla ISO formatında çıktı alınıyor. |
+| **5** | **Cloud Function Zaman Aşımı** | Çok sayıda sitenin taranmasında 60 saniyelik limitin dolması. | Siteler batch gruplar halinde paralel taranır, her siteye 8-10 saniye zaman aşımı (timeout) konur. |
+| **6** | **E-postaların Spama Gitmesi** | Link içeren maillerin gereksiz kutusuna düşmesi. | Resend altyapısı, SPF ve DKIM DNS doğrulamaları kullanılır. |
 
 ---
 
@@ -165,20 +146,55 @@ https://calendar.google.com/calendar/render?action=TEMPLATE&text={Baslik}&dates=
 
 ---
 
-## 🗺️ Geliştirme Yol Haritası (MVP)
+## 🗺️ Geliştirme Yol Haritası
 
-- [ ] **Aşama 1: Çekirdek Tarama & AI Scripti (Node.js)**
-  - Örnek bir web sayfasını çekme ve temiz metne dönüştürme.
-  - SHA-256 hash hesaplama.
-  - Değişiklik durumunda Gemini API çağrısı ve Google Calendar URL üretimi.
-- [ ] **Aşama 2: Firebase Altyapısı**
-  - Firebase projesinin açılması ve CLI entegrasyonu.
-  - Firestore kurallarının ayarlanması.
-  - Scheduled Cloud Function yazımı.
-  - Resend ile test maili gönderimi.
-- [ ] **Aşama 3: Kullanıcı Arayüzü (React + Vite)**
-  - Google Giriş ekranı.
-  - Takip listesi (ekle, listele, sil).
-  - Firebase Hosting'e deploy.
-- [ ] **Aşama 4: Canlı Test ve Doğrulama**
-  - Gerçek 2-3 duyuru/etkinlik sitesi ile canlı akış testi.
+- [x] **Aşama 1: Saf Çekirdek Motor (Core Engine)** ✅
+  - `cheerio` ve `axios` ile gürültüden arındırılmış metin kazıma.
+  - SHA-256 hash hesaplama ve $0 maliyetli değişim tespiti.
+  - Gemini 3.6 Flash entegrasyonu (Türkçe özet + ISO tarih çıkarımı).
+  - Google Calendar URL üretici.
+  - 7/7 birim testi başarıyla geçti.
+
+- [x] **Aşama 2: Veritabanı Adaptörü & E-posta Servisi** ✅
+  - Taşınabilir `dbAdapter.js` (Yerel JSON + Firestore uyumlu).
+  - Responsive HTML e-posta şablonu ve **[📅 Google Takvim'e Ekle]** butonu.
+  - Çoklu site tarama yürütücüsü (`src/runner.js`).
+  - Test suite (14/14 test geçti).
+
+- [x] **Aşama 3: Kullanıcı Paneli & REST API** ✅
+  - Express REST API (`GET`, `POST`, `DELETE`, `POST /check`).
+  - React + Vite + Tailwind CSS dashboard.
+  - Anlık test ve simülasyon butonu (`🧪 Simüle Et`).
+  - Toplam 18/18 test geçti ve canlıya hazırlandı.
+
+- [ ] **Aşama 4: Hibrit RSS Besleme Okuyucu (`rss-parser`)** ⏳
+  - Girilen URL'de otomatik RSS beslemesi arama.
+  - RSS akışından yeni başlıkları okuma ve Gemini'ye özetletme.
+
+- [ ] **Aşama 5: Günlük Özet Bülteni (Daily Digest Engine)** ⏳
+  - Gün içinde veya akşam toplanan tüm değişimleri tek bir e-posta bülteninde birleştirme.
+  - Panelde "Günün Özeti" görünümü.
+
+- [ ] **Aşama 6: Firebase Auth (Google + Telefon SMS) & Mobil PWA** ⏳
+  - Google ile Tek Tıkla Giriş.
+  - Telefon numarası ve SMS OTP doğrulama.
+  - Mobil cihazlar için "Ana Ekrana Ekle" PWA manifesti.
+
+- [ ] **Aşama 7: Açık Kaynak İzleme & ChangeDetection Entegrasyonu** ⏳
+  - Gelişmiş JavaScript/SPA sayfaları için açık kaynak container desteği.
+
+---
+
+## 💻 Hızlı Başlangıç
+
+```powershell
+# Bağımlılıkları yükleme ve testleri çalıştırma
+npm install
+npm test
+
+# API ve Arayüzü birlikte başlatma
+npm start
+
+# Tarayıcıda aç:
+http://localhost:3001
+```

@@ -8,8 +8,15 @@
 *.suo
 *.user
 *.userosscache
-*.sln.docstates
-*.env
+# Node.js dependencies & environments
+node_modules/
+dist/
+client/dist/
+data/*.json
+!data/.gitkeep
+.env
+.env.*
+!.env.example
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
