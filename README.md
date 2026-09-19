@@ -1,4 +1,4 @@
-# 🔔 Anımsatıcı (Akıllı Web Takip, RSS Okuyucu & Kişisel Takvim Asistanı)
+# 🔔 Anımsa (Akıllı Web Takip, RSS Okuyucu & Kişisel Takvim Asistanı)
 
 Web sitelerindeki duyuruları, etkinlikleri, iş/burs ilanlarını ve RSS beslemelerini senin yerine her gün izleyen; değişiklikleri yapay zeka (**Google Gemini 3.6 Flash**) ile süzüp özetleyen ve **tek tıkla Google Takvim'e ekleme** imkanı sunan yeni nesil takip asistanı.
 
@@ -8,12 +8,38 @@ Web sitelerindeki duyuruları, etkinlikleri, iş/burs ilanlarını ve RSS beslem
 
 Geleneksel takip araçları (Visualping vb.) yalnızca ham sayfa farkı sunarken; standart RSS okuyucular (Feedly vb.) ise her yazıyı ayıklamadan kullanıcının önüne yığar.
 
-**Anımsatıcı**, bu iki dünyayı yapay zekayla birleştirir:
+**Anımsa**, bu iki dünyayı yapay zekayla birleştirir:
 1. **Hibrit İzleme (Web + RSS):** Kullanıcı bir bağlantı girdiğinde sistem sayfada RSS beslemesi varsa otomatik algılar (`rss-parser`); yoksa akıllı web kazıyıcı ve açık kaynak takip araçlarıyla sayfayı izler.
 2. **Gürültüden Arındırılmış Günlük Bülten (Daily Digest):** Kullanıcıyı gün boyu onlarca maille boğmak yerine, her akşam tek bir derli toplu bülten gönderir: *"Bugün takip ettiğin 10 kaynaktan 3 tanesinde yeni gelişme oldu."*
-3. **Tek Tıkla Google Takvim Entegrasyonu:** Duyurudaki sınav, seminer, hackathon veya son başvuru tarihini yapay zeka otomatik yakalar ve mailin içerisine doğrudan **[📅 Google Takvim'e Ekle]** butonu koyar.
+3. **Tek Tıkla Google Takvim Entegrasyonu (Killer Feature):** Duyurudaki sınav, seminer, hackathon veya son başvuru tarihini yapay zeka otomatik yakalar ve mailin içerisine doğrudan **[📅 Google Takvim'e Ekle]** butonu koyar.
 4. **Çift Yönlü Giriş Kolaylığı (Firebase Auth):** Hem **Google Hesabı** hem de şifresiz **Telefon Numarası (SMS / OTP)** ile mobil ve web'de anında oturum açma.
 5. **Mobil ve Web'de Sade Panel (PWA):** Hem masaüstünde temiz bir web paneli hem de telefonda uygulama gibi ana ekrana eklenebilen hafif arayüz.
+
+---
+
+## 📊 Pazar Araştırması & Rekabet Analizi (Neden Anımsa?)
+
+### 1. Global Pazardaki Kritik Boşluk
+* **Mevcut Durum (Visualping, PageCrawl.io, Changeflow, Monity.ai):** Bu araçlar piksel veya HTML farkı tespit edip alarm gönderir.
+* **En Büyük Eksiklikleri:** Hiçbirinde yerleşik bir **"Google Takvime Ekle"** butonu yoktur. Kullanıcının bir tarihi takvime ekleyebilmesi için **Zapier veya n8n** gibi 3. parti araçlara ek abonelik ücreti ($20-$30/ay) ödeyip teknik entegrasyon yapması gerekir.
+* **Anımsa'nın Farkı:** Sıradan bir son kullanıcı için hiçbir teknik ayar gerekmeden, mailin içindeki butona tıklandığı anda Google Takvim'e randevuyu oluşturur.
+
+### 2. Türkiye Pazarındaki Büyük Fırsat
+* Türkiye'de web takip alanı sadece çok pahalı ve dar B2B nişlere hapsolmuştur:
+  * Kamu İhaleleri (EKAP Analytics, İhalePro, Tendermeister)
+  * Mevzuat & Resmi Gazete (Regulfy, MevzuatTR)
+* Öğrenciler, akademisyenler, yazılımcılar ve KOBİ'ler için genel amaçlı, Türkçe yapay zeka özetli ve yerel fiyatlandırmalı (TL) bir SaaS çözümü **yoktur**. İnsanlar sayfaları her gün elle yenilemekte veya geçici Telegram botları yazmaktadır.
+
+### 3. Rekabet Karşılaştırma Matrisi (USP)
+
+| Özellik | Visualping / Global | Feedly / RSS | TR İhale Araçları | **Anımsa** |
+| :--- | :---: | :---: | :---: | :---: |
+| **Google Takvim Butonu** | ❌ (Zapier Şart) | ❌ Yok | ❌ Yok | **✅ Tek Tıkla Hazır** |
+| **Web + RSS Hibriti** | ❌ Sadece Web | ❌ Sadece RSS | ❌ Sadece EKAP | **✅ Akıllı Algılama** |
+| **Gürültüsüz Günlük Bülten** | ❌ Her değişime mail | ❌ Yüzlerce yazı | ❌ Karmaşık panel | **✅ Akşam Tek Mail** |
+| **Türkçe Yapay Zeka Özeti** | Kısıtlı İngilizce | ❌ Yok | Sadece Şartname | **✅ Doğal Türkçe (Gemini)** |
+| **Yerel Fiyatlandırma (TL)** | Pahalı ($15-$50/ay) | Pahalı ($8-$18/ay) | Çok Pahalı (B2B) | **✅ Türkiye Dostu** |
+| **Giriş Kolaylığı** | Sadece Mail/Google | Sadece Google/Apple | Şirket Vergi No | **✅ Google + SMS OTP** |
 
 ---
 
@@ -21,10 +47,10 @@ Geleneksel takip araçları (Visualping vb.) yalnızca ham sayfa farkı sunarken
 
 Sistem canlıya alınırken ve test edilirken öncelikli olarak izlenecek platformlar:
 
-1. **inzva:** Yapay zeka ve algoritma kampları, hackathonlar, topluluk buluşmaları ve başvuru takvimleri.
-2. **SKS (Sağlık, Kültür ve Spor Daire Bşk. - ÇÜ vb.):** Kısmi zamanlı öğrenci iş ilanları, mülakat tarihleri, yemek bursları ve kulüp duyuruları.
-3. **Coderspace:** Yazılım bootcamp'leri, şirketlerin işe alım maratonları ve kodlama yarışmaları.
-4. **MÜSİAD İstanbul:** Zirveler, ekonomi bültenleri, sektör buluşmaları ve girişimcilik etkinlikleri.
+1. **inzva:** Teknoloji ve üniversite gençliği (AI ve algoritma kampları, hackathonlar, başvuru takvimleri).
+2. **SKS (Sağlık, Kültür ve Spor Daire Bşk. - ÇÜ vb.):** Üniversite öğrencileri (Kısmi zamanlı iş ilanları, mülakat tarihleri, yemek bursları).
+3. **Coderspace:** Genç profesyoneller ve yazılımcılar (Bootcamp'ler, şirketlerin işe alım maratonları).
+4. **MÜSİAD İstanbul:** İş dünyası, girişimciler ve KOBİ'ler (Zirveler, ekonomi bültenleri, sektör buluşmaları).
 
 ---
 
