@@ -118,6 +118,58 @@ Sistem ölçeği yüzbinlerce web sitesi ve RSS akışına ulaştığında donan
 * **Node.js'in Rolü (Beyin):** Yapay zeka orkestrasyonu (Gemini 3.6), HTML mail şablonları, Google Takvim linkleri ve kullanıcı paneli gibi hızlı geliştirme ve zengin ekosistem gerektiren alanları yönetir.
 * **Haberleşme:** İki servis ortak veritabanı (Firestore / PostgreSQL / Redis) veya hafif REST/gRPC API üzerinden konuşur.
 
+## 🐳 DevOps & Observability Mimarisi (Docker, Prometheus & Grafana)
+
+Proje, yalnızca yerel çalışan bir script değil; **CV'de ve kurumsal bir girişimde fark yaratacak üretim sınıfı (production-grade) bir Cloud-Native altyapı** olarak tasarlanmıştır.
+
+```
+                         ┌────────────────────────────────────────────────────────┐
+                         │                  DOCKER ORKESTRASYONU                  │
+                         │                  (docker-compose.yml)                  │
+                         └──────────────────────────┬─────────────────────────────┘
+                                                    │
+        ┌───────────────────┬───────────────────────┼───────────────────────┬───────────────────┐
+        ▼                   ▼                       ▼                       ▼                   ▼
+┌──────────────┐    ┌──────────────┐        ┌──────────────┐        ┌──────────────┐    ┌──────────────┐
+│  GO CRAWLER  │    │ NODE.JS APP  │        │  PROMETHEUS  │        │   GRAFANA    │    │ ALERTMANAGER │
+│  (Worker)    │    │ (API & Web)  │        │ (Metrik DB)  │        │  (Dashboard) │    │  (Telegram)  │
+│ Multi-Stage  │    │ Multi-Stage  │        │              │        │              │    │              │
+│ ~15-20 MB    │    │ ~120 MB      │        │ Pull Modeli  │        │ Canlı Panel  │    │ Anlık Uyarı  │
+└───────┬──────┘    └───────┬──────┘        └───────▲──────┘        └───────▲──────┘    └───────▲──────┘
+        │                   │                       │                       │                   │
+        └───────────────────┴─────── /metrics ──────┴───────────────────────┴───────────────────┘
+```
+
+### 1. Multi-Stage Docker Mimarisi
+* **Go Crawler:** Kod derlendikten sonra sadece tek bir binary alınarak boş `alpine`/`scratch` imajına aktarılır. İmaj boyutu **yalnızca 15-20 MB** olur.
+* **Node.js & React:** Derleme aşaması ile çalışma aşaması ayrıştırılarak hafif ve güvenli konteynerler üretilir.
+
+### 2. Prometheus Metrikleri (Gözlemlenebilirlik / Observability)
+Sistem kör uçuş yapmaz; backend servisleri Prometheus `/metrics` uç noktası üzerinden canlı telemetri üretir:
+
+| Metrik Adı | Tipi | Açıklama |
+| :--- | :--- | :--- |
+| `sites_scraped_total{status, target}` | **Counter** | Toplam taranan site sayısı ve başarı/hata oranı |
+| `scrape_duration_seconds` | **Histogram** | Sitelerin yanıt verme hızları ve ağ gecikmesi |
+| `changes_detected_total` | **Counter** | Saptanan duyuru ve içerik değişiklik sayısı |
+| `calendar_events_generated_total` | **Counter** | Üretilen Google Takvim bağlantısı sayısı (Temel Değer) |
+| `gemini_tokens_used_total` | **Counter** | Yapay zekaya harcanan token ve maliyet takibi |
+| `active_monitors_gauge` | **Gauge** | Sistemdeki anlık aktif takip sayısı |
+
+### 3. Grafana Panelleri & Alertmanager
+* **Grafana:** Taranan sitelerin sağlık durumunu, yanıt sürelerini ve Gemini token maliyetlerini görselleştirir.
+* **Alertmanager:** Bir site 3 kez üst üste 403 (IP Ban) verdiğinde veya hata oranı %5'i aştığında anında **Telegram / Discord** üzerinden uyarı gönderir.
+
+---
+
+## ☁️ Cloud & AWS Ölçeği (Girişim Altyapısı)
+
+Girişimi ölçeklendirirken AWS bulut servislerine uyumlu mimari:
+* **AWS ECS (Elastic Container Service) & Fargate:** Sunucu yönetmeden Docker konteynerlerini çalıştırma (Serverless Container).
+* **AWS ECR (Elastic Container Registry):** Güvenli Docker imaj depolama ve CI/CD akışı.
+* **AWS S3:** Sitelerin geçmiş metin arşivleri ve snapshot depolaması.
+* **AWS EventBridge (CloudWatch Events):** Zamanlanmış cron taramalarının bulut üzerinde yönetimi.
+
 ---
 
 ## ⚠️ Risk Analizi ve Çözümleri (Pre-Mortem)
