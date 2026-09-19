@@ -10,7 +10,10 @@
     "check-sites": "node src/runner.js",
     "server": "node src/server.js",
     "client": "npm.cmd --prefix client run dev",
-    "build:client": "npm.cmd --prefix client run build"
+    "build:client": "npm.cmd --prefix client run build",
+    "build:flutter": "cd app && C:\\Users\\suleyman\\flutter\\bin\\flutter.bat build web",
+    "build:all": "npm run build:client && npm run build:flutter",
+    "deploy:hosting": "npx.cmd -y firebase-tools deploy --only hosting"
   },
   "keywords": [
     "web-monitoring",
