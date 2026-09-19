@@ -46,17 +46,17 @@ class _CatalogTabState extends State<CatalogTab> {
       _isLoading = false;
     });
 
-    // 2. İsteğe bağlı: Yerel sunucu veya dinamik API varsa arka planda güncelle
-    try {
-      final res = await _apiService.getCatalog(category: _selectedCategory);
-      if (mounted) {
-        setState(() {
-          _categories = res['categories'] ?? [];
-          _items = res['items'] ?? [];
-        });
-      }
-    } catch (_) {
-      // Yerel sunucu kapalı olduğunda zaten varsayılan katalog kusursuz çalışır
+    // 2. Yalnızca yerel API adresi tanımlıysa arka planda dene
+    if (AppConstants.apiBaseUrl.isNotEmpty) {
+      try {
+        final res = await _apiService.getCatalog(category: _selectedCategory);
+        if (mounted) {
+          setState(() {
+            _categories = res['categories'] ?? [];
+            _items = res['items'] ?? [];
+          });
+        }
+      } catch (_) {}
     }
   }
 

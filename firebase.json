@@ -30,16 +30,7 @@
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css|wasm)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=31536000"
-          }
-        ]
-      },
-      {
-        "source": "index.html",
+        "source": "**",
         "headers": [
           {
             "key": "Cache-Control",

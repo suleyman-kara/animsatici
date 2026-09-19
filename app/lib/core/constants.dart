@@ -5,10 +5,10 @@ class AppConstants {
   static const String appName = 'KampüsRadar';
   static const String appSlogan = 'CENG ve Kampüs Fırsat Radarı';
 
-  // API Adresi: Web ortamında tarayıcı origin'i veya yerel Node.js portu
+  // API Adresi: Web ortamında veya sunucusuz modda yerel porta istek atılmaz
   static String get apiBaseUrl {
     if (kIsWeb) {
-      return 'http://localhost:3001';
+      return '';
     }
     return defaultTargetPlatform == TargetPlatform.android
         ? 'http://10.0.2.2:3001'

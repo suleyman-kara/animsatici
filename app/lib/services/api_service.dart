@@ -9,6 +9,7 @@ class ApiService {
 
   // Monitörleri listele (Opsiyonel userId parametreli)
   Future<List<Monitor>> getMonitors({String? userId}) async {
+    if (baseUrl.isEmpty) return [];
     String url = '$baseUrl/api/monitors';
     if (userId != null && userId.isNotEmpty) {
       url += '?userId=${Uri.encodeComponent(userId)}';
@@ -79,6 +80,9 @@ class ApiService {
 
   // Küratörlü kataloğu ve kategorileri getir
   Future<Map<String, dynamic>> getCatalog({String? category}) async {
+    if (baseUrl.isEmpty) {
+      throw Exception('Yerel API kapalı, yerleşik katalog kullanılıyor.');
+    }
     String url = '$baseUrl/api/catalog';
     if (category != null && category != 'all') {
       url += '?category=$category';

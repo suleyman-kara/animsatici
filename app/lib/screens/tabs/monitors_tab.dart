@@ -70,8 +70,12 @@ class _MonitorsTabState extends State<MonitorsTab> {
           }
         };
       } catch (cloudErr) {
-        debugPrint('Bulut kontrolü hatası, yerel deneniyor: $cloudErr');
-        res = await _apiService.checkMonitor(monitor.id, simulate: simulate);
+        debugPrint('Bulut kontrolü hatası: $cloudErr');
+        if (AppConstants.apiBaseUrl.isNotEmpty) {
+          res = await _apiService.checkMonitor(monitor.id, simulate: simulate);
+        } else {
+          rethrow;
+        }
       }
 
       if (mounted) {
