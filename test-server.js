@@ -25,13 +25,21 @@ async function runApiTests() {
     const createRes = await axios.post(`${BASE_URL}/api/monitors`, {
       title: 'İTÜ Test Duyurular',
       url: 'https://example.com',
-      userEmail: 'test@example.com'
+      userEmail: 'test@example.com',
+      userId: 'test_user_ceng'
     });
     assert.equal(createRes.status, 201);
     assert.equal(createRes.data.success, true);
+    assert.equal(createRes.data.monitor.userId, 'test_user_ceng');
     const newId = createRes.data.monitor.id;
     assert.ok(newId);
-    console.log('  ✅ [PASS] POST /api/monitors (ID: ' + newId + ')');
+    console.log('  ✅ [PASS] POST /api/monitors (ID: ' + newId + ' with userId)');
+
+    // 3.1 Verify user scoping filter
+    const userMonitors = await axios.get(`${BASE_URL}/api/monitors?userId=test_user_ceng`);
+    assert.equal(userMonitors.status, 200);
+    assert.ok(userMonitors.data.monitors.some(m => m.id === newId));
+    console.log('  ✅ [PASS] GET /api/monitors?userId=test_user_ceng (User Scoping)');
 
     // 4. Delete monitor
     const delRes = await axios.delete(`${BASE_URL}/api/monitors/${newId}`);

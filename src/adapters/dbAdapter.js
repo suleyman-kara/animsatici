@@ -61,11 +61,16 @@ export class DatabaseAdapter {
   }
 
   /**
-   * Retrieves all monitors.
+   * Retrieves all monitors, optionally filtered by userId.
+   * @param {string} [userId]
    * @returns {Promise<Array<Object>>}
    */
-  async getAllMonitors() {
-    return readLocalData();
+  async getAllMonitors(userId = null) {
+    const all = readLocalData();
+    if (userId) {
+      return all.filter(m => m.userId === userId || m.userId === 'default_user');
+    }
+    return all;
   }
 
   /**

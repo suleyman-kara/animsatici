@@ -97,10 +97,11 @@ app.post('/api/catalog/suggest', (req, res) => {
   }
 });
 
-// Tüm monitörleri listele
+// Monitörleri listele (Opsiyonel userId filtreli)
 app.get('/api/monitors', async (req, res) => {
   try {
-    const monitors = await db.getAllMonitors();
+    const { userId } = req.query;
+    const monitors = await db.getAllMonitors(userId || null);
     res.json({ success: true, monitors });
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
@@ -110,7 +111,7 @@ app.get('/api/monitors', async (req, res) => {
 // Yeni monitör ekle
 app.post('/api/monitors', async (req, res) => {
   try {
-    const { title, url, userEmail } = req.body;
+    const { title, url, userEmail, userId } = req.body;
 
     if (!url || !url.trim()) {
       return res.status(400).json({ success: false, error: 'Web sitesi URL adresi zorunludur.' });
@@ -130,7 +131,7 @@ app.post('/api/monitors', async (req, res) => {
       title: title?.trim() || 'Yeni Takip Sayfası',
       url: url.trim(),
       userEmail: userEmail.trim(),
-      userId: 'default_user'
+      userId: userId?.trim() || 'default_user'
     });
 
     // İlk eklemede başlangıç hash'ini arka planda al

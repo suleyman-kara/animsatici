@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadMonitors() async {
     setState(() => _isLoading = true);
     try {
-      final list = await _apiService.getMonitors();
+      final list = await _apiService.getMonitors(userId: widget.user.uid);
       setState(() => _monitors = list);
     } catch (e) {
       debugPrint('Monitör yükleme hatası: $e');

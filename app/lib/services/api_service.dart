@@ -7,9 +7,13 @@ import '../models/catalog_item.dart';
 class ApiService {
   final String baseUrl = AppConstants.apiBaseUrl;
 
-  // Tüm monitörleri listele
-  Future<List<Monitor>> getMonitors() async {
-    final res = await http.get(Uri.parse('$baseUrl/api/monitors'));
+  // Monitörleri listele (Opsiyonel userId parametreli)
+  Future<List<Monitor>> getMonitors({String? userId}) async {
+    String url = '$baseUrl/api/monitors';
+    if (userId != null && userId.isNotEmpty) {
+      url += '?userId=${Uri.encodeComponent(userId)}';
+    }
+    final res = await http.get(Uri.parse(url));
     if (res.statusCode == 200) {
       final data = jsonDecode(res.body);
       if (data['success'] == true && data['monitors'] != null) {
