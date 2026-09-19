@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
-import { X, Globe, Mail, Tag, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Globe, Mail, Tag, Loader2, CheckCircle } from 'lucide-react';
 
-export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
+export default function AddMonitorModal({ isOpen, onClose, onAdded, user, initialData }) {
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title || '');
+      setUrl(initialData.url || '');
+    }
+    if (user?.email) {
+      setUserEmail(user.email);
+    }
+  }, [initialData, user, isOpen]);
 
   if (!isOpen) return null;
 
@@ -24,7 +34,12 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
       const res = await fetch('/api/monitors', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, url, userEmail })
+        body: JSON.stringify({ 
+          title, 
+          url, 
+          userEmail,
+          userId: user?.uid || 'default_user'
+        })
       });
       const data = await res.json();
 
@@ -36,7 +51,7 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
       onClose();
       setTitle('');
       setUrl('');
-      setUserEmail('');
+      if (!user?.email) setUserEmail('');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -50,8 +65,10 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
         
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <div>
-            <h2 className="text-base font-bold text-slate-900">Yeni Sayfa Takibi Ekle</h2>
-            <p className="text-xs text-slate-500">Bu sayfadaki değişiklikler her gün izlenir.</p>
+            <h2 className="text-base font-bold text-slate-900">
+              {initialData ? 'Kanalı Takibe Al' : 'Yeni Sayfa Takibi Ekle'}
+            </h2>
+            <p className="text-xs text-slate-500">Değişiklikler incelenip Google Takvimine işlenir.</p>
           </div>
           <button
             onClick={onClose}
@@ -70,7 +87,7 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
 
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Sayfa Başlığı / Not (İsteğe Bağlı)
+              Sayfa / Kanal Başlığı
             </label>
             <div className="relative">
               <Tag className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
@@ -78,7 +95,7 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Örn: İTÜ Duyurular, Festival Takvimi"
+                placeholder="Örn: inzva Kampları, ÇÜ SKS Duyuruları"
                 className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
               />
             </div>
@@ -95,16 +112,23 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
                 required
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://ornek.edu.tr/duyurular"
+                placeholder="https://..."
                 className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Bildirim Gönderilecek E-posta <span className="text-rose-500">*</span>
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-semibold text-slate-700">
+                Bildirim E-posta Adresi <span className="text-rose-500">*</span>
+              </label>
+              {user && (
+                <span className="inline-flex items-center gap-1 text-[10px] text-emerald-600 font-medium">
+                  <CheckCircle className="w-3 h-3" /> Google Hesabınız
+                </span>
+              )}
+            </div>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
@@ -112,37 +136,30 @@ export default function AddMonitorModal({ isOpen, onClose, onAdded }) {
                 required
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="ahmet@gmail.com"
+                placeholder="ornek@gmail.com"
                 className="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
               />
             </div>
           </div>
 
-          <div className="pt-2 flex justify-end gap-2">
+          <div className="pt-2 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors"
             >
               Vazgeç
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-sm font-semibold rounded-lg shadow-sm shadow-blue-500/10 transition-colors"
             >
-              {loading ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Kaydediliyor...
-                </>
-              ) : (
-                'Takibe Başla'
-              )}
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+              {loading ? 'Kaydediliyor...' : 'Takibe Al'}
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );

@@ -69,59 +69,73 @@ ${oldText ? `--- ESKİ İÇERİK ---\n${oldText.slice(0, 4000)}\n\n` : ''}
 ${newText.slice(0, 5000)}
 `.trim();
 
-  const response = await ai.models.generateContent({
-    model,
-    contents: userPrompt,
-    config: {
-      systemInstruction,
-      temperature: 0.2,
-      responseMimeType: 'application/json',
-      responseJsonSchema: {
-        type: Type.OBJECT,
-        properties: {
-          hasSignificantChange: {
-            type: Type.BOOLEAN,
-            description: 'True if there is a meaningful new announcement, event, deadline or change. False if trivial noise or no real change.'
-          },
-          changeSummary: {
-            type: Type.STRING,
-            description: 'Concise Turkish summary of the change or announcement. Empty string if hasSignificantChange is false.'
-          },
-          hasEvent: {
-            type: Type.BOOLEAN,
-            description: 'True if a specific upcoming event, deadline, seminar, or date is detected.'
-          },
-          eventDetails: {
+  let response;
+  let attempts = 0;
+  const maxAttempts = 3;
+
+  while (attempts < maxAttempts) {
+    try {
+      response = await ai.models.generateContent({
+        model,
+        contents: userPrompt,
+        config: {
+          systemInstruction,
+          temperature: 0.2,
+          responseMimeType: 'application/json',
+          responseJsonSchema: {
             type: Type.OBJECT,
             properties: {
-              title: {
-                type: Type.STRING,
-                description: 'Title of the event or deadline'
-              },
-              startDate: {
-                type: Type.STRING,
-                description: 'ISO 8601 date string (e.g. 2026-10-24 or 2026-10-24T14:00:00)'
-              },
-              endDate: {
-                type: Type.STRING,
-                description: 'ISO 8601 end date string, or empty string if not mentioned'
-              },
-              isAllDay: {
+              hasSignificantChange: {
                 type: Type.BOOLEAN,
-                description: 'True if no specific hour was specified (all-day event or deadline day)'
+                description: 'True if there is a meaningful new announcement, event, deadline or change. False if trivial noise or no real change.'
               },
-              description: {
+              changeSummary: {
                 type: Type.STRING,
-                description: 'Brief description for the calendar event'
+                description: 'Concise Turkish summary of the change or announcement. Empty string if hasSignificantChange is false.'
+              },
+              hasEvent: {
+                type: Type.BOOLEAN,
+                description: 'True if a specific upcoming event, deadline, seminar, or date is detected.'
+              },
+              eventDetails: {
+                type: Type.OBJECT,
+                properties: {
+                  title: {
+                    type: Type.STRING,
+                    description: 'Title of the event or deadline'
+                  },
+                  startDate: {
+                    type: Type.STRING,
+                    description: 'ISO 8601 date string (e.g. 2026-10-24 or 2026-10-24T14:00:00)'
+                  },
+                  endDate: {
+                    type: Type.STRING,
+                    description: 'ISO 8601 end date string, or empty string if not mentioned'
+                  },
+                  isAllDay: {
+                    type: Type.BOOLEAN,
+                    description: 'True if no specific hour was specified (all-day event or deadline day)'
+                  },
+                  description: {
+                    type: Type.STRING,
+                    description: 'Brief description for the calendar event'
+                  }
+                },
+                required: ['title', 'startDate', 'isAllDay']
               }
             },
-            propertyOrdering: ['title', 'startDate', 'endDate', 'isAllDay', 'description']
+            required: ['hasSignificantChange', 'changeSummary', 'hasEvent']
           }
-        },
-        propertyOrdering: ['hasSignificantChange', 'changeSummary', 'hasEvent', 'eventDetails']
-      }
+        }
+      });
+      break;
+    } catch (err) {
+      attempts++;
+      if (attempts >= maxAttempts) throw err;
+      console.warn(`[Gemini API Yeniden Deneniyor (${attempts}/${maxAttempts})] Hata: ${err.message}`);
+      await new Promise(r => setTimeout(r, 2000 * attempts));
     }
-  });
+  }
 
   if (!response.text) {
     throw new Error('Empty response received from Gemini API.');
