@@ -11,10 +11,31 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
-    // Kullanıcıya özel takipler (Monitors)
-    // Her kullanıcı yalnızca kendi uid'sine ait takiplerini okuyabilir, ekleyebilir, silebilir.
-    match /users/{userId}/monitors/{monitorId} {
+    // Kullanıcıya özel profil, ayarlar ve takipler
+    match /users/{userId} {
       allow read, write: if isOwner(userId);
+
+      match /{subCollection}/{documentId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Merkezi Takip Edilen Kaynaklar Havuzu (Sources)
+    match /sources/{sourceId} {
+      allow read: if true;
+      allow write: if false; // Yalnızca Cloud Functions / Admin SDK yazar
+    }
+
+    // Tespit Edilen Fırsatlar ve Etkinlikler Havuzu (Opportunities)
+    match /opportunities/{opportunityId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Yalnızca Cloud Functions / Admin SDK yazar
+    }
+
+    // Sistem Ayarları (Tarayıcı sıklığı vb.)
+    match /system_settings/{settingId} {
+      allow read: if true;
+      allow write: if false;
     }
 
     // Genel Küratörlü Fırsat Kataloğu (Okuma herkese açık, yazma istemcilere kapalı)

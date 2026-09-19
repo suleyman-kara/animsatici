@@ -6,6 +6,7 @@ import '../models/monitor.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
 import '../widgets/add_monitor_dialog.dart';
+import '../widgets/notification_preferences_dialog.dart';
 import 'tabs/catalog_tab.dart';
 import 'tabs/monitors_tab.dart';
 
@@ -131,26 +132,39 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined, size: 22, color: AppConstants.textPrimary),
+            tooltip: 'Bildirim Tercihlerim (Saat & Sıklık)',
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (ctx) => NotificationPreferencesDialog(
+                  userId: widget.user.uid,
+                  userEmail: widget.user.email ?? '',
+                ),
+              );
+            },
+          ),
           // Profil & Çıkış
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.only(right: 12, left: 4),
             child: Row(
               children: [
                 if (widget.user.photoURL != null)
                   CircleAvatar(
-                    radius: 16,
+                    radius: 15,
                     backgroundImage: NetworkImage(widget.user.photoURL!),
                   )
                 else
                   CircleAvatar(
-                    radius: 16,
+                    radius: 15,
                     backgroundColor: AppConstants.primary,
                     child: Text(
                       (widget.user.displayName ?? widget.user.email ?? 'U').substring(0, 1).toUpperCase(),
                       style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 4),
                 IconButton(
                   icon: const Icon(Icons.logout_rounded, size: 20, color: Colors.grey),
                   tooltip: 'Çıkış Yap',
