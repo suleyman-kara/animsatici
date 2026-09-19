@@ -1,242 +1,154 @@
-# 🔔 Anımsa (Akıllı Web Takip, RSS Okuyucu & Kişisel Takvim Asistanı)
+# 🔔 Anımsa (Kod Adı: DevRadar / KampüsRadar)
+### Bilgisayar Mühendisliği (CENG) ve Genç Geliştiriciler İçin Akıllı Fırsat, Hackathon ve Takvim Radarı
 
-Web sitelerindeki duyuruları, etkinlikleri, iş/burs ilanlarını ve RSS beslemelerini senin yerine her gün izleyen; değişiklikleri yapay zeka (**Google Gemini 3.6 Flash**) ile süzüp özetleyen ve **tek tıkla Google Takvim'e ekleme** imkanı sunan yeni nesil takip asistanı.
-
----
-
-## 🎯 Genişletilmiş Proje Vizyonu
-
-Geleneksel takip araçları (Visualping vb.) yalnızca ham sayfa farkı sunarken; standart RSS okuyucular (Feedly vb.) ise her yazıyı ayıklamadan kullanıcının önüne yığar.
-
-**Anımsa**, bu iki dünyayı yapay zekayla birleştirir:
-1. **Hibrit İzleme (Web + RSS):** Kullanıcı bir bağlantı girdiğinde sistem sayfada RSS beslemesi varsa otomatik algılar (`rss-parser`); yoksa akıllı web kazıyıcı ve açık kaynak takip araçlarıyla sayfayı izler.
-2. **Gürültüden Arındırılmış Günlük Bülten (Daily Digest):** Kullanıcıyı gün boyu onlarca maille boğmak yerine, her akşam tek bir derli toplu bülten gönderir: *"Bugün takip ettiğin 10 kaynaktan 3 tanesinde yeni gelişme oldu."*
-3. **Tek Tıkla Google Takvim Entegrasyonu (Killer Feature):** Duyurudaki sınav, seminer, hackathon veya son başvuru tarihini yapay zeka otomatik yakalar ve mailin içerisine doğrudan **[📅 Google Takvim'e Ekle]** butonu koyar.
-4. **Çift Yönlü Giriş Kolaylığı (Firebase Auth):** Hem **Google Hesabı** hem de şifresiz **Telefon Numarası (SMS / OTP)** ile mobil ve web'de anında oturum açma.
-5. **Mobil ve Web'de Sade Panel (PWA):** Hem masaüstünde temiz bir web paneli hem de telefonda uygulama gibi ana ekrana eklenebilen hafif arayüz.
+Web sitelerindeki hackathonları, yarışmaları, yazılım kamplarını, staj/iş fırsatlarını ve üniversite duyurularını senin yerine 7/24 izleyen; gelişmeleri yapay zeka (**Google Gemini 3.6 Flash**) ile süzüp özetleyen ve doğrudan **tek tıkla Google Takvim'e ekleme** imkanı sunan yeni nesil akıllı radar asistanı.
 
 ---
 
-## 📊 Pazar Araştırması & Rekabet Analizi (Neden Anımsa?)
+## 🎯 Keskin Niş ve Problem (The Acute Need)
 
-### 1. Global Pazardaki Kritik Boşluk
-* **Mevcut Durum (Visualping, PageCrawl.io, Changeflow, Monity.ai):** Bu araçlar piksel veya HTML farkı tespit edip alarm gönderir.
-* **En Büyük Eksiklikleri:** Hiçbirinde yerleşik bir **"Google Takvime Ekle"** butonu yoktur. Kullanıcının bir tarihi takvime ekleyebilmesi için **Zapier veya n8n** gibi 3. parti araçlara ek abonelik ücreti ($20-$30/ay) ödeyip teknik entegrasyon yapması gerekir.
-* **Anımsa'nın Farkı:** Sıradan bir son kullanıcı için hiçbir teknik ayar gerekmeden, mailin içindeki butona tıklandığı anda Google Takvim'e randevuyu oluşturur.
+Türkiye'de ve dünyada yazılım ekosisteminde her hafta onlarca kritik etkinlik gerçekleşmektedir:
+* 🧠 **inzva:** Algoritma yarışmaları, AI/Deep Learning kampları.
+* 🚀 **Coderspace:** Şirketlerin ödüllü hackathonları, kodlama maratonları ve işe alım challenge'ları.
+* 💻 **Techcareer & Patika:** Ücretsiz bootcamp'ler ve şirket sponsorlu eğitim kohortları.
+* 🎓 **Üniversite & SKS:** Kısmi zamanlı öğrenci iş ilanları, yemek bursları, laboratuvar ve bölüm duyuruları (ör. Çukurova Üni., İTÜ, ODTÜ).
+* ✈️ **Teknoloji Girişimleri & Savunma:** Baykar, T3 Vakfı (Teknofest), Trendyol Tech, Commencis geliştirici etkinlikleri.
 
-### 2. Türkiye Pazarındaki Büyük Fırsat
-* Türkiye'de web takip alanı sadece çok pahalı ve dar B2B nişlere hapsolmuştur:
-  * Kamu İhaleleri (EKAP Analytics, İhalePro, Tendermeister)
-  * Mevzuat & Resmi Gazete (Regulfy, MevzuatTR)
-* Öğrenciler, akademisyenler, yazılımcılar ve KOBİ'ler için genel amaçlı, Türkçe yapay zeka özetli ve yerel fiyatlandırmalı (TL) bir SaaS çözümü **yoktur**. İnsanlar sayfaları her gün elle yenilemekte veya geçici Telegram botları yazmaktadır.
+**Temel Problem:** Bu duyurular onlarca farklı web sitesine, alt sayfalara ve portallara dağılmıştır. Mühendislik öğrencileri ve genç geliştiriciler her gün bu sayfaları tek tek gezemez; sonuç olarak **son başvuru tarihleri, formlar ve kariyer fırsatları sürekli kaçırılır.**
 
-### 3. Rekabet Karşılaştırma Matrisi (USP)
+---
 
-| Özellik | Visualping / Global | Feedly / RSS | TR İhale Araçları | **Anımsa** |
+## 💡 Çözüm & Katil Özellik (Killer Feature / USP)
+
+Geleneksel web takip araçları (Visualping, ChangeDetection vb.) sadece piksel veya ham HTML farkı sunarak yüzlerce sahte spam alarm üretir ve takvime eklemek için pahalı 3. parti araçlar (Zapier/n8n) ister.
+
+**Anımsa**, bu problemi son adıma kadar çözerek ortadan kaldırır:
+1. **Gürültüden Arındırılmış Akıllı Kazıma:** Sayfadaki reklamlar, gezinme çubukları (`nav`), çerez pop-up'ları ve altbilgiler (`footer`) ayıklanır.
+2. **0 Dolar Maliyetli SHA-256 Hash Kontrolü:** Sayfada gerçek bir metin değişikliği yoksa yapay zekaya istek atılmaz; maliyet sıfırda tutulur.
+3. **Gemini 3.6 Flash ile Doğal Türkçe Çıkarım:** Sayfa metni doğrudan Gemini'ye verilir; model bir insan gibi okuyarak etkinliğin başlığını, son başvuru tarihini ve 1-2 cümlelik net özetini JSON formatında yakalar.
+4. **Tek Tıkla Google Takvim'e Ekleme (1-Click Calendar Action):** Kullanıcıya giden bildirimde (e-posta veya anlık push) doğrudan **`[📅 Google Takvim'e Ekle]`** linki bulunur. Tıklandığı anda etkinlik tarihi, saati, özeti ve başvuru linki kullanıcının ajandasına işlenir.
+
+---
+
+## 🔄 Kendi Kendini Büyüten Topluluk Motoru (Crowdsourced Feed Engine)
+
+Anımsa, yöneticinin tek tek link eklemesine bağımlı kalmadan **kendi kendine genişleyen** bir platform olarak kurgulanmıştır:
+
+```
+                  [ Kullanıcı Yeni Web Sitesi / Topluluk Ekler ]
+                                         │
+                                         ▼
+                     [ Kullanıcının Kendi Panelinde Anında Aktif Olur ]
+                                         │
+                                         ▼
+                        [ Arka Planda "Aday Havuzu"na Düşer ]
+                                         │
+                 ┌───────────────────────┴───────────────────────┐
+                 ▼                                               ▼
+     [ Kural 1: Çoklu Talep ]                        [ Kural 2: Gemini Doğrulaması ]
+(Farklı kullanıcılar aynı linki eklerse)         ("Bu kamuya açık bir etkinlik sayfasıdır")
+                 │                                               │
+                 └───────────────────────┬───────────────────────┘
+                                         ▼
+                     [ "Keşfet / Katalog" Vitrinine Terfi Eder ]
+             (Tüm CENG öğrencileri tek tıkla "+ Takip Et" yapabilir)
+```
+
+1. **Küratörlü Keşfet / Katalog Vitrini:** Kullanıcı ilk girdiğinde boş ekran yerine *inzva, Coderspace, Techcareer, SKS* gibi hazır kanalları görür ve tek tıkla takibe başlar (*Cold Start çözümü*).
+2. **Özel Link Ekleme:** Dileyen her kullanıcı kendi okulunun, bölümünün veya takip ettiği bir şirketin sayfasını anında ekleyebilir.
+3. **Organik Büyüme:** Eklenen linkler aday havuzunda toplanır; popülerleşen veya yapay zeka tarafından onaylanan linkler otomatik olarak genel vitrine geçer. Sen uyurken bile platformun veritabanı zenginleşir.
+
+---
+
+## ⚖️ Hukuki Boyut ve Etik Kazıma İlkeleri (Gentle Scraping)
+
+İnternetten etkinlik ve duyuru bilgisi toplamak hem yasal hem de kurumlar açısından bir **kazan-kazan (win-win)** fırsatıdır:
+
+* **Olgusal Veri (Factual Data) Teliflenemez:** Etkinliğin adı, başlama/bitiş tarihi ve son başvuru saati telif hakkına tabi yaratıcı bir eser değil; halka açık bir olgudur (*hiQ Labs v. LinkedIn* gibi küresel emsal davalar).
+* **Nitelikli Başvuru Trafiği (Win-Win):** Anımsa içeriği kopyalamaz; "Etkinlik açıldı, kaçırma ve **[inzva'nın Orijinal Sayfasına Git]**" diyerek o kuruma tam hedef kitlesinden nitelikli başvuru trafiği yönlendirir.
+* **Sunucu Dostu Hız (Rate Limiting):** Saniyede onlarca istek atan agresif botlar yerine; günde 1 kez veya birkaç saatte bir nazik `GET` isteği atılarak sunucular asla yorulmaz.
+* **KVKK & Kişisel Veri Güvencesi:** Kullanıcı girişi gerektiren veya kişisel verilerin yer aldığı hiçbir alana girilmez; yalnızca kamuya açık duyurular okunur.
+
+---
+
+## 🏗️ Sistem Mimarisi ve Teknoloji Yığını
+
+Platform, hem bir mobil girişim vizyonunu hem de güçlü bir **Backend & DevOps portfolyosunu** yansıtacak şekilde çok dilli (polyglot) ve katmanlı olarak tasarlanmıştır:
+
+```
+                             [ KULLANICI ]
+                ┌──────────────────┼──────────────────┐
+                ▼                  ▼                  ▼
+           [ iOS App ]       [ Android App ]    [ Web Dashboard ]
+                └──────────────────┬──────────────────┘
+                                   │
+                        ┌──────────┴──────────┐
+                        │   FLUTTER (DART)    │ ◄── Tek Kod Tabanı
+                        │  (app.animsa.com)   │     (Mobile & Web App)
+                        └──────────┬──────────┘
+                                   │ (Saf JSON REST API)
+                                   ▼
+                        ┌─────────────────────┐
+                        │   NODE.JS EXPRESS   │ ◄── Statik Landing Page
+                        │   REST API ENGINE   │     (animsa.com - Hızlı SEO)
+                        └──────────┬──────────┘
+                                   │
+                  ┌────────────────┴────────────────┐
+                  ▼                                 ▼
+        [ Go Crawler Worker ]             [ Gemini 3.6 Flash ]
+     (Goroutines: 10K+ Site/RSS)       (Özetleme & Google Takvim)
+                  │                                 │
+                  └────────────────┬────────────────┘
+                                   ▼
+                  [ FCM & E-posta Bildirimleri ]
+                  - Kilit ekranı bildirimleri (iOS/Android)
+                  - Akşam Daily Digest e-posta bülteni
+```
+
+### 1. Frontend: Flutter (Dart)
+* **Tek Kod Tabanı:** Hem tarayıcıda (`app.animsa.com`) hem de iOS ve Android'de native hızda çalışır.
+* **FCM Push Bildirimleri:** Kritik bir etkinlik çıktığında telefonun kilit ekranına düşer; bildirimin altında doğrudan **[📅 Google Takvim'e Ekle]** aksiyon butonu bulunur.
+* *(Geliştirme sürecinin başında React 18 + Vite + Tailwind CSS ile doğrulanmış bir web MVP prototipi hazırlanmıştır).*
+
+### 2. Backend API: Node.js (Express 5 REST API)
+* Flutter ve istemcilerin kolayca tükettiği saf JSON REST API (`/api/monitors`, `/api/catalog`, `/api/catalog/suggest`).
+* Bağımsız `dbAdapter.js` mimarisi sayesinde veritabanı geçişleri (Yerel JSON $\rightarrow$ Firestore veya PostgreSQL) sıfır eforla yapılır.
+
+### 3. Ölçek & DevOps Hedefi (Backend & CV Showcase): Go + Docker + Prometheus
+* **Go (Golang) Worker:** Kullanıcı sayısı ve takip edilen siteler binlere ulaştığında, siteleri tarama işini Go'nun hafif `goroutine`'leri üstlenir. 10.000 site saniyeler içinde paralel taranır.
+* **Docker & Docker Compose:** API ve Worker servisleri bağımsız konteynerler olarak paketlenir.
+* **Prometheus & Grafana:** Saniyede taranan site sayısı, HTTP 200/403/500 hata oranları ve Gemini API yanıt süreleri gerçek zamanlı izlenir.
+
+---
+
+## 📊 Rekabet Karşılaştırma Matrisi
+
+| Özellik | Visualping / Global | Feedly / RSS | TR İhale Siteleri | **Anımsa (DevRadar)** |
 | :--- | :---: | :---: | :---: | :---: |
+| **Odak & Kitle** | Kurumsal B2B | Genel Okuyucu | Kamu İhaleleri | **CENG & Genç Yazılımcılar** |
 | **Google Takvim Butonu** | ❌ (Zapier Şart) | ❌ Yok | ❌ Yok | **✅ Tek Tıkla Hazır** |
-| **Web + RSS Hibriti** | ❌ Sadece Web | ❌ Sadece RSS | ❌ Sadece EKAP | **✅ Akıllı Algılama** |
-| **Gürültüsüz Günlük Bülten** | ❌ Her değişime mail | ❌ Yüzlerce yazı | ❌ Karmaşık panel | **✅ Akşam Tek Mail** |
-| **Türkçe Yapay Zeka Özeti** | Kısıtlı İngilizce | ❌ Yok | Sadece Şartname | **✅ Doğal Türkçe (Gemini)** |
-| **Yerel Fiyatlandırma (TL)** | Pahalı ($15-$50/ay) | Pahalı ($8-$18/ay) | Çok Pahalı (B2B) | **✅ Türkiye Dostu** |
-| **Giriş Kolaylığı** | Sadece Mail/Google | Sadece Google/Apple | Şirket Vergi No | **✅ Google + SMS OTP** |
+| **Küratörlü Hazır Katalog**| ❌ Boş Liste | Kısmen | ❌ Sadece EKAP | **✅ inzva, Coderspace, SKS** |
+| **Aday Havuzu (Crowdsource)**| ❌ Yok | ❌ Yok | ❌ Yok | **✅ Kendi Kendini Büyüten** |
+| **Türkçe Yapay Zeka Özeti**| Kısıtlı İngilizce | ❌ Yok | Sadece Şartname | **✅ Doğal Türkçe (Gemini)** |
+| **Mobil Kilit Ekranı (Push)**| Ücretli / Zayıf | Basit Bildirim | SMS | **✅ Flutter + FCM Aksiyonu** |
 
 ---
 
-## 📌 Öncelikli Takip Listesi (Kişisel Notlar & Test Hedefleri)
+## 📅 Takvime Ekleme (Google Calendar URL Mimarisi)
 
-Sistem canlıya alınırken ve test edilirken öncelikli olarak izlenecek platformlar:
-
-1. **inzva:** Teknoloji ve üniversite gençliği (AI ve algoritma kampları, hackathonlar, başvuru takvimleri).
-2. **SKS (Sağlık, Kültür ve Spor Daire Bşk. - ÇÜ vb.):** Üniversite öğrencileri (Kısmi zamanlı iş ilanları, mülakat tarihleri, yemek bursları).
-3. **Coderspace:** Genç profesyoneller ve yazılımcılar (Bootcamp'ler, şirketlerin işe alım maratonları).
-4. **MÜSİAD İstanbul:** İş dünyası, girişimciler ve KOBİ'ler (Zirveler, ekonomi bültenleri, sektör buluşmaları).
-
----
-
-## 🏗️ Sistem Mimarisi ve Çalışma Mantığı
-
-```
-                            [ KULLANICI ]
-               ┌──────────────────┼──────────────────┐
-               ▼                  ▼                  ▼
-          [ iOS App ]       [ Android App ]    [ Web Dashboard ]
-               └──────────────────┬──────────────────┘
-                                  │
-                       ┌──────────┴──────────┐
-                       │   FLUTTER (DART)    │ ◄── Tek Kod Tabanı
-                       │  (app.animsa.com)   │     (Mobile & Web App)
-                       └──────────┬──────────┘
-                                  │ (REST API / Firebase SDK)
-                                  ▼
-                       ┌─────────────────────┐
-                       │     BACKEND API     │ ◄── Statik Landing Page
-                       │   (Node.js & Go)    │     (animsa.com - Hızlı SEO)
-                       └──────────┬──────────┘
-                                  │
-                 ┌────────────────┴────────────────┐
-                 ▼                                 ▼
-       [ Go Crawler Worker ]             [ Gemini 3.6 Flash ]
-    (Goroutines: 10K+ Site/RSS)       (Özetleme & Google Takvim)
-                 │                                 │
-                 └────────────────┬────────────────┘
-                                  ▼
-                 [ FCM & E-posta Bildirimleri ]
-                 - Kilit ekranı bildirimleri (iOS/Android)
-                 - Akşam Daily Digest e-posta bülteni
-```
-
----
-
-## 📱 Çoklu Platform Frontend: Flutter (iOS, Android & Web Dashboard)
-
-Kullanıcı arayüzünde platform bölünmesini engellemek ve en yüksek kullanıcı deneyimini sunmak için **Flutter (Dart)** mimarisi benimsenmiştir:
-
-### 1. Google Ekosistemi Sinerjisi (Full Google Stack)
-* **Frontend:** Flutter (Google)
-* **Kimlik Doğrulama & DB:** Firebase Auth & Firestore (Google)
-* **Yapay Zeka:** Gemini 3.6 Flash (Google)
-* **Eylem:** Google Calendar (Google)
-* Tüm bileşenler birbiriyle sıfır sürtünmeyle konuşan resmi Google teknolojileridir.
-
-### 2. Kilit Ekranı Bildirimleri (Firebase Cloud Messaging - FCM)
-* Yalnızca e-posta ile sınırlı kalınmaz; mobilde kritik bir duyuru çıktığında kullanıcının kilit ekranına anlık push bildirimi düşer.
-* Bildirimin altında doğrudan **[📅 Google Takvim'e Ekle]** hızlı eylemi yer alır.
-
-### 3. Akılcı Web Mimarisi: Landing Page vs. Dashboard
-* **Tanıtım Sayfası (`animsa.com`):** Arama motorlarında (Google SEO) en yüksek performansı vermesi için ultra hafif, statik HTML/React sayfası olarak sunulur.
-* **Uygulama Paneli (`app.animsa.com` ve iOS/Android):** Kullanıcıların giriş yapıp sitelerini ve bültenlerini yönettiği alan tek bir Flutter kod tabanı ile derlenir.
-
----
-
-## 🔌 Ayrık Mimari & Kendi Sunucuna Taşıma Kolaylığı (Portability)
-
-MVP aşamasında hız, sıfır maliyet ve pratiklik için **Firebase** altyapısını tercih ediyoruz. Ancak projeyi ileride **kendi bağımsız sunucuna (VPS, Docker, SQLite/PostgreSQL)** taşımak istediğinde satıcı kilidine (Vendor Lock-in) takılmaman için mimariyi **"Ayrık (Decoupled)"** olarak inşa ettik:
-
-```
-┌────────────────────────────────────────────────────────┐
-│           SAF ÇEKİRDEK MOTOR (Core Engine)             │
-│    (Web Kazıma + SHA-256 Hash + Gemini AI + Takvim)    │
-│            * Sıfır Firebase / Bulut Bağımlılığı *       │
-│           * Saf Node.js / TypeScript Fonksiyonları *    │
-└──────────────────────────┬─────────────────────────────┘
-                           │
-             ┌─────────────┴─────────────┐
-             ▼                           ▼
-  [ ŞİMDİ: MVP AŞAMASI ]       [ İLERİDE: KENDİ SUNUCUN ]
-   - Cloud Functions             - Standart Node.js / Express
-   - Cloud Scheduler             - `node-cron` Zamanlayıcısı
-   - Cloud Firestore             - SQLite / PostgreSQL (Prisma)
-   - Firebase Auth               - Kendi Auth / Docker Container
-```
-
-### Bu Mimari Bize Ne Kazandırır?
-1. **Sıfır Bağımlılıkla Yazılan Motor (`src/core`):** Sayfayı çeken (`cheerio`), reklam/script temizleyen, SHA-256 hash alan, Gemini API'ye sorup tarihi ve özeti çıkaran ve Google Calendar URL'i üreten tüm mantık **saf Node.js** modülü olarak yazıldı.
-2. **Veritabanı Köprüsü (Adapter Pattern - `src/adapters/dbAdapter.js`):** Veritabanı sorguları tek bir adaptör dosyası üzerinden yapılıyor. İleride kendi sunucuna geçtiğinde sadece bu dosya içindeki Firestore çağrılarını PostgreSQL/SQLite sorgularıyla değiştirmek yeterli olur.
-3. **Zahmetsiz Göç (Migration):** İş mantığına dokunmadan, sadece adaptör katmanını değiştirerek projeyi 5 dolarlık bir Linux sunucuda (Docker ile) çalıştırabilirsin.
-
----
-
-## ⚡ Hibrit / Polyglot Mimari: Go (Golang) + Node.js İş Birliği
-
-Sistem ölçeği yüzbinlerce web sitesi ve RSS akışına ulaştığında donanım maliyetlerini minimumda tutmak için **Go (Golang)** ve **Node.js** dillerinin en güçlü yönlerini birleştiren hibrit bir mimari kullanıyoruz:
-
-```
-┌────────────────────────────────────────┐       ┌────────────────────────────────────────┐
-│          GO (GOLANG) MİKROSERVİSİ      │       │          NODE.JS & REACT ALTYAPISI     │
-│             "KAS GÜCÜ / WORKER"        │       │          "BEYİN & KULLANICI ALANI"     │
-├────────────────────────────────────────┤       ├────────────────────────────────────────┤
-│ • 10.000+ RSS ve Web Sayfasını         │       │ • React / Vite Web & Mobil PWA Paneli  │
-│   Goroutine'lerle paralel tarama       │       │ • Firebase Auth (Google + SMS Girişi)  │
-│ • Devasa ağ (I/O) ve soket yönetimi    │       │ • Gemini 3.6 Flash Entegrasyonu        │
-│ • Aşırı düşük RAM tüketimi (~30-50 MB) │  ◄──► │ • Türkçe Özetleme & Takvim URL Üretimi │
-│ • Hızlı SHA-256 Hash ve Diff kontrolü  │       │ • Resend ile Şık HTML E-posta Bülteni  │
-│ • Değişiklik yoksa Node'u hiç yormaz   │       │ • Kullanıcı Ayarları & REST API        │
-└────────────────────────────────────────┘       └────────────────────────────────────────┘
-```
-
-### Neden Bu İkili?
-* **Go'nun Rolü (Kas Gücü):** Milyonlarca ağ isteğini, Goroutine'ler sayesinde yalnızca ~50 MB RAM tüketerek saniyeler içinde paralel tarar. Sitede değişiklik yoksa süreci hemen kapatarak gereksiz kaynak kullanımını engeller.
-* **Node.js'in Rolü (Beyin):** Yapay zeka orkestrasyonu (Gemini 3.6), HTML mail şablonları, Google Takvim linkleri ve kullanıcı paneli gibi hızlı geliştirme ve zengin ekosistem gerektiren alanları yönetir.
-* **Haberleşme:** İki servis ortak veritabanı (Firestore / PostgreSQL / Redis) veya hafif REST/gRPC API üzerinden konuşur.
-
-## 🐳 DevOps & Observability Mimarisi (Docker, Prometheus & Grafana)
-
-Proje, yalnızca yerel çalışan bir script değil; **CV'de ve kurumsal bir girişimde fark yaratacak üretim sınıfı (production-grade) bir Cloud-Native altyapı** olarak tasarlanmıştır.
-
-```
-                         ┌────────────────────────────────────────────────────────┐
-                         │                  DOCKER ORKESTRASYONU                  │
-                         │                  (docker-compose.yml)                  │
-                         └──────────────────────────┬─────────────────────────────┘
-                                                    │
-        ┌───────────────────┬───────────────────────┼───────────────────────┬───────────────────┐
-        ▼                   ▼                       ▼                       ▼                   ▼
-┌──────────────┐    ┌──────────────┐        ┌──────────────┐        ┌──────────────┐    ┌──────────────┐
-│  GO CRAWLER  │    │ NODE.JS APP  │        │  PROMETHEUS  │        │   GRAFANA    │    │ ALERTMANAGER │
-│  (Worker)    │    │ (API & Web)  │        │ (Metrik DB)  │        │  (Dashboard) │    │  (Telegram)  │
-│ Multi-Stage  │    │ Multi-Stage  │        │              │        │              │    │              │
-│ ~15-20 MB    │    │ ~120 MB      │        │ Pull Modeli  │        │ Canlı Panel  │    │ Anlık Uyarı  │
-└───────┬──────┘    └───────┬──────┘        └───────▲──────┘        └───────▲──────┘    └───────▲──────┘
-        │                   │                       │                       │                   │
-        └───────────────────┴─────── /metrics ──────┴───────────────────────┴───────────────────┘
-```
-
-### 1. Multi-Stage Docker Mimarisi
-* **Go Crawler:** Kod derlendikten sonra sadece tek bir binary alınarak boş `alpine`/`scratch` imajına aktarılır. İmaj boyutu **yalnızca 15-20 MB** olur.
-* **Node.js & React:** Derleme aşaması ile çalışma aşaması ayrıştırılarak hafif ve güvenli konteynerler üretilir.
-
-### 2. Prometheus Metrikleri (Gözlemlenebilirlik / Observability)
-Sistem kör uçuş yapmaz; backend servisleri Prometheus `/metrics` uç noktası üzerinden canlı telemetri üretir:
-
-| Metrik Adı | Tipi | Açıklama |
-| :--- | :--- | :--- |
-| `sites_scraped_total{status, target}` | **Counter** | Toplam taranan site sayısı ve başarı/hata oranı |
-| `scrape_duration_seconds` | **Histogram** | Sitelerin yanıt verme hızları ve ağ gecikmesi |
-| `changes_detected_total` | **Counter** | Saptanan duyuru ve içerik değişiklik sayısı |
-| `calendar_events_generated_total` | **Counter** | Üretilen Google Takvim bağlantısı sayısı (Temel Değer) |
-| `gemini_tokens_used_total` | **Counter** | Yapay zekaya harcanan token ve maliyet takibi |
-| `active_monitors_gauge` | **Gauge** | Sistemdeki anlık aktif takip sayısı |
-
-### 3. Grafana Panelleri & Alertmanager
-* **Grafana:** Taranan sitelerin sağlık durumunu, yanıt sürelerini ve Gemini token maliyetlerini görselleştirir.
-* **Alertmanager:** Bir site 3 kez üst üste 403 (IP Ban) verdiğinde veya hata oranı %5'i aştığında anında **Telegram / Discord** üzerinden uyarı gönderir.
-
----
-
-## ☁️ Cloud & AWS Ölçeği (Girişim Altyapısı)
-
-Girişimi ölçeklendirirken AWS bulut servislerine uyumlu mimari:
-* **AWS ECS (Elastic Container Service) & Fargate:** Sunucu yönetmeden Docker konteynerlerini çalıştırma (Serverless Container).
-* **AWS ECR (Elastic Container Registry):** Güvenli Docker imaj depolama ve CI/CD akışı.
-* **AWS S3:** Sitelerin geçmiş metin arşivleri ve snapshot depolaması.
-* **AWS EventBridge (CloudWatch Events):** Zamanlanmış cron taramalarının bulut üzerinde yönetimi.
-
----
-
-## ⚠️ Risk Analizi ve Çözümleri (Pre-Mortem)
-
-| # | Risk | Potansiyel Tehlike | Çözüm & Önlem |
-|---|---|---|---|
-| **1** | **Sahte Değişiklik Alarmları** | Saat, sayaç, dönen reklamlar yüzünden her gün *"Sayfa değişti"* uyarısı gitmesi. | Ham HTML yerine; `<script>`, `<nav>`, `<footer>` temizlenmiş **gövde metni** kıyaslanıyor. |
-| **2** | **Mail Kirliliği (Inbox Fatigue)** | 10 site takip edildiğinde günde 10-15 ayrı e-posta gelmesi. | **Günlük Özet Bülteni (Daily Digest):** Akşamları tek bir toplu bülten gönderilir. |
-| **3** | **Sunucu IP Blokajı** | Bazı sitelerin veri merkezi IP'lerini engellemesi (403/Captcha). | Varsa otomatik **RSS beslemesi** kullanılır; yoksa gerçekçi `User-Agent` ve açık kaynak proxy çözümleri devreye girer. |
-| **4** | **Yapay Zekanın Tarih Şaşırması** | "Önümüzdeki cuma" gibi ifadelerde yanlış yıl/gün üretilmesi. | Gemini'ye sistem promptunda **o günün tam tarihi** veriliyor ve katı JSON şemasıyla ISO formatında çıktı alınıyor. |
-| **5** | **Cloud Function Zaman Aşımı** | Çok sayıda sitenin taranmasında 60 saniyelik limitin dolması. | Siteler batch gruplar halinde paralel taranır, her siteye 8-10 saniye zaman aşımı (timeout) konur. |
-| **6** | **E-postaların Spama Gitmesi** | Link içeren maillerin gereksiz kutusuna düşmesi. | Resend altyapısı, SPF ve DKIM DNS doğrulamaları kullanılır. |
-
----
-
-## 📅 Takvime Ekleme (Google Calendar Link Mimarisi)
-
-Kullanıcıdan ek takvim izinleri istemeye gerek kalmadan çalışan URL formatı:
+Kullanıcıdan karmaşık OAuth izinleri istemeden, doğrudan tarayıcı veya Google Takvim mobil uygulamasını açan evrensel format:
 
 ```text
 https://calendar.google.com/calendar/render?action=TEMPLATE&text={Baslik}&dates={BaslangicTarihi}/{BitisTarihi}&details={OzetVeLink}
 ```
 
 * **Örnek Çıktı:**
-  `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Guz+Donemi+Yatay+Gecis+Son+Basvuru&dates=20261024T060000Z/20261024T150000Z&details=Detaylar+ve+kayit:+https://itu.edu.tr/duyuru`
+  `https://calendar.google.com/calendar/render?action=TEMPLATE&text=inzva+AI+Camp+Son+Basvuru&dates=20261024T060000Z/20261024T150000Z&details=Detaylar+ve+kayit:+https://inzva.com/events`
+
+---
+
+## 🏷️ İsim ve Rebranding Notu
+Proje geliştirme sürecinde **Anımsa** kod adıyla yürütülmektedir. Canlıya çıkış ve pazarlama aşamasında, yazılım ve kariyer odağını tam yansıtması adına **DevRadar**, **KampüsRadar** veya **Fırsat.dev** isimlerine geçiş planlanmaktadır.
 
 ---
 
@@ -247,40 +159,33 @@ https://calendar.google.com/calendar/render?action=TEMPLATE&text={Baslik}&dates=
   - SHA-256 hash hesaplama ve $0 maliyetli değişim tespiti.
   - Gemini 3.6 Flash entegrasyonu (Türkçe özet + ISO tarih çıkarımı).
   - Google Calendar URL üretici.
-  - 7/7 birim testi başarıyla geçti.
+  - 7/7 birim testi geçti.
 
 - [x] **Aşama 2: Veritabanı Adaptörü & E-posta Servisi** ✅
   - Taşınabilir `dbAdapter.js` (Yerel JSON + Firestore uyumlu).
   - Responsive HTML e-posta şablonu ve **[📅 Google Takvim'e Ekle]** butonu.
   - Çoklu site tarama yürütücüsü (`src/runner.js`).
-  - Test suite (14/14 test geçti).
+  - 14/14 test geçti.
 
-- [x] **Aşama 3: Kullanıcı Paneli & REST API** ✅
-  - Express REST API (`GET`, `POST`, `DELETE`, `POST /check`).
-  - React + Vite + Tailwind CSS dashboard.
-  - Anlık test ve simülasyon butonu (`🧪 Simüle Et`).
-  - Toplam 18/18 test geçti ve canlıya hazırlandı.
+- [x] **Aşama 3: REST API & Web Prototipi** ✅
+  - Express 5 REST API (`GET`, `POST`, `DELETE`, `POST /check`).
+  - React + Vite + Tailwind CSS dashboard prototipi.
+  - 18/18 test geçti.
 
-- [ ] **Aşama 4: Hibrit RSS Besleme Okuyucu (`rss-parser`)** ⏳
-  - Girilen URL'de otomatik RSS beslemesi arama.
-  - RSS akışından yeni başlıkları okuma ve Gemini'ye özetletme.
+- [x] **Aşama 4: Küratörlü Katalog & Aday Havuzu Altyapısı** ✅
+  - `data/catalog.json` (CENG, Kariyer, Kampüs ve Topluluk kanalları).
+  - `GET /api/catalog` ve kategori filtreleme.
+  - `POST /api/catalog/suggest` ile kendi kendini besleyen aday havuzu.
+  - 21/21 test geçti.
 
-- [ ] **Aşama 5: Günlük Özet Bülteni (Daily Digest Engine)** ⏳
-  - Gün içinde veya akşam toplanan tüm değişimleri tek bir e-posta bülteninde birleştirme.
-  - Panelde "Günün Özeti" görünümü.
-
-- [ ] **Aşama 6: Firebase Auth (Google + Telefon SMS) & Mobil PWA** ⏳
-  - Google ile Tek Tıkla Giriş.
-  - Telefon numarası ve SMS OTP doğrulama.
-  - Mobil cihazlar için "Ana Ekrana Ekle" PWA manifesti.
-
-- [ ] **Aşama 7: Açık Kaynak İzleme & ChangeDetection Entegrasyonu** ⏳
-  - Gelişmiş JavaScript/SPA sayfaları için açık kaynak container desteği.
-
-- [ ] **Aşama 8: Flutter Çoklu Platform Uygulaması (iOS, Android & Web Dashboard)** ⏳
+- [ ] **Aşama 5: Flutter Çoklu Platform Uygulaması (iOS, Android & Web)** ⏳
   - Tek Dart kod tabanı ile mobil (Play Store & App Store) ve `app.animsa.com` web paneli.
-  - Firebase Cloud Messaging (FCM) ile kilit ekranına Google Takvim aksiyonlu push bildirimleri.
-  - SEO odaklı hafif statik landing page (`animsa.com`) ayrımı.
+  - REST API ve Katalog entegrasyonu.
+  - Firebase Cloud Messaging (FCM) ile kilit ekranına Google Takvim aksiyonlu bildirimler.
+
+- [ ] **Aşama 6: Go Worker & DevOps Konteynerizasyonu** ⏳
+  - Yüksek hacimli taramalar için Go worker servisi.
+  - Docker Compose ortamı ve Prometheus/Grafana metrik izleme.
 
 ---
 
@@ -291,7 +196,7 @@ https://calendar.google.com/calendar/render?action=TEMPLATE&text={Baslik}&dates=
 npm install
 npm test
 
-# API ve Arayüzü birlikte başlatma
+# API ve Web Arayüzünü birlikte başlatma
 npm start
 
 # Tarayıcıda aç:

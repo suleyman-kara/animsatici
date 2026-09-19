@@ -39,12 +39,41 @@ async function runApiTests() {
     assert.equal(delRes.data.success, true);
     console.log('  ✅ [PASS] DELETE /api/monitors/:id');
 
+    // 5. Get Catalog items and categories
+    const catalogRes = await axios.get(`${BASE_URL}/api/catalog`);
+    assert.equal(catalogRes.status, 200);
+    assert.equal(catalogRes.data.success, true);
+    assert.ok(catalogRes.data.items.length > 0);
+    assert.ok(catalogRes.data.categories.length > 0);
+    console.log(`  ✅ [PASS] GET /api/catalog (${catalogRes.data.total} kanal listelendi)`);
+
+    // 6. Filter Catalog by category
+    const filteredRes = await axios.get(`${BASE_URL}/api/catalog?category=ceng`);
+    assert.equal(filteredRes.status, 200);
+    assert.ok(filteredRes.data.items.every(i => i.category === 'ceng'));
+    console.log(`  ✅ [PASS] GET /api/catalog?category=ceng (${filteredRes.data.total} CENG kanalı filtrelendi)`);
+
+    // 7. Suggest channel to Candidate Pool (Crowdsourcing)
+    const suggestRes = await axios.post(`${BASE_URL}/api/catalog/suggest`, {
+      title: 'ODTÜ Robot Topluluğu',
+      url: 'https://robot.metu.edu.tr',
+      category: 'campus',
+      suggestedBy: 'student@metu.edu.tr'
+    });
+    assert.equal(suggestRes.status, 201);
+    assert.equal(suggestRes.data.success, true);
+    console.log('  ✅ [PASS] POST /api/catalog/suggest (Aday havuzuna eklendi)');
+
     console.log('\n🎉 Tüm API testleri başarıyla geçti!\n');
   } catch (err) {
     console.error('❌ API Test Hatası:', err.message);
     process.exitCode = 1;
   } finally {
-    server.close();
+    server.close(() => {
+      process.exit(process.exitCode || 0);
+    });
+    // Fallback if sockets linger
+    setTimeout(() => process.exit(process.exitCode || 0), 500);
   }
 }
 

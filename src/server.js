@@ -13,9 +13,88 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+const CATALOG_PATH = path.join(process.cwd(), 'data', 'catalog.json');
+
+function getCatalogData() {
+  try {
+    if (fs.existsSync(CATALOG_PATH)) {
+      return JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf-8'));
+    }
+  } catch (err) {
+    console.error('Katalog okunurken hata:', err.message);
+  }
+  return { featuredCategories: [], items: [], candidatePool: [] };
+}
+
+function saveCatalogData(data) {
+  fs.writeFileSync(CATALOG_PATH, JSON.stringify(data, null, 2), 'utf-8');
+}
+
 // Sağlık kontrolü
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', time: new Date().toISOString() });
+});
+
+// Küratörlü Takip Kataloğu (Keşfet)
+app.get('/api/catalog', (req, res) => {
+  try {
+    const { category } = req.query;
+    const catalog = getCatalogData();
+    let items = catalog.items || [];
+    if (category && category !== 'all') {
+      items = items.filter(item => item.category === category);
+    }
+    res.json({
+      success: true,
+      categories: catalog.featuredCategories || [],
+      items,
+      total: items.length
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Aday Havuzuna Yeni Kanal Öner (Kendi Kendini Büyüten Topluluk Motoru)
+app.post('/api/catalog/suggest', (req, res) => {
+  try {
+    const { title, url, category, description, suggestedBy } = req.body;
+    if (!url || !url.trim()) {
+      return res.status(400).json({ success: false, error: 'Kanal URL adresi zorunludur.' });
+    }
+
+    try {
+      new URL(url);
+    } catch {
+      return res.status(400).json({ success: false, error: 'Geçersiz URL formatı.' });
+    }
+
+    const catalog = getCatalogData();
+    catalog.candidatePool = catalog.candidatePool || [];
+
+    const existing = catalog.candidatePool.find(c => c.url === url.trim());
+    if (existing) {
+      existing.votes = (existing.votes || 1) + 1;
+      existing.lastSuggestedAt = new Date().toISOString();
+    } else {
+      catalog.candidatePool.push({
+        id: 'candidate_' + Date.now(),
+        title: title?.trim() || 'Önerilen Takip',
+        url: url.trim(),
+        category: category || 'general',
+        description: description?.trim() || '',
+        votes: 1,
+        suggestedBy: suggestedBy || 'anonymous',
+        createdAt: new Date().toISOString(),
+        status: 'pending_review'
+      });
+    }
+
+    saveCatalogData(catalog);
+    res.status(201).json({ success: true, message: 'Kanal öneriniz aday havuzuna eklendi.' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 // Tüm monitörleri listele
