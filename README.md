@@ -54,42 +54,58 @@ Sistem canlıya alınırken ve test edilirken öncelikli olarak izlenecek platfo
 
 ---
 
-## 🏗️ Yeni Sistem Mimarisi ve Çalışma Mantığı
+## 🏗️ Sistem Mimarisi ve Çalışma Mantığı
 
 ```
-                                [ KULLANICI ]
-                       (Web veya Mobil PWA Arayüzü)
-                                     │
-                 ┌───────────────────┴───────────────────┐
-                 ▼                                       ▼
-       [ Google ile Giriş ]                     [ Telefon (SMS / OTP) ]
-                 └───────────────────┬───────────────────┘
-                                     │
-                                     ▼
-                          [ Firebase Firestore ]
-                 (Kullanıcılar, Takip Edilen Web & RSS Kaynakları)
-                                     │
-                 ┌───────────────────┴───────────────────┐
-                 │ (Akşam Otomatik Tarama - Cron: 20:00) │
-                 ▼                                       ▼
-       ┌───────────────────┐                   ┌───────────────────┐
-       │   RSS Beslemeleri │                   │   Web Sayfaları   │
-       │   (`rss-parser`)  │                   │ (Scraper / Diff)  │
-       └─────────┬─────────┘                   └─────────┬─────────┘
-                 │                                       │
-                 └───────────────────┬───────────────────┘
-                                     │ (Yeni Gelişmeler Toplanır)
-                                     ▼
-                    [ Gemini 3.6 Flash Toplu Analiz ]
-                    - Önemsiz sayaç/reklamları temizle.
-                    - Günlük bülten formatında Türkçe özet çıkar.
-                    - Etkinlik/tarih varsa Google Takvim URL'i üret.
-                                     │
-                                     ▼
-                     [ Tekil "Günlük Özet Bülteni" ]
-                     - Kullanıcının mailine tek parça gönderilir.
-                     - Panelde "Bugünün Özeti" olarak listelenir.
+                            [ KULLANICI ]
+               ┌──────────────────┼──────────────────┐
+               ▼                  ▼                  ▼
+          [ iOS App ]       [ Android App ]    [ Web Dashboard ]
+               └──────────────────┬──────────────────┘
+                                  │
+                       ┌──────────┴──────────┐
+                       │   FLUTTER (DART)    │ ◄── Tek Kod Tabanı
+                       │  (app.animsa.com)   │     (Mobile & Web App)
+                       └──────────┬──────────┘
+                                  │ (REST API / Firebase SDK)
+                                  ▼
+                       ┌─────────────────────┐
+                       │     BACKEND API     │ ◄── Statik Landing Page
+                       │   (Node.js & Go)    │     (animsa.com - Hızlı SEO)
+                       └──────────┬──────────┘
+                                  │
+                 ┌────────────────┴────────────────┐
+                 ▼                                 ▼
+       [ Go Crawler Worker ]             [ Gemini 3.6 Flash ]
+    (Goroutines: 10K+ Site/RSS)       (Özetleme & Google Takvim)
+                 │                                 │
+                 └────────────────┬────────────────┘
+                                  ▼
+                 [ FCM & E-posta Bildirimleri ]
+                 - Kilit ekranı bildirimleri (iOS/Android)
+                 - Akşam Daily Digest e-posta bülteni
 ```
+
+---
+
+## 📱 Çoklu Platform Frontend: Flutter (iOS, Android & Web Dashboard)
+
+Kullanıcı arayüzünde platform bölünmesini engellemek ve en yüksek kullanıcı deneyimini sunmak için **Flutter (Dart)** mimarisi benimsenmiştir:
+
+### 1. Google Ekosistemi Sinerjisi (Full Google Stack)
+* **Frontend:** Flutter (Google)
+* **Kimlik Doğrulama & DB:** Firebase Auth & Firestore (Google)
+* **Yapay Zeka:** Gemini 3.6 Flash (Google)
+* **Eylem:** Google Calendar (Google)
+* Tüm bileşenler birbiriyle sıfır sürtünmeyle konuşan resmi Google teknolojileridir.
+
+### 2. Kilit Ekranı Bildirimleri (Firebase Cloud Messaging - FCM)
+* Yalnızca e-posta ile sınırlı kalınmaz; mobilde kritik bir duyuru çıktığında kullanıcının kilit ekranına anlık push bildirimi düşer.
+* Bildirimin altında doğrudan **[📅 Google Takvim'e Ekle]** hızlı eylemi yer alır.
+
+### 3. Akılcı Web Mimarisi: Landing Page vs. Dashboard
+* **Tanıtım Sayfası (`animsa.com`):** Arama motorlarında (Google SEO) en yüksek performansı vermesi için ultra hafif, statik HTML/React sayfası olarak sunulur.
+* **Uygulama Paneli (`app.animsa.com` ve iOS/Android):** Kullanıcıların giriş yapıp sitelerini ve bültenlerini yönettiği alan tek bir Flutter kod tabanı ile derlenir.
 
 ---
 
@@ -260,6 +276,11 @@ https://calendar.google.com/calendar/render?action=TEMPLATE&text={Baslik}&dates=
 
 - [ ] **Aşama 7: Açık Kaynak İzleme & ChangeDetection Entegrasyonu** ⏳
   - Gelişmiş JavaScript/SPA sayfaları için açık kaynak container desteği.
+
+- [ ] **Aşama 8: Flutter Çoklu Platform Uygulaması (iOS, Android & Web Dashboard)** ⏳
+  - Tek Dart kod tabanı ile mobil (Play Store & App Store) ve `app.animsa.com` web paneli.
+  - Firebase Cloud Messaging (FCM) ile kilit ekranına Google Takvim aksiyonlu push bildirimleri.
+  - SEO odaklı hafif statik landing page (`animsa.com`) ayrımı.
 
 ---
 
