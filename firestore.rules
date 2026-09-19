@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Yardımcı güvenlik fonksiyonları
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Kullanıcıya özel takipler (Monitors)
+    // Her kullanıcı yalnızca kendi uid'sine ait takiplerini okuyabilir, ekleyebilir, silebilir.
+    match /users/{userId}/monitors/{monitorId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Genel Küratörlü Fırsat Kataloğu (Okuma herkese açık, yazma istemcilere kapalı)
+    match /catalog/{itemId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Topluluk Aday Öneri Havuzu (Giriş yapmış her kullanıcı yeni kanal önerebilir)
+    match /candidatePool/{candidateId} {
+      allow read: if true;
+      allow create: if isAuthenticated();
+      allow update, delete: if false;
+    }
+  }
+}
