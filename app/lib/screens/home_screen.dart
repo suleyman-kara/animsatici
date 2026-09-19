@@ -5,6 +5,7 @@ import '../models/catalog_item.dart';
 import '../models/monitor.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
+import '../services/firestore_service.dart';
 import '../widgets/add_monitor_dialog.dart';
 import '../widgets/notification_preferences_dialog.dart';
 import 'tabs/catalog_tab.dart';
@@ -22,6 +23,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
   final AuthService _authService = AuthService();
+  final FirestoreService _firestoreService = FirestoreService();
 
   int _currentIndex = 0;
   List<Monitor> _monitors = [];
@@ -36,8 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadMonitors() async {
     setState(() => _isLoading = true);
     try {
-      final list = await _apiService.getMonitors(userId: widget.user.uid);
-      setState(() => _monitors = list);
+      // 1. Doğrudan Cloud Firestore'dan çek (7/24 Bulut Veritabanı)
+      final firestoreList = await _firestoreService.getMonitors(widget.user.uid);
+      if (firestoreList.isNotEmpty) {
+        if (mounted) setState(() => _monitors = firestoreList);
+        return;
+      }
+
+      // 2. Yedek: Yerel Node.js API (varsa ve Firestore henüz boşsa)
+      try {
+        final list = await _apiService.getMonitors(userId: widget.user.uid);
+        if (list.isNotEmpty && mounted) {
+          setState(() => _monitors = list);
+          return;
+        }
+      } catch (_) {}
+
+      if (mounted) setState(() => _monitors = firestoreList);
     } catch (e) {
       debugPrint('Monitör yükleme hatası: $e');
     } finally {
@@ -85,7 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     if (confirm == true) {
-      await _apiService.deleteMonitor(monitor.id);
+      try {
+        await _firestoreService.deleteMonitor(widget.user.uid, monitor.id);
+      } catch (e) {
+        debugPrint('Firestore silme hatası: $e');
+      }
+      try {
+        await _apiService.deleteMonitor(monitor.id);
+      } catch (_) {}
       _loadMonitors();
     }
   }

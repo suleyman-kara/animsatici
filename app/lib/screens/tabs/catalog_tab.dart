@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/constants.dart';
+import '../../core/default_catalog.dart';
 import '../../models/catalog_item.dart';
 import '../../models/monitor.dart';
 import '../../services/api_service.dart';
@@ -43,7 +44,12 @@ class _CatalogTabState extends State<CatalogTab> {
         _items = res['items'] ?? [];
       });
     } catch (e) {
-      debugPrint('Katalog yükleme hatası: $e');
+      debugPrint('API katalog yüklenemedi, yerel varsayılan katalog yükleniyor: $e');
+      final fallback = DefaultCatalog.getCatalog(category: _selectedCategory);
+      setState(() {
+        _categories = fallback['categories'] ?? [];
+        _items = fallback['items'] ?? [];
+      });
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
