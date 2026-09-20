@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants.dart';
 import '../../models/opportunity.dart';
+import '../../models/user_profile.dart';
 import '../../services/firestore_service.dart';
+import '../../widgets/expandable_opportunity_card.dart';
 
 class OpportunitiesTab extends StatefulWidget {
+  final String userId;
+  final String userEmail;
   final bool isAdmin;
 
   const OpportunitiesTab({
     super.key,
+    required this.userId,
+    required this.userEmail,
     this.isAdmin = false,
   });
 
@@ -20,6 +24,7 @@ class OpportunitiesTab extends StatefulWidget {
 class _OpportunitiesTabState extends State<OpportunitiesTab> {
   final FirestoreService _firestoreService = FirestoreService();
   String _selectedCategory = 'all';
+  UserProfile? _userProfile;
 
   final List<Map<String, String>> _categories = [
     {'id': 'all', 'label': '✨ Tümü'},
@@ -29,6 +34,38 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
     {'id': 'ceng', 'label': '💻 CENG & Kodlama'},
     {'id': 'university', 'label': '🎓 Kampüs & SKS'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfile();
+  }
+
+  Future<void> _loadProfile() async {
+    try {
+      final profile = await _firestoreService.getUserProfile(widget.userId);
+      if (mounted) {
+        setState(() => _userProfile = profile);
+      }
+    } catch (e) {
+      debugPrint('Profil yüklenirken hata: $e');
+    }
+  }
+
+  bool _isRecommended(Opportunity opp) {
+    if (_userProfile == null || _userProfile!.interests.isEmpty) return false;
+    final interests = _userProfile!.interests.map((i) => i.toLowerCase()).toList();
+    final cat = opp.category.toLowerCase();
+    final title = (opp.eventTitle ?? opp.sourceTitle).toLowerCase();
+    final summary = opp.summary.toLowerCase();
+
+    for (final interest in interests) {
+      if (cat.contains(interest) || title.contains(interest) || summary.contains(interest)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   Future<void> _openEditDialog(Opportunity opp) async {
     final titleCtrl = TextEditingController(text: opp.eventTitle ?? opp.sourceTitle);
@@ -86,7 +123,7 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
                   'eventDetails.startDate': dateCtrl.text.trim(),
                   'summary': summaryCtrl.text.trim(),
                   'calendarUrl': calUrlCtrl.text.trim(),
-                  'status': 'approved', // Düzenlenince doğrudan onaylıya al
+                  'status': 'approved',
                 });
                 nav.pop();
                 messenger.showSnackBar(
@@ -169,19 +206,19 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
                     label: Text(c['label']!),
                     labelStyle: TextStyle(
                       fontSize: 12,
-                      fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight: FontWeight.w700,
                       color: isSelected ? Colors.white : AppConstants.textPrimary,
                     ),
                     backgroundColor: Colors.white,
                     selectedColor: AppConstants.primary,
                     checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
-                        color: isSelected ? AppConstants.primary : AppConstants.border,
-                      ),
+                      borderRadius: BorderRadius.circular(12),
+                      side: BorderSide(color: isSelected ? AppConstants.primary : AppConstants.border),
                     ),
-                    onSelected: (_) => setState(() => _selectedCategory = c['id']!),
+                    onSelected: (val) {
+                      setState(() => _selectedCategory = c['id']!);
+                    },
                   ),
                 );
               }).toList(),
@@ -189,9 +226,9 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
           ),
           const SizedBox(height: 20),
 
-          // Etkinlik Akışı StreamBuilder
+          // Canlı Fırsatlar Akışı
           StreamBuilder<List<Opportunity>>(
-            stream: _firestoreService.getOpportunitiesStream(includeAll: widget.isAdmin),
+            stream: _firestoreService.streamOpportunities(onlyApproved: !widget.isAdmin),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -210,6 +247,15 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
                 return opp.category.toLowerCase().contains(_selectedCategory.toLowerCase());
               }).toList();
 
+              // İlgi alanlarına göre önerilenleri en üste al
+              filtered.sort((a, b) {
+                final aRec = _isRecommended(a);
+                final bRec = _isRecommended(b);
+                if (aRec && !bRec) return -1;
+                if (!aRec && bRec) return 1;
+                return 0;
+              });
+
               if (filtered.isEmpty) {
                 return _buildEmptyState();
               }
@@ -218,9 +264,22 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: filtered.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 16),
+                separatorBuilder: (_, _) => const SizedBox(height: 14),
                 itemBuilder: (context, index) {
-                  return _buildOpportunityCard(filtered[index]);
+                  final opp = filtered[index];
+                  final isRec = _isRecommended(opp);
+                  return ExpandableOpportunityCard(
+                    opportunity: opp,
+                    isAdmin: widget.isAdmin,
+                    isRecommended: isRec,
+                    userId: widget.userId,
+                    userEmail: widget.userEmail,
+                    onStatusChanged: widget.isAdmin
+                        ? () => _handleStatusChange(opp, opp.isApproved ? 'rejected' : 'approved')
+                        : null,
+                    onEdit: widget.isAdmin ? () => _openEditDialog(opp) : null,
+                    onDelete: widget.isAdmin ? () => _handleDelete(opp) : null,
+                  );
                 },
               );
             },
@@ -263,10 +322,10 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.radar_rounded, color: Colors.white, size: 14),
+                    Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 14),
                     SizedBox(width: 6),
                     Text(
-                      '7/24 Otonom Radar',
+                      'Kişiye Özel Fırsatlar',
                       style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -290,12 +349,14 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
           ),
           const SizedBox(height: 12),
           const Text(
-            'Fırsatlar & Etkinlik Zaman Tüneli',
+            'Fırsatlar Akışı (Etkinlikler)',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.white),
           ),
           const SizedBox(height: 6),
           Text(
-            'Web sitelerindeki yeni duyurular yapay zeka tarafından taranır ve takviminize işlenmeye hazır hale getirilir.',
+            _userProfile != null && _userProfile!.interests.isNotEmpty
+                ? 'İlgi alanlarına (${_userProfile!.interests.take(3).join(', ')}) göre sana özel önerilen etkinlikler ve hackathonlar.'
+                : 'Yapay zeka tarafından taranan en güncel kariyer kampları, yarışmalar ve etkinlikler.',
             style: TextStyle(fontSize: 12, color: Colors.blue.shade100, height: 1.4),
           ),
         ],
@@ -329,229 +390,12 @@ class _OpportunitiesTabState extends State<OpportunitiesTab> {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Merkezi radar her gün saat 19:00\'da kaynakları tarar. Yeni bir hackathon, kamp veya duyuru yakalandığında anında buraya işlenir.',
+            'Merkezi radar kaynakları düzenli olarak tarar. Yeni bir hackathon, kamp veya duyuru yayınlandığında anında buraya işlenir.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 12, color: AppConstants.textSecondary, height: 1.5),
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildOpportunityCard(Opportunity opp) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: opp.isUpdated
-              ? Colors.amber.shade300
-              : (opp.isPendingReview ? Colors.orange.shade200 : AppConstants.border),
-          width: opp.isUpdated || opp.isPendingReview ? 1.5 : 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Üst Rozet Satırı
-          Row(
-            children: [
-              // Kaynak Adı
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.blue.shade50,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(Icons.source_rounded, size: 12, color: AppConstants.primary),
-                    const SizedBox(width: 4),
-                    Text(
-                      opp.sourceTitle,
-                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppConstants.primary),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-
-              // Güncellendi veya İptal Rozeti
-              if (opp.isUpdated)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.amber.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.amber.shade300),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.update_rounded, size: 12, color: Colors.amber),
-                      SizedBox(width: 4),
-                      Text('🔄 Tarih Güncellendi', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: Colors.amber)),
-                    ],
-                  ),
-                )
-              else if (opp.isCancelled)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.red.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.red.shade200),
-                  ),
-                  child: const Text('🚫 İptal Edildi', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: Colors.red)),
-                ),
-
-              const Spacer(),
-
-              // Admin Görünümü: Onay Bekliyor / Onaylı Rozeti
-              if (widget.isAdmin)
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                  decoration: BoxDecoration(
-                    color: opp.isApproved
-                        ? Colors.green.shade50
-                        : (opp.isPendingReview ? Colors.orange.shade50 : Colors.red.shade50),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    opp.isApproved ? '🟢 ONAYLI' : (opp.isPendingReview ? '🟡 BEKLİYOR' : '🔴 REDDEDİLDİ'),
-                    style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w800,
-                      color: opp.isApproved
-                          ? Colors.green.shade800
-                          : (opp.isPendingReview ? Colors.orange.shade800 : Colors.red.shade800),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 12),
-
-          // Başlık
-          Text(
-            opp.eventTitle ?? opp.sourceTitle,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppConstants.textPrimary),
-          ),
-          const SizedBox(height: 6),
-
-          // Tarih Bilgisi (Varsa)
-          if (opp.eventStartDate != null && opp.eventStartDate!.isNotEmpty) ...[
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF1F5F9),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.event_rounded, size: 14, color: Color(0xFF475569)),
-                  const SizedBox(width: 6),
-                  Text(
-                    'Etkinlik Tarihi: ${_formatDateTime(opp.eventStartDate!)}',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF334155)),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
-
-          // Yapay Zeka Özeti
-          Text(
-            opp.summary,
-            style: const TextStyle(fontSize: 13, color: AppConstants.textSecondary, height: 1.45),
-          ),
-          const SizedBox(height: 16),
-
-          const Divider(height: 1),
-          const SizedBox(height: 12),
-
-          // Alt Eylemler
-          Row(
-            children: [
-              // 1. Google Takvim'e Ekle Butonu
-              if (opp.calendarUrl != null && opp.calendarUrl!.isNotEmpty)
-                ElevatedButton.icon(
-                  onPressed: () => launchUrl(Uri.parse(opp.calendarUrl!), mode: LaunchMode.externalApplication),
-                  icon: const Icon(Icons.calendar_month_rounded, size: 16),
-                  label: const Text('Google Takvim\'e Ekle', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppConstants.primary,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                  ),
-                ),
-              const SizedBox(width: 8),
-
-              // 2. Kaynağa Git Butonu
-              OutlinedButton.icon(
-                onPressed: () => launchUrl(Uri.parse(opp.sourceUrl), mode: LaunchMode.externalApplication),
-                icon: const Icon(Icons.open_in_new_rounded, size: 14),
-                label: const Text('Kaynağa Git', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: AppConstants.textPrimary,
-                  side: const BorderSide(color: AppConstants.border),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                ),
-              ),
-
-              const Spacer(),
-
-              // Admin Eylemleri
-              if (widget.isAdmin) ...[
-                if (opp.isPendingReview) ...[
-                  IconButton(
-                    icon: const Icon(Icons.check_circle_rounded, color: Colors.green),
-                    tooltip: 'Onayla & Yayına Al',
-                    onPressed: () => _handleStatusChange(opp, 'approved'),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.cancel_rounded, color: Colors.red),
-                    tooltip: 'Reddet',
-                    onPressed: () => _handleStatusChange(opp, 'rejected'),
-                  ),
-                ],
-                IconButton(
-                  icon: const Icon(Icons.edit_rounded, color: Colors.blue, size: 20),
-                  tooltip: 'Düzenle',
-                  onPressed: () => _openEditDialog(opp),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete_outline_rounded, color: Colors.grey, size: 20),
-                  tooltip: 'Sil',
-                  onPressed: () => _handleDelete(opp),
-                ),
-              ],
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _formatDateTime(String isoString) {
-    try {
-      final dt = DateTime.parse(isoString).toLocal();
-      return DateFormat('dd.MM.yyyy HH:mm').format(dt);
-    } catch (_) {
-      return isoString;
-    }
   }
 }

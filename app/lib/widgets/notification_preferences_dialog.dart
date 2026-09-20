@@ -26,6 +26,7 @@ class _NotificationPreferencesDialogState extends State<NotificationPreferencesD
   String _mode = 'daily_digest'; // 'daily_digest' or 'instant'
   String _hour = '19:00';
   bool _emailEnabled = true;
+  bool _pushEnabled = true;
 
   final List<String> _availableHours = [
     '17:00',
@@ -57,6 +58,7 @@ class _NotificationPreferencesDialogState extends State<NotificationPreferencesD
         _hour = prefs.preferredHour.contains('19:00') ? '19:00 (Önerilen)' : prefs.preferredHour;
         _emailController.text = prefs.notificationEmail;
         _emailEnabled = prefs.emailEnabled;
+        _pushEnabled = prefs.pushEnabled;
         _isLoading = false;
       });
     }
@@ -71,6 +73,7 @@ class _NotificationPreferencesDialogState extends State<NotificationPreferencesD
         preferredHour: cleanHour,
         notificationEmail: _emailController.text.trim(),
         emailEnabled: _emailEnabled,
+        pushEnabled: _pushEnabled,
       );
 
       await _firestoreService.saveUserPreferences(widget.userId, prefs);
@@ -317,7 +320,31 @@ class _NotificationPreferencesDialogState extends State<NotificationPreferencesD
                         prefixIcon: const Icon(Icons.email_outlined, size: 18),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: 16),
+
+                    // Tercih Kanalları
+                    const Text(
+                      'Bildirim Kanalları',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppConstants.textPrimary),
+                    ),
+                    const SizedBox(height: 4),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('E-posta Bildirimi', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
+                      subtitle: const Text('Yeni fırsatlar e-posta adresinize gönderilsin', style: TextStyle(fontSize: 11, color: AppConstants.textSecondary)),
+                      value: _emailEnabled,
+                      activeThumbColor: AppConstants.primary,
+                      onChanged: (val) => setState(() => _emailEnabled = val),
+                    ),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text('Mobil / Web Anlık Bildirimi', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
+                      subtitle: const Text('Cihazınıza doğrudan anlık bildirim düşsün', style: TextStyle(fontSize: 11, color: AppConstants.textSecondary)),
+                      value: _pushEnabled,
+                      activeThumbColor: AppConstants.primary,
+                      onChanged: (val) => setState(() => _pushEnabled = val),
+                    ),
+                    const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
                       height: 46,

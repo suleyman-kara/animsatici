@@ -5,11 +5,11 @@ import '../models/catalog_item.dart';
 import '../models/monitor.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
-import '../widgets/add_monitor_dialog.dart';
 import '../widgets/notification_preferences_dialog.dart';
+import '../widgets/profile_dialog.dart';
 import 'admin/admin_dashboard_screen.dart';
 import 'tabs/catalog_tab.dart';
-import 'tabs/monitors_tab.dart';
+import 'tabs/following_tab.dart';
 import 'tabs/opportunities_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,13 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadMonitors() async {
     setState(() => _isLoading = true);
     try {
-      // 1. Doğrudan Cloud Firestore'dan çek (7/24 Bulut Veritabanı)
       var firestoreList = await _firestoreService.getMonitors(widget.user.uid);
       
-      // Kullanıcının henüz Firestore'da monitörü yoksa, daha önce takip ettiği
-      // GDG DevFest ve inzva AI kamplarını Cloud Firestore'a otomatik aktar:
+      // İlk girişte varsayılan GDG ve inzva takipleri
       if (firestoreList.isEmpty) {
-        debugPrint('Firestore koleksiyonu boş, kayıtlı takipler Cloud Firestore\'a aktarılıyor...');
         try {
           final m1 = await _firestoreService.addMonitor(
             userId: widget.user.uid,
@@ -75,73 +72,99 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _openAddModal({String? initialTitle, String? initialUrl}) {
+  Future<void> _handleToggleFollow(CatalogItem item) async {
+    try {
+      final isNowFollowing = await _firestoreService.toggleFollowCompany(
+        userId: widget.user.uid,
+        userEmail: widget.user.email ?? '',
+        item: item,
+      );
+      await _loadMonitors();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                Icon(
+                  isNowFollowing ? Icons.check_circle_rounded : Icons.info_outline_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    isNowFollowing
+                        ? '${item.title} takibe alındı! Etkinlikleri radarına eklendi.'
+                        : '${item.title} takipten çıkarıldı.',
+                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            duration: const Duration(seconds: 2),
+            backgroundColor: isNowFollowing ? const Color(0xFF10B981) : Colors.grey.shade900,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('İşlem gerçekleştirilemedi: $e'),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    }
+  }
+
+  void _openProfileDialog() {
     showDialog(
       context: context,
-      builder: (ctx) => AddMonitorDialog(
-        initialTitle: initialTitle,
-        initialUrl: initialUrl,
-        userEmail: widget.user.email ?? '',
+      builder: (ctx) => ProfileDialog(
         userId: widget.user.uid,
-        onAdded: (newMonitor) {
-          setState(() {
-            _monitors.insert(0, newMonitor);
-            _currentIndex = 1; // Takiplerim sekmesine dön
-          });
+        userEmail: widget.user.email ?? '',
+        onProfileUpdated: () {
+          setState(() {});
         },
       ),
     );
   }
 
-  void _handleSubscribeFromCatalog(CatalogItem item) {
-    _openAddModal(initialTitle: item.title, initialUrl: item.url);
-  }
-
-  Future<void> _handleDelete(Monitor monitor) async {
-    final confirm = await showDialog<bool>(
+  void _openNotificationDialog() {
+    showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Takibi Sil?'),
-        content: Text('${monitor.title} takipten çıkarılsın mı?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Vazgeç')),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Sil'),
-          ),
-        ],
+      builder: (ctx) => NotificationPreferencesDialog(
+        userId: widget.user.uid,
+        userEmail: widget.user.email ?? '',
       ),
     );
-
-    if (confirm == true) {
-      try {
-        await _firestoreService.deleteMonitor(widget.user.uid, monitor.id);
-      } catch (e) {
-        debugPrint('Firestore silme hatası: $e');
-      }
-      _loadMonitors();
-    }
   }
 
   Widget _buildBody() {
     switch (_currentIndex) {
       case 0:
-        return OpportunitiesTab(isAdmin: _isAdmin);
-      case 1:
-        return MonitorsTab(
-          monitors: _monitors,
-          isLoading: _isLoading,
+        return OpportunitiesTab(
           userId: widget.user.uid,
-          onRefresh: _loadMonitors,
-          onDelete: _handleDelete,
-          onSwitchToCatalog: () => setState(() => _currentIndex = 2),
+          userEmail: widget.user.email ?? '',
+          isAdmin: _isAdmin,
+        );
+      case 1:
+        return FollowingTab(
+          userId: widget.user.uid,
+          userEmail: widget.user.email ?? '',
+          isAdmin: _isAdmin,
+          onNavigateToCatalog: () => setState(() => _currentIndex = 2),
         );
       case 2:
       default:
         return CatalogTab(
           userMonitors: _monitors,
-          onSubscribe: _handleSubscribeFromCatalog,
+          onSubscribe: _handleToggleFollow,
+          userId: widget.user.uid,
           userEmail: widget.user.email,
         );
     }
@@ -181,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Text(
-                  'CENG & Takvim Radarı',
+                  'CENG & Etkinlik Radarı',
                   style: TextStyle(fontSize: 10, color: AppConstants.textSecondary),
                 ),
               ],
@@ -206,48 +229,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
             ),
+
+          // Bildirim Tercihleri (Sıklık, Mobil/Mail tercihi)
           IconButton(
-            icon: const Icon(Icons.notifications_outlined, size: 22, color: AppConstants.textPrimary),
-            tooltip: 'Bildirim Tercihlerim (Saat & Sıklık)',
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (ctx) => NotificationPreferencesDialog(
-                  userId: widget.user.uid,
-                  userEmail: widget.user.email ?? '',
-                ),
-              );
-            },
+            icon: const Icon(Icons.notifications_none_rounded, size: 22, color: AppConstants.textPrimary),
+            tooltip: 'Bildirim Ayarları (Sıklık, E-posta & Mobil)',
+            onPressed: _openNotificationDialog,
           ),
-          // Profil & Çıkış
+
+          // Öğrenci Profili (Üniversite, Bölüm, Sınıf, İlgi Alanları)
+          IconButton(
+            icon: const Icon(Icons.person_outline_rounded, size: 22, color: AppConstants.textPrimary),
+            tooltip: 'Profilim & İlgi Alanlarım',
+            onPressed: _openProfileDialog,
+          ),
+
+          // Çıkış Butonu
           Padding(
-            padding: const EdgeInsets.only(right: 12, left: 4),
-            child: Row(
-              children: [
-                if (widget.user.photoURL != null)
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundImage: NetworkImage(widget.user.photoURL!),
-                  )
-                else
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundColor: AppConstants.primary,
-                    child: Text(
-                      (widget.user.displayName ?? widget.user.email ?? 'U').substring(0, 1).toUpperCase(),
-                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                const SizedBox(width: 4),
-                IconButton(
-                  icon: const Icon(Icons.logout_rounded, size: 20, color: Colors.grey),
-                  tooltip: 'Çıkış Yap',
-                  onPressed: () => _authService.signOut(),
-                ),
-              ],
+            padding: const EdgeInsets.only(right: 12, left: 2),
+            child: IconButton(
+              icon: const Icon(Icons.logout_rounded, size: 20, color: Colors.grey),
+              tooltip: 'Çıkış Yap',
+              onPressed: () => _authService.signOut(),
             ),
           ),
         ],
+        bottom: _isLoading
+            ? const PreferredSize(
+                preferredSize: Size.fromHeight(2),
+                child: LinearProgressIndicator(minHeight: 2),
+              )
+            : null,
       ),
       body: _buildBody(),
       bottomNavigationBar: NavigationBar(
@@ -257,28 +269,21 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 2,
         destinations: const [
           NavigationDestination(
-            icon: Icon(Icons.radar_outlined),
-            selectedIcon: Icon(Icons.radar_rounded, color: AppConstants.primary),
-            label: 'Radar Akışı',
+            icon: Icon(Icons.auto_awesome_outlined),
+            selectedIcon: Icon(Icons.auto_awesome_rounded, color: AppConstants.primary),
+            label: 'Fırsatlar Akışı',
           ),
           NavigationDestination(
-            icon: Icon(Icons.layers_outlined),
-            selectedIcon: Icon(Icons.layers_rounded, color: AppConstants.primary),
-            label: 'Takiplerim',
+            icon: Icon(Icons.bookmark_border_rounded),
+            selectedIcon: Icon(Icons.bookmark_rounded, color: AppConstants.primary),
+            label: 'Takip Ettiklerim',
           ),
           NavigationDestination(
             icon: Icon(Icons.explore_outlined),
             selectedIcon: Icon(Icons.explore_rounded, color: AppConstants.primary),
-            label: 'Keşfet & Katalog',
+            label: 'Keşfet',
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _openAddModal(),
-        backgroundColor: AppConstants.primary,
-        foregroundColor: Colors.white,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Özel Takip Ekle', style: TextStyle(fontWeight: FontWeight.w700)),
       ),
     );
   }

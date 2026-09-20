@@ -65,5 +65,12 @@ service cloud.firestore {
       allow create: if isAuthenticated();
       allow update, delete: if false;
     }
+
+    // Kullanıcı Şikayet ve Hata Bildirimleri (Reports)
+    match /reports/{reportId} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAdmin();
+    }
   }
 }

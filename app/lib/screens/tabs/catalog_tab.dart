@@ -6,16 +6,19 @@ import '../../models/monitor.dart';
 import '../../services/api_service.dart';
 import '../../services/firestore_service.dart';
 import '../../widgets/catalog_card.dart';
+import '../company/company_detail_screen.dart';
 
 class CatalogTab extends StatefulWidget {
   final List<Monitor> userMonitors;
   final Function(CatalogItem) onSubscribe;
+  final String userId;
   final String? userEmail;
 
   const CatalogTab({
     super.key,
     required this.userMonitors,
     required this.onSubscribe,
+    required this.userId,
     this.userEmail,
   });
 
@@ -178,18 +181,18 @@ class _CatalogTabState extends State<CatalogTab> {
                     children: [
                       Icon(Icons.explore_rounded, color: Colors.white, size: 14),
                       SizedBox(width: 6),
-                      Text('Fırsat Kataloğu', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700)),
+                      Text('Keşfet: Kurumlar & Topluluklar', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700)),
                     ],
                   ),
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  'CENG & Kariyer Radarı',
+                  'Şirketler & Üniversite Kulüpleri',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Colors.white),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Ödüllü hackathonlar, yapay zeka kampları ve üniversite duyurularını tek tıkla takibe al.',
+                  'Takip etmek istediğin kurumları tek tıkla radarına ekle, etkinliklerini kaçırma.',
                   style: TextStyle(fontSize: 12, color: Colors.blue.shade100, height: 1.4),
                 ),
                 const SizedBox(height: 16),
@@ -249,6 +252,17 @@ class _CatalogTabState extends State<CatalogTab> {
                       item: item,
                       isTracked: isTracked,
                       onSubscribe: () => widget.onSubscribe(item),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => CompanyDetailScreen(
+                              item: item,
+                              userId: widget.userId,
+                              userEmail: widget.userEmail ?? '',
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 );

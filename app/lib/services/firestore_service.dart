@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../core/default_catalog.dart';
+import '../models/catalog_item.dart';
 import '../models/monitor.dart';
 import '../models/notification_preferences.dart';
 import '../models/opportunity.dart';
 import '../models/scan_log.dart';
 import '../models/source_health.dart';
+import '../models/user_profile.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -71,6 +73,33 @@ class FirestoreService {
     await _userMonitorsRef(userId).doc(monitorId).delete();
   }
 
+  // Şirket takip durumunu anında değiştir (Tek tıkla takip et / takipten çıkar)
+  Future<bool> toggleFollowCompany({
+    required String userId,
+    required String userEmail,
+    String? title,
+    String? url,
+    CatalogItem? item,
+  }) async {
+    final effectiveTitle = item?.title ?? title ?? '';
+    final effectiveUrl = item?.url ?? url ?? '';
+    final existing = await _userMonitorsRef(userId).where('url', isEqualTo: effectiveUrl).get();
+    if (existing.docs.isNotEmpty) {
+      for (final doc in existing.docs) {
+        await doc.reference.delete();
+      }
+      return false; // Takipten çıkarıldı
+    } else {
+      await addMonitor(
+        userId: userId,
+        userEmail: userEmail,
+        title: effectiveTitle,
+        url: effectiveUrl,
+      );
+      return true; // Takip edildi
+    }
+  }
+
   // Monitör durumunu / özetini güncelle
   Future<void> updateMonitorSummary(String userId, String monitorId, String? summary) async {
     await _userMonitorsRef(userId).doc(monitorId).update({
@@ -121,6 +150,53 @@ class FirestoreService {
     }, SetOptions(merge: true));
   }
 
+  // --- KULLANICI PROFİLİ (ÜNİVERSİTE, BÖLÜM, SINIF, İLGİ ALANLARI) ---
+
+  // Kullanıcı profilini getir
+  Future<UserProfile> getUserProfile(String userId) async {
+    try {
+      final doc = await _firestore.collection('users').doc(userId).get();
+      if (doc.exists && doc.data() != null) {
+        final data = doc.data()!['profile'] as Map<String, dynamic>?;
+        return UserProfile.fromMap(data);
+      }
+    } catch (e) {
+      // Hata durumunda varsayılan profil
+    }
+    return const UserProfile();
+  }
+
+  // Kullanıcı profilini kaydet
+  Future<void> saveUserProfile(String userId, UserProfile profile) async {
+    await _firestore.collection('users').doc(userId).set({
+      'profile': profile.toMap(),
+      'lastUpdated': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
+  // --- ŞİKAYET VE GERİ BİLDİRİM (REPORTS) ---
+
+  // Şirket/Etkinlik için şikayet bildirimi gönder
+  Future<void> submitReport({
+    required String companyId,
+    required String companyTitle,
+    required String reportType,
+    required String description,
+    String? userEmail,
+    String? userId,
+  }) async {
+    await _firestore.collection('reports').add({
+      'companyId': companyId,
+      'companyTitle': companyTitle,
+      'reportType': reportType,
+      'description': description,
+      'reportedByEmail': userEmail ?? 'anonymous',
+      'reportedByUid': userId ?? 'anonymous',
+      'status': 'pending_investigation',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
   // --- MERKEZİ FIRSATLAR VE ETKİNLİKLER (OPPORTUNITIES) ---
 
   // Merkezi tarayıcının yakaladığı en güncel fırsatlar akışı
@@ -136,6 +212,11 @@ class FirestoreService {
       // Normal kullanıcılar için yalnızca onaylı olanları (veya henüz eski dokümansa onaylı kabul edilenleri) göster
       return list.where((o) => o.status != 'rejected' && o.status != 'pending_review').toList();
     });
+  }
+
+  // streamOpportunities alias for convenience
+  Stream<List<Opportunity>> streamOpportunities({bool onlyApproved = true}) {
+    return getOpportunitiesStream(includeAll: !onlyApproved);
   }
 
   // Fırsat onay durumunu güncelle (Onayla / Reddet)
