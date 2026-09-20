@@ -11,6 +11,15 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.email == 'suleymankara600@gmail.com' ||
+        (request.auth.token.role == 'admin') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
+    }
+
     // Kullanıcıya özel profil, ayarlar ve takipler
     match /users/{userId} {
       allow read, write: if isOwner(userId);
@@ -23,7 +32,13 @@ service cloud.firestore {
     // Merkezi Takip Edilen Kaynaklar Havuzu (Sources)
     match /sources/{sourceId} {
       allow read: if true;
-      allow write: if false; // Yalnızca Cloud Functions / Admin SDK yazar
+      allow write: if isAdmin();
+    }
+
+    // Tarama ve Sağlık Günlükleri (Scan Logs)
+    match /scan_logs/{logId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
     }
 
     // Tespit Edilen Fırsatlar ve Etkinlikler Havuzu (Opportunities)

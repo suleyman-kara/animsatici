@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../core/default_catalog.dart';
 import '../models/monitor.dart';
 import '../models/notification_preferences.dart';
 import '../models/opportunity.dart';
+import '../models/scan_log.dart';
+import '../models/source_health.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -128,9 +131,82 @@ class FirestoreService {
         .limit(30)
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return Opportunity.fromMap(doc.id, doc.data());
-      }).toList();
+      return snapshot.docs.map((doc) => Opportunity.fromMap(doc.id, doc.data())).toList();
+    });
+  }
+
+  // --- YÖNETİCİ PANELİ (ADMIN PANEL) FONKSİYONLARI ---
+
+  // Merkezi kaynakları gerçek zamanlı akışla getir
+  Stream<List<SourceHealth>> getSourcesStream() {
+    return _firestore.collection('sources').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => SourceHealth.fromMap(doc.id, doc.data())).toList();
+    });
+  }
+
+  // Merkezi kaynakları tek seferlik getir
+  Future<List<SourceHealth>> getSources() async {
+    final snapshot = await _firestore.collection('sources').get();
+    return snapshot.docs.map((doc) => SourceHealth.fromMap(doc.id, doc.data())).toList();
+  }
+
+  // Hazır kataloğu merkezi sources havuzuna aktar / eşitle
+  Future<void> seedSourcesFromCatalog() async {
+    final batch = _firestore.batch();
+    for (final item in DefaultCatalog.items) {
+      final docRef = _firestore.collection('sources').doc(item.id);
+      batch.set(docRef, {
+        'title': item.title,
+        'url': item.url,
+        'category': item.category,
+        'isActive': true,
+        'lastStatus': 'pending',
+        'httpStatus': null,
+        'lastError': null,
+        'lastCheckedAt': null,
+        'createdAt': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+    }
+    await batch.commit();
+  }
+
+  // Kaynağın aktif/pasif durumunu değiştir
+  Future<void> toggleSourceActive(String sourceId, bool isActive) async {
+    await _firestore.collection('sources').doc(sourceId).update({
+      'isActive': isActive,
+    });
+  }
+
+  // Yeni merkezi kaynak ekle
+  Future<void> addSource({
+    required String title,
+    required String url,
+    required String category,
+  }) async {
+    await _firestore.collection('sources').add({
+      'title': title,
+      'url': url,
+      'category': category,
+      'isActive': true,
+      'lastStatus': 'pending',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  // Kaynak sil
+  Future<void> deleteSource(String sourceId) async {
+    await _firestore.collection('sources').doc(sourceId).delete();
+  }
+
+  // Tarama geçmişi günlükleri akışı (Son 20 tarama)
+  Stream<List<ScanLog>> getScanLogsStream() {
+    return _firestore
+        .collection('scan_logs')
+        .orderBy('createdAt', descending: true)
+        .limit(20)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) => ScanLog.fromMap(doc.id, doc.data())).toList();
     });
   }
 }

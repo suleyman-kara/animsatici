@@ -7,6 +7,7 @@ import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
 import '../widgets/add_monitor_dialog.dart';
 import '../widgets/notification_preferences_dialog.dart';
+import 'admin/admin_dashboard_screen.dart';
 import 'tabs/catalog_tab.dart';
 import 'tabs/monitors_tab.dart';
 
@@ -22,6 +23,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final AuthService _authService = AuthService();
   final FirestoreService _firestoreService = FirestoreService();
+
+  bool get _isAdmin =>
+      widget.user.email?.toLowerCase() == 'suleymankara600@gmail.com';
 
   int _currentIndex = 0;
   List<Monitor> _monitors = [];
@@ -161,6 +165,23 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
+          // Yönetici Paneli Butonu (Yalnızca Admin)
+          if (_isAdmin)
+            Padding(
+              padding: const EdgeInsets.only(right: 6),
+              child: ActionChip(
+                avatar: const Icon(Icons.admin_panel_settings_rounded, size: 16, color: Colors.amber),
+                label: const Text('Yönetici Paneli', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: AppConstants.textPrimary)),
+                backgroundColor: Colors.amber.shade50,
+                side: BorderSide(color: Colors.amber.shade300),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AdminDashboardScreen()),
+                  );
+                },
+              ),
+            ),
           IconButton(
             icon: const Icon(Icons.notifications_outlined, size: 22, color: AppConstants.textPrimary),
             tooltip: 'Bildirim Tercihlerim (Saat & Sıklık)',

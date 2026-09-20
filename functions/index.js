@@ -2,13 +2,9 @@ import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { initializeApp, getApps } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
-import {
-  fetchPageContent,
-  computeHash,
-  hasChanged,
-  analyzeChangeWithAI,
-  generateGoogleCalendarUrl
-} from './core/index.js';
+async function getCore() {
+  return await import('./core/index.js');
+}
 
 function getDb() {
   if (getApps().length === 0) {
@@ -31,8 +27,16 @@ export const centralRadarScanner = onSchedule(
   },
   async (event) => {
     console.log('🚀 [KampüsRadar] Merkezi Fırsat ve Duyuru Taraması Başladı (19:00)...');
+    const scanStartTime = new Date().toISOString();
 
     try {
+      const {
+        fetchPageContent,
+        computeHash,
+        hasChanged,
+        analyzeChangeWithAI,
+        generateGoogleCalendarUrl
+      } = await getCore();
       const db = getDb();
       // 1. Aktif kaynakları çek
       const sourcesSnapshot = await db.collection('sources').where('isActive', '!=', false).get();
@@ -42,26 +46,37 @@ export const centralRadarScanner = onSchedule(
       }
 
       console.log(`📋 Toplam ${sourcesSnapshot.size} aktif kaynak taranıyor...`);
+      let successCount = 0;
+      let errorCount = 0;
+      let changesDetected = 0;
 
       for (const doc of sourcesSnapshot.docs) {
         const source = doc.data();
         const sourceId = doc.id;
+        const itemStartTime = Date.now();
 
         try {
           console.log(`🔍 Taranıyor: ${source.title} (${source.url})`);
           const page = await fetchPageContent(source.url);
           const currentHash = computeHash(page.text);
+          const latencyMs = Date.now() - itemStartTime;
 
           const changed = hasChanged(source.lastContentHash, currentHash);
 
           if (!changed) {
             console.log(`  ⚪ Değişiklik yok: ${source.title}`);
+            successCount++;
             await doc.ref.update({
-              lastCheckedAt: new Date().toISOString()
+              lastCheckedAt: new Date().toISOString(),
+              lastStatus: 'success',
+              httpStatus: 200,
+              lastError: null,
+              latencyMs
             });
             continue;
           }
 
+          changesDetected++;
           console.log(`  🔔 Değişiklik tespit edildi! Gemini 3.6 Flash analizi başlatılıyor...`);
 
           const aiResult = await analyzeChangeWithAI({
@@ -74,9 +89,14 @@ export const centralRadarScanner = onSchedule(
 
           if (!aiResult.hasSignificantChange) {
             console.log(`  💤 Önemsiz teknik değişiklik (sayaç/reklam vb.), bildirim atlanıyor.`);
+            successCount++;
             await doc.ref.update({
               lastContentHash: currentHash,
-              lastCheckedAt: new Date().toISOString()
+              lastCheckedAt: new Date().toISOString(),
+              lastStatus: 'success',
+              httpStatus: 200,
+              lastError: null,
+              latencyMs
             });
             continue;
           }
@@ -109,19 +129,45 @@ export const centralRadarScanner = onSchedule(
           });
 
           console.log(`  ✅ Yeni fırsat kaydedildi! ID: ${oppRef.id}`);
+          successCount++;
 
           // Kaynak durumunu güncelle
           await doc.ref.update({
             lastContentHash: currentHash,
             lastCleanText: page.text.slice(0, 3000),
             lastSummary: aiResult.changeSummary,
-            lastCheckedAt: new Date().toISOString()
+            lastCheckedAt: new Date().toISOString(),
+            lastStatus: 'success',
+            httpStatus: 200,
+            lastError: null,
+            latencyMs
           });
 
         } catch (sourceErr) {
+          errorCount++;
+          const latencyMs = Date.now() - itemStartTime;
           console.error(`  ❌ Hata (${source.title}):`, sourceErr.message);
+          await doc.ref.update({
+            lastCheckedAt: new Date().toISOString(),
+            lastStatus: 'error',
+            httpStatus: sourceErr.response?.status || 500,
+            lastError: sourceErr.message || 'Sayfaya ulaşılamadı',
+            latencyMs
+          }).catch(() => {});
         }
       }
+
+      // Tarama raporunu scan_logs koleksiyonuna yaz
+      await db.collection('scan_logs').add({
+        startedAt: scanStartTime,
+        completedAt: new Date().toISOString(),
+        totalSources: sourcesSnapshot.size,
+        successCount,
+        errorCount,
+        changesDetected,
+        status: errorCount === 0 ? 'success' : (successCount > 0 ? 'partial' : 'failed'),
+        createdAt: FieldValue.serverTimestamp()
+      }).catch(() => {});
 
       console.log('🎉 [KampüsRadar] Merkezi tarama döngüsü tamamlandı.');
     } catch (err) {
@@ -140,14 +186,23 @@ export const checkSourceNow = onCall(
     memory: '512MiB'
   },
   async (request) => {
-    const { url, title, oldText } = request.data || {};
+    const { url, title, oldText, sourceId } = request.data || {};
     if (!url) {
       throw new HttpsError('invalid-argument', 'URL adresi zorunludur.');
     }
 
+    const checkStartTime = Date.now();
     try {
+      const {
+        fetchPageContent,
+        computeHash,
+        analyzeChangeWithAI,
+        generateGoogleCalendarUrl
+      } = await getCore();
+
       const page = await fetchPageContent(url);
       const currentHash = computeHash(page.text);
+      const latencyMs = Date.now() - checkStartTime;
 
       const aiResult = await analyzeChangeWithAI({
         newText: page.text,
@@ -169,6 +224,20 @@ export const checkSourceNow = onCall(
         });
       }
 
+      // Eğer bir merkezi sourceId verilmişse dokümanını güncelle
+      if (sourceId) {
+        const db = getDb();
+        await db.collection('sources').doc(sourceId).update({
+          lastCheckedAt: new Date().toISOString(),
+          lastStatus: 'success',
+          httpStatus: 200,
+          lastError: null,
+          lastContentHash: currentHash,
+          lastSummary: aiResult.changeSummary,
+          latencyMs
+        }).catch(() => {});
+      }
+
       return {
         success: true,
         title: title || page.title,
@@ -178,9 +247,21 @@ export const checkSourceNow = onCall(
         hasEvent: aiResult.hasEvent,
         eventDetails: aiResult.eventDetails,
         calendarUrl,
+        latencyMs,
+        httpStatus: 200,
         checkedAt: new Date().toISOString()
       };
     } catch (err) {
+      if (sourceId) {
+        const db = getDb();
+        await db.collection('sources').doc(sourceId).update({
+          lastCheckedAt: new Date().toISOString(),
+          lastStatus: 'error',
+          httpStatus: err.response?.status || 500,
+          lastError: err.message,
+          latencyMs: Date.now() - checkStartTime
+        }).catch(() => {});
+      }
       throw new HttpsError('internal', err.message);
     }
   }
