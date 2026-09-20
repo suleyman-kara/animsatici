@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants.dart';
+import '../../models/opportunity.dart';
 import '../../models/scan_log.dart';
 import '../../models/source_health.dart';
 import '../../services/firestore_service.dart';
@@ -19,12 +20,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
   late TabController _tabController;
 
   String _filterStatus = 'all'; // 'all', 'success', 'error', 'inactive'
+  String _oppFilterStatus = 'all'; // 'all', 'pending_review', 'approved', 'rejected'
   final Set<String> _testingIds = {};
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -115,12 +117,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           ElevatedButton(
             onPressed: () async {
               if (urlCtrl.text.trim().isEmpty) return;
+              final nav = Navigator.of(ctx);
               await _firestoreService.addSource(
                 title: titleCtrl.text.trim().isEmpty ? 'Yeni Kaynak' : titleCtrl.text.trim(),
                 url: urlCtrl.text.trim(),
                 category: category,
               );
-              if (mounted) Navigator.of(ctx).pop();
+              nav.pop();
             },
             child: const Text('Ekle'),
           ),
@@ -184,6 +187,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           indicatorColor: AppConstants.primary,
           tabs: const [
             Tab(icon: Icon(Icons.dns_rounded, size: 18), text: 'Kaynaklar & Sağlık'),
+            Tab(icon: Icon(Icons.event_available_rounded, size: 18), text: 'Fırsatlar & Onay Havuzu'),
             Tab(icon: Icon(Icons.history_rounded, size: 18), text: 'Tarama Günlükleri (Logs)'),
           ],
         ),
@@ -192,6 +196,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
         controller: _tabController,
         children: [
           _buildSourcesTab(),
+          _buildOpportunitiesAdminTab(),
           _buildLogsTab(),
         ],
       ),
@@ -280,7 +285,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: filtered.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  separatorBuilder: (_, _) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final source = filtered[index];
                     return _buildSourceCard(source);
@@ -479,7 +484,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
                     scale: 0.75,
                     child: Switch(
                       value: source.isActive,
-                      activeColor: AppConstants.primary,
+                      activeThumbColor: AppConstants.primary,
                       onChanged: (val) => _firestoreService.toggleSourceActive(source.id, val),
                     ),
                   ),
@@ -567,7 +572,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
         return ListView.separated(
           padding: const EdgeInsets.all(20),
           itemCount: logs.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          separatorBuilder: (_, _) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
             final log = logs[index];
             final isSuccess = log.status == 'success';
@@ -633,6 +638,343 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           },
         );
       },
+    );
+  }
+
+  Widget _buildOpportunitiesAdminTab() {
+    return StreamBuilder<List<Opportunity>>(
+      stream: _firestoreService.getOpportunitiesStream(includeAll: true),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final allOpps = snapshot.data ?? [];
+        final total = allOpps.length;
+        final pendingCount = allOpps.where((o) => o.isPendingReview).length;
+        final approvedCount = allOpps.where((o) => o.isApproved).length;
+        final rejectedCount = allOpps.where((o) => o.isRejected).length;
+
+        final filtered = allOpps.where((o) {
+          if (_oppFilterStatus == 'pending_review') return o.isPendingReview;
+          if (_oppFilterStatus == 'approved') return o.isApproved;
+          if (_oppFilterStatus == 'rejected') return o.isRejected;
+          return true;
+        }).toList();
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Metrik Kartları
+              Row(
+                children: [
+                  Expanded(child: _buildMetricCard('Toplam Fırsat', '$total', Icons.event_note_rounded, Colors.blue)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildMetricCard('Onay Bekleyen', '$pendingCount', Icons.hourglass_top_rounded, Colors.orange)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildMetricCard('Yayında (Onaylı)', '$approvedCount', Icons.check_circle_rounded, Colors.green)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildMetricCard('Reddedilen', '$rejectedCount', Icons.cancel_rounded, Colors.red)),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // Filtre Çipleri
+              Row(
+                children: [
+                  _buildOppFilterChip('all', 'Tümü ($total)'),
+                  const SizedBox(width: 8),
+                  _buildOppFilterChip('pending_review', '🟡 Bekleyenler ($pendingCount)'),
+                  const SizedBox(width: 8),
+                  _buildOppFilterChip('approved', '🟢 Onaylı ($approvedCount)'),
+                  const SizedBox(width: 8),
+                  _buildOppFilterChip('rejected', '🔴 Reddedilen ($rejectedCount)'),
+                ],
+              ),
+              const SizedBox(height: 16),
+
+              if (filtered.isEmpty)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(36),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                  child: const Column(
+                    children: [
+                      Icon(Icons.inbox_rounded, size: 40, color: Colors.grey),
+                      SizedBox(height: 12),
+                      Text('Bu filtreye uygun etkinlik kaydı bulunamadı.', style: TextStyle(fontWeight: FontWeight.w700)),
+                    ],
+                  ),
+                )
+              else
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: filtered.length,
+                  separatorBuilder: (_, _) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final opp = filtered[index];
+                    return _buildAdminOppCard(opp);
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOppFilterChip(String id, String label) {
+    final isSelected = _oppFilterStatus == id;
+    return FilterChip(
+      selected: isSelected,
+      label: Text(label, style: TextStyle(fontSize: 12, fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500, color: isSelected ? Colors.white : AppConstants.textPrimary)),
+      backgroundColor: Colors.white,
+      selectedColor: AppConstants.primary,
+      checkmarkColor: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10), side: BorderSide(color: isSelected ? AppConstants.primary : AppConstants.border)),
+      onSelected: (_) => setState(() => _oppFilterStatus = id),
+    );
+  }
+
+  Widget _buildAdminOppCard(Opportunity opp) {
+    final isApproved = opp.isApproved;
+    final isPending = opp.isPendingReview;
+    final isRejected = opp.isRejected;
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: opp.isUpdated ? Colors.amber.shade300 : (isPending ? Colors.orange.shade200 : AppConstants.border),
+          width: opp.isUpdated || isPending ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade50,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            opp.sourceTitle,
+                            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppConstants.primary),
+                          ),
+                        ),
+                        if (opp.isUpdated) ...[
+                          const SizedBox(width: 6),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: Colors.amber.shade50,
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Colors.amber.shade300),
+                            ),
+                            child: const Text('🔄 GÜNCELLENDİ', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800, color: Colors.amber)),
+                          ),
+                        ],
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      opp.eventTitle ?? opp.sourceTitle,
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppConstants.textPrimary),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: isApproved ? Colors.green.shade50 : (isPending ? Colors.orange.shade50 : Colors.red.shade50),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: isApproved ? Colors.green.shade200 : (isPending ? Colors.orange.shade200 : Colors.red.shade200),
+                  ),
+                ),
+                child: Text(
+                  isApproved ? 'ONAYLI' : (isPending ? 'ONAY BEKLİYOR' : 'REDDEDİLDİ'),
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    color: isApproved ? Colors.green.shade800 : (isPending ? Colors.orange.shade800 : Colors.red.shade800),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+
+          if (opp.eventStartDate != null && opp.eventStartDate!.isNotEmpty) ...[
+            Text('🗓️ Tarih: ${_formatDate(opp.eventStartDate!)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF334155))),
+            const SizedBox(height: 4),
+          ],
+          Text(opp.summary, style: const TextStyle(fontSize: 12, color: AppConstants.textSecondary, height: 1.4)),
+
+          const SizedBox(height: 12),
+          const Divider(height: 1),
+          const SizedBox(height: 8),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (opp.calendarUrl != null && opp.calendarUrl!.isNotEmpty)
+                TextButton.icon(
+                  onPressed: () => launchUrl(Uri.parse(opp.calendarUrl!), mode: LaunchMode.externalApplication),
+                  icon: const Icon(Icons.calendar_month_rounded, size: 14),
+                  label: const Text('Takvim Linki', style: TextStyle(fontSize: 11)),
+                ),
+              const Spacer(),
+              if (!isApproved)
+                ElevatedButton.icon(
+                  onPressed: () => _handleOppStatusChange(opp, 'approved'),
+                  icon: const Icon(Icons.check_circle_rounded, size: 14),
+                  label: const Text('Onayla & Yayınla', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade700,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    minimumSize: const Size(60, 32),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                ),
+              if (!isRejected) ...[
+                const SizedBox(width: 8),
+                OutlinedButton.icon(
+                  onPressed: () => _handleOppStatusChange(opp, 'rejected'),
+                  icon: const Icon(Icons.cancel_rounded, size: 14, color: Colors.red),
+                  label: const Text('Reddet', style: TextStyle(fontSize: 11, color: Colors.red)),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    minimumSize: const Size(60, 32),
+                    side: BorderSide(color: Colors.red.shade200),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                ),
+              ],
+              const SizedBox(width: 8),
+              IconButton(
+                icon: const Icon(Icons.edit_rounded, size: 18, color: Colors.blue),
+                tooltip: 'Düzenle',
+                onPressed: () => _openEditOppDialog(opp),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete_outline_rounded, size: 18, color: Colors.grey),
+                tooltip: 'Sil',
+                onPressed: () => _handleOppDelete(opp),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _handleOppStatusChange(Opportunity opp, String status) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await _firestoreService.updateOpportunityStatus(opp.id, status);
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(status == 'approved' ? '✅ "${opp.eventTitle ?? opp.sourceTitle}" yayına alındı!' : '🚫 Etkinlik reddedildi.'),
+          backgroundColor: status == 'approved' ? Colors.green : Colors.grey.shade800,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text('Hata: $e'), backgroundColor: Colors.red));
+    }
+  }
+
+  Future<void> _handleOppDelete(Opportunity opp) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Fırsatı Sil?'),
+        content: Text('"${opp.eventTitle ?? opp.sourceTitle}" fırsat havuzundan silinsin mi?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Vazgeç')),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Sil'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirm == true) {
+      await _firestoreService.deleteOpportunity(opp.id);
+    }
+  }
+
+  Future<void> _openEditOppDialog(Opportunity opp) async {
+    final titleCtrl = TextEditingController(text: opp.eventTitle ?? opp.sourceTitle);
+    final dateCtrl = TextEditingController(text: opp.eventStartDate ?? '');
+    final summaryCtrl = TextEditingController(text: opp.summary);
+    final calUrlCtrl = TextEditingController(text: opp.calendarUrl ?? '');
+
+    await showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        title: const Text('Fırsat & Takvim Detaylarını Düzenle', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(controller: titleCtrl, decoration: const InputDecoration(labelText: 'Etkinlik Başlığı')),
+              const SizedBox(height: 10),
+              TextField(controller: dateCtrl, decoration: const InputDecoration(labelText: 'Tarih (ISO 8601)', hintText: '2026-10-25T18:00:00')),
+              const SizedBox(height: 10),
+              TextField(controller: summaryCtrl, maxLines: 3, decoration: const InputDecoration(labelText: 'Yapay Zeka Özeti')),
+              const SizedBox(height: 10),
+              TextField(controller: calUrlCtrl, decoration: const InputDecoration(labelText: 'Google Takvim Bağlantısı')),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('Vazgeç')),
+          ElevatedButton(
+            onPressed: () async {
+              final nav = Navigator.of(ctx);
+              final messenger = ScaffoldMessenger.of(context);
+              try {
+                await _firestoreService.updateOpportunityData(opp.id, {
+                  'eventDetails.title': titleCtrl.text.trim(),
+                  'eventDetails.startDate': dateCtrl.text.trim(),
+                  'summary': summaryCtrl.text.trim(),
+                  'calendarUrl': calUrlCtrl.text.trim(),
+                  'status': 'approved',
+                });
+                nav.pop();
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('✅ Etkinlik güncellendi ve onaylandı!'), backgroundColor: Colors.green),
+                );
+              } catch (e) {
+                messenger.showSnackBar(SnackBar(content: Text('Hata: $e'), backgroundColor: Colors.red));
+              }
+            },
+            child: const Text('Kaydet & Onayla'),
+          ),
+        ],
+      ),
     );
   }
 

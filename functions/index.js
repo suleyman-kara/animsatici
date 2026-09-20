@@ -79,9 +79,31 @@ export const centralRadarScanner = onSchedule(
           changesDetected++;
           console.log(`  🔔 Değişiklik tespit edildi! Gemini 3.6 Flash analizi başlatılıyor...`);
 
+          // Bu kaynağa ait mevcut aktif bir etkinlik var mı kontrol et
+          let existingDoc = null;
+          let existingData = null;
+          try {
+            const existingSnap = await db.collection('opportunities')
+              .where('sourceId', '==', sourceId)
+              .limit(1)
+              .get();
+            if (!existingSnap.empty) {
+              existingDoc = existingSnap.docs[0];
+              existingData = existingDoc.data();
+            }
+          } catch (fetchErr) {
+            console.warn('Mevcut etkinlik sorgusu atlandı:', fetchErr.message);
+          }
+
           const aiResult = await analyzeChangeWithAI({
             newText: page.text,
             oldText: source.lastCleanText || '',
+            existingEvent: existingData ? {
+              title: existingData.eventDetails?.title || existingData.eventTitle,
+              startDate: existingData.eventDetails?.startDate || existingData.eventStartDate,
+              endDate: existingData.eventDetails?.endDate,
+              summary: existingData.summary
+            } : null,
             pageTitle: source.title || page.title,
             url: source.url,
             apiKey: process.env.GEMINI_API_KEY
@@ -114,21 +136,37 @@ export const centralRadarScanner = onSchedule(
             });
           }
 
-          // Yeni fırsatı merkezi "opportunities" koleksiyonuna ekle
-          const oppRef = await db.collection('opportunities').add({
-            sourceId,
-            sourceTitle: source.title,
-            sourceUrl: source.url,
-            category: source.category || 'general',
-            summary: aiResult.changeSummary,
-            hasEvent: aiResult.hasEvent,
-            eventDetails: aiResult.eventDetails || null,
-            calendarUrl,
-            detectedAt: new Date().toISOString(),
-            createdAt: FieldValue.serverTimestamp()
-          });
+          // Eğer mevcut bir etkinlik güncellendiyse (updated_event veya cancelled_event) mevcut dokümanı güncelle
+          if (existingDoc && (aiResult.changeType === 'updated_event' || aiResult.changeType === 'cancelled_event')) {
+            await existingDoc.ref.update({
+              summary: aiResult.changeSummary,
+              hasEvent: aiResult.hasEvent,
+              changeType: aiResult.changeType,
+              status: 'pending_review',
+              eventDetails: aiResult.eventDetails || existingData.eventDetails || null,
+              calendarUrl: calendarUrl || existingData.calendarUrl || null,
+              updatedAt: new Date().toISOString()
+            });
+            console.log(`  🔄 Mevcut etkinlik güncellendi! ID: ${existingDoc.id} (${aiResult.changeType})`);
+          } else {
+            // Tamamen yeni bir etkinlik veya ilk kayıt
+            const oppRef = await db.collection('opportunities').add({
+              sourceId,
+              sourceTitle: source.title,
+              sourceUrl: source.url,
+              category: source.category || 'general',
+              summary: aiResult.changeSummary,
+              hasEvent: aiResult.hasEvent,
+              changeType: aiResult.changeType || 'new_event',
+              status: 'pending_review',
+              eventDetails: aiResult.eventDetails || null,
+              calendarUrl,
+              detectedAt: new Date().toISOString(),
+              createdAt: FieldValue.serverTimestamp()
+            });
+            console.log(`  ✅ Yeni fırsat kaydedildi! ID: ${oppRef.id}`);
+          }
 
-          console.log(`  ✅ Yeni fırsat kaydedildi! ID: ${oppRef.id}`);
           successCount++;
 
           // Kaynak durumunu güncelle
@@ -204,9 +242,33 @@ export const checkSourceNow = onCall(
       const currentHash = computeHash(page.text);
       const latencyMs = Date.now() - checkStartTime;
 
+      const db = getDb();
+      let existingDoc = null;
+      let existingData = null;
+      if (sourceId) {
+        try {
+          const existingSnap = await db.collection('opportunities')
+            .where('sourceId', '==', sourceId)
+            .limit(1)
+            .get();
+          if (!existingSnap.empty) {
+            existingDoc = existingSnap.docs[0];
+            existingData = existingDoc.data();
+          }
+        } catch (fetchErr) {
+          console.warn('Mevcut etkinlik sorgusu atlandı:', fetchErr.message);
+        }
+      }
+
       const aiResult = await analyzeChangeWithAI({
         newText: page.text,
-        oldText: oldText || '',
+        oldText: oldText || (sourceId && existingData ? existingData.summary : ''),
+        existingEvent: existingData ? {
+          title: existingData.eventDetails?.title || existingData.eventTitle,
+          startDate: existingData.eventDetails?.startDate || existingData.eventStartDate,
+          endDate: existingData.eventDetails?.endDate,
+          summary: existingData.summary
+        } : null,
         pageTitle: title || page.title,
         url,
         apiKey: process.env.GEMINI_API_KEY
@@ -224,9 +286,8 @@ export const checkSourceNow = onCall(
         });
       }
 
-      // Eğer bir merkezi sourceId verilmişse dokümanını güncelle
+      // Eğer bir merkezi sourceId verilmişse dokümanını ve fırsatı güncelle
       if (sourceId) {
-        const db = getDb();
         await db.collection('sources').doc(sourceId).update({
           lastCheckedAt: new Date().toISOString(),
           lastStatus: 'success',
@@ -236,6 +297,36 @@ export const checkSourceNow = onCall(
           lastSummary: aiResult.changeSummary,
           latencyMs
         }).catch(() => {});
+
+        // Eğer önemli bir etkinlik değişikliği varsa fırsatı da kaydet/güncelle
+        if (aiResult.hasSignificantChange) {
+          if (existingDoc && (aiResult.changeType === 'updated_event' || aiResult.changeType === 'cancelled_event')) {
+            await existingDoc.ref.update({
+              summary: aiResult.changeSummary,
+              hasEvent: aiResult.hasEvent,
+              changeType: aiResult.changeType,
+              status: 'pending_review',
+              eventDetails: aiResult.eventDetails || existingData.eventDetails || null,
+              calendarUrl: calendarUrl || existingData.calendarUrl || null,
+              updatedAt: new Date().toISOString()
+            }).catch(() => {});
+          } else {
+            await db.collection('opportunities').add({
+              sourceId,
+              sourceTitle: title || page.title,
+              sourceUrl: url,
+              category: 'general',
+              summary: aiResult.changeSummary,
+              hasEvent: aiResult.hasEvent,
+              changeType: aiResult.changeType || 'new_event',
+              status: 'pending_review',
+              eventDetails: aiResult.eventDetails || null,
+              calendarUrl,
+              detectedAt: new Date().toISOString(),
+              createdAt: FieldValue.serverTimestamp()
+            }).catch(() => {});
+          }
+        }
       }
 
       return {

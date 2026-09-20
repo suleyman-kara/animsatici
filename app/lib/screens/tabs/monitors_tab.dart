@@ -202,7 +202,7 @@ class _MonitorsTabState extends State<MonitorsTab> {
         final items = [
           _buildStatCard('Toplam Takip', '$count', Icons.layers_rounded, AppConstants.primary),
           _buildStatCard('Aktif Taranan', '$count', Icons.check_circle_rounded, AppConstants.success),
-          _buildStatCard('Otomatik Tarama', 'Her Akşam 21:00', Icons.schedule_rounded, AppConstants.accentIndigo),
+          _buildStatCard('Otomatik Tarama', 'Her Akşam 19:00', Icons.schedule_rounded, AppConstants.accentIndigo),
         ];
 
         if (isWide) {

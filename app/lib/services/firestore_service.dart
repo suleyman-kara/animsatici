@@ -124,15 +124,37 @@ class FirestoreService {
   // --- MERKEZİ FIRSATLAR VE ETKİNLİKLER (OPPORTUNITIES) ---
 
   // Merkezi tarayıcının yakaladığı en güncel fırsatlar akışı
-  Stream<List<Opportunity>> getOpportunitiesStream() {
+  Stream<List<Opportunity>> getOpportunitiesStream({bool includeAll = false}) {
     return _firestore
         .collection('opportunities')
         .orderBy('createdAt', descending: true)
-        .limit(30)
+        .limit(50)
         .snapshots()
         .map((snapshot) {
-      return snapshot.docs.map((doc) => Opportunity.fromMap(doc.id, doc.data())).toList();
+      final list = snapshot.docs.map((doc) => Opportunity.fromMap(doc.id, doc.data())).toList();
+      if (includeAll) return list;
+      // Normal kullanıcılar için yalnızca onaylı olanları (veya henüz eski dokümansa onaylı kabul edilenleri) göster
+      return list.where((o) => o.status != 'rejected' && o.status != 'pending_review').toList();
     });
+  }
+
+  // Fırsat onay durumunu güncelle (Onayla / Reddet)
+  Future<void> updateOpportunityStatus(String oppId, String newStatus) async {
+    await _firestore.collection('opportunities').doc(oppId).update({
+      'status': newStatus,
+      'updatedAt': DateTime.now().toIso8601String(),
+    });
+  }
+
+  // Fırsat verilerini doğrudan düzenle (Admin Edit)
+  Future<void> updateOpportunityData(String oppId, Map<String, dynamic> data) async {
+    data['updatedAt'] = DateTime.now().toIso8601String();
+    await _firestore.collection('opportunities').doc(oppId).update(data);
+  }
+
+  // Fırsat kaydını sil
+  Future<void> deleteOpportunity(String oppId) async {
+    await _firestore.collection('opportunities').doc(oppId).delete();
   }
 
   // --- YÖNETİCİ PANELİ (ADMIN PANEL) FONKSİYONLARI ---

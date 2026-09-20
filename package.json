@@ -1,34 +1,22 @@
 {
-  "name": "animsatici",
+  "name": "kampus-radar",
   "version": "1.0.0",
-  "description": "Akıllı Web Takip ve Google Takvim Asistanı",
-  "main": "src/core/index.js",
+  "description": "KampüsRadar - CENG ve Üniversite Öğrencileri için Akıllı Fırsat & Takvim Radarı",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "node test-runner.js && node test-runner-phase2.js && node test-server.js",
-    "check-sites": "node src/runner.js",
-    "server": "node src/server.js",
-    "client": "npm.cmd --prefix client run dev",
-    "build:client": "npm.cmd --prefix client run build",
     "build:flutter": "cd app && C:\\Users\\suleyman\\flutter\\bin\\flutter.bat build web",
-    "build:all": "npm run build:client && npm run build:flutter",
-    "deploy:hosting": "npx.cmd -y firebase-tools deploy --only hosting"
+    "deploy:hosting": "npx.cmd -y firebase-tools deploy --only hosting",
+    "deploy:functions": "npx.cmd -y firebase-tools deploy --only functions",
+    "deploy:rules": "npx.cmd -y firebase-tools deploy --only firestore:rules",
+    "deploy:all": "npm run build:flutter && npx.cmd -y firebase-tools deploy"
   },
   "keywords": [
-    "web-monitoring",
+    "kampus-radar",
+    "flutter-web",
+    "firebase",
     "gemini-ai",
-    "google-calendar",
-    "diff-checker"
+    "google-calendar"
   ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@google/genai": "^2.22.0",
-    "axios": "^1.7.9",
-    "cheerio": "^1.0.0",
-    "cors": "^2.8.6",
-    "dotenv": "^16.4.7",
-    "express": "^5.2.1"
-  }
+  "author": "Süleyman Kara",
+  "license": "MIT"
 }

@@ -10,6 +10,7 @@ import '../widgets/notification_preferences_dialog.dart';
 import 'admin/admin_dashboard_screen.dart';
 import 'tabs/catalog_tab.dart';
 import 'tabs/monitors_tab.dart';
+import 'tabs/opportunities_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   final User user;
@@ -85,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onAdded: (newMonitor) {
           setState(() {
             _monitors.insert(0, newMonitor);
-            _currentIndex = 0; // Takiplerim sekmesine dön
+            _currentIndex = 1; // Takiplerim sekmesine dön
           });
         },
       ),
@@ -120,6 +121,29 @@ class _HomeScreenState extends State<HomeScreen> {
         debugPrint('Firestore silme hatası: $e');
       }
       _loadMonitors();
+    }
+  }
+
+  Widget _buildBody() {
+    switch (_currentIndex) {
+      case 0:
+        return OpportunitiesTab(isAdmin: _isAdmin);
+      case 1:
+        return MonitorsTab(
+          monitors: _monitors,
+          isLoading: _isLoading,
+          userId: widget.user.uid,
+          onRefresh: _loadMonitors,
+          onDelete: _handleDelete,
+          onSwitchToCatalog: () => setState(() => _currentIndex = 2),
+        );
+      case 2:
+      default:
+        return CatalogTab(
+          userMonitors: _monitors,
+          onSubscribe: _handleSubscribeFromCatalog,
+          userEmail: widget.user.email,
+        );
     }
   }
 
@@ -225,26 +249,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: _currentIndex == 0
-          ? MonitorsTab(
-              monitors: _monitors,
-              isLoading: _isLoading,
-              userId: widget.user.uid,
-              onRefresh: _loadMonitors,
-              onDelete: _handleDelete,
-              onSwitchToCatalog: () => setState(() => _currentIndex = 1),
-            )
-          : CatalogTab(
-              userMonitors: _monitors,
-              onSubscribe: _handleSubscribeFromCatalog,
-              userEmail: widget.user.email,
-            ),
+      body: _buildBody(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
         onDestinationSelected: (idx) => setState(() => _currentIndex = idx),
         backgroundColor: Colors.white,
         elevation: 2,
         destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.radar_outlined),
+            selectedIcon: Icon(Icons.radar_rounded, color: AppConstants.primary),
+            label: 'Radar Akışı',
+          ),
           NavigationDestination(
             icon: Icon(Icons.layers_outlined),
             selectedIcon: Icon(Icons.layers_rounded, color: AppConstants.primary),

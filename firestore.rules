@@ -44,7 +44,7 @@ service cloud.firestore {
     // Tespit Edilen Fırsatlar ve Etkinlikler Havuzu (Opportunities)
     match /opportunities/{opportunityId} {
       allow read: if isAuthenticated();
-      allow write: if false; // Yalnızca Cloud Functions / Admin SDK yazar
+      allow write: if isAdmin(); // Yönetici düzenleyebilir, onaylayabilir, silebilir
     }
 
     // Sistem Ayarları (Tarayıcı sıklığı vb.)
