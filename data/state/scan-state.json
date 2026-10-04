@@ -1,57 +1,57 @@
 {
   "baykar-kariyer": {
     "hash": "5632f583df4302c007a64c96302ad9ccb54a46a419e763affdeaedad11f1d1f6",
-    "lastCheckedAt": "2026-10-04T12:19:51+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:52+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 2808,
+    "latencyMs": 2036,
     "lastEventCount": 0
   },
   "coderspace-hackathons": {
     "hash": "89855ed12ffbff64f62a3bb265ef9cfa3bc0f93d2daf29b8219769d0f28c528b",
-    "lastCheckedAt": "2026-10-04T12:19:51+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:52+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 978,
+    "latencyMs": 695,
     "lastEventCount": 6
   },
   "cukurova-sks": {
-    "lastCheckedAt": "2026-10-04T12:19:51+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:52+03:00",
     "lastStatus": "error",
     "httpStatus": 404,
     "lastError": "HTTP 404 Not Found: https://sks.cu.edu.tr/cu/kismi-zamanli-ogrenci-destek/duyurular",
-    "latencyMs": 1279
+    "latencyMs": 1233
   },
   "gdg-turkiye": {
     "hash": "2f5a743e0c3168d6a80a21498a5785090824d1bb699c4dc86f47ddb6a129e99a",
-    "lastCheckedAt": "2026-10-04T12:19:51+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:52+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 726,
+    "latencyMs": 765,
     "lastEventCount": 0
   },
   "inzva-events": {
     "hash": "6072ded378c16349ed9594cab9a797783708408a3ccbda67fe9a44c8270d99b8",
-    "lastCheckedAt": "2026-10-04T12:19:52+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:53+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 377,
+    "latencyMs": 135,
     "lastEventCount": 1
   },
   "patika-bootcamps": {
     "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
-    "lastCheckedAt": "2026-10-04T12:19:52+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:53+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 1156,
+    "latencyMs": 465,
     "lastEventCount": 13
   },
   "techcareer-events": {
     "hash": "419848b8083f9b1c49c2b51942c0c6cf560b04a6aab14dd4cdc3733fd63a38fd",
-    "lastCheckedAt": "2026-10-04T12:19:52+03:00",
+    "lastCheckedAt": "2026-10-04T12:21:53+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 1426,
+    "latencyMs": 881,
     "lastEventCount": 1
   }
 }
