@@ -1,0 +1,36 @@
+{
+  "id": "ornek-yapay-zeka-hackathonu-2026-11",
+  "title": "Örnek Yapay Zeka Hackathonu",
+  "summary": "48 saatlik, ödüllü bir yapay zeka hackathonu. Takımlar üretken yapay zeka ile kampüs sorunlarına çözüm geliştiriyor.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Coderspace",
+  "startDate": "2026-11-14",
+  "endDate": "2026-11-15",
+  "deadline": "2026-10-30",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul"
+  },
+  "url": "https://example.com/ornek-yapay-zeka-hackathonu-2026-11",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "AI",
+    "Ödüllü"
+  ],
+  "evidence": {
+    "titleQuote": "Örnek Yapay Zeka Hackathonu",
+    "pageUrl": "https://example.com/ornek-yapay-zeka-hackathonu-2026-11",
+    "fetchedAt": "2026-10-01T19:00:00+03:00"
+  },
+  "status": "active",
+  "origin": "manual",
+  "dedupeKey": "ornek-yapay-zeka-hackathonu|2026-11-14",
+  "firstSeenAt": "2026-10-01T19:00:00+03:00",
+  "lastSeenAt": "2026-10-01T19:00:00+03:00",
+  "sponsored": {
+    "until": "2026-10-30"
+  }
+}

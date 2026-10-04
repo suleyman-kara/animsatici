@@ -1,0 +1,10 @@
+{
+  "id": "coderspace-hackathons",
+  "title": "Coderspace Hackathon & Maratonlar",
+  "url": "https://coderspace.io/etkinlikler",
+  "category": "ceng",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Şirketlerin ödüllü hackathonları, kodlama maratonları ve işe alım challenge'ları."
+}

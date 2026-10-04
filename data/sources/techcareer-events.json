@@ -1,0 +1,10 @@
+{
+  "id": "techcareer-events",
+  "title": "Techcareer Bootcamp & Etkinlikler",
+  "url": "https://www.techcareer.net/events",
+  "category": "ceng",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Ücretsiz yazılım bootcamp'leri, webinarlar ve teknoloji yarışmaları."
+}

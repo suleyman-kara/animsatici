@@ -1,0 +1,22 @@
+{
+  "name": "kampus-radar",
+  "version": "1.0.0",
+  "description": "KampüsRadar - CENG ve Üniversite Öğrencileri için Akıllı Fırsat & Takvim Radarı",
+  "type": "module",
+  "scripts": {
+    "build:flutter": "cd app && C:\\Users\\suleyman\\flutter\\bin\\flutter.bat build web",
+    "deploy:hosting": "npx.cmd -y firebase-tools deploy --only hosting",
+    "deploy:functions": "npx.cmd -y firebase-tools deploy --only functions",
+    "deploy:rules": "npx.cmd -y firebase-tools deploy --only firestore:rules",
+    "deploy:all": "npm run build:flutter && npx.cmd -y firebase-tools deploy"
+  },
+  "keywords": [
+    "kampus-radar",
+    "flutter-web",
+    "firebase",
+    "gemini-ai",
+    "google-calendar"
+  ],
+  "author": "Süleyman Kara",
+  "license": "MIT"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "inzva-events",
+  "title": "inzva AI & Algoritma Kampları",
+  "url": "https://inzva.com/events",
+  "category": "ceng",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Algoritma yarışmaları, yapay zeka kampları ve ileri seviye bilgisayar mühendisliği etkinlikleri."
+}

@@ -1,0 +1,30 @@
+{
+  "id": "ornek-yaz-staji-programi-2026-12",
+  "title": "Örnek Yaz Stajı Programı",
+  "summary": "Yazılım ve gömülü sistemler alanlarında 3. ve 4. sınıf öğrencilerine yönelik yaz stajı programı.",
+  "type": "internship",
+  "category": "career",
+  "organizer": "Baykar",
+  "deadline": "2026-12-31",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul"
+  },
+  "url": "https://example.com/ornek-yaz-staji-programi-2026-12",
+  "sourceId": "baykar-kariyer",
+  "alsoSeenAt": [],
+  "tags": [
+    "Staj"
+  ],
+  "evidence": {
+    "titleQuote": "Örnek Yaz Stajı Programı",
+    "pageUrl": "https://example.com/ornek-yaz-staji-programi-2026-12",
+    "fetchedAt": "2026-10-01T19:00:00+03:00"
+  },
+  "status": "active",
+  "origin": "manual",
+  "dedupeKey": "ornek-yaz-staji-programi|2026-12-31",
+  "firstSeenAt": "2026-10-01T19:00:00+03:00",
+  "lastSeenAt": "2026-10-01T19:00:00+03:00"
+}

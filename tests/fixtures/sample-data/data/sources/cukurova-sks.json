@@ -1,0 +1,10 @@
+{
+  "id": "cukurova-sks",
+  "title": "Çukurova Üni. SKS & Kısmi Zamanlı İlanlar",
+  "url": "https://sks.cu.edu.tr/cu/kismi-zamanli-ogrenci-destek/duyurular",
+  "category": "campus",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Kısmi zamanlı öğrenci iş ilanları, yemek bursları ve rektörlük duyuruları."
+}
