@@ -1,0 +1,7 @@
+export const SITE_NAME = "KampüsRadar";
+export const SITE_TAGLINE = "Üniversite öğrencileri için etkinlik radarı";
+export const SITE_DESCRIPTION =
+  "Türkiye'deki hackathon, kamp, bootcamp, staj programı ve kampüs etkinlikleri tek yerde. Her gün otomatik güncellenir, üyelik gerekmez.";
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://kampusradar.vercel.app").replace(/\/$/, "");
+export const CONTACT_EMAIL = process.env.CONTACT_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
+export const GITHUB_REPO = process.env.GITHUB_REPO || "suleyman-kara/animsatici";
