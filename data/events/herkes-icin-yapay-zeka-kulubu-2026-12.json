@@ -1,7 +1,7 @@
 {
   "id": "herkes-icin-yapay-zeka-kulubu-2026-12",
   "title": "Herkes İçin Yapay Zeka Kulübü",
-  "summary": "Yapay zekanın hızla dönüştürdüğü dünyada yerinizi almak ve topluluğa katılmak için düzenlenen bootcamp programıdır.",
+  "summary": "Yapay zeka alanında kendisini geliştirmek ve topluluğun parçası olmak isteyenler için düzenlenen bootcamp ve gelişim programıdır.",
   "type": "bootcamp",
   "category": "ceng",
   "organizer": "Techcareer.net",
@@ -18,11 +18,11 @@
     "titleQuote": "Herkes İçin Yapay Zeka Kulübü",
     "dateQuote": "31.12.2026",
     "pageUrl": "https://www.techcareer.net/events",
-    "fetchedAt": "2026-10-04T11:37:16+03:00"
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "herkes-icin-yapay-zeka-kulubu|2026-12-31",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
 }

@@ -1,0 +1,35 @@
+{
+  "id": "satis-profesyonelleri-icin-yapay-zeka-atolyesi-nde-2026-08",
+  "title": "Satış Profesyonelleri için Yapay Zeka Atölyesi'nde Buluşuyoruz!",
+  "summary": "Techcareer.net tarafından düzenlenen bu ücretsiz online webinar, yapay zekayı satış süreçlerinde ve müşteri iletişiminde etkin kullanmak isteyen katılımcılara rehberlik ediyor.",
+  "type": "seminar",
+  "category": "ceng",
+  "organizer": "Techcareer.net",
+  "startDate": "2026-08-07T19:00:00+03:00",
+  "endDate": "2026-08-07T20:00:00+03:00",
+  "deadline": "2026-08-05",
+  "isAllDay": false,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.techcareer.net/bootcamp/satis-profesyonelleri-icin-yapay-zeka-atoelyesi-nde-bulusuyoruz",
+  "sourceId": "techcareer-events",
+  "alsoSeenAt": [],
+  "tags": [
+    "yapay zeka",
+    "satış",
+    "webinar",
+    "otomasyon"
+  ],
+  "evidence": {
+    "titleQuote": "Satış Profesyonelleri için Yapay Zeka Atölyesi'nde Buluşuyoruz!",
+    "dateQuote": "07.08.2026 - 07.08.2026",
+    "pageUrl": "https://www.techcareer.net/bootcamp/satis-profesyonelleri-icin-yapay-zeka-atoelyesi-nde-bulusuyoruz",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "satis-profesyonelleri-icin-yapay-zeka-atolyesi-nde-bulusuyoruz|2026-08-07",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

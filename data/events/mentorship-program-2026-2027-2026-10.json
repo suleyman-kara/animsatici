@@ -1,7 +1,7 @@
 {
   "id": "mentorship-program-2026-2027-2026-10",
   "title": "Mentorship Program 2026–2027",
-  "summary": "inzva mezunlarının rehberliğinde gerçekleşen 8 aylık mentörlük programıdır. Katılımcıların akademik ve kariyer yolculuklarına destek sunmayı hedefler.",
+  "summary": "inzva mezunlarının rehberliğinde 8 ay süren bu program, öğrencilerin akademik ve profesyonel gelişimlerine katkı sağlamayı amaçlar.",
   "type": "other",
   "category": "ceng",
   "organizer": "inzva",
@@ -16,13 +16,13 @@
   "tags": [],
   "evidence": {
     "titleQuote": "MENTORSHIP PROGRAM 2026–2027",
-    "dateQuote": "Application deadline: October 12, 2026 — 19:00",
+    "dateQuote": "October 12, 2026 — 19:00",
     "pageUrl": "https://inzva.com/events",
-    "fetchedAt": "2026-10-04T11:37:16+03:00"
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "mentorship-program-2026-2027|2026-10-12",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
 }

@@ -1,0 +1,28 @@
+{
+  "id": "teb-one-2027-05",
+  "title": "TEB ONE",
+  "summary": "TEB'in Yapay Zeka Bankacılığı Liderlik Programı TEB ONE; genç yeteneklere veri bilimi, makine öğrenmesi ve üretken yapay zeka alanlarında eğitim, mentorluk ve kariyer olanağı sunuyor.",
+  "type": "other",
+  "category": "ceng",
+  "organizer": "TEB",
+  "deadline": "2027-05-13T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://coderspace.io/etkinlikler/teb-one/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "TEB ONE",
+    "dateQuote": "Son başvuru tarihi 13 Mayıs 23.59'tur.",
+    "pageUrl": "https://coderspace.io/etkinlikler/teb-one/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "teb-one|2027-05-13",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

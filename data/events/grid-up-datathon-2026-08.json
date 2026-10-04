@@ -1,0 +1,35 @@
+{
+  "id": "grid-up-datathon-2026-08",
+  "title": "Grid Up Datathon",
+  "summary": "Adm ve Gdz Elektrik iş birliğiyle düzenlenen yarışma, katılımcıların Kaggle üzerinden elektrik dağıtım sektörüne yönelik veri odaklı çözümler ve modeller geliştirmelerini hedefliyor.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Adm Elektrik & Gdz Elektrik",
+  "startDate": "2026-08-21T14:00:00+03:00",
+  "endDate": "2026-09-10",
+  "deadline": "2026-07-19T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://coderspace.io/etkinlikler/grid-up-datathon/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "datathon",
+    "veri bilimi",
+    "kaggle",
+    "enerji"
+  ],
+  "evidence": {
+    "titleQuote": "Grid Up Datathon",
+    "dateQuote": "19 Temmuz: Son Başvuru Tarihi",
+    "pageUrl": "https://coderspace.io/etkinlikler/grid-up-datathon/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "grid-up-datathon|2026-08-21",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

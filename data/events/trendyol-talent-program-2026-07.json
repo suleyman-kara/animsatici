@@ -1,0 +1,29 @@
+{
+  "id": "trendyol-talent-program-2026-07",
+  "title": "Trendyol Talent Program",
+  "summary": "Trendyol Talent Program, üniversite öğrencileri ve yeni mezunlara yönelik 5,5 ay süren hibrid bir staj programıdır. Katılımcılar mentor desteğiyle gerçek projeler geliştirerek sektör deneyimi kazanırlar.",
+  "type": "internship",
+  "category": "ceng",
+  "organizer": "Trendyol",
+  "startDate": "2026-07-01",
+  "endDate": "2027-01-31",
+  "isAllDay": true,
+  "location": {
+    "mode": "hybrid"
+  },
+  "url": "https://coderspace.io/etkinlikler/trendyol-talent-program-2026/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Trendyol Talent Program",
+    "dateQuote": "July 2026 – January 2027",
+    "pageUrl": "https://coderspace.io/etkinlikler/trendyol-talent-program-2026/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "trendyol-talent-program|2026-07-01",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

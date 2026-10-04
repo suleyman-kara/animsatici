@@ -1,0 +1,34 @@
+{
+  "id": "cloudflare-peer-point-istanbul-2027-03",
+  "title": "Cloudflare Peer Point İstanbul",
+  "summary": "Cloudflare ev sahipliğinde düzenlenen etkinlikte, yapay zeka uygulamalarının güvenli ve ölçeklenebilir şekilde nasıl geliştirileceği teknik sunumlar ve gerçek kullanım senaryolarıyla aktarılmaktadır.",
+  "type": "conference",
+  "category": "ceng",
+  "organizer": "Cloudflare",
+  "deadline": "2027-03-22T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul"
+  },
+  "url": "https://coderspace.io/etkinlikler/cloudflare-peer-point-istanbul/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "Cloudflare",
+    "AI",
+    "Yapay Zeka",
+    "Developer"
+  ],
+  "evidence": {
+    "titleQuote": "Cloudflare Peer Point İstanbul",
+    "dateQuote": "March 22nd, 23:59 is the deadline of application",
+    "pageUrl": "https://coderspace.io/etkinlikler/cloudflare-peer-point-istanbul/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "cloudflare-peer-point-istanbul|2027-03-22",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

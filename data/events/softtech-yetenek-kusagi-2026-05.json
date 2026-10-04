@@ -1,0 +1,28 @@
+{
+  "id": "softtech-yetenek-kusagi-2026-05",
+  "title": "Softtech Yetenek Kuşağı",
+  "summary": "Softtech tarafından genç yeteneklere yönelik düzenlenen bu program, gelişim fırsatları, mentorluk ve online süreçlerle desteklenen yeni mezun işe alım programıdır.",
+  "type": "internship",
+  "category": "ceng",
+  "organizer": "Softtech",
+  "deadline": "2026-05-03T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://coderspace.io/etkinlikler/softtech-yetenek-kusagi/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Softtech Yetenek Kuşağı",
+    "dateQuote": "3 Mayıs 23:59'a kadar başvurabilirsin.",
+    "pageUrl": "https://coderspace.io/etkinlikler/softtech-yetenek-kusagi/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "softtech-yetenek-kusagi|2026-05-03",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

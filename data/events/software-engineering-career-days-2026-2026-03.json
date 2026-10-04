@@ -1,0 +1,37 @@
+{
+  "id": "software-engineering-career-days-2026-2026-03",
+  "title": "Software Engineering Career Days 2026",
+  "summary": "Dream Games tarafından son sınıf üniversite öğrencilerine yönelik düzenlenen kariyer etkinliğinde, mobil oyun geliştirme süreçleri aktarılacak ve yeni mezun fırsatları tanıtılacaktır.",
+  "type": "other",
+  "category": "ceng",
+  "organizer": "Dream Games",
+  "startDate": "2026-03-07T09:00:00+03:00",
+  "endDate": "2026-03-07T21:30:00+03:00",
+  "deadline": "2026-01-05",
+  "isAllDay": false,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul",
+    "venue": "Four Seasons Hotel Bosphorus"
+  },
+  "url": "https://coderspace.io/etkinlikler/software-engineering-career-days-2026/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "mobile gaming",
+    "software engineering",
+    "career days",
+    "dream games"
+  ],
+  "evidence": {
+    "titleQuote": "Software Engineering Career Days 2026",
+    "dateQuote": "Software Engineering Career Days will be held on March 7th from 9:00 AM to 09:30 PM at the Four Seasons Hotel Bosphorus. You can complete your application by January 5th.",
+    "pageUrl": "https://coderspace.io/etkinlikler/software-engineering-career-days-2026/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "software-engineering-career-days-2026|2026-03-07",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "future-lions-internship-program-2027-04",
+  "title": "Future Lions Internship Program",
+  "summary": "ING Hubs Türkiye tarafından mühendislik öğrencilerine yönelik düzenlenen hibrit staj programıdır. Katılımcılar yapay zeka, veri ve yazılım alanlarında gerçek projelerde yer alma fırsatı yakalar.",
+  "type": "internship",
+  "category": "ceng",
+  "organizer": "ING Hubs Türkiye",
+  "startDate": "2027-04-15",
+  "endDate": "2027-08-31",
+  "deadline": "2027-03-10",
+  "isAllDay": true,
+  "location": {
+    "mode": "hybrid",
+    "city": "İstanbul"
+  },
+  "url": "https://coderspace.io/etkinlikler/future-lions-internship-program/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "staj",
+    "yapay zeka",
+    "yazılım",
+    "mühendislik"
+  ],
+  "evidence": {
+    "titleQuote": "Future Lions Internship Program",
+    "dateQuote": "Last Day to Apply - 10 March",
+    "pageUrl": "https://coderspace.io/etkinlikler/future-lions-internship-program/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "future-lions-internship-program|2027-04-15",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

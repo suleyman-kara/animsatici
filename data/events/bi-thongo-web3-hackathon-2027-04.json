@@ -1,0 +1,35 @@
+{
+  "id": "bi-thongo-web3-hackathon-2027-04",
+  "title": "Bi-ThonGO: Web3 Hackathon",
+  "summary": "Web3 ekosistemine yönelik yenilikçi çözümler geliştireceğiniz bu yarışmaya 2 ile 4 kişilik takımlar hâlinde başvurabilir, dereceye girerek ödüller kazanabilirsiniz.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Coderspace",
+  "startDate": "2027-04-25",
+  "endDate": "2027-04-26",
+  "deadline": "2027-04-23T23:59:00+03:00",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "venue": "Biruni Teknopark"
+  },
+  "url": "https://coderspace.io/etkinlikler/bi-thongo-web3-hackathon/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "web3",
+    "hackathon",
+    "blockchain"
+  ],
+  "evidence": {
+    "titleQuote": "Bi-ThonGO: Web3 Hackathon",
+    "dateQuote": "25–26 Nisan’da",
+    "pageUrl": "https://coderspace.io/etkinlikler/bi-thongo-web3-hackathon/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "bi-thongo-web3-hackathon|2027-04-25",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

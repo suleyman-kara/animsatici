@@ -1,0 +1,34 @@
+{
+  "id": "softtech-road-to-tech-staj-programi-2026-06",
+  "title": "Softtech Road to Tech Staj Programı",
+  "summary": "Softtech tarafından üniversitelerin ilgili bölümlerindeki 3. ve 4. sınıf öğrencilerine yönelik düzenlenen 3 aylık staj programıdır.",
+  "type": "internship",
+  "category": "ceng",
+  "organizer": "Softtech",
+  "startDate": "2026-06-01",
+  "endDate": "2026-09-30",
+  "deadline": "2026-04-05T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://coderspace.io/etkinlikler/softtech-road-to-tech-staj-programi/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "staj",
+    "software",
+    "softtech"
+  ],
+  "evidence": {
+    "titleQuote": "Softtech Road to Tech Staj Programı",
+    "dateQuote": "5 Nisan 2026, Pazar 23:59'a kadar başvurabilirsin.",
+    "pageUrl": "https://coderspace.io/etkinlikler/softtech-road-to-tech-staj-programi/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "softtech-road-to-tech-staj-programi|2026-06-01",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "mobven-young-talent-ai-hackathon-2026-07",
+  "title": "Mobven Young Talent AI Hackathon",
+  "summary": "Mobven tarafından İstanbul'da düzenlenen bu AI hackathonu, 18-25 yaş arasındaki genç yetenekleri yenilikçi ürünler geliştirmek üzere bir araya getiriyor. 48 saat sürecek etkinlikte dereceye giren takımları para ödülleri bekliyor.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Mobven",
+  "startDate": "2026-07-24",
+  "endDate": "2026-07-26",
+  "deadline": "2026-07-06T23:59:00+03:00",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul",
+    "venue": "Han Spaces Etiler"
+  },
+  "url": "https://coderspace.io/etkinlikler/Mobven-young-talent-ai-hackathon/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "AI",
+    "Yapay Zeka",
+    "Hackathon"
+  ],
+  "evidence": {
+    "titleQuote": "Mobven Young Talent AI Hackathon",
+    "dateQuote": "6 Temmuz 2026 23.59'a kadar başvurunu tamamlayabilirsin. Etkinlik 24 - 26 Tammuz tarihleri arasında İstanbul Han Spaces Etiler'de gerçekleşecektir.",
+    "pageUrl": "https://coderspace.io/etkinlikler/Mobven-young-talent-ai-hackathon/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "mobven-young-talent-ai-hackathon|2026-07-24",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

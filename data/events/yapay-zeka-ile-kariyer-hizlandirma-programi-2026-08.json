@@ -1,0 +1,35 @@
+{
+  "id": "yapay-zeka-ile-kariyer-hizlandirma-programi-2026-08",
+  "title": "Yapay Zeka ile Kariyer Hızlandırma Programı",
+  "summary": "Yapay zekayı keşfetmek isteyen öğrenciler ve yeni mezunlar için webinarlar, atölyeler ve projeler sunan 6 haftalık ücretsiz bir gelişim programıdır.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "organizer": "Techcareer",
+  "startDate": "2026-08-10",
+  "endDate": "2026-09-20",
+  "deadline": "2026-09-20",
+  "isAllDay": true,
+  "location": {
+    "mode": "hybrid"
+  },
+  "url": "https://www.techcareer.net/bootcamp/yapay-zeka-ile-kariyer-hizlandirma-programi",
+  "sourceId": "techcareer-events",
+  "alsoSeenAt": [],
+  "tags": [
+    "yapay zeka",
+    "webinar",
+    "atölye",
+    "bootcamp"
+  ],
+  "evidence": {
+    "titleQuote": "Yapay Zeka ile Kariyer Hızlandırma Programı",
+    "dateQuote": "10.08.2026 - 20.09.2026",
+    "pageUrl": "https://www.techcareer.net/bootcamp/yapay-zeka-ile-kariyer-hizlandirma-programi",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "yapay-zeka-ile-kariyer-hizlandirma-programi|2026-08-10",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}

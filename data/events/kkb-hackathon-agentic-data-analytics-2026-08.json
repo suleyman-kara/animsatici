@@ -1,7 +1,7 @@
 {
   "id": "kkb-hackathon-agentic-data-analytics-2026-08",
   "title": "KKB Hackathon: Agentic Data Analytics",
-  "summary": "Yapay zeka ve veri analitiği çözümlerinin geliştirildiği KKB odaklı hackathon yarışması.",
+  "summary": "Kredi Kayıt Bürosu tarafından düzenlenen yapay zeka ve veri analitiği odaklı hackathon yarışmasıdır.",
   "type": "hackathon",
   "category": "ceng",
   "organizer": "KKB",
@@ -18,11 +18,11 @@
     "titleQuote": "KKB Hackathon: Agentic Data Analytics",
     "dateQuote": "Son Başvuru\n16 Ağustos",
     "pageUrl": "https://coderspace.io/etkinlikler",
-    "fetchedAt": "2026-10-04T11:37:16+03:00"
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "kkb-hackathon-agentic-data-analytics|2026-08-16",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
 }

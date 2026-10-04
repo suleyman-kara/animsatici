@@ -1,7 +1,7 @@
 {
   "id": "ai-business-series-2026-10",
   "title": "AI Business Series",
-  "summary": "Pazarlama, finans ve mühendislik alanlarında yapay zekanın kullanımını ve sektör liderlerinin deneyimlerini aktaran online seminer serisi.",
+  "summary": "Pazarlama, finans ve mühendislik alanlarında yapay zekanın dönüşüm gücünün ele alındığı çevrim içi etkinlik serisidir.",
   "type": "seminar",
   "category": "ceng",
   "startDate": "2026-10-15",
@@ -19,11 +19,11 @@
     "titleQuote": "AI Business Series",
     "dateQuote": "Son Başvuru\n14 Ekim\nBaşlangıç\n15 Ekim\nBitiş\n15 Ekim",
     "pageUrl": "https://coderspace.io/etkinlikler",
-    "fetchedAt": "2026-10-04T11:37:16+03:00"
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "ai-business-series|2026-10-15",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
 }

@@ -1,7 +1,7 @@
 {
   "id": "ing-hubs-turkiye-agentic-ai-hackathon-2026-10",
   "title": "ING Hubs Türkiye Agentic AI Hackathon",
-  "summary": "Gerçek bankacılık problemlerine Agentic AI çözümleri geliştirilmesini amaçlayan hackathon etkinliği.",
+  "summary": "ING Hubs Türkiye tarafından düzenlenen bu hackathonda katılımcılar gerçek bankacılık problemlerine Agentic AI çözümleri geliştirmektedir.",
   "type": "hackathon",
   "category": "ceng",
   "organizer": "ING Hubs Türkiye",
@@ -19,11 +19,11 @@
     "titleQuote": "ING Hubs Türkiye Agentic AI Hackathon",
     "dateQuote": "Son Başvuru\n4 Ekim\nBaşlangıç\n9 Ekim",
     "pageUrl": "https://coderspace.io/etkinlikler",
-    "fetchedAt": "2026-10-04T11:37:16+03:00"
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "ing-hubs-turkiye-agentic-ai-hackathon|2026-10-09",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
 }

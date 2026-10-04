@@ -1,0 +1,37 @@
+{
+  "id": "denizbank-bilgi-sistemleri-denetimi-mufettis-yardimcisi-2026-07",
+  "title": "DenizBank Bilgi Sistemleri Denetimi Müfettiş Yardımcısı",
+  "summary": "DenizBank, yeni mezun ve Temmuz 2026'ya kadar mezun olacak adaylar için Bilgi Sistemleri Denetimi Müfettiş Yardımcısı alım programı düzenliyor. Süreci başarıyla tamamlayanlar İstanbul'da göreve başlayacaktır.",
+  "type": "other",
+  "category": "ceng",
+  "organizer": "DenizBank",
+  "startDate": "2026-07-01",
+  "deadline": "2026-04-03T23:59:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul",
+    "venue": "DenizBank Teftiş Kurulu Başkanlığı"
+  },
+  "url": "https://coderspace.io/etkinlikler/denizbank-bilgi-sistemleri-denetimi-mufettis-yardimcisi/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "denizbank",
+    "müfettiş yardımcısı",
+    "bilgi sistemleri",
+    "denetim",
+    "işe alım"
+  ],
+  "evidence": {
+    "titleQuote": "DenizBank Bilgi Sistemleri Denetimi Müfettiş Yardımcısı",
+    "dateQuote": "Son başvuru tarihi 3 Nisan 2026 Cuma 23.59'dur.",
+    "pageUrl": "https://coderspace.io/etkinlikler/denizbank-bilgi-sistemleri-denetimi-mufettis-yardimcisi/",
+    "fetchedAt": "2026-10-04T12:41:07+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "denizbank-bilgi-sistemleri-denetimi-mufettis-yardimcisi|2026-07-01",
+  "firstSeenAt": "2026-10-04T12:41:07+03:00",
+  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+}
