@@ -106,3 +106,22 @@ describe("runScan geçersiz kayıtla", () => {
     expect(report.lastScan.rejected).toHaveLength(1);
   });
 });
+
+describe("runScan bitmiş ilanlar", () => {
+  it("tüm ilanları bitmiş bir kaynak 'sayfa bozuldu' sayılıp atlanmaz", async () => {
+    const root = await tempDataRoot();
+    for (const f of await readdir(path.join(root, "data/sources"))) await rm(path.join(root, "data/sources", f));
+    for (const f of await readdir(path.join(root, "data/events"))) await rm(path.join(root, "data/events", f));
+    await rm(path.join(root, "data/state/scan-state.json"));
+    await writeSource({ id: "inzva-events", title: "inzva", url: PAGE_URL, category: "ceng", kind: "listing", active: true, render: "static" }, root);
+    const html = "<main><p>Eski Kamp</p><p>Son başvuru: 31 Ağustos 2026</p><p>Eski Yarışma</p><p>Son başvuru: 1 Eylül 2026</p><p>Eski Seminer</p><p>2 Eylül 2026</p></main>";
+    const old = (title: string, deadline: string, dateQuote: string) => ({ title, summary: "s", type: "other", isAllDay: true, locationMode: "online", titleQuote: title, deadline, dateQuote });
+    const response = { events: [old("Eski Kamp", "2026-08-31", "Son başvuru: 31 Ağustos 2026"), old("Eski Yarışma", "2026-09-01", "Son başvuru: 1 Eylül 2026"), old("Eski Seminer", "2026-09-02", "2 Eylül 2026")] };
+    const fetchImpl = fakeFetch({ [PAGE_URL]: { body: html } });
+    await runScan({ root, llm: fakeLlm(response), now: () => NOW, fetchImpl });
+    const second = await runScan({ root, llm: fakeLlm(response), now: () => NOW, fetchImpl, force: true });
+    expect(second.lastScan.warnings).toEqual([]);
+    expect(second.outcomes[0].kind).toBe("extracted");
+    expect(await readEvents(root)).toEqual([]);
+  });
+});

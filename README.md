@@ -65,6 +65,7 @@ npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden �
 | İş | Nasıl |
 |---|---|
 | Kaynak eklemek | `data/sources/<id>.json` ekleyin (örnek için mevcut dosyalara bakın) ya da ajanın PR'ını onaylayın |
+| Eski/geçersiz kayıtları temizlemek | `npm run prune -- --dry-run` ile listeleyin, `npm run prune` ile silin (yalnızca taramayla eklenmiş ve ilk görüldüğünde zaten bitmiş ya da yılı belirsiz kayıtlar) |
 | Hatalı etkinliği düzeltmek | `data/events/<id>.json`'u düzenleyin. Tamamen silip bir daha eklenmemesini istiyorsanız `dedupeKey`'ini `data/blocklist.json`'a ekleyin |
 | Sponsorlu etkinlik | Etkinlik dosyasına `"sponsored": { "until": "2026-11-30" }` ekleyin (isteğe bağlı `"label"`). Tarih geçince kendiliğinden düşer. Ajan ve tarayıcı bu alana dokunmaz |
 | Taramayı elle başlatmak | Actions → "Günlük tarama" → Run workflow (`source`, `force` seçenekleri var) |

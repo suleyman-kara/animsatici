@@ -1,5 +1,5 @@
 import { EventDate } from "../schema";
-import { startInstant } from "../dates";
+import { classify, startInstant } from "../dates";
 import type { Page } from "./fetch";
 import type { ExtractedEvent } from "./extract";
 
@@ -35,6 +35,15 @@ function normalizeUrl(url: string): string {
 }
 
 const MAX_YEAR_WRAP_DAYS = 90;
+const DAY_MS = 24 * 60 * 60 * 1000;
+/** Alıntıda yıl yoksa kabul edilen en uzak tarih: daha uzağı büyük ihtimalle yanlış yıla taşınmış eski bir etkinliktir. */
+export const MAX_YEARLESS_DAYS_AHEAD = 90;
+
+/** Alıntıda yıl geçiyor mu? ("2026", "07.08.2026", "07/08/26") */
+export function quoteHasYear(quote: string | undefined): boolean {
+  if (!quote) return false;
+  return /(?:^|\D)(?:19|20)\d{2}(?:\D|$)/.test(quote) || /\b\d{1,2}[./-]\d{1,2}[./-]\d{2}\b/.test(quote);
+}
 
 /**
  * Bitiş başlangıçtan önceyse: "28 Aralık – 3 Ocak" gibi yıl dönen aralıklarda modelin bitişe
@@ -46,6 +55,26 @@ export function orderedEndDate(start: string | undefined, end: string | undefine
   const bumped = `${Number(end.slice(0, 4)) + 1}${end.slice(4)}`;
   const span = startInstant(bumped) - startInstant(start);
   return span >= 0 && span <= MAX_YEAR_WRAP_DAYS * 24 * 60 * 60 * 1000 ? bumped : null;
+}
+
+type Dated = { startDate?: string; endDate?: string; deadline?: string; dateQuote?: string };
+
+/**
+ * Etkinlik siteye alınmaya uygun mu? Yalnızca başvurusu açık ya da henüz bitmemiş etkinlikler alınır;
+ * alıntısında yıl olmayan ve çok uzak görünen tarihler (yılı yanlış tahmin edilmiş eski etkinlik) reddedilir.
+ */
+export function relevanceProblem(e: Dated, now: number): string | null {
+  if (!e.startDate && !e.deadline) return "tarih bilgisi yok";
+  if (classify({ startDate: e.startDate, endDate: e.endDate, deadline: e.deadline, status: "active" }, now) === "past") {
+    return "etkinlik geçmişte kalmış";
+  }
+  if (!quoteHasYear(e.dateQuote)) {
+    const anchor = e.deadline ?? e.startDate!;
+    if (startInstant(anchor) - now > MAX_YEARLESS_DAYS_AHEAD * DAY_MS) {
+      return `tarihte yıl yazmıyor ve ${anchor.slice(0, 10)} çok uzak; yılı yanlış tahmin edilmiş eski bir etkinlik olabilir`;
+    }
+  }
+  return null;
 }
 
 export type Rejection = {
@@ -103,6 +132,12 @@ export function verifyEvents(
     const endDate = orderedEndDate(event.startDate, event.endDate);
     if (endDate === null) {
       reject(`bitiş tarihi başlangıçtan önce: ${event.startDate} → ${event.endDate}`);
+      continue;
+    }
+
+    const problem = relevanceProblem({ ...event, endDate }, now);
+    if (problem) {
+      reject(problem);
       continue;
     }
 
