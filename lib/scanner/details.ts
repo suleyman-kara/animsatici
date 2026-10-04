@@ -57,11 +57,9 @@ export async function followDetailPages(input: DetailInput): Promise<DetailResul
         // Etkinliğin linki detay sayfasının kendisi olur; kanıt da oradan.
         result.accepted.push({ ...best.e, url: page.finalUrl, evidenceUrl: page.finalUrl });
       } else {
-        // Detay sayfasında bulundu ama 30 günden ileri tarihliyse: ret nedeni ve yeniden tarama zamanı korunur.
-        const later = detailRejected.find((r) => r.revisitAt && titleSimilarity(r.title, rest.title) >= MIN_TITLE_SIMILARITY);
-        result.rejected.push(
-          later ? { ...rest, reason: later.reason, revisitAt: later.revisitAt } : { ...rest, reason: `${rest.reason}; detay sayfasında da doğrulanamadı` },
-        );
+        // Detay sayfasında eşleşen etkinliğin neden reddedildiği (ör. geçmişte kalmış) rapora taşınır.
+        const why = detailRejected.find((r) => titleSimilarity(r.title, rest.title) >= MIN_TITLE_SIMILARITY);
+        result.rejected.push({ ...rest, reason: `${rest.reason}; detay sayfasında: ${why?.reason ?? "bulunamadı"}` });
       }
     } catch (err) {
       result.rejected.push({ ...rest, reason: `${rest.reason}; detay sayfası çekilemedi (${(err as Error).message.slice(0, 120)})` });

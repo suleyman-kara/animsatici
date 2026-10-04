@@ -22,7 +22,7 @@ const source = { id: "inzva-events", title: "inzva", category: "ceng" as const }
 const undatedKamp = { title: "Kış Algoritma Kampı 2027", summary: "Kamp.", type: "camp", isAllDay: true, locationMode: "online", titleQuote: "Kış Algoritma Kampı 2027", url: DETAIL };
 const detailResponse = {
   events: [
-    { title: "Kış Algoritma Kampı 2027", summary: "İki haftalık algoritma kampı.", type: "camp", startDate: "2027-01-25", endDate: "2027-02-05", deadline: "2026-10-07", isAllDay: true, locationMode: "online", titleQuote: "Kış Algoritma Kampı 2027", dateQuote: "Kamp tarihleri: 25 Ocak - 5 Şubat 2027", url: "https://forms.example.com/basvuru" },
+    { title: "Kış Algoritma Kampı 2027", summary: "İki haftalık algoritma kampı.", type: "camp", startDate: "2027-01-25", endDate: "2027-02-05", deadline: "2026-10-07", isAllDay: true, locationMode: "online", titleQuote: "Kış Algoritma Kampı 2027", dateQuote: "Kamp tarihleri: 25 Ocak - 5 Şubat 2027", yearQuote: "Son başvuru tarihi: 7 Ekim 2026", url: "https://forms.example.com/basvuru" },
   ],
 };
 
@@ -70,7 +70,7 @@ describe("followDetailPages", () => {
     });
     expect(r.accepted).toEqual([]);
     expect(r.rejected.map((x) => x.reason)).toEqual([
-      "tarih bilgisi yok; detay sayfasında da doğrulanamadı",
+      "tarih bilgisi yok; detay sayfasında: bulunamadı",
       expect.stringMatching(/detay sayfası çekilemedi/),
       "tarih bilgisi yok",
     ]);

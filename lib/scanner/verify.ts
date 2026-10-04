@@ -1,5 +1,5 @@
 import { EventDate } from "../schema";
-import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS } from "../dates";
+import { classify, startInstant } from "../dates";
 import type { Page } from "./fetch";
 import type { ExtractedEvent } from "./extract";
 
@@ -35,20 +35,18 @@ function normalizeUrl(url: string): string {
 }
 
 const MAX_YEAR_WRAP_DAYS = 90;
-const DAY_MS = 24 * 60 * 60 * 1000;
-/** Alıntıda yıl yoksa kabul edilen en uzak tarih: daha uzağı büyük ihtimalle yanlış yıla taşınmış eski bir etkinliktir. */
-export const MAX_YEARLESS_DAYS_AHEAD = 30;
 
-/** Alıntıda yıl geçiyor mu? ("2026", "07.08.2026", "07/08/26") */
-export function quoteHasYear(quote: string | undefined): boolean {
-  if (!quote) return false;
-  return /(?:^|\D)(?:19|20)\d{2}(?:\D|$)/.test(quote) || /\b\d{1,2}[./-]\d{1,2}[./-]\d{2}\b/.test(quote);
+/** Metinde geçen yıllar: dört haneli (2026) ve kısa sayısal tarihlerdeki iki haneli (07.08.26 → 2026). */
+export function yearsIn(text: string): Set<number> {
+  const years = new Set<number>();
+  for (const m of text.matchAll(/(?<!\d)((?:19|20)\d{2})(?!\d)/g)) years.add(Number(m[1]));
+  for (const m of text.matchAll(/\b\d{1,2}[./-]\d{1,2}[./-](\d{2})\b/g)) years.add(2000 + Number(m[1]));
+  return years;
 }
 
 /**
- * Bitiş başlangıçtan önceyse: "28 Aralık – 3 Ocak" gibi yıl dönen aralıklarda modelin bitişe
- * yanlış yıl yazması olasıdır; bir yıl eklemek makul (≤90 gün) bir aralık veriyorsa düzeltilir.
- * Düzeltilemiyorsa null döner (kayıt reddedilir).
+ * Bitiş başlangıçtan önceyse: "28 Aralık 2026 – 3 Ocak" gibi yıl dönen aralıklarda bitişin yılı yazmayabilir;
+ * bir yıl eklemek makul (≤90 gün) bir aralık veriyorsa düzeltilir. Düzeltilemiyorsa null döner (kayıt reddedilir).
  */
 export function orderedEndDate(start: string | undefined, end: string | undefined): string | undefined | null {
   if (!start || !end || startInstant(end) >= startInstant(start)) return end;
@@ -57,48 +55,43 @@ export function orderedEndDate(start: string | undefined, end: string | undefine
   return span >= 0 && span <= MAX_YEAR_WRAP_DAYS * 24 * 60 * 60 * 1000 ? bumped : null;
 }
 
-type Dated = { startDate?: string; endDate?: string; deadline?: string; dateQuote?: string };
+type Dated = {
+  startDate?: string;
+  endDate?: string;
+  deadline?: string;
+  titleQuote?: string;
+  dateQuote?: string;
+  yearQuote?: string;
+};
 
 export type RelevanceProblem = {
   reason: string;
-  /** Etkinlik ileride 30 günlük pencereye gireceği için reddedildiyse, kaynağın yeniden taranacağı an. */
-  revisitAt?: number;
+  /** Sorun liste sayfasının eksikliğinden kaynaklanıyorsa etkinliğin kendi sayfasına bakılabilir. */
+  followable?: boolean;
 };
 
 /**
- * Etkinlik siteye alınmaya uygun mu? Yalnızca önümüzdeki 30 gün içinde yapılabilecek etkinlikler alınır:
- * devam eden, son başvurusu 30 gün içinde kapanan ya da 30 gün içinde başlayan. Bitmiş etkinlikler ve
- * alıntısında yıl olmayan uzak tarihler (yılı yanlış tahmin edilmiş eski etkinlik) reddedilir.
+ * Etkinlik güncel mi? Yıl tahmin edilmez: başlangıç ve son başvuru tarihlerinin yılı, kaynak sayfadan birebir
+ * alıntılanan metinde (tarih, yıl ya da başlık alıntısı) açıkça yazmalıdır. Bitmiş etkinlikler alınmaz.
  */
 export function relevanceProblem(e: Dated, now: number): RelevanceProblem | null {
-  if (!e.startDate && !e.deadline) return { reason: "tarih bilgisi yok" };
+  if (!e.startDate && !e.deadline) return { reason: "tarih bilgisi yok", followable: true };
+  const quoted = yearsIn([e.dateQuote, e.yearQuote, e.titleQuote].filter(Boolean).join(" "));
+  const missing = [e.startDate, e.deadline]
+    .filter((d): d is string => !!d)
+    .map((d) => Number(d.slice(0, 4)))
+    .find((y) => !quoted.has(y));
+  if (missing !== undefined) return { reason: `yıl kanıtı yok: ${missing} sayfadaki alıntılarda yazmıyor`, followable: true };
   const dated = { startDate: e.startDate, endDate: e.endDate, deadline: e.deadline, status: "active" as const };
   if (classify(dated, now) === "past") return { reason: "etkinlik geçmişte kalmış" };
-  if (!quoteHasYear(e.dateQuote)) {
-    const anchor = e.deadline ?? e.startDate!;
-    if (startInstant(anchor) - now > MAX_YEARLESS_DAYS_AHEAD * DAY_MS) {
-      // Bilerek yeniden ziyaret edilmez: yılı tahmin edilmiş eski etkinlik, tarihi yaklaşınca yanlışlıkla kabul edilebilir.
-      return { reason: `tarihte yıl yazmıyor ve ${anchor.slice(0, 10)} çok uzak; yılı yanlış tahmin edilmiş eski bir etkinlik olabilir` };
-    }
-  }
-  if (!inWindow(dated, now)) {
-    const window = WINDOW_DAYS * DAY_MS;
-    const upcoming = [e.deadline && endInstant(e.deadline), e.startDate && startInstant(e.startDate)].filter(
-      (t): t is number => typeof t === "number" && t > now,
-    );
-    const revisitAt = Math.max(now, Math.min(...upcoming) - window);
-    return { reason: `${WINDOW_DAYS} günden daha ileri tarihli`, revisitAt };
-  }
   return null;
 }
 
 export type Rejection = {
   title: string;
   reason: string;
-  /** Tarihi liste sayfasında olmayan ama kendi sayfasına link verilen etkinlik: detay sayfasına bakılabilir. */
+  /** Tarihi/yılı liste sayfasında olmayan ama kendi sayfasına link verilen etkinlik: detay sayfasına bakılabilir. */
   detailUrl?: string;
-  /** İleri tarihli olduğu için reddedildi; bu anda (ms) kaynak sayfa değişmemiş olsa da yeniden taranmalı. */
-  revisitAt?: number;
 };
 export type VerifyResult = { accepted: ExtractedEvent[]; rejected: Rejection[] };
 
@@ -152,9 +145,13 @@ export function verifyEvents(
       continue;
     }
 
+    if (event.yearQuote && !quoteAppears(event.yearQuote, normalizedPage)) {
+      reject("yıl alıntısı sayfada bulunamadı", true);
+      continue;
+    }
     const problem = relevanceProblem({ ...event, endDate }, now);
     if (problem) {
-      result.rejected.push({ title: event.title, reason: problem.reason, ...(problem.revisitAt && { revisitAt: problem.revisitAt }) });
+      reject(problem.reason, problem.followable);
       continue;
     }
 

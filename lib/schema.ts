@@ -55,6 +55,8 @@ export type Source = z.infer<typeof Source>;
 export const Evidence = z.object({
   titleQuote: z.string().min(1),
   dateQuote: z.string().min(1).optional(),
+  /** Tarihin yılı dateQuote'ta yazmıyorsa, yılı gösteren birebir alıntı. */
+  yearQuote: z.string().min(1).optional(),
   pageUrl: HttpUrl,
   fetchedAt: Timestamp,
 });
@@ -113,8 +115,6 @@ export const SourceScanState = z.object({
   latencyMs: z.number().int().nonnegative().optional(),
   /** Son çıkarımda sayfadan çıkarılan ham etkinlik sayısı (kabul/ret fark etmeksizin); bozulma koruması için. */
   lastEventCount: z.number().int().nonnegative().optional(),
-  /** Bu andan sonra sayfa değişmemiş olsa da yeniden çıkarım yapılır (ileri tarihli etkinlik pencereye girince). */
-  recheckAt: Timestamp.optional(),
 });
 export type SourceScanState = z.infer<typeof SourceScanState>;
 

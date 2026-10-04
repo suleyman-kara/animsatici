@@ -46,12 +46,6 @@ export type ScanReport = {
   outcomes: { sourceId: string; kind: SourceOutcome["kind"]; detail?: string }[];
 };
 
-/** Reddedilen ileri tarihli etkinliklerden en erken pencereye gireceğinin anı. */
-function nextRecheck(rejected: Rejection[]): string | undefined {
-  const times = rejected.map((r) => r.revisitAt).filter((t): t is number => typeof t === "number");
-  return times.length ? nowIso(Math.min(...times)) : undefined;
-}
-
 async function mapPool<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
   const results: R[] = new Array(items.length);
   let next = 0;
@@ -81,7 +75,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const outcomes = await mapPool(sources, CONCURRENCY, async (source): Promise<SourceOutcome> => {
     const prev = previousState[source.id];
     const started = clock();
-    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount, recheckAt: prev?.recheckAt };
+    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount };
 
     if (source.render === "browser") {
       const warning = `${source.id}: tarayıcı gerektiren kaynaklar henüz desteklenmiyor, atlandı`;
@@ -92,8 +86,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
       const page = await fetchPage(source.url, { fetchImpl });
       const latencyMs = Math.max(0, Math.round(clock() - started));
       const hash = computeHash(page.text);
-      const recheckDue = !!prev?.recheckAt && Date.parse(prev.recheckAt) <= clock();
-      if (!force && prev?.hash === hash && !recheckDue) {
+      if (!force && prev?.hash === hash) {
         log(`⚪ ${source.id}: değişiklik yok`);
         return { kind: "unchanged", source, state: { ...base, lastStatus: "unchanged", httpStatus: page.status, latencyMs } };
       }
@@ -132,7 +125,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         page,
         accepted,
         rejected,
-        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount, recheckAt: nextRecheck(rejected) },
+        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount },
       };
     } catch (err) {
       const message = (err as Error).message;
@@ -178,7 +171,11 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const unchangedCount = outcomes.filter((o) => o.kind === "unchanged").length;
 
   let aborted: string | undefined;
-  if (tooManyErrors(errorCount, outcomes.length)) aborted = `Kaynakların çoğu hata verdi (${errorCount}/${outcomes.length})`;
+  // Durdurma kuralı yalnızca daha önce başarıyla taranmış kaynaklara bakar: yeni eklenen ve henüz
+  // çalışmayan kaynaklar sağlam kaynakların sonuçlarının yazılmasını engellemesin.
+  const proven = outcomes.filter((o) => ["success", "unchanged"].includes(previousState[o.source.id]?.lastStatus ?? ""));
+  const provenErrors = proven.filter((o) => o.kind === "error").length;
+  if (tooManyErrors(provenErrors, proven.length)) aborted = `Daha önce çalışan kaynakların çoğu hata verdi (${provenErrors}/${proven.length})`;
   else if (tooManyNewEvents(created.size)) aborted = `Tek taramada çok fazla yeni etkinlik (${created.size}) — muhtemel bozulma`;
 
   const lastScan: LastScan = {

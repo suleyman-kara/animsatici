@@ -4,7 +4,7 @@
 set -euo pipefail
 title="$1"
 body="$2"
-gh label create tarama-hatasi --color b60205 --description "Haftalık tarama veya sağlık kontrolü başarısız" 2>/dev/null || true
+gh label create tarama-hatasi --color b60205 --description "Günlük tarama veya sağlık kontrolü başarısız" 2>/dev/null || true
 existing=$(gh issue list --label tarama-hatasi --state open --json number --jq '.[0].number // empty')
 if [ -n "$existing" ]; then
   gh issue comment "$existing" --body "$body"

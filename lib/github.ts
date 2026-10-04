@@ -7,7 +7,7 @@ export const REPO_LABELS: { name: string; color: string; description: string }[]
   { name: "hata-bildirimi", color: "d93f0b", description: "Ziyaretçi bildirimi: hatalı etkinlik" },
   { name: "ajan", color: "5319e7", description: "Öneri ajanının açtığı PR" },
   { name: "insan-gerekli", color: "fbca04", description: "Ajan karar veremedi, proje sahibi bakmalı" },
-  { name: "tarama-hatasi", color: "b60205", description: "Haftalık tarama veya sağlık kontrolü başarısız" },
+  { name: "tarama-hatasi", color: "b60205", description: "Günlük tarama veya sağlık kontrolü başarısız" },
 ];
 
 export function githubClient(options: { token?: string; repo?: string; fetchImpl?: typeof fetch } = {}) {

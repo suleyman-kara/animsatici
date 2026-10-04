@@ -1,0 +1,10 @@
+{
+  "id": "techcareer-hackathon",
+  "title": "Techcareer Hackathonlar",
+  "url": "https://www.techcareer.net/hackathon",
+  "category": "ceng",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Techcareer'ın hackathon listesi (etkinlik sayfasından ayrı)."
+}

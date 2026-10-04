@@ -14,7 +14,7 @@ const PAGE_URL = "https://ornek.org/etkinlikler";
 const page = {
   finalUrl: PAGE_URL,
   links: [],
-  text: "Kış Kampı\n28 Aralık 2026 - 3 Ocak\nYaz Kampı\n10 Temmuz - 2 Temmuz\nBahar Kampı\nBitiş: 5 Mayıs\nGüz Kampı\n12 Ekim",
+  text: "Kış Kampı\n28 Aralık 2026 - 3 Ocak\nYaz Kampı\n10 Temmuz - 2 Temmuz\nBahar Kampı\nBitiş: 5 Mayıs\nGüz Kampı\n12 Ekim 2026",
 };
 const x = (over: Record<string, unknown>) => ExtractedEvent.parse({ summary: "s", isAllDay: true, locationMode: "online", ...over });
 
@@ -37,18 +37,16 @@ describe("verifyEvents tarih sırası", () => {
         x({ title: "Kış Kampı", titleQuote: "Kış Kampı", startDate: "2026-12-28", endDate: "2026-01-03", dateQuote: "28 Aralık 2026 - 3 Ocak" }),
         x({ title: "Yaz Kampı", titleQuote: "Yaz Kampı", startDate: "2027-07-10", endDate: "2027-07-02", dateQuote: "10 Temmuz - 2 Temmuz" }),
         x({ title: "Bahar Kampı", titleQuote: "Bahar Kampı", endDate: "2027-05-05", dateQuote: "Bitiş: 5 Mayıs" }),
-        x({ title: "Güz Kampı", titleQuote: "Güz Kampı", startDate: "2026-10-12", dateQuote: "12 Ekim" }),
+        x({ title: "Güz Kampı", titleQuote: "Güz Kampı", startDate: "2026-10-12", dateQuote: "12 Ekim 2026" }),
       ],
       page,
       NOW,
     );
-    expect(accepted.map((a) => a.title)).toEqual(["Güz Kampı"]);
-    // Kış Kampı'nın ters aralığı düzeltildi ve tarih sırası kontrolünü geçti; yalnızca 30 günden ileri olduğu için reddedildi.
-    expect(rejected.map((r) => r.reason)).toEqual([
-      "30 günden daha ileri tarihli",
-      expect.stringMatching(/bitiş tarihi başlangıçtan önce/),
-      "tarih bilgisi yok",
+    expect(accepted.map((a) => [a.title, a.endDate])).toEqual([
+      ["Kış Kampı", "2027-01-03"],
+      ["Güz Kampı", undefined],
     ]);
+    expect(rejected.map((r) => r.reason)).toEqual([expect.stringMatching(/bitiş tarihi başlangıçtan önce/), "tarih bilgisi yok"]);
   });
 });
 
@@ -97,7 +95,7 @@ describe("runScan geçersiz kayıtla", () => {
       llm: fakeLlm({
         events: [
           { title: "Yaz Kampı", summary: "s", type: "camp", isAllDay: true, locationMode: "online", titleQuote: "Yaz Kampı", startDate: "2027-07-10", endDate: "2027-07-02", dateQuote: "10 Temmuz - 2 Temmuz" },
-          { title: "Güz Kampı", summary: "s", type: "camp", isAllDay: true, locationMode: "online", titleQuote: "Güz Kampı", startDate: "2026-10-12", dateQuote: "12 Ekim" },
+          { title: "Güz Kampı", summary: "s", type: "camp", isAllDay: true, locationMode: "online", titleQuote: "Güz Kampı", startDate: "2026-10-12", dateQuote: "12 Ekim 2026" },
         ],
       }),
       now: () => NOW,

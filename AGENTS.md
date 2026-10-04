@@ -15,7 +15,7 @@ Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README
 ## Mimari özeti
 - **Site:** Next.js 16 (App Router) + Tailwind 4, Vercel'de. Tüm sayfalar build zamanında statik üretilir; tek dinamik route `app/api/oneri`.
 - **Veri:** Veritabanı yok. `data/` altındaki JSON dosyaları tek doğruluk kaynağıdır (etkinlik ve kaynak başına bir dosya).
-- **Tarama:** `.github/workflows/scan.yml` her pazar 19:00 TR'de `npm run scan` çalıştırır ve `data/` değişikliklerini `main`'e commit eder.
+- **Tarama:** `.github/workflows/scan.yml` her gün 19:00 TR'de `npm run scan` çalıştırır ve `data/` değişikliklerini `main`'e commit eder.
 - **Ajan:** `.github/workflows/agent.yml`, `oneri`/`hata-bildirimi` etiketli issue'larda `npm run agent` çalıştırır; yalnızca yorum yazar (`AGENT_MODE=comment`) ya da PR açar (`AGENT_MODE=pr`). Asla `main`'e yazmaz.
 
 ## Değişmez kurallar
@@ -27,7 +27,7 @@ Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README
 6. **Tarihler** `Europe/Istanbul` (sabit +03:00). Tüm gün: `YYYY-MM-DD`; saatli: offset'li ISO. Yardımcılar `lib/dates.ts`'te.
 7. **Sponsorlu etkinlikler** her zaman görünür "Sponsorlu" etiketiyle gösterilir (yasal zorunluluk).
 8. Kullanıcıdan kişisel veri toplanmaz; öneriler herkese açık issue olur.
-9. **30 günlük pencere** (`WINDOW_DAYS`, `lib/dates.ts`): yalnızca 30 gün içinde başvurusu kapanan, başlayan ya da devam eden etkinlikler alınır ve gösterilir. Site haftada bir derlendiği için zamana bağlı her şey tarayıcıda da hesaplanır (`useNow`).
+9. **Yıl asla tahmin edilmez.** Başlangıç ve son başvuru tarihlerinin yılı `dateQuote`, `yearQuote` ya da `titleQuote` alıntısında açıkça yazmalıdır (`relevanceProblem`, `lib/scanner/verify.ts`). Ana sayfa yalnızca 30 gün içinde başvurusu kapanan ya da başlayan etkinlikleri gösterir (`WINDOW_DAYS`); bu bir görüntüleme kuralıdır, kayıt kuralı değil. Zamana bağlı her şey tarayıcıda da hesaplanır (`useNow`).
 
 ## Komutlar
 ```bash

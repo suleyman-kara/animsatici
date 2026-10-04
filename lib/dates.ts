@@ -69,7 +69,7 @@ export function inWindow(event: Datable, now: number = Date.now(), days: number 
   return (deadline !== undefined && deadline >= now && deadline <= limit) || (start !== undefined && start >= now && start <= limit);
 }
 
-/** Sıralama/arşiv için etkinliğin referans anı. */
+/** Sıralama için etkinliğin referans anı. */
 export function referenceInstant(event: Datable): number {
   if (event.startDate) return startInstant(event.startDate);
   return endInstant(event.deadline!);

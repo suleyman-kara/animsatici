@@ -13,13 +13,6 @@
     "latencyMs": 1192,
     "lastEventCount": 4
   },
-  "cukurova-sks": {
-    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
-    "lastStatus": "error",
-    "httpStatus": 404,
-    "lastError": "HTTP 404 Not Found: https://sks.cu.edu.tr/cu/kismi-zamanli-ogrenci-destek/duyurular",
-    "latencyMs": 1204
-  },
   "gdg-turkiye": {
     "lastCheckedAt": "2026-10-04T14:55:25+03:00",
     "lastStatus": "success",

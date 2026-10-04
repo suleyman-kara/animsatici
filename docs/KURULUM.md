@@ -1,6 +1,6 @@
 # KampüsRadar Kurulum Rehberi (ilk kez kuranlar için)
 
-Bu rehber, sıfırdan siteyi yayına alıp haftalık taramayı ve öneri ajanını çalıştırmanızı adım adım anlatır. Toplam süre yaklaşık **45–60 dakika**. Kullanılan servislerin hepsinin ücretsiz planı başlangıç için yeterlidir.
+Bu rehber, sıfırdan siteyi yayına alıp günlük taramayı ve öneri ajanını çalıştırmanızı adım adım anlatır. Toplam süre yaklaşık **45–60 dakika**. Kullanılan servislerin hepsinin ücretsiz planı başlangıç için yeterlidir.
 
 > **İpucu:** Adımları sırayla yapın. Bazı adımlar bir öncekinin ürettiği bilgiyi (örneğin sitenin adresini) kullanır. Aldığınız anahtarları geçici olarak bir not dosyasına yazın; en sonda sileceksiniz.
 
@@ -39,7 +39,7 @@ Tarayıcı ve ajan, sayfalardan etkinlik çıkarmak için Gemini kullanır.
 
 ## 2. GitHub repo ayarları
 
-Haftalık tarama ve ajan GitHub Actions'ta çalışır. Bunlar için repoya bir gizli anahtar, bir değişken ve iki izin ayarı gerekiyor.
+Günlük tarama ve ajan GitHub Actions'ta çalışır. Bunlar için repoya bir gizli anahtar, bir değişken ve iki izin ayarı gerekiyor.
 
 ### 2a. Gemini anahtarını "Secret" olarak eklemek
 
@@ -81,17 +81,17 @@ Siteyi yayına almadan önce veriyi doldurmak iyi olur, böylece site ilk açıl
 
 1. Repoda üstteki **Actions** sekmesine gidin.
    - "Workflows aren't being run on this repository" gibi bir uyarı görürseniz **"I understand my workflows, go ahead and enable them"** butonuna basın.
-2. Soldaki listeden **"Haftalık tarama"**'yı seçin.
+2. Soldaki listeden **"Günlük tarama"**'yı seçin.
 3. Sağdaki **"Run workflow"** açılır butonuna, sonra yeşil **"Run workflow"**'a basın. Seçenekleri boş bırakın.
 4. Birkaç saniye sonra listede yeni bir çalışma belirir. Üzerine tıklayıp **scan** işine girerseniz canlı log'u görürsünüz:
    - `🔔 inzva-events: 3 etkinlik kabul, 1 red` → o kaynaktan etkinlik bulundu.
    - `❌ baykar-kariyer: HTTP 403 ...` → site taramayı engelliyor (normal, bazı siteler yapar).
    - En sonda `Özet: ...` satırı.
-5. Bittiğinde yeşil ✓ görmelisiniz. Repoda `chore(data): haftalık tarama ...` adlı yeni bir commit oluşur ve `data/events/` klasörü dolar.
+5. Bittiğinde yeşil ✓ görmelisiniz. Repoda `chore(data): günlük tarama ...` adlı yeni bir commit oluşur ve `data/events/` klasörü dolar.
 
 Kırmızı ✗ görürseniz [Sorun giderme](#13-sorun-giderme) bölümüne bakın. Bu durumda otomatik olarak `tarama-hatasi` etiketli bir issue da açılır.
 
-> Bundan sonra tarama **her pazar 19:00'da** kendiliğinden çalışır. Pazartesi 10:00'da da bir sağlık kontrolü yapılır.
+> Bundan sonra tarama **her gün 19:00'da** kendiliğinden çalışır. Ayrıca her sabah 10:00'da bir sağlık kontrolü yapılır.
 
 ---
 
@@ -113,7 +113,7 @@ Kırmızı ✗ görürseniz [Sorun giderme](#13-sorun-giderme) bölümüne bakı
 
 Proje sayfasında **"Domains"** altında `animsatici.vercel.app` gibi bir adres görürsünüz. Ad farklı olabilir. Bu adres **sitenizin adresidir**; not edin, sonraki adımlarda lazım olacak.
 
-> Vercel bundan sonra `main` dalına gelen her commit'te siteyi kendiliğinden yeniden yayınlar. Haftalık tarama commit attığı için site de her hafta güncellenir.
+> Vercel bundan sonra `main` dalına gelen her commit'te siteyi kendiliğinden yeniden yayınlar. Günlük tarama commit attığı için site de her gün güncellenir.
 
 > ⚠️ **Önemli:** Vercel'in ücretsiz Hobby planı **ticari olmayan** kullanım içindir. Sponsorlu etkinlikten para kazanmaya başladığınızda Vercel'in kurallarına göre **Pro** plana geçmeniz gerekir (kişi başı aylık ücretli). O zamana kadar Hobby yeterlidir.
 
@@ -296,7 +296,7 @@ Sponsorlar ve SEO için `kampusradar.com` gibi kendi alan adınız daha güven v
 | Issue açılıyor ama ajan çalışmıyor | Actions → "Öneri ajanı" log'una bakın. 2a (secret) ve 2c (izinler) adımlarını kontrol edin. Elle yeniden çalıştırmak için: "Öneri ajanı" → Run workflow → issue numarası, `force` işaretli. |
 | Ajan PR açamıyor | 2c'deki "Allow GitHub Actions to create and approve pull requests" kutusu işaretli değil. |
 | Umami'de veri yok | `NEXT_PUBLIC_UMAMI_*` değerleri eksik veya Redeploy yapılmadı. Reklam engelleyiciyi kapatıp deneyin. |
-| Sitede "Son güncelleme" çok eski | Actions'ta "Haftalık tarama" çalışıyor mu bakın. GitHub, 60 gün aktivite olmayan repolarda zamanlanmış işleri durdurabilir; Actions sayfasındaki uyarıdan yeniden etkinleştirin. |
+| Sitede "Son güncelleme" çok eski | Actions'ta "Günlük tarama" çalışıyor mu bakın. GitHub, 60 gün aktivite olmayan repolarda zamanlanmış işleri durdurabilir; Actions sayfasındaki uyarıdan yeniden etkinleştirin. |
 
 ---
 

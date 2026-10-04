@@ -1,8 +1,8 @@
-name: Haftalık tarama
+name: Günlük tarama
 
 on:
   schedule:
-    - cron: "0 16 * * 0" # Pazar 19:00 Türkiye saati
+    - cron: "0 16 * * *" # Her gün 19:00 Türkiye saati
   workflow_dispatch:
     inputs:
       source:
@@ -54,7 +54,7 @@ jobs:
             echo "Değişiklik yok."
             exit 0
           fi
-          git commit -m "chore(data): haftalık tarama $(TZ=Europe/Istanbul date +%F)"
+          git commit -m "chore(data): günlük tarama $(TZ=Europe/Istanbul date +%F)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
             sleep $((i * 5))
@@ -66,5 +66,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          .github/scripts/report-issue.sh "Haftalık tarama başarısız" \
-            "Haftalık tarama başarısız oldu. Ayrıntılar: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          .github/scripts/report-issue.sh "Günlük tarama başarısız" \
+            "Günlük tarama başarısız oldu. Ayrıntılar: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

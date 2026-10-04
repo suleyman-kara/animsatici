@@ -52,7 +52,6 @@ function matches(e: CardEvent, f: Filters): boolean {
 
 const SECTIONS: { phase: EventPhase; title: string; empty: string }[] = [
   { phase: "open", title: "Başvurusu açık", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başvurusu kapanan etkinlik yok.` },
-  { phase: "ongoing", title: "Devam eden", empty: "" },
   { phase: "upcoming", title: "Yakında başlıyor", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başlayan etkinlik yok.` },
 ];
 
@@ -73,8 +72,8 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
 
   const visible = events.filter((e) => matches(e, filters));
   const all = visible.map((e) => ({ e, phase: classify(e, now) })).filter(({ phase }) => phase !== "past");
-  // Yalnızca önümüzdeki 30 gün içinde yapılabilecek etkinlikler gösterilir.
-  const phased = all.filter(({ e }) => inWindow(e, now));
+  // Yalnızca önümüzdeki 30 gün içinde başvurusu kapanan ya da başlayan etkinlikler; devam edenlerin ayrı sayfası var.
+  const phased = all.filter(({ e, phase }) => phase !== "ongoing" && inWindow(e, now));
   // Sponsorlu öne çıkarmalar pencereden bağımsızdır (süresini proje sahibi belirler).
   const featured = all.filter(({ e }) => isSponsoredNow(e, now));
   const active = phased;

@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { classify, referenceInstant } from "./dates";
+import { referenceInstant } from "./dates";
 import type { Event } from "./schema";
 import { readEvents, readLastScan, readScanState, readSources } from "./store";
 
@@ -22,8 +22,4 @@ export const getLastScan = cache(() => readLastScan(root()));
 
 export async function getEvent(id: string): Promise<Event | undefined> {
   return (await getEvents()).find((e) => e.id === id);
-}
-
-export async function getPastEvents(now = BUILT_AT): Promise<Event[]> {
-  return (await getEvents()).filter((e) => classify(e, now) === "past").reverse();
 }

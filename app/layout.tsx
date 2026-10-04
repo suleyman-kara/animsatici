@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 
 const NAV = [
   { href: "/", label: "Etkinlikler" },
-  { href: "/arsiv", label: "Arşiv" },
+  { href: "/devam-eden", label: "Devam eden" },
   { href: "/kaynaklar", label: "Kaynaklar" },
   { href: "/oneri", label: "Öner" },
 ];

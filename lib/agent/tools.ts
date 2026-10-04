@@ -148,6 +148,7 @@ const EventFields = z.object({
   tags: z.array(z.string()).optional(),
   titleQuote: str("Kanıt sayfasından BİREBİR başlık alıntısı"),
   dateQuote: str("Kanıt sayfasından BİREBİR tarih alıntısı"),
+  yearQuote: optStr("Yıl dateQuote'ta yazmıyorsa, yılı gösteren BİREBİR alıntı (yıl tahmin edilmez)"),
   sourceId: optStr("Etkinlik bilinen bir kaynaktan geliyorsa kaynak id'si"),
 });
 
@@ -259,6 +260,7 @@ export const TOOLS: Tool[] = [
       id: str("Etkinlik id"),
       pageUrl: str("Kanıt sayfası (bu oturumda çekilmiş)"),
       dateQuote: optStr("Tarih değişiyorsa: kanıt sayfasından BİREBİR alıntı"),
+      yearQuote: optStr("Yıl dateQuote'ta yazmıyorsa: yılı gösteren BİREBİR alıntı"),
       startDate: optStr("Yeni başlangıç"),
       endDate: optStr("Yeni bitiş"),
       deadline: optStr("Yeni son başvuru"),
@@ -269,7 +271,7 @@ export const TOOLS: Tool[] = [
       venue: optStr("Mekân"),
       type: z.enum(EVENT_TYPES).optional(),
     }),
-    async ({ id, pageUrl, dateQuote, ...patch }, ctx) => {
+    async ({ id, pageUrl, dateQuote, yearQuote, ...patch }, ctx) => {
       assertCanChange(ctx);
       const page = requireFetched(ctx, pageUrl);
       const current = (await readEvents(ctx.root)).find((e) => e.id === id);
@@ -283,6 +285,7 @@ export const TOOLS: Tool[] = [
           endDate: patch.endDate ?? current.endDate,
           deadline: patch.deadline ?? current.deadline,
           dateQuote,
+          yearQuote,
         });
         const quotePage = { ...page, text: `${page.text}\n${current.evidence.titleQuote}` }; // başlık eski sayfadan da gelebilir
         const { rejected } = verifyEvents([probe], quotePage, ctx.now);
@@ -301,7 +304,7 @@ export const TOOLS: Tool[] = [
           city: patch.city ?? current.location.city,
           venue: patch.venue ?? current.location.venue,
         },
-        evidence: datesChanged ? { ...current.evidence, dateQuote, pageUrl: page.finalUrl, fetchedAt: nowIso(ctx.now) } : current.evidence,
+        evidence: datesChanged ? { ...current.evidence, dateQuote, yearQuote, pageUrl: page.finalUrl, fetchedAt: nowIso(ctx.now) } : current.evidence,
         sponsored: current.sponsored,
         lastSeenAt: nowIso(ctx.now),
       });
@@ -350,7 +353,7 @@ export const TOOLS: Tool[] = [
 
   tool(
     "propose_add_source",
-    "Düzenli etkinlik yayınlayan bir sayfayı haftalık taramaya ekler. Önce run_extractor ile bu URL'de en az 1 geçerli etkinlik bulunmuş olmalı.",
+    "Düzenli etkinlik yayınlayan bir sayfayı günlük taramaya ekler. Önce run_extractor ile bu URL'de en az 1 geçerli etkinlik bulunmuş olmalı.",
     z.object({ title: str("Kaynak adı"), url: str("Etkinlik listesi sayfası"), category: z.enum(CATEGORIES), kind: z.enum(["listing", "single"]), notes: optStr("Kısa açıklama") }),
     async (args, ctx) => {
       assertCanChange(ctx);

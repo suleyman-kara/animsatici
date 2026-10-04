@@ -1,4 +1,4 @@
-// Haftalık tarama. Kullanım: npm run scan -- [--dry-run] [--force] [--source <id>]
+// Günlük tarama. Kullanım: npm run scan -- [--dry-run] [--force] [--source <id>]
 import { parseArgs } from "node:util";
 import { geminiClient } from "../lib/llm";
 import { runScan } from "../lib/scanner/run";

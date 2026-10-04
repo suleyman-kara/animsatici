@@ -21,7 +21,7 @@ describe("classify", () => {
   it("saatli tek günlük etkinlik gün boyunca devam ediyor sayılır", () => {
     expect(classify({ ...base, startDate: "2026-10-04T10:00:00+03:00" }, now)).toBe("ongoing");
   });
-  it("geçmiş ve iptal edilen etkinlikler arşivde", () => {
+  it("geçmiş ve iptal edilen etkinlikler past", () => {
     expect(classify({ ...base, startDate: "2026-09-01" }, now)).toBe("past");
     expect(classify({ ...base, deadline: "2026-10-03" }, now)).toBe("past");
     expect(classify({ status: "cancelled", startDate: "2026-12-01" }, now)).toBe("past");
