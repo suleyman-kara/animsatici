@@ -111,6 +111,7 @@ export const SourceScanState = z.object({
   httpStatus: z.number().int().optional(),
   lastError: z.string().optional(),
   latencyMs: z.number().int().nonnegative().optional(),
+  /** Son çıkarımda sayfadan çıkarılan ham etkinlik sayısı (kabul/ret fark etmeksizin); bozulma koruması için. */
   lastEventCount: z.number().int().nonnegative().optional(),
 });
 export type SourceScanState = z.infer<typeof SourceScanState>;

@@ -42,7 +42,7 @@ describe("runScan", () => {
     expect(events).toHaveLength(1);
     expect(events[0]).toMatchObject({ url: "https://ornek.org/hackathon", origin: "scan", firstSeenAt: "2026-10-04T19:00:00+03:00" });
     const state = await readScanState(root);
-    expect(state["inzva-events"]).toMatchObject({ lastStatus: "success", lastEventCount: 1, httpStatus: 200 });
+    expect(state["inzva-events"]).toMatchObject({ lastStatus: "success", lastEventCount: 2, httpStatus: 200 }); // ham çıkarım sayısı
     expect((await readLastScan(root))?.status).toBe("success");
     expect(await validateData(root)).toEqual([]);
 
@@ -51,7 +51,7 @@ describe("runScan", () => {
     const second = await runScan({ root, llm: llm2, now, fetchImpl: fakeFetch({ "https://inzva.com/events": { body: html } }) });
     expect(llm2.calls).toHaveLength(0);
     expect(second.outcomes[0].kind).toBe("unchanged");
-    expect((await readScanState(root))["inzva-events"].lastEventCount).toBe(1);
+    expect((await readScanState(root))["inzva-events"].lastEventCount).toBe(2);
   });
 
   it("dry-run hiçbir şey yazmaz", async () => {

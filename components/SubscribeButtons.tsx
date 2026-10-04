@@ -10,9 +10,9 @@ export function SubscribeButtons({ siteUrl }: { siteUrl: string }) {
   const origin = useSyncExternalStore(noop, () => window.location.origin, () => siteUrl);
   const [copied, setCopied] = useState(false);
   const icsUrl = `${origin}/takvim.ics`;
-  // Google'a https adresi verilir: webcal:// verilirse http'ye çevirip yönlendirmede takılabiliyor.
-  const google = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(icsUrl)}`;
   const webcal = icsUrl.replace(/^https?:/, "webcal:");
+  // Google'ın "cid" parametresi harici takvimler için webcal:// adresi bekler; https:// verilince "URL hatası" veriyor.
+  const google = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcal)}`;
 
   async function copy() {
     try {
@@ -43,6 +43,7 @@ export function SubscribeButtons({ siteUrl }: { siteUrl: string }) {
       </div>
       <p className="text-xs text-fg-muted">
         Google Takvim abone olunan takvimleri birkaç saatte bir günceller; ilk etkinliklerin görünmesi biraz sürebilir.
+        Buton çalışmazsa adresi kopyalayıp Google Takvim&apos;de &quot;Diğer takvimler → + → URL ile&quot; seçeneğine yapıştırın.
       </p>
     </div>
   );

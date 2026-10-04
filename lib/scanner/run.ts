@@ -103,7 +103,10 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
       if (details.pagesFetched) log(`  ↳ ${source.id}: ${details.pagesFetched} detay sayfası, ${details.accepted.length} etkinlik bulundu`);
       if (malformed) rejected.push({ title: "(biçimsiz yanıt)", reason: `${malformed} öğe şemaya uymadı` });
 
-      if (suspiciousDrop(prev?.lastEventCount, accepted.length)) {
+      // Koruma, sayfadan çıkarılan ham etkinlik sayısına bakar: ilanlarının hepsi bitmiş bir kaynak
+      // (kabul edilen 0) "sayfa bozuldu" sayılmasın.
+      const extractedCount = events.length;
+      if (suspiciousDrop(prev?.lastEventCount, extractedCount)) {
         const warning = `${source.id}: önceden ${prev?.lastEventCount} etkinlik veriyordu, şimdi 0 — sayfa yapısı değişmiş olabilir, atlandı`;
         log(`⚠️ ${warning}`);
         return {
@@ -122,7 +125,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         page,
         accepted,
         rejected,
-        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: accepted.length },
+        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount },
       };
     } catch (err) {
       const message = (err as Error).message;

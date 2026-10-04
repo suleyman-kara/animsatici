@@ -20,7 +20,8 @@
     "scan": "tsx scripts/scan.ts",
     "healthcheck": "tsx scripts/healthcheck.ts",
     "agent": "tsx scripts/agent/index.ts",
-    "setup-labels": "tsx scripts/setup-labels.ts"
+    "setup-labels": "tsx scripts/setup-labels.ts",
+    "prune": "tsx scripts/prune.ts"
   },
   "dependencies": {
     "@google/genai": "^2.27.0",
