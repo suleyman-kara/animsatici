@@ -1,85 +1,18 @@
 {
-  "startedAt": "2026-10-04T12:34:41+03:00",
-  "completedAt": "2026-10-04T12:41:07+03:00",
+  "startedAt": "2026-10-04T14:55:25+03:00",
+  "completedAt": "2026-10-04T14:55:45+03:00",
   "status": "partial",
   "totalSources": 7,
-  "successCount": 5,
+  "successCount": 6,
   "unchangedCount": 0,
   "errorCount": 1,
-  "newEvents": 31,
-  "updatedEvents": 8,
-  "warnings": [
-    "patika-bootcamps: önceden 13 etkinlik veriyordu, şimdi 0 — sayfa yapısı değişmiş olabilir, atlandı"
-  ],
+  "newEvents": 0,
+  "updatedEvents": 6,
+  "warnings": [],
   "rejected": [
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Togg Beyonder",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Teknoloji Zirvesi",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Tech & Dev Talks",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "sahibinden.com Data&AI Hiring Challenge",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Yapı Kredi Teknoloji Hiring Challenge",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Product & Marketing Career Days 2026",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Geleceğe Giriş Tanıtım Webinarı",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "KPMG IxT Olympics Innovation and Technology Challenge 2026",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Fibabanka Fintern Future Talent Program",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
     {
       "sourceId": "patika-bootcamps",
       "title": "IBM & AI Agents Bootcamp",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "patika-bootcamps",
-      "title": "Stellar Pro Hackathon",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "techcareer-events",
-      "title": "JavaScript Temelleri Atölyesi",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "techcareer-events",
-      "title": "Yapay Zeka Araçları ve Uygulamaları Atölyesi",
-      "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
-    },
-    {
-      "sourceId": "techcareer-events",
-      "title": "İnovasyon Yaz Kampı #2",
       "reason": "tarih bilgisi yok; detay sayfasında da doğrulanamadı"
     }
   ]

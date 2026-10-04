@@ -1,52 +1,57 @@
 {
   "baykar-kariyer": {
-    "lastCheckedAt": "2026-10-04T12:34:41+03:00",
+    "hash": "5632f583df4302c007a64c96302ad9ccb54a46a419e763affdeaedad11f1d1f6",
+    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 2380,
+    "latencyMs": 2717,
     "lastEventCount": 0
   },
   "coderspace-hackathons": {
-    "lastCheckedAt": "2026-10-04T12:34:41+03:00",
+    "hash": "89855ed12ffbff64f62a3bb265ef9cfa3bc0f93d2daf29b8219769d0f28c528b",
+    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 883,
-    "lastEventCount": 6
+    "latencyMs": 1192,
+    "lastEventCount": 4
   },
   "cukurova-sks": {
-    "lastCheckedAt": "2026-10-04T12:34:41+03:00",
+    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
     "lastStatus": "error",
     "httpStatus": 404,
     "lastError": "HTTP 404 Not Found: https://sks.cu.edu.tr/cu/kismi-zamanli-ogrenci-destek/duyurular",
-    "latencyMs": 1174
+    "latencyMs": 1204
   },
   "gdg-turkiye": {
-    "lastCheckedAt": "2026-10-04T12:34:41+03:00",
+    "hash": "2f5a743e0c3168d6a80a21498a5785090824d1bb699c4dc86f47ddb6a129e99a",
+    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 817,
+    "latencyMs": 1008,
     "lastEventCount": 0
   },
   "inzva-events": {
-    "lastCheckedAt": "2026-10-04T12:34:42+03:00",
+    "hash": "6072ded378c16349ed9594cab9a797783708408a3ccbda67fe9a44c8270d99b8",
+    "lastCheckedAt": "2026-10-04T14:55:26+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 194,
+    "latencyMs": 409,
     "lastEventCount": 3
   },
   "patika-bootcamps": {
-    "lastCheckedAt": "2026-10-04T12:34:45+03:00",
-    "lastStatus": "skipped",
-    "httpStatus": 200,
-    "lastError": "patika-bootcamps: önceden 13 etkinlik veriyordu, şimdi 0 — sayfa yapısı değişmiş olabilir, atlandı",
-    "latencyMs": 812,
-    "lastEventCount": 0
-  },
-  "techcareer-events": {
-    "lastCheckedAt": "2026-10-04T12:34:49+03:00",
+    "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
+    "lastCheckedAt": "2026-10-04T14:55:28+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1174,
+    "latencyMs": 1196,
+    "lastEventCount": 1
+  },
+  "techcareer-events": {
+    "hash": "419848b8083f9b1c49c2b51942c0c6cf560b04a6aab14dd4cdc3733fd63a38fd",
+    "lastCheckedAt": "2026-10-04T14:55:31+03:00",
+    "lastStatus": "success",
+    "httpStatus": 200,
+    "latencyMs": 1248,
     "lastEventCount": 1
   }
 }

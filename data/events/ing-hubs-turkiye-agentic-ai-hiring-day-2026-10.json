@@ -1,7 +1,7 @@
 {
   "id": "ing-hubs-turkiye-agentic-ai-hiring-day-2026-10",
   "title": "ING Hubs Türkiye Agentic AI Hiring Day",
-  "summary": "Deneyimli veri bilimcilerine yönelik işe alım odaklı bir değerlendirme ve seçme etkinliğidir.",
+  "summary": "ING Hubs Türkiye bünyesinde görev alacak deneyimli veri bilimcileri için düzenlenen özel bir işe alım etkinliğidir.",
   "type": "other",
   "category": "ceng",
   "organizer": "ING Hubs Türkiye",
@@ -16,13 +16,13 @@
   "tags": [],
   "evidence": {
     "titleQuote": "ING Hubs Türkiye Agentic AI Hiring Day",
-    "dateQuote": "Son Başvuru\n14 Ekim",
+    "dateQuote": "Son Başvuru 14 Ekim",
     "pageUrl": "https://coderspace.io/etkinlikler",
-    "fetchedAt": "2026-10-04T12:41:07+03:00"
+    "fetchedAt": "2026-10-04T14:55:45+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "ing-hubs-turkiye-agentic-ai-hiring-day|2026-10-14",
   "firstSeenAt": "2026-10-04T11:37:16+03:00",
-  "lastSeenAt": "2026-10-04T12:41:07+03:00"
+  "lastSeenAt": "2026-10-04T14:55:45+03:00"
 }
