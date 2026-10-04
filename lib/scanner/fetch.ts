@@ -2,7 +2,7 @@ import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
 import * as cheerio from "cheerio";
 
-// legacy/functions/core/scraper.js'in TypeScript karşılığı + link listesi.
+// Sayfayı çekip temiz metne ve link listesine dönüştürür.
 
 const DEFAULT_TIMEOUT_MS = 15_000;
 const MAX_LINKS = 300;

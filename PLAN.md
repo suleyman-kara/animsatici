@@ -428,7 +428,7 @@ Hatalı etkinlik bildirimi için:
 | 6 — Öneri formu | ✅ Route testleri mock'lu; gerçek Turnstile/GitHub token ile denenmedi |
 | 7 — Ajan | ✅ Senaryo testleri mock'lu; varsayılan mod `comment` |
 | 8 — Sponsorlu | ✅ |
-| 9 — Temizlik | ⏳ README ve AGENTS.md yazıldı. `legacy/` silinmesi kullanıcı onayı bekliyor |
+| 9 — Temizlik | ✅ README ve AGENTS.md yazıldı, `legacy/` kullanıcı onayıyla silindi |
 
 ## Sapmalar
 

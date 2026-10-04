@@ -44,4 +44,3 @@ Her değişiklikten önce: `npm run lint && npm run typecheck && npm test && npm
 - `app/` sayfalar ve route'lar · `components/` UI · `lib/` iş mantığı (`scanner/`, `agent/`, `schema.ts`, `store.ts`, `dates.ts`, `calendar.ts`, `suggestion.ts`)
 - `scripts/` CLI'lar (`scan`, `validate`, `healthcheck`, `agent/`, `setup-labels`)
 - `data/` canlı veri · `tests/` testler ve `tests/fixtures/sample-data` örnek veri
-- `legacy/` eski Flutter + Firebase kodu (yalnızca referans; silinmeyi bekliyor)

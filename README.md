@@ -45,6 +45,8 @@ npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden �
 
 ## Kurulum (bir kez, elle)
 
+İlk kez kuruyorsanız adım adım rehber: **[docs/KURULUM.md](docs/KURULUM.md)**. Kısa özet:
+
 1. **Vercel:** Repoyu içe aktarın. Environment Variables: `NEXT_PUBLIC_SITE_URL`, `CONTACT_EMAIL`, `GITHUB_TOKEN`, `GITHUB_REPO`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (açıklamalar `.env.example`'da).
 2. **GitHub token (öneri formu için):** Settings → Developer settings → Fine-grained tokens → yalnızca bu repo, **Issues: Read and write**. Vercel'e `GITHUB_TOKEN` olarak girin.
 3. **Cloudflare Turnstile:** Site ekleyin (alan adınız + `*.vercel.app`), anahtarları Vercel'e girin. Bunlar ve token girilmeden form "henüz yapılandırılmadı" der.
@@ -81,8 +83,8 @@ Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'la
 
 ## Eski sürüm
 
-Flutter + Firebase ile yazılmış ilk sürüm `legacy/` klasöründe referans olarak duruyor ve yeni sistem çalıştığı doğrulandıktan sonra silinecek.
+Flutter + Firebase ile yazılmış ilk sürüm kaldırıldı; git geçmişinde duruyor.
 
 ## Lisans
 
-MIT
+Apache 2.0 — bkz. [LICENSE](LICENSE)

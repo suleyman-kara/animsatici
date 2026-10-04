@@ -4,7 +4,7 @@
   "private": true,
   "description": "KampüsRadar — üniversite öğrencileri için etkinlik radarı",
   "author": "Süleyman Kara",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "engines": {
     "node": ">=22"
