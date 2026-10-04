@@ -27,6 +27,7 @@ Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README
 6. **Tarihler** `Europe/Istanbul` (sabit +03:00). Tüm gün: `YYYY-MM-DD`; saatli: offset'li ISO. Yardımcılar `lib/dates.ts`'te.
 7. **Sponsorlu etkinlikler** her zaman görünür "Sponsorlu" etiketiyle gösterilir (yasal zorunluluk).
 8. Kullanıcıdan kişisel veri toplanmaz; öneriler herkese açık issue olur.
+9. **Yıl asla tahmin edilmez.** Başlangıç ve son başvuru tarihlerinin yılı `dateQuote`, `yearQuote` ya da `titleQuote` alıntısında açıkça yazmalıdır (`relevanceProblem`, `lib/scanner/verify.ts`). Ana sayfa yalnızca 30 gün içinde başvurusu kapanan ya da başlayan etkinlikleri gösterir (`WINDOW_DAYS`); bu bir görüntüleme kuralıdır, kayıt kuralı değil. Zamana bağlı her şey tarayıcıda da hesaplanır (`useNow`).
 
 ## Komutlar
 ```bash

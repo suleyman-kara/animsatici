@@ -171,7 +171,11 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const unchangedCount = outcomes.filter((o) => o.kind === "unchanged").length;
 
   let aborted: string | undefined;
-  if (tooManyErrors(errorCount, outcomes.length)) aborted = `Kaynakların çoğu hata verdi (${errorCount}/${outcomes.length})`;
+  // Durdurma kuralı yalnızca daha önce başarıyla taranmış kaynaklara bakar: yeni eklenen ve henüz
+  // çalışmayan kaynaklar sağlam kaynakların sonuçlarının yazılmasını engellemesin.
+  const proven = outcomes.filter((o) => ["success", "unchanged"].includes(previousState[o.source.id]?.lastStatus ?? ""));
+  const provenErrors = proven.filter((o) => o.kind === "error").length;
+  if (tooManyErrors(provenErrors, proven.length)) aborted = `Daha önce çalışan kaynakların çoğu hata verdi (${provenErrors}/${proven.length})`;
   else if (tooManyNewEvents(created.size)) aborted = `Tek taramada çok fazla yeni etkinlik (${created.size}) — muhtemel bozulma`;
 
   const lastScan: LastScan = {

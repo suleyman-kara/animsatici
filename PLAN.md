@@ -438,3 +438,6 @@ Hatalı etkinlik bildirimi için:
 4. **Tarih içeren her etkinlikte `dateQuote` zorunlu** (planda "varsa" idi). Uydurma tarihlere karşı daha sıkı.
 5. Tarama/sağlık hatası issue'ları `gh` CLI ile `.github/scripts/report-issue.sh` üzerinden açılır.
 6. Ajanın `search_web` sonuçlarındaki URL'ler Google grounding yönlendirme adresleri olabilir; `fetch_page` yönlendirmeleri (her adımda iç ağ kontrolüyle) izler.
+7. **Yıl asla tahmin edilmez.** Gün sınırlarıyla (30/90 gün) yapılan tahminler yerine: başlangıç ve son başvurunun yılı, sayfadan birebir alıntılanan metinde (`dateQuote`, `yearQuote` veya `titleQuote`) açıkça yazmalıdır; liste sayfasında yoksa detay sayfasına bakılır. Bitmiş etkinlikler alınmaz.
+8. **Ana sayfa yalnızca önümüzdeki 30 gün içinde başvurusu kapanan ya da başlayan etkinlikleri gösterir** (görüntüleme kuralı; kayıtta pencere yok). Devam edenler `/devam-eden` sayfasında. Arşiv sayfası kaldırıldı.
+9. **Takvim** etkinliğin tüm süresini değil, yalnızca son başvuru ve başlangıç günlerini içerir.

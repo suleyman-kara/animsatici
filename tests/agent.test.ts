@@ -68,7 +68,8 @@ describe("runAgent", () => {
       ],
       [finish("source_missing")],
     ]);
-    const out = await runAgent({ ...deps, root, model, llm: fakeLlm(gemini), issue: issue({ type: "missing", text: "kasımdaki yapay zeka hackathonu" }) });
+    const OCT20 = Date.parse("2026-10-20T12:00:00+03:00"); // 14 Kasım 30 günlük pencerede
+    const out = await runAgent({ ...deps, now: OCT20, clock: () => OCT20, root, model, llm: fakeLlm(gemini), issue: issue({ type: "missing", text: "kasımdaki yapay zeka hackathonu" }) });
     expect(out.finish.diagnosis).toBe("source_missing");
     expect(out.changes.map((c) => c.action)).toEqual(["add_event", "add_source"]);
     const added = (await readEvents(root)).find((e) => e.id === "yapay-zeka-hackathonu-2026-2026-11");
@@ -119,7 +120,7 @@ describe("runAgent", () => {
       [call("propose_cancel_or_remove_event", { id: "ornek-yapay-zeka-hackathonu-2026-11", action: "remove", reason: "x" })],
       [call("fetch_page", { url: "https://ornek.org/etkinlikler" })],
       [call("propose_update_event", { id: "ornek-kis-algoritma-kampi-2027-01", pageUrl: "https://ornek.org/etkinlikler", startDate: "2027-02-01", dateQuote: "1 Şubat" })],
-      [call("propose_update_event", { id: "ornek-kis-algoritma-kampi-2027-01", pageUrl: "https://ornek.org/etkinlikler", deadline: "2026-10-07", dateQuote: "Son başvuru: 7 Ekim 2026" })],
+      [call("propose_update_event", { id: "ornek-kis-algoritma-kampi-2027-01", pageUrl: "https://ornek.org/etkinlikler", deadline: "2026-10-07", dateQuote: "Son başvuru: 7 Ekim 2026", yearQuote: "Kış Algoritma Kampı 2027" })],
       [finish("confirmed_wrong_date")],
     ]);
     const out = await runAgent({ ...deps, root, model, llm: fakeLlm(), issue: issue({ type: "wrong", eventId: "ornek-kis-algoritma-kampi-2027-01", reason: "wrong-date" }) });

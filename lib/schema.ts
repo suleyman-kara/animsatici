@@ -55,6 +55,8 @@ export type Source = z.infer<typeof Source>;
 export const Evidence = z.object({
   titleQuote: z.string().min(1),
   dateQuote: z.string().min(1).optional(),
+  /** Tarihin yılı dateQuote'ta yazmıyorsa, yılı gösteren birebir alıntı. */
+  yearQuote: z.string().min(1).optional(),
   pageUrl: HttpUrl,
   fetchedAt: Timestamp,
 });

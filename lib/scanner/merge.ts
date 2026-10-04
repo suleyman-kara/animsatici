@@ -36,7 +36,7 @@ export function eventFieldsFrom(
     },
     url: x.url ?? ctx.pageUrl,
     tags: [...new Set(x.tags.map((t) => t.trim()).filter(Boolean))].slice(0, 6),
-    evidence: { titleQuote: x.titleQuote, dateQuote: x.dateQuote, pageUrl: ctx.pageUrl, fetchedAt: ctx.fetchedAt },
+    evidence: { titleQuote: x.titleQuote, dateQuote: x.dateQuote, yearQuote: x.yearQuote || undefined, pageUrl: ctx.pageUrl, fetchedAt: ctx.fetchedAt },
     status: x.cancelled ? "cancelled" : "active",
   };
 }

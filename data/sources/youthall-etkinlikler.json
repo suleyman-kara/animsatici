@@ -1,0 +1,10 @@
+{
+  "id": "youthall-etkinlikler",
+  "title": "Youthall Etkinlikler",
+  "url": "https://www.youthall.com/tr/events/",
+  "category": "career",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Kariyer zirveleri, şirket etkinlikleri, sertifika programları ve yarışmalar."
+}

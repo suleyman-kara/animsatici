@@ -2,13 +2,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { runScan } from "../lib/scanner/run";
-import { readEvents, readLastScan, readScanState, writeSource } from "../lib/store";
+import { readEvents, readLastScan, readScanState, readSources, writeScanState, writeSource } from "../lib/store";
 import { validateData } from "../scripts/validate";
 import { fakeFetch, fakeLlm, tempDataRoot } from "./helpers";
 import { rm, readdir } from "node:fs/promises";
 
 const html = await readFile(path.join(import.meta.dirname, "fixtures/pages/events-listing.html"), "utf8");
-const NOW = Date.parse("2026-10-04T19:00:00+03:00");
+const NOW = Date.parse("2026-10-20T19:00:00+03:00"); // 14 Kasım hackathonu 30 günlük pencerede
 const now = () => NOW;
 
 const gemini = {
@@ -36,11 +36,11 @@ describe("runScan", () => {
     expect(report.aborted).toBeUndefined();
     expect(report.created.map((e) => e.id)).toEqual(["yapay-zeka-hackathonu-2026-11"]);
     expect(report.lastScan.rejected).toEqual([{ sourceId: "inzva-events", title: "Uydurma Etkinlik", reason: "başlık alıntısı sayfada bulunamadı" }]);
-    expect(llm.calls[0].prompt).toContain("Bugünün tarihi (Türkiye): 2026-10-04");
+    expect(llm.calls[0].prompt).toContain("Bugünün tarihi (Türkiye): 2026-10-20");
 
     const events = await readEvents(root);
     expect(events).toHaveLength(1);
-    expect(events[0]).toMatchObject({ url: "https://ornek.org/hackathon", origin: "scan", firstSeenAt: "2026-10-04T19:00:00+03:00" });
+    expect(events[0]).toMatchObject({ url: "https://ornek.org/hackathon", origin: "scan", firstSeenAt: "2026-10-20T19:00:00+03:00" });
     const state = await readScanState(root);
     expect(state["inzva-events"]).toMatchObject({ lastStatus: "success", lastEventCount: 2, httpStatus: 200 }); // ham çıkarım sayısı
     expect((await readLastScan(root))?.status).toBe("success");
@@ -64,9 +64,13 @@ describe("runScan", () => {
 
   it("kaynakların çoğu hata verirse durur ve yazmaz", async () => {
     const root = await tempDataRoot();
+    // Bütün kaynaklar daha önce başarıyla taranmış olsun
+    const ok = { lastCheckedAt: "2026-10-01T19:00:00+03:00", lastStatus: "success" as const };
+    const ids = (await readSources(root)).map((src) => src.id);
+    await writeScanState(Object.fromEntries(ids.map((id) => [id, ok])), root);
     const before = await readFile(path.join(root, "data/state/scan-state.json"), "utf8");
     const report = await runScan({ root, llm: fakeLlm(), now, fetchImpl: fakeFetch({}) });
-    expect(report.aborted).toMatch(/hata verdi \(7\/7\)/);
+    expect(report.aborted).toMatch(new RegExp(`hata verdi \\(${ids.length}/${ids.length}\\)`));
     expect(await readFile(path.join(root, "data/state/scan-state.json"), "utf8")).toBe(before);
   });
 
@@ -96,5 +100,34 @@ describe("runScan", () => {
     expect(report.lastScan.warnings[0]).toMatch(/sayfa yapısı değişmiş olabilir/);
     const after = (await readScanState(root))["inzva-events"];
     expect(after).toMatchObject({ lastStatus: "skipped", hash: prev.hash, lastEventCount: prev.lastEventCount });
+  });
+});
+
+describe("runScan yıl kanıtı", () => {
+  it("uzak ama yılı kanıtlı etkinliği kaydeder; yılı yazmayanı almaz", async () => {
+    const root = await oneSourceRoot();
+    const OCT4 = Date.parse("2026-10-04T19:00:00+03:00");
+    const yearless = { ...gemini.events[0], title: "Kış Algoritma Kampı 2027", titleQuote: "Kış Algoritma Kampı", startDate: undefined, endDate: undefined, deadline: "2026-10-07", dateQuote: "Son başvuru: 7 Ekim" };
+    const report = await runScan({
+      root,
+      llm: fakeLlm({ events: [gemini.events[0], yearless] }),
+      now: () => OCT4,
+      fetchImpl: fakeFetch({ "https://inzva.com/events": { body: html.replace("Son başvuru: 7 Ekim 2026", "Son başvuru: 7 Ekim") } }),
+    });
+    expect(report.created.map((e) => e.id)).toEqual(["yapay-zeka-hackathonu-2026-11"]); // 41 gün sonra ama yılı yazıyor
+    expect(report.lastScan.rejected.map((r) => r.reason)).toEqual([expect.stringMatching(/yıl kanıtı yok/)]);
+  });
+});
+
+describe("runScan yeni kaynaklar", () => {
+  it("henüz hiç çalışmamış kaynakların hataları taramayı durdurmaz", async () => {
+    const root = await oneSourceRoot();
+    for (const id of ["yeni-a", "yeni-b", "yeni-c"]) {
+      await writeSource({ id, title: id, url: `https://${id}.example/etkinlikler`, category: "ceng", kind: "listing", active: true, render: "static" }, root);
+    }
+    const report = await runScan({ root, llm: fakeLlm(gemini), now, fetchImpl: fakeFetch({ "https://inzva.com/events": { body: html } }) });
+    expect(report.aborted).toBeUndefined();
+    expect(report.lastScan).toMatchObject({ errorCount: 3, newEvents: 1, status: "partial" });
+    expect((await readScanState(root))["yeni-a"].lastStatus).toBe("error");
   });
 });

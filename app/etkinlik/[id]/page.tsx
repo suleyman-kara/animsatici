@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TrackedLink } from "@/components/TrackedLink";
-import { googleCalendarUrl } from "@/lib/calendar";
+import { EventActions, PhaseBadge } from "@/components/EventLive";
+import { googleCalendarUrls } from "@/lib/calendar";
 import { buildTime, getEvent, getEvents, getSources } from "@/lib/data";
-import { classify, endInstant, formatDate, formatRange, startInstant } from "@/lib/dates";
-import { CATEGORY_LABELS, locationText, PHASE_LABELS, TYPE_LABELS } from "@/lib/labels";
+import { endInstant, formatDate, formatRange, startInstant } from "@/lib/dates";
+import { CATEGORY_LABELS, locationText, TYPE_LABELS } from "@/lib/labels";
 import type { Event } from "@/lib/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -73,7 +73,6 @@ export default async function EventPage({ params }: PageProps<"/etkinlik/[id]">)
   const event = await getEvent((await params).id);
   if (!event) notFound();
   const source = event.sourceId ? (await getSources()).find((s) => s.id === event.sourceId) : undefined;
-  const phase = classify(event, buildTime());
   const cancelled = event.status === "cancelled";
   const sponsored = !!event.sponsored && endInstant(event.sponsored.until) >= buildTime();
 
@@ -89,11 +88,7 @@ export default async function EventPage({ params }: PageProps<"/etkinlik/[id]">)
           <span className="rounded-full bg-surface-muted px-2 py-0.5 font-medium text-fg-muted">{TYPE_LABELS[event.type]}</span>
           <span className="rounded-full bg-surface-muted px-2 py-0.5 font-medium text-fg-muted">{CATEGORY_LABELS[event.category]}</span>
           {sponsored && <span className="rounded-full bg-warn-soft px-2 py-0.5 font-semibold text-sponsor">{event.sponsored?.label ?? "Sponsorlu"}</span>}
-          {cancelled ? (
-            <span className="rounded-full bg-danger-soft px-2 py-0.5 font-semibold text-danger">İptal edildi</span>
-          ) : (
-            <span className="rounded-full bg-accent-soft px-2 py-0.5 font-semibold text-accent">{PHASE_LABELS[phase]}</span>
-          )}
+          <PhaseBadge event={event} builtAt={buildTime()} />
         </div>
         <h1 className={`text-3xl font-bold tracking-tight ${cancelled ? "line-through decoration-2 opacity-70" : ""}`}>{event.title}</h1>
         {event.organizer && <p className="text-lg text-fg-muted">{event.organizer}</p>}
@@ -101,18 +96,14 @@ export default async function EventPage({ params }: PageProps<"/etkinlik/[id]">)
 
       <p className="text-lg leading-relaxed">{event.summary}</p>
 
-      <div className="flex flex-wrap gap-2">
-        <TrackedLink href={event.url} target="_blank" rel="noopener" event="basvur-tikla" data={{ event: event.id, sponsored }}
-          className="rounded-lg bg-accent px-4 py-2 font-semibold text-accent-fg hover:opacity-90">
-          {phase === "open" ? "Başvur" : "Etkinlik sayfası"} ↗
-        </TrackedLink>
-        {!cancelled && phase !== "past" && (
-          <TrackedLink href={googleCalendarUrl(event, `${SITE_URL}/etkinlik/${event.id}`)} target="_blank" rel="noopener" event="takvime-ekle" data={{ event: event.id }}
-            className="rounded-lg border border-border bg-surface px-4 py-2 font-medium hover:bg-surface-muted">
-            Takvime ekle
-          </TrackedLink>
-        )}
-      </div>
+      <EventActions
+        id={event.id}
+        url={event.url}
+        sponsored={sponsored}
+        event={event}
+        calendarUrls={googleCalendarUrls(event, `${SITE_URL}/etkinlik/${event.id}`)}
+        builtAt={buildTime()}
+      />
 
       <dl className="border-t border-border">
         {event.startDate && <Row label="Tarih">{formatRange(event.startDate, event.endDate)}</Row>}

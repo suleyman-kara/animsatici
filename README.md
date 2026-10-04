@@ -1,6 +1,6 @@
 # KampüsRadar
 
-Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
+Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ana sayfada **önümüzdeki 30 gün içinde** başvurusu kapanan ya da başlayan etkinlikler gösterilir, devam edenlerin ayrı bir sayfası vardır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
 
 ## Nasıl çalışır?
 
@@ -10,6 +10,8 @@ GitHub Actions (her gün 19:00 TR) ──► npm run scan
    ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
    ├─ tarihi liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır (kaynak başına en fazla 10)
    ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
+   ├─ yıl tahmin edilmez: tarihlerin yılı sayfadan birebir alıntıda yazmıyorsa etkinlik alınmaz
+   ├─ bitmiş etkinlikler alınmaz
    ├─ tekilleştirme + güvenlik eşikleri + şema doğrulaması
    └─ data/ değişikliklerini commit eder → Vercel siteyi yeniden derler
 

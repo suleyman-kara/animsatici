@@ -1,6 +1,7 @@
 // Son taramanın sağlığını kontrol eder. Sorun varsa açıklamayla exit 1 (workflow issue açar).
 import { readLastScan } from "../lib/store";
 
+// Tarama günlük; bir günlük gecikme payıyla 48 saatten eski tarama sorun sayılır.
 const MAX_AGE_HOURS = 48;
 
 export function checkHealth(lastScan: Awaited<ReturnType<typeof readLastScan>>, now = Date.now()): string[] {

@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { classify, endInstant, startInstant, type EventPhase } from "@/lib/dates";
+import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS, type EventPhase } from "@/lib/dates";
 import { CATEGORY_LABELS, TYPE_LABELS } from "@/lib/labels";
+import { useNow } from "@/lib/use-now";
 import { EventCard, isSponsoredNow, type CardEvent } from "./EventCard";
 
 type Filters = { q: string; kategori: string; tur: string; konum: string };
@@ -34,13 +35,6 @@ function writeFilters(filters: Filters) {
   window.dispatchEvent(new Event(URL_EVENT));
 }
 
-// Saat de dakikalık bir "store": sunucuda build anı, tarayıcıda gerçek zaman.
-const MINUTE = 60_000;
-function subscribeClock(onChange: () => void) {
-  const id = window.setInterval(onChange, MINUTE);
-  return () => window.clearInterval(id);
-}
-const currentMinute = () => Math.floor(Date.now() / MINUTE) * MINUTE;
 
 const fold = (s: string) => s.toLocaleLowerCase("tr-TR").normalize("NFD").replace(/[̀-ͯ]/g, "");
 
@@ -57,16 +51,15 @@ function matches(e: CardEvent, f: Filters): boolean {
 }
 
 const SECTIONS: { phase: EventPhase; title: string; empty: string }[] = [
-  { phase: "open", title: "Başvurusu açık", empty: "Şu an başvurusu açık etkinlik yok." },
-  { phase: "ongoing", title: "Devam eden", empty: "" },
-  { phase: "upcoming", title: "Yaklaşan", empty: "Yaklaşan etkinlik yok." },
+  { phase: "open", title: "Başvurusu açık", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başvurusu kapanan etkinlik yok.` },
+  { phase: "upcoming", title: "Yakında başlıyor", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başlayan etkinlik yok.` },
 ];
 
 const selectClass = "rounded-lg border border-border bg-surface px-3 py-2 text-sm";
 
 export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt: number }) {
   // İlk çizim build anına göre (HTML ile birebir), ardından gerçek saate göre yeniden sınıflandırılır.
-  const now = useSyncExternalStore(subscribeClock, currentMinute, () => builtAt);
+  const now = useNow(builtAt);
   const search = useSyncExternalStore(subscribeUrl, () => window.location.search, () => "");
   const filters = useMemo(() => parseFilters(search), [search]);
   const update = (patch: Partial<Filters>) => writeFilters({ ...filters, ...patch });
@@ -78,9 +71,12 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
   const types = useMemo(() => [...new Set(events.map((e) => e.type))], [events]);
 
   const visible = events.filter((e) => matches(e, filters));
-  const phased = visible.map((e) => ({ e, phase: classify(e, now) }));
-  const featured = phased.filter(({ e, phase }) => phase !== "past" && isSponsoredNow(e, now));
-  const active = phased.filter(({ phase }) => phase !== "past");
+  const all = visible.map((e) => ({ e, phase: classify(e, now) })).filter(({ phase }) => phase !== "past");
+  // Yalnızca önümüzdeki 30 gün içinde başvurusu kapanan ya da başlayan etkinlikler; devam edenlerin ayrı sayfası var.
+  const phased = all.filter(({ e, phase }) => phase !== "ongoing" && inWindow(e, now));
+  // Sponsorlu öne çıkarmalar pencereden bağımsızdır (süresini proje sahibi belirler).
+  const featured = all.filter(({ e }) => isSponsoredNow(e, now));
+  const active = phased;
   const filtered = KEYS.some((k) => filters[k]);
 
   const byPhase = (phase: EventPhase) => {
@@ -164,6 +160,7 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
           </section>
         );
       })}
+
     </div>
   );
 }

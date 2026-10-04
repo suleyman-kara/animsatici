@@ -2,7 +2,7 @@ name: Günlük tarama
 
 on:
   schedule:
-    - cron: "0 16 * * *" # 19:00 Türkiye saati
+    - cron: "0 16 * * *" # Her gün 19:00 Türkiye saati
   workflow_dispatch:
     inputs:
       source:

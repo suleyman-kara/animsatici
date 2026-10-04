@@ -26,6 +26,7 @@ export const ExtractedEvent = z.object({
   tags: z.array(z.string()).default([]),
   titleQuote: z.string().default(""),
   dateQuote: z.string().optional(),
+  yearQuote: z.string().optional(),
   matchesExistingId: z.string().optional(),
   cancelled: z.boolean().optional(),
   /** İç alan (modele sorulmaz): kanıtın alındığı sayfa liste sayfasından farklıysa (detay sayfası). */
@@ -60,6 +61,7 @@ export const EXTRACTION_JSON_SCHEMA = {
           tags: { type: "array", items: str },
           titleQuote: str,
           dateQuote: str,
+          yearQuote: str,
           matchesExistingId: str,
           cancelled: { type: "boolean" },
         },
@@ -78,7 +80,8 @@ Kurallar:
 1. Yalnızca sayfada AÇIKÇA yazan etkinlikleri döndür. Tahmin etme, uydurma. Sayfada etkinlik yoksa boş liste döndür.
 2. "titleQuote": etkinlik adının sayfa metninde geçtiği hâliyle BİREBİR kopyası (harfi harfine, kısaltmadan, düzeltmeden).
 3. "dateQuote": tarih veya son başvuru bilgisinin geçtiği metin parçasının BİREBİR kopyası. Herhangi bir tarih alanı dolduruyorsan dateQuote zorunludur.
-4. Tarihler: tüm gün ise "YYYY-MM-DD", saat belliyse "YYYY-MM-DDTHH:mm:00+03:00" (Türkiye saati). "Bu cuma", "ayın 24'ü" gibi ifadeleri verilen bugünün tarihine göre kesin tarihe çevir. Yıl yazmıyorsa yılı sayfadaki diğer ipuçlarından (yayın tarihi, aynı sayfadaki başka yıllı tarihler) belirle; yılı GELECEĞE TAŞIMA. Yıl belirlenemiyorsa ve tarih bu yıl içinde geçmişte kalıyorsa etkinliği döndürme.
+4. Tarihler: tüm gün ise "YYYY-MM-DD", saat belliyse "YYYY-MM-DDTHH:mm:00+03:00" (Türkiye saati). "Bu cuma", "ayın 24'ü" gibi ifadeleri verilen bugünün tarihine göre kesin tarihe çevir.
+   YIL ASLA TAHMİN EDİLMEZ: Başlangıç ve son başvuru tarihlerinin yılı sayfada açıkça yazmalı. Yıl dateQuote içinde yazmıyorsa (ya da başlangıç ve son başvuru farklı yıllardaysa ve biri dateQuote'ta yoksa), eksik yılın bu etkinliğe ait olduğunu gösteren metni (ör. "Hackathon 2026", "Son başvuru: 7 Ekim 2026") "yearQuote" alanına BİREBİR kopyala. Sayfada yıl hiç yazmıyorsa tarih alanlarını boş bırak, etkinliği url'siyle döndür; yıl etkinliğin kendi sayfasında aranacak.
 5. startDate: etkinliğin başlangıcı. endDate: bitişi (varsa). deadline: son başvuru/kayıt tarihi (varsa). Bilmediğin alanı hiç yazma. Sayfada etkinliğin tarihi hiç yazmıyorsa tarih alanlarını boş bırak ama etkinliği yine döndür ve "url" alanına etkinliğin kendi sayfasının linkini mutlaka yaz; tarih o sayfadan okunacak.
 6. Yalnızca başvurusu hâlâ açık olan VEYA henüz bitmemiş (yaklaşan ya da devam eden) etkinlikleri döndür. Bitmiş etkinlikleri, "Başvurular kapandı" yazan ve tarihi geçmiş etkinlikleri, arşiv/geçmiş etkinlik listelerini döndürme.
 7. "summary": etkinliği öğrenciye anlatan, KENDİ cümlelerinle yazılmış, en fazla 2 cümlelik ve 280 karakteri geçmeyen Türkçe özet. Sayfadaki metni kopyalama.

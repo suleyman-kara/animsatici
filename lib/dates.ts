@@ -52,7 +52,24 @@ export function classify(event: Datable, now: number = Date.now()): EventPhase {
   return "past";
 }
 
-/** Sıralama/arşiv için etkinliğin referans anı. */
+/** Sitenin odağı: önümüzdeki bu kadar gün içinde başvurulabilecek ya da katılınabilecek etkinlikler. */
+export const WINDOW_DAYS = 30;
+
+/**
+ * Etkinlik önümüzdeki `days` gün içinde "yapılabilir" mi? Devam ediyorsa, son başvurusu bu süre
+ * içinde kapanıyorsa ya da bu süre içinde başlıyorsa evet.
+ */
+export function inWindow(event: Datable, now: number = Date.now(), days: number = WINDOW_DAYS): boolean {
+  const phase = classify(event, now);
+  if (phase === "past") return false;
+  if (phase === "ongoing") return true;
+  const limit = now + days * DAY_MS;
+  const deadline = event.deadline ? endInstant(event.deadline) : undefined;
+  const start = event.startDate ? startInstant(event.startDate) : undefined;
+  return (deadline !== undefined && deadline >= now && deadline <= limit) || (start !== undefined && start >= now && start <= limit);
+}
+
+/** Sıralama için etkinliğin referans anı. */
 export function referenceInstant(event: Datable): number {
   if (event.startDate) return startInstant(event.startDate);
   return endInstant(event.deadline!);

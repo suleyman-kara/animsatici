@@ -1,0 +1,10 @@
+{
+  "id": "teknofest-yarismalar",
+  "title": "TEKNOFEST Teknoloji Yarışmaları",
+  "url": "https://www.teknofest.org/tr/yarismalar/",
+  "category": "ceng",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "TEKNOFEST yarışmaları ve başvuru tarihleri."
+}

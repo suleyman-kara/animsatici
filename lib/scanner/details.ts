@@ -49,7 +49,7 @@ export async function followDetailPages(input: DetailInput): Promise<DetailResul
     try {
       const page = await fetchPage(detailUrl, { fetchImpl });
       const { events } = await extractEvents(llm, { page, source, knownEvents, now });
-      const { accepted } = verifyEvents(events, page, now);
+      const { accepted, rejected: detailRejected } = verifyEvents(events, page, now);
       const best = accepted
         .map((e) => ({ e, score: titleSimilarity(e.title, rest.title) }))
         .sort((a, b) => b.score - a.score)[0];
@@ -57,7 +57,9 @@ export async function followDetailPages(input: DetailInput): Promise<DetailResul
         // Etkinliğin linki detay sayfasının kendisi olur; kanıt da oradan.
         result.accepted.push({ ...best.e, url: page.finalUrl, evidenceUrl: page.finalUrl });
       } else {
-        result.rejected.push({ ...rest, reason: `${rest.reason}; detay sayfasında da doğrulanamadı` });
+        // Detay sayfasında eşleşen etkinliğin neden reddedildiği (ör. geçmişte kalmış) rapora taşınır.
+        const why = detailRejected.find((r) => titleSimilarity(r.title, rest.title) >= MIN_TITLE_SIMILARITY);
+        result.rejected.push({ ...rest, reason: `${rest.reason}; detay sayfasında: ${why?.reason ?? "bulunamadı"}` });
       }
     } catch (err) {
       result.rejected.push({ ...rest, reason: `${rest.reason}; detay sayfası çekilemedi (${(err as Error).message.slice(0, 120)})` });

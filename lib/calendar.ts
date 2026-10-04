@@ -12,31 +12,80 @@ function compactDay(value: string, plusDays = 0): string {
   return d.toISOString().slice(0, 10).replace(/-/g, "");
 }
 
-type CalendarRange = { allDay: boolean; start: string; end: string };
+export type CalendarEntry = {
+  kind: "deadline" | "start";
+  title: string;
+  allDay: boolean;
+  /** Tüm gün: YYYYMMDD; saatli: UTC YYYYMMDDTHHMMSSZ */
+  start: string;
+  end: string;
+  /** Sıralama/filtre için anın kendisi (ms). */
+  at: number;
+};
 
-/** Takvim için başlangıç/bitiş. Başlangıcı olmayan etkinlikler son başvuru gününe yerleşir. */
-export function calendarRange(event: Pick<Event, "startDate" | "endDate" | "deadline">): CalendarRange {
-  const start = event.startDate ?? event.deadline!;
-  const end = event.startDate ? event.endDate : undefined;
-  if (isDateOnly(start) || (end && isDateOnly(end))) {
-    return { allDay: true, start: compactDay(start), end: compactDay(end ?? start, 1) };
+/**
+ * Takvime yalnızca iki tek günlük kayıt girer: son başvuru günü ve başlangıç.
+ * Aylarca süren programlar takvimi kaplamasın diye etkinliğin tüm süresi işlenmez.
+ */
+export function calendarEntries(event: Pick<Event, "title" | "startDate" | "endDate" | "deadline">): CalendarEntry[] {
+  const entries: CalendarEntry[] = [];
+  if (event.deadline) {
+    const time = isDateOnly(event.deadline) ? "" : ` (saat ${event.deadline.slice(11, 16)})`;
+    entries.push({
+      kind: "deadline",
+      title: `Son başvuru: ${event.title}${time}`,
+      allDay: true,
+      start: compactDay(event.deadline),
+      end: compactDay(event.deadline, 1),
+      at: endInstant(event.deadline),
+    });
   }
-  const startMs = startInstant(start);
-  const endMs = end ? endInstant(end) : startMs + 2 * 60 * 60 * 1000;
-  return { allDay: false, start: utcStamp(startMs), end: utcStamp(endMs) };
+  if (event.startDate) {
+    const base = { kind: "start" as const, title: event.title, at: startInstant(event.startDate) };
+    if (isDateOnly(event.startDate)) {
+      entries.push({ ...base, allDay: true, start: compactDay(event.startDate), end: compactDay(event.startDate, 1) });
+    } else {
+      // Aynı gün biten saatli etkinlikte gerçek bitiş, aksi hâlde 2 saatlik blok.
+      const sameDayEnd = event.endDate && !isDateOnly(event.endDate) && event.endDate.slice(0, 10) === event.startDate.slice(0, 10);
+      const endMs = sameDayEnd ? endInstant(event.endDate!) : base.at + 2 * 60 * 60 * 1000;
+      entries.push({ ...base, allDay: false, start: utcStamp(base.at), end: utcStamp(endMs) });
+    }
+  }
+  return entries;
 }
 
-function calendarTitle(event: Event): string {
-  return event.startDate ? event.title : `Son başvuru: ${event.title}`;
+/** "Takvime ekle" için tek kayıt: son başvuru henüz geçmediyse o, değilse başlangıç. */
+export function primaryCalendarEntry(event: Pick<Event, "title" | "startDate" | "endDate" | "deadline">, now: number = Date.now()): CalendarEntry {
+  const entries = calendarEntries(event);
+  const deadline = entries.find((e) => e.kind === "deadline");
+  const start = entries.find((e) => e.kind === "start");
+  if (deadline && (deadline.at >= now || !start)) return deadline;
+  return start ?? entries[0];
 }
 
-export function googleCalendarUrl(event: Event, pageUrl: string): string {
-  const range = calendarRange(event);
+export type CalendarUrls = { deadline?: string; start?: string };
+
+/** Son başvuru ve başlangıç için ayrı "Takvime ekle" linkleri; hangisinin kullanılacağı tarayıcıda seçilir. */
+export function googleCalendarUrls(event: Event, pageUrl: string): CalendarUrls {
+  return Object.fromEntries(calendarEntries(event).map((entry) => [entry.kind, entryUrl(event, entry, pageUrl)]));
+}
+
+/** Son başvuru henüz geçmediyse onun, geçtiyse başlangıcın linki. */
+export function pickCalendarUrl(urls: CalendarUrls, deadline: string | undefined, now: number): string | undefined {
+  if (urls.deadline && (!urls.start || (deadline && endInstant(deadline) >= now))) return urls.deadline;
+  return urls.start ?? urls.deadline;
+}
+
+export function googleCalendarUrl(event: Event, pageUrl: string, now: number = Date.now()): string {
+  return entryUrl(event, primaryCalendarEntry(event, now), pageUrl);
+}
+
+function entryUrl(event: Event, entry: CalendarEntry, pageUrl: string): string {
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: calendarTitle(event),
-    dates: `${range.start}/${range.end}`,
-    details: `${event.summary}\n\n${pageUrl}`,
+    text: entry.title,
+    dates: `${entry.start}/${entry.end}`,
+    details: `${event.summary}\n\nBaşvuru: ${event.url}\n${pageUrl}`,
   });
   const where = [event.location.venue, event.location.city].filter(Boolean).join(", ");
   if (where) params.set("location", where);
@@ -44,7 +93,7 @@ export function googleCalendarUrl(event: Event, pageUrl: string): string {
 }
 
 function escapeText(text: string): string {
-  return text.replace(/\\/g, "\\\\").replace(/;/g, "\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+  return text.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
 }
 
 /** RFC 5545: satırlar 75 oktetten uzun olamaz. */
@@ -68,7 +117,7 @@ function fold(line: string): string {
   return parts.join("\r\n ");
 }
 
-export function buildIcs(events: Event[], options: { siteUrl: string; name: string; now?: number }): string {
+export function buildIcs(events: Event[], options: { siteUrl: string; name: string; now?: number; since?: number }): string {
   const host = new URL(options.siteUrl).host;
   const stamp = utcStamp(options.now ?? Date.now());
   const lines = [
@@ -82,22 +131,25 @@ export function buildIcs(events: Event[], options: { siteUrl: string; name: stri
     "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
   ];
   for (const event of events) {
-    const range = calendarRange(event);
     const url = `${options.siteUrl}/etkinlik/${event.id}`;
     const where = [event.location.venue, event.location.city].filter(Boolean).join(", ") || (event.location.mode === "online" ? "Online" : "");
-    lines.push(
-      "BEGIN:VEVENT",
-      `UID:${event.id}@${host}`,
-      `DTSTAMP:${stamp}`,
-      range.allDay ? `DTSTART;VALUE=DATE:${range.start}` : `DTSTART:${range.start}`,
-      range.allDay ? `DTEND;VALUE=DATE:${range.end}` : `DTEND:${range.end}`,
-      `SUMMARY:${escapeText(calendarTitle(event))}`,
-      `DESCRIPTION:${escapeText(`${event.summary}\n\nBaşvuru: ${event.url}`)}`,
-      `URL:${url}`,
-      ...(where ? [`LOCATION:${escapeText(where)}`] : []),
-      `STATUS:${event.status === "cancelled" ? "CANCELLED" : "CONFIRMED"}`,
-      "END:VEVENT",
-    );
+    for (const entry of calendarEntries(event)) {
+      if (options.since !== undefined && entry.at < options.since) continue;
+      lines.push(
+        "BEGIN:VEVENT",
+        `UID:${event.id}-${entry.kind}@${host}`,
+        `DTSTAMP:${stamp}`,
+        entry.allDay ? `DTSTART;VALUE=DATE:${entry.start}` : `DTSTART:${entry.start}`,
+        entry.allDay ? `DTEND;VALUE=DATE:${entry.end}` : `DTEND:${entry.end}`,
+        `SUMMARY:${escapeText(entry.title)}`,
+        `DESCRIPTION:${escapeText(`${event.summary}\n\nBaşvuru: ${event.url}`)}`,
+        `URL:${url}`,
+        ...(where && entry.kind === "start" ? [`LOCATION:${escapeText(where)}`] : []),
+        ...(entry.allDay ? ["TRANSP:TRANSPARENT"] : []),
+        `STATUS:${event.status === "cancelled" ? "CANCELLED" : "CONFIRMED"}`,
+        "END:VEVENT",
+      );
+    }
   }
   lines.push("END:VCALENDAR");
   return `${lines.map(fold).join("\r\n")}\r\n`;
