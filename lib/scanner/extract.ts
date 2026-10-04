@@ -28,6 +28,8 @@ export const ExtractedEvent = z.object({
   dateQuote: z.string().optional(),
   matchesExistingId: z.string().optional(),
   cancelled: z.boolean().optional(),
+  /** İç alan (modele sorulmaz): kanıtın alındığı sayfa liste sayfasından farklıysa (detay sayfası). */
+  evidenceUrl: z.string().optional(),
 });
 export type ExtractedEvent = z.infer<typeof ExtractedEvent>;
 
@@ -77,7 +79,7 @@ Kurallar:
 2. "titleQuote": etkinlik adının sayfa metninde geçtiği hâliyle BİREBİR kopyası (harfi harfine, kısaltmadan, düzeltmeden).
 3. "dateQuote": tarih veya son başvuru bilgisinin geçtiği metin parçasının BİREBİR kopyası. Herhangi bir tarih alanı dolduruyorsan dateQuote zorunludur.
 4. Tarihler: tüm gün ise "YYYY-MM-DD", saat belliyse "YYYY-MM-DDTHH:mm:00+03:00" (Türkiye saati). "Bu cuma", "ayın 24'ü" gibi ifadeleri verilen bugünün tarihine göre kesin tarihe çevir. Yıl yazmıyorsa en yakın gelecekteki yılı kullan.
-5. startDate: etkinliğin başlangıcı. endDate: bitişi (varsa). deadline: son başvuru/kayıt tarihi (varsa). Bilmediğin alanı hiç yazma.
+5. startDate: etkinliğin başlangıcı. endDate: bitişi (varsa). deadline: son başvuru/kayıt tarihi (varsa). Bilmediğin alanı hiç yazma. Sayfada etkinliğin tarihi hiç yazmıyorsa tarih alanlarını boş bırak ama etkinliği yine döndür ve "url" alanına etkinliğin kendi sayfasının linkini mutlaka yaz; tarih o sayfadan okunacak.
 6. Bugünden 1 yıldan daha eski etkinlikleri döndürme. Bitmiş ama son 1 yıl içindeki etkinlikleri döndürebilirsin.
 7. "summary": etkinliği öğrenciye anlatan, KENDİ cümlelerinle yazılmış, en fazla 2 cümlelik ve 280 karakteri geçmeyen Türkçe özet. Sayfadaki metni kopyalama.
 8. "url": etkinliğin kendine ait sayfası. Yalnızca verilen link listesinde bulunan bir adresi kullan; yoksa hiç yazma.

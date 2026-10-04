@@ -34,7 +34,12 @@ function normalizeUrl(url: string): string {
   }
 }
 
-export type Rejection = { title: string; reason: string };
+export type Rejection = {
+  title: string;
+  reason: string;
+  /** Tarihi liste sayfasında olmayan ama kendi sayfasına link verilen etkinlik: detay sayfasına bakılabilir. */
+  detailUrl?: string;
+};
 export type VerifyResult = { accepted: ExtractedEvent[]; rejected: Rejection[] };
 
 export function verifyEvents(
@@ -47,7 +52,11 @@ export function verifyEvents(
   const result: VerifyResult = { accepted: [], rejected: [] };
 
   for (const event of events) {
-    const reject = (reason: string) => result.rejected.push({ title: event.title, reason });
+    const reject = (reason: string, followable = false) => {
+      const linked = followable && event.url ? linkSet.get(normalizeUrl(event.url)) : undefined;
+      const detailUrl = linked && normalizeUrl(linked) !== normalizeUrl(page.finalUrl) ? linked : undefined;
+      result.rejected.push({ title: event.title, reason, ...(detailUrl && { detailUrl }) });
+    };
 
     if (!quoteAppears(event.titleQuote, normalizedPage)) {
       reject("başlık alıntısı sayfada bulunamadı");
@@ -55,11 +64,11 @@ export function verifyEvents(
     }
     const dates = [event.startDate, event.endDate, event.deadline].filter((d): d is string => !!d);
     if (dates.length === 0) {
-      reject("tarih bilgisi yok");
+      reject("tarih bilgisi yok", true);
       continue;
     }
     if (!event.dateQuote || !quoteAppears(event.dateQuote, normalizedPage)) {
-      reject("tarih alıntısı sayfada bulunamadı");
+      reject("tarih alıntısı sayfada bulunamadı", true);
       continue;
     }
     const invalid = dates.find((d) => !EventDate.safeParse(d).success);

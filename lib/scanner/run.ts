@@ -10,6 +10,7 @@ import {
   writeLastScan,
   writeScanState,
 } from "../store";
+import { followDetailPages } from "./details";
 import { extractEvents } from "./extract";
 import { FetchError, fetchPage, type FetchOptions, type Page } from "./fetch";
 import { suspiciousDrop, tooManyErrors, tooManyNewEvents } from "./guards";
@@ -95,7 +96,11 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         .slice(0, 50)
         .map(({ id, title, startDate, deadline }) => ({ id, title, startDate, deadline }));
       const { events, malformed } = await extractEvents(llm, { page, source, knownEvents, now: clock() });
-      const { accepted, rejected } = verifyEvents(events, page, clock());
+      const listing = verifyEvents(events, page, clock());
+      const details = await followDetailPages({ rejected: listing.rejected, llm, source, knownEvents, now: clock(), fetchImpl });
+      const accepted = [...listing.accepted, ...details.accepted];
+      const rejected = details.rejected;
+      if (details.pagesFetched) log(`  ↳ ${source.id}: ${details.pagesFetched} detay sayfası, ${details.accepted.length} etkinlik bulundu`);
       if (malformed) rejected.push({ title: "(biçimsiz yanıt)", reason: `${malformed} öğe şemaya uymadı` });
 
       if (suspiciousDrop(prev?.lastEventCount, accepted.length)) {

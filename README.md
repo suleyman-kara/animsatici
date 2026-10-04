@@ -8,6 +8,7 @@ Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj pr
 GitHub Actions (her gün 19:00 TR) ──► npm run scan
    ├─ data/sources/*.json'daki sayfaları çeker, değişmemişse atlar (hash)
    ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
+   ├─ tarihi liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır (kaynak başına en fazla 10)
    ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
    ├─ tekilleştirme + güvenlik eşikleri + şema doğrulaması
    └─ data/ değişikliklerini commit eder → Vercel siteyi yeniden derler

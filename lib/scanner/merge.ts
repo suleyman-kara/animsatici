@@ -60,7 +60,7 @@ export function mergeEvents({ source, pageUrl, accepted, existing, blocklist, no
   const updatedIds = new Set<string>();
 
   for (const x of accepted) {
-    const fields = eventFieldsFrom(x, { category: source.category, pageUrl, fetchedAt: now });
+    const fields = eventFieldsFrom(x, { category: source.category, pageUrl: x.evidenceUrl ?? pageUrl, fetchedAt: now });
     const candidate = { title: fields.title, startDate: fields.startDate, deadline: fields.deadline, url: fields.url };
     if (isBlocked(candidate, blocklist)) {
       rejected.push({ title: x.title, reason: "engel listesinde" });
