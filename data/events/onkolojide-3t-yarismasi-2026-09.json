@@ -1,0 +1,37 @@
+{
+  "id": "onkolojide-3t-yarismasi-2026-09",
+  "title": "Onkolojide 3T Yarışması",
+  "summary": "Kanser tedavisinde yenilikçi çözümler ve bireyselleştirilmiş teknolojiler geliştirilmesini hedefleyen yarışma, lisans ve lisansüstü öğrencilerin katılımına açıktır.",
+  "type": "competition",
+  "category": "ceng",
+  "organizer": "TEKNOFEST",
+  "startDate": "2026-09-30",
+  "endDate": "2026-10-04",
+  "deadline": "2026-02-28",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "Şanlıurfa",
+    "venue": "Şanlıurfa Havalimanı"
+  },
+  "url": "https://www.teknofest.org/tr/yarismalar/onkolojide-3t-yarismasi/",
+  "sourceId": "teknofest-yarismalar",
+  "alsoSeenAt": [],
+  "tags": [
+    "biyoteknoloji",
+    "onkoloji",
+    "yapay zeka",
+    "sağlık"
+  ],
+  "evidence": {
+    "titleQuote": "Onkolojide 3T Yarışması",
+    "dateQuote": "30 Eylül – 4 Ekim 2026",
+    "pageUrl": "https://www.teknofest.org/tr/yarismalar/onkolojide-3t-yarismasi/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "onkolojide-3t-yarismasi|2026-09-30",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "finance-more-career-summit-2026-10",
+  "title": "Finance & More Career Summit",
+  "summary": "Finans sektöründeki kariyer fırsatlarını, güncel gelişmeleri ve sektör profesyonellerinin deneyimlerini öğrencilerle buluşturan online zirvedir.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Youthall",
+  "startDate": "2026-10-23",
+  "deadline": "2026-10-22",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/finance-more-career-summit/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [
+    "Finance",
+    "More",
+    "Career",
+    "Summit",
+    "Youthall"
+  ],
+  "evidence": {
+    "titleQuote": "Finance & More Career Summit",
+    "dateQuote": "Son başvuru tarihi: 22 Ekim 2026",
+    "yearQuote": "Son başvuru tarihi: 22 Ekim 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/finance-more-career-summit/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "finance-more-career-summit|2026-10-23",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

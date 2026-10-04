@@ -1,0 +1,36 @@
+{
+  "id": "ai-data-career-summit-2026-11",
+  "title": "AI & Data Career Summit",
+  "summary": "Youthall tarafından düzenlenen bu online zirvede, yapay zeka ve veri alanındaki güncel gelişmeler ile kariyer fırsatları ele alınıyor.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Youthall",
+  "startDate": "2026-11-12",
+  "deadline": "2026-11-11",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/ai-data-career-summit/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [
+    "AI",
+    "Data",
+    "Career",
+    "Summit",
+    "Youthall"
+  ],
+  "evidence": {
+    "titleQuote": "AI & Data Career Summit",
+    "dateQuote": "12 Kasım, Perşembe",
+    "yearQuote": "Son Başvuru Tarihi: 11 Kasım 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/ai-data-career-summit/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "ai-data-career-summit|2026-11-12",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

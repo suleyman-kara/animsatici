@@ -1,0 +1,32 @@
+{
+  "id": "turkiye-innovation-week-2026-2026-10",
+  "title": "Türkiye Innovation Week 2026",
+  "summary": "Türkiye İhracatçılar Meclisi tarafından Haliç Kongre Merkezi'nde gerçekleştirilen inovasyon zirvesi.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Türkiye İhracatçılar Meclisi",
+  "startDate": "2026-10-15",
+  "endDate": "2026-10-17",
+  "deadline": "2026-10-14",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "venue": "Haliç Kongre Merkezi"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/turkiye-innovation-week-2026/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Türkiye Innovation Week 2026",
+    "dateQuote": "15 – 17 Ekim Son Başvuru 14 Ekim",
+    "yearQuote": "Türkiye Innovation Week 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "turkiye-innovation-week-2026|2026-10-15",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

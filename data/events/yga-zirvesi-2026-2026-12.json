@@ -1,0 +1,31 @@
+{
+  "id": "yga-zirvesi-2026-2026-12",
+  "title": "YGA Zirvesi 2026",
+  "summary": "YGA tarafından Zorlu PSM'de gerçekleştirilecek olan yıllık liderlik zirvesi.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "YGA",
+  "startDate": "2026-12-19",
+  "deadline": "2026-11-01",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "venue": "Zorlu Performans Sanatları Merkezi"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/yga-zirvesi-2026/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "YGA Zirvesi 2026",
+    "dateQuote": "19 Aralık Son Başvuru 01 Kasım",
+    "yearQuote": "YGA Zirvesi 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "yga-zirvesi-2026|2026-12-19",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

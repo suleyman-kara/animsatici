@@ -1,0 +1,31 @@
+{
+  "id": "e-ticaret-hackathon-yarismasi-2026-05",
+  "title": "E-Ticaret Hackathon Yarışması",
+  "summary": "TEKNOFEST kapsamında düzenlenen E-Ticaret Hackathon Yarışması, e-ticaret alanında yapay zekâ tabanlı algoritmalar ve yenilikçi çözümler geliştirmeyi hedefleyen iki aşamalı bir yarışmadır.",
+  "type": "competition",
+  "category": "ceng",
+  "organizer": "TEKNOFEST",
+  "startDate": "2026-05-20",
+  "endDate": "2026-10-04",
+  "deadline": "2026-06-19",
+  "isAllDay": true,
+  "location": {
+    "mode": "hybrid",
+    "city": "Şanlıurfa"
+  },
+  "url": "https://www.teknofest.org/tr/yarismalar/e-ticaret-yarismasi/",
+  "sourceId": "teknofest-yarismalar",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "E-Ticaret Hackathon Yarışması",
+    "dateQuote": "20 Mayıs 2026",
+    "pageUrl": "https://www.teknofest.org/tr/yarismalar/e-ticaret-yarismasi/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "e-ticaret-hackathon-yarismasi|2026-05-20",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

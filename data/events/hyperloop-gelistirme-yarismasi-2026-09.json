@@ -1,0 +1,31 @@
+{
+  "id": "hyperloop-gelistirme-yarismasi-2026-09",
+  "title": "Hyperloop Geliştirme Yarışması",
+  "summary": "TEKNOFEST kapsamında düzenlenen Hyperloop Geliştirme Yarışması, üniversite öğrencilerinin 5. nesil ulaşım teknolojileri geliştirmesini ve bu alandaki yetkinliklerini artırmasını hedefleyen bir yarışmadır.",
+  "type": "competition",
+  "category": "ceng",
+  "organizer": "TEKNOFEST",
+  "startDate": "2026-09-30",
+  "endDate": "2026-10-04",
+  "deadline": "2026-02-28",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "Şanlıurfa"
+  },
+  "url": "https://www.teknofest.org/tr/yarismalar/hyperloop-gelistirme-yarismasi/",
+  "sourceId": "teknofest-yarismalar",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Hyperloop Geliştirme Yarışması",
+    "dateQuote": "30 Eylül – 4 Ekim 2026",
+    "pageUrl": "https://www.teknofest.org/tr/yarismalar/hyperloop-gelistirme-yarismasi/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "hyperloop-gelistirme-yarismasi|2026-09-30",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

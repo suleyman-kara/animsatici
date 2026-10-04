@@ -1,0 +1,36 @@
+{
+  "id": "health-science-career-summit-2026-10",
+  "title": "Health & Science Career Summit",
+  "summary": "Sağlık ve bilim alanında kariyer hedefleyen öğrenci ve yeni mezunlar için düzenlenen, sektör uzmanlarının katılacağı ücretsiz ve sertifikalı online zirvedir.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Youthall",
+  "startDate": "2026-10-21",
+  "deadline": "2026-10-20",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/health-science-career-summit-5/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [
+    "Health",
+    "Science",
+    "Career",
+    "Summit",
+    "Youthall"
+  ],
+  "evidence": {
+    "titleQuote": "Health & Science Career Summit",
+    "dateQuote": "21 Ekim, Çarşamba",
+    "yearQuote": "Son Başvuru Tarihi: 20 Ekim 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/health-science-career-summit-5/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "health-science-career-summit|2026-10-21",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

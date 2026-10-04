@@ -1,0 +1,37 @@
+{
+  "id": "insansiz-kara-araci-yarismasi-2026-09",
+  "title": "İnsansız Kara Aracı Yarışması",
+  "summary": "TEKNOFEST kapsamında düzenlenen yarışma, üniversite öğrencilerinin zorlu arazi ve harp senaryolarında uzaktan kontrollü ile tam otonom görev yapabilen kara araçları geliştirmelerini amaçlar.",
+  "type": "competition",
+  "category": "ceng",
+  "organizer": "TEKNOFEST",
+  "startDate": "2026-09-30",
+  "endDate": "2026-10-04",
+  "deadline": "2026-02-28",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "Şanlıurfa"
+  },
+  "url": "https://www.teknofest.org/tr/yarismalar/insansiz-kara-araci-yarismasi/",
+  "sourceId": "teknofest-yarismalar",
+  "alsoSeenAt": [],
+  "tags": [
+    "otonom araçlar",
+    "insansız kara araçları",
+    "savunma sanayii",
+    "mühendislik",
+    "teknoloji"
+  ],
+  "evidence": {
+    "titleQuote": "İnsansız Kara Aracı Yarışması",
+    "dateQuote": "30 Eylül- 4 Ekim 2026",
+    "pageUrl": "https://www.teknofest.org/tr/yarismalar/insansiz-kara-araci-yarismasi/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "insansiz-kara-araci-yarismasi|2026-09-30",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "saglikta-yapay-zeka-yarismasi-2026-09",
+  "title": "Sağlıkta Yapay Zeka Yarışması",
+  "summary": "Lise ve üniversite öğrencilerinin sağlık sorunlarına yapay zeka tabanlı çözümler geliştirmelerini amaçlayan bir teknoloji yarışmasıdır.",
+  "type": "competition",
+  "category": "ceng",
+  "organizer": "TEKNOFEST",
+  "startDate": "2026-09-16",
+  "endDate": "2026-10-04",
+  "deadline": "2026-02-28",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "venue": "Dicle Üniversitesi"
+  },
+  "url": "https://www.teknofest.org/tr/yarismalar/saglikta-yapay-zeka-yarismasi/",
+  "sourceId": "teknofest-yarismalar",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Sağlıkta Yapay Zeka Yarışması",
+    "dateQuote": "28.02.2026",
+    "pageUrl": "https://www.teknofest.org/tr/yarismalar/saglikta-yapay-zeka-yarismasi/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "saglikta-yapay-zeka-yarismasi|2026-09-16",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "ing-hubs-turkiye-agentic-ai-hiring-day-2026-10",
+  "title": "ING Hubs Türkiye Agentic AI Hiring Day",
+  "summary": "ING Hubs Türkiye, yapay zeka ve veri bilimi alanlarında en az 4 yıl deneyime sahip profesyonellere yönelik hibrit bir işe alım etkinliği düzenliyor.",
+  "type": "other",
+  "category": "ceng",
+  "organizer": "ING Hubs Türkiye",
+  "startDate": "2026-10-24",
+  "endDate": "2026-10-27",
+  "deadline": "2026-10-14",
+  "isAllDay": true,
+  "location": {
+    "mode": "hybrid",
+    "city": "İstanbul",
+    "venue": "ING Hubs Türkiye"
+  },
+  "url": "https://coderspace.io/etkinlikler/ing-hubs-turkiye-agentic-ai-hiring-day/",
+  "sourceId": "coderspace-hackathons",
+  "alsoSeenAt": [],
+  "tags": [
+    "Yapay Zeka",
+    "Agentic AI",
+    "Veri Bilimi",
+    "Hiring Day"
+  ],
+  "evidence": {
+    "titleQuote": "ING Hubs Türkiye Agentic AI Hiring Day",
+    "dateQuote": "14 Ekim 2026",
+    "pageUrl": "https://coderspace.io/etkinlikler/ing-hubs-turkiye-agentic-ai-hiring-day/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "ing-hubs-turkiye-agentic-ai-hiring-day|2026-10-24",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

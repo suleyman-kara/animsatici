@@ -1,0 +1,29 @@
+{
+  "id": "insurance-more-career-summit-2026-11",
+  "title": "Insurance & More Career Summit",
+  "summary": "Sigortacılık sektöründeki kariyer fırsatlarını tanıtan, sektör uzmanlarıyla buluşma ve online katılım belgesi imkanı sunan ücretsiz zirve.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Youthall",
+  "startDate": "2026-11-25",
+  "deadline": "2026-11-24",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/insurance-more-career-summit/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Insurance & More Career Summit",
+    "dateQuote": "*Son Başvuru Tarihi: 24 Kasım 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/insurance-more-career-summit/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "insurance-more-career-summit|2026-11-25",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

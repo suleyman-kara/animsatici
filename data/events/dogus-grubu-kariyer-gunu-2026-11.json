@@ -1,0 +1,29 @@
+{
+  "id": "dogus-grubu-kariyer-gunu-2026-11",
+  "title": "Doğuş Grubu Kariyer Günü",
+  "summary": "Doğuş Grubu şirketlerini yakından tanıma, liderlerle buluşma ve kariyer fırsatlarını keşfetme imkanı sunan online kariyer etkinliği.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Doğuş Grubu",
+  "startDate": "2026-11-04T10:00:00+03:00",
+  "endDate": "2026-11-04T15:30:00+03:00",
+  "isAllDay": false,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/dogus-grubu-kariyer-gunu/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Doğuş Grubu Kariyer Günü",
+    "dateQuote": "Tarih: 4 Kasım 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/dogus-grubu-kariyer-gunu/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "dogus-grubu-kariyer-gunu|2026-11-04",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

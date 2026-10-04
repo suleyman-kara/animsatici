@@ -1,0 +1,34 @@
+{
+  "id": "diversity-inclusion-career-summit-2026-12",
+  "title": "Diversity & Inclusion Career Summit",
+  "summary": "Çeşitlilik, eşitlik ve kapsayıcılık temalı bu online zirvede, genç yetenekler ve sektör profesyonelleri kapsayıcı iş yaşamını konuşmak üzere bir araya geliyor.",
+  "type": "conference",
+  "category": "career",
+  "organizer": "Youthall",
+  "startDate": "2026-12-10",
+  "deadline": "2026-12-09",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.youthall.com/tr/etkinlikler/diversity-inclusion-career-summit-1/",
+  "sourceId": "youthall-etkinlikler",
+  "alsoSeenAt": [],
+  "tags": [
+    "Diversity",
+    "Inclusion",
+    "Career",
+    "Summit"
+  ],
+  "evidence": {
+    "titleQuote": "Diversity & Inclusion Career Summit",
+    "dateQuote": "Etkinlik Tarihi: 10 Aralık 2026",
+    "pageUrl": "https://www.youthall.com/tr/etkinlikler/diversity-inclusion-career-summit-1/",
+    "fetchedAt": "2026-10-04T15:30:37+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "diversity-inclusion-career-summit|2026-12-10",
+  "firstSeenAt": "2026-10-04T15:30:37+03:00",
+  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+}

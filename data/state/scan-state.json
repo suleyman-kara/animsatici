@@ -1,44 +1,82 @@
 {
   "baykar-kariyer": {
-    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
+    "hash": "5632f583df4302c007a64c96302ad9ccb54a46a419e763affdeaedad11f1d1f6",
+    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 2717,
+    "latencyMs": 1999,
     "lastEventCount": 0
   },
   "coderspace-hackathons": {
-    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
+    "hash": "89855ed12ffbff64f62a3bb265ef9cfa3bc0f93d2daf29b8219769d0f28c528b",
+    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1192,
+    "latencyMs": 547,
     "lastEventCount": 4
   },
   "gdg-turkiye": {
-    "lastCheckedAt": "2026-10-04T14:55:25+03:00",
+    "hash": "2f5a743e0c3168d6a80a21498a5785090824d1bb699c4dc86f47ddb6a129e99a",
+    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1008,
+    "latencyMs": 634,
     "lastEventCount": 0
   },
   "inzva-events": {
-    "lastCheckedAt": "2026-10-04T14:55:26+03:00",
+    "hash": "6072ded378c16349ed9594cab9a797783708408a3ccbda67fe9a44c8270d99b8",
+    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 409,
-    "lastEventCount": 3
+    "latencyMs": 215,
+    "lastEventCount": 1
   },
   "patika-bootcamps": {
-    "lastCheckedAt": "2026-10-04T14:55:28+03:00",
+    "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
+    "lastCheckedAt": "2026-10-04T15:24:19+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1196,
+    "latencyMs": 759,
     "lastEventCount": 1
   },
   "techcareer-events": {
-    "lastCheckedAt": "2026-10-04T14:55:31+03:00",
+    "hash": "419848b8083f9b1c49c2b51942c0c6cf560b04a6aab14dd4cdc3733fd63a38fd",
+    "lastCheckedAt": "2026-10-04T15:24:29+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1248,
+    "latencyMs": 486,
     "lastEventCount": 1
+  },
+  "techcareer-bootcamp": {
+    "hash": "7a6ea5be460827516955494081fe429f2ae0a0131acf793a111a9319b881cb97",
+    "lastCheckedAt": "2026-10-04T15:24:22+03:00",
+    "lastStatus": "success",
+    "httpStatus": 200,
+    "latencyMs": 795,
+    "lastEventCount": 1
+  },
+  "techcareer-hackathon": {
+    "hash": "3fb48000df2d3e67dff48abe3d970a741c708fd345526be67059bdb94d628673",
+    "lastCheckedAt": "2026-10-04T15:24:30+03:00",
+    "lastStatus": "success",
+    "httpStatus": 200,
+    "latencyMs": 686,
+    "lastEventCount": 1
+  },
+  "teknofest-yarismalar": {
+    "hash": "009b0927f36228f0e0839c5073bc2be4ae235cf0e3518c6114ddd27d5a84b766",
+    "lastCheckedAt": "2026-10-04T15:24:37+03:00",
+    "lastStatus": "success",
+    "httpStatus": 200,
+    "latencyMs": 2786,
+    "lastEventCount": 61
+  },
+  "youthall-etkinlikler": {
+    "hash": "a46cf5e39660cd7231e3cedc05bb13e77b464cbca7707651b00f0d8076f106a6",
+    "lastCheckedAt": "2026-10-04T15:24:37+03:00",
+    "lastStatus": "success",
+    "httpStatus": 200,
+    "latencyMs": 1071,
+    "lastEventCount": 18
   }
 }
