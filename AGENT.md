@@ -1,5 +1,8 @@
 # 🤖 AGENT.md — KampüsRadar Geliştirici & Ajan El Kitabı
 
+> ⚠️ **MİMARİ DEĞİŞİYOR — ÖNCE [PLAN.md](PLAN.md) DOSYASINI OKUYUN.**
+> Proje Flutter + Firebase'den Next.js + GitHub Actions + JSON veri mimarisine taşınıyor. Aşağıdaki Flutter, Firebase ve PowerShell kuralları **eski mimariye** aittir ve `legacy/` dışındaki yeni kod için geçerli değildir. Çelişki durumunda PLAN.md geçerlidir. Bu dosya PLAN.md Aşama 9'da baştan yazılacak.
+
 Bu belge, KampüsRadar projesinde çalışacak yapay zeka ajanları ve geliştiriciler için projenin **değişmez operasyonel kurallarını, mimari kararlarını, kritik tuzaklarını ve iş akışlarını** içerir. Yeni bir oturuma başlarken ilk olarak bu belgeyi okuyun.
 
 ---
