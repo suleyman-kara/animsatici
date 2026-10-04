@@ -1,0 +1,27 @@
+{
+  "id": "kod-2026-kodla-yapay-zeka-zincirlerini-kir-2026-02",
+  "title": "KOD:2026 – Kodla, Yapay Zeka Zincirlerini Kır",
+  "summary": "ChatGPT, Copilot ve Cursor gibi popüler AI araçlarını gerçek projelerde kullanmayı öğreterek katılımcıların üretkenliğini artırmayı amaçlar.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "deadline": "2026-02-12",
+  "isAllDay": true,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://www.patika.dev/bootcamp/kod-2026-kodla-yapay-zeka-zincirlerini-kir",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "KOD:2026 – Kodla, Yapay Zeka Zincirlerini Kır",
+    "dateQuote": "Başvurular KapandıSon başvuru: 12 Şubat 2026",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "kod-2026-kodla-yapay-zeka-zincirlerini-kir|2026-02-12",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

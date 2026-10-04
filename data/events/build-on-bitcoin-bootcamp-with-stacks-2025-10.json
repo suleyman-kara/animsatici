@@ -1,0 +1,28 @@
+{
+  "id": "build-on-bitcoin-bootcamp-with-stacks-2025-10",
+  "title": "Build on Bitcoin Bootcamp with Stacks",
+  "summary": "Stacks iş birliğiyle düzenlenen %100 online ve ücretsiz bootcamp, katılımcılara Bitcoin L2 ekosisteminde proje geliştirme yetkinliği kazandırır.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "organizer": "Stacks",
+  "deadline": "2025-10-13",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://www.patika.dev/bootcamp/build-on-bitcoin-bootcamp-with-stacks",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Build on Bitcoin Bootcamp with Stacks",
+    "dateQuote": "Başvurular KapandıSon başvuru: 13 October 2025",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "build-on-bitcoin-bootcamp-with-stacks|2025-10-13",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

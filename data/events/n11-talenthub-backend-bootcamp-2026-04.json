@@ -1,0 +1,28 @@
+{
+  "id": "n11-talenthub-backend-bootcamp-2026-04",
+  "title": "n11 Talenthub Backend Bootcamp",
+  "summary": "n11 iş birliğiyle gerçekleşen ücretsiz bootcamp, backend yazılım geliştirme alanına sağlam bir başlangıç yapmak isteyenlere yöneliktir.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "organizer": "n11",
+  "deadline": "2026-04-05",
+  "isAllDay": true,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://www.patika.dev/bootcamp/n11-talenthub-backend-bootcamp",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "n11 Talenthub Backend Bootcamp",
+    "dateQuote": "Başvurular KapandıSon başvuru: 5 Nisan 2026",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "n11-talenthub-backend-bootcamp|2026-04-05",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "stellar-pro-hackathon-720-000-tl-odul-havuzlu-2026-09",
+  "title": "Stellar Pro Hackathon - 720.000 TL Ödül Havuzlu",
+  "summary": "İstanbul Grand Pera'da düzenlenen 36 saatlik kesintisiz hackathon, katılımcılara mentor desteğiyle projelerini Stellar ekosisteminde geliştirme imkanı sunar.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Stellar",
+  "deadline": "2026-09-18",
+  "isAllDay": true,
+  "location": {
+    "mode": "in-person",
+    "city": "İstanbul",
+    "venue": "Grand Pera"
+  },
+  "url": "https://www.risein.com/programs/stellar-pro-hackathon",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Stellar Pro Hackathon - 720.000 TL Ödül Havuzlu",
+    "dateQuote": "Başvurular KapandıSon başvuru: 18 Eylül 2026",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "stellar-pro-hackathon-720-000-tl-odul-havuzlu|2026-09-18",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

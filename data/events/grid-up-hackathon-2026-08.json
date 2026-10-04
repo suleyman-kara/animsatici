@@ -1,0 +1,28 @@
+{
+  "id": "grid-up-hackathon-2026-08",
+  "title": "Grid Up Hackathon",
+  "summary": "Adm ve Gdz Elektrik iş birliğiyle düzenlenen bu hackathon, enerji altyapılarındaki problemlere teknoloji odaklı çözümler geliştirmeyi hedefler.",
+  "type": "hackathon",
+  "category": "ceng",
+  "organizer": "Adm ve Gdz Elektrik",
+  "deadline": "2026-08-31",
+  "isAllDay": true,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://www.patika.dev/bootcamp/grid-up-hackathon",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Grid Up Hackathon",
+    "dateQuote": "Başvurular KapandıSon başvuru: 31 Ağustos 2026",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "grid-up-hackathon|2026-08-31",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

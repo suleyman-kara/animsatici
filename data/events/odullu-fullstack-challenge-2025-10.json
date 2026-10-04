@@ -1,0 +1,27 @@
+{
+  "id": "odullu-fullstack-challenge-2025-10",
+  "title": "Ödüllü Fullstack Challenge",
+  "summary": "Rise In ve Stellar iş birliğiyle gerçekleşen challenge, Web3 ve blockchain alanında proje geliştirip 40.000 TL ödül havuzundan yararlanma şansı sunar.",
+  "type": "competition",
+  "category": "ceng",
+  "deadline": "2025-10-10",
+  "isAllDay": true,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://www.patika.dev/bootcamp/odullu-fullstack-challenge",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Ödüllü Fullstack Challenge",
+    "dateQuote": "Başvurular KapandıSon başvuru: 10 Ekim 2025",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "odullu-fullstack-challenge|2025-10-10",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}

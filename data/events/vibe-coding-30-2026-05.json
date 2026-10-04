@@ -1,0 +1,28 @@
+{
+  "id": "vibe-coding-30-2026-05",
+  "title": "Vibe Coding 30",
+  "summary": "Rise In tarafından düzenlenen Vibe Coding 30 programı yazılım odaklı projelere ve gelişime yönelik bir etkinliktir.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "organizer": "Rise In",
+  "deadline": "2026-05-31",
+  "isAllDay": true,
+  "location": {
+    "mode": "unknown"
+  },
+  "url": "https://www.risein.com/programs/vibe-coding-30",
+  "sourceId": "patika-bootcamps",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "Vibe Coding 30",
+    "dateQuote": "Başvurular KapandıSon başvuru: 31 Mayıs 2026",
+    "pageUrl": "https://www.patika.dev/bootcamp",
+    "fetchedAt": "2026-10-04T11:37:16+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "vibe-coding-30|2026-05-31",
+  "firstSeenAt": "2026-10-04T11:37:16+03:00",
+  "lastSeenAt": "2026-10-04T11:37:16+03:00"
+}
