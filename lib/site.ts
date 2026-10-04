@@ -6,4 +6,4 @@ export const SITE_DESCRIPTION =
 const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "";
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || vercelUrl || "https://kampus30.vercel.app").replace(/\/$/, "");
 export const CONTACT_EMAIL = process.env.CONTACT_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
-export const GITHUB_REPO = process.env.GITHUB_REPO || "suleyman-kara/animsatici";
+export const GITHUB_REPO = process.env.GITHUB_REPO || "suleyman-kara/kampus30";

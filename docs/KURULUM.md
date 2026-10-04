@@ -43,7 +43,7 @@ Günlük tarama ve ajan GitHub Actions'ta çalışır. Bunlar için repoya bir g
 
 ### 2a. Gemini anahtarını "Secret" olarak eklemek
 
-1. https://github.com/suleyman-kara/animsatici adresine gidin.
+1. https://github.com/suleyman-kara/kampus30 adresine gidin.
 2. Üst menüden **Settings** (dişli simgesi) sekmesine tıklayın.
 3. Sol menüde **Secrets and variables** → **Actions**'a tıklayın.
 4. **Secrets** sekmesinde **"New repository secret"** butonuna basın.
@@ -101,8 +101,8 @@ Kırmızı ✗ görürseniz [Sorun giderme](#13-sorun-giderme) bölümüne bakı
 
 1. https://vercel.com/signup adresine gidin, **"Continue with GitHub"** ile kaydolun. Plan sorulursa **Hobby**'yi seçin.
 2. Panelde **"Add New…"** → **"Project"**.
-3. "Import Git Repository" listesinde `animsatici` görünmüyorsa **"Adjust GitHub App Permissions"** linkine tıklayın, açılan GitHub sayfasında bu repoya erişim verin.
-4. `animsatici` satırında **"Import"**'a basın.
+3. "Import Git Repository" listesinde `kampus30` görünmüyorsa **"Adjust GitHub App Permissions"** linkine tıklayın, açılan GitHub sayfasında bu repoya erişim verin.
+4. `kampus30` satırında **"Import"**'a basın.
 5. Ayarlar ekranında:
    - **Framework Preset:** Next.js (otomatik seçilir)
    - **Root Directory:** `./` (değiştirmeyin)
@@ -111,7 +111,7 @@ Kırmızı ✗ görürseniz [Sorun giderme](#13-sorun-giderme) bölümüne bakı
 
 ### 4b. Sitenin adresini öğrenmek
 
-Proje sayfasında **"Domains"** altında `animsatici.vercel.app` gibi bir adres görürsünüz. Ad farklı olabilir. Bu adres **sitenizin adresidir**; not edin, sonraki adımlarda lazım olacak.
+Proje sayfasında **"Domains"** altında `kampus30.vercel.app` gibi bir adres görürsünüz. Ad farklı olabilir. Bu adres **sitenizin adresidir**; not edin, sonraki adımlarda lazım olacak.
 
 > Vercel bundan sonra `main` dalına gelen her commit'te siteyi kendiliğinden yeniden yayınlar. Günlük tarama commit attığı için site de her gün güncellenir.
 
@@ -127,7 +127,7 @@ Proje sayfasında **"Domains"** altında `animsatici.vercel.app` gibi bir adres 
 2. Sol menüde **Turnstile**'a tıklayın. Göremiyorsanız üstteki arama kutusuna "Turnstile" yazın.
 3. **"Add widget"** (veya "Add site"):
    - **Widget name:** `Kampus30`
-   - **Hostnames:** 4b'deki adres, ör. `animsatici.vercel.app`. `https://` olmadan yazın. Kendi alan adınız olursa onu da ekleyin.
+   - **Hostnames:** 4b'deki adres, ör. `kampus30.vercel.app`. `https://` olmadan yazın. Kendi alan adınız olursa onu da ekleyin.
    - **Widget mode:** **Managed**
 4. **"Create"**. İki değer gösterilir:
    - **Site Key** → `NEXT_PUBLIC_TURNSTILE_SITE_KEY`
@@ -146,7 +146,7 @@ Form, ziyaretçinin önerisini GitHub issue olarak açar. Bunun için **sadece b
 4. Formu doldurun:
    - **Token name:** `kampus30-oneri-formu`
    - **Expiration:** en uzun seçenek (ör. 1 yıl). Süresi dolunca form çalışmaz; takviminize "token yenile" hatırlatması koyun.
-   - **Repository access:** **"Only select repositories"** → `suleyman-kara/animsatici`
+   - **Repository access:** **"Only select repositories"** → `suleyman-kara/kampus30`
    - **Permissions** → **Repository permissions** → **Issues** satırını **"Read and write"** yapın. Başka hiçbir izne dokunmayın; **Metadata: Read-only** kendiliğinden eklenir.
 5. **"Generate token"**. `github_pat_...` ile başlayan token **yalnızca bir kez** gösterilir; hemen kopyalayıp not edin.
 
@@ -159,7 +159,7 @@ Kaç kişinin girdiğini ve hangi etkinliğe kaç kez "Başvur" tıklandığın�
 1. https://cloud.umami.is/signup adresinden ücretsiz hesap açın.
 2. **Settings** → **Websites** → **"Add website"**:
    - **Name:** `Kampüs30`
-   - **Domain:** 4b'deki adres, ör. `animsatici.vercel.app`
+   - **Domain:** 4b'deki adres, ör. `kampus30.vercel.app`
 3. Kaydettikten sonra web sitesinin yanındaki **Edit** (veya ayarlar) → **Tracking code** sekmesine gidin. Şuna benzer bir kod görürsünüz:
    ```html
    <script defer src="https://cloud.umami.is/script.js" data-website-id="1234abcd-...."></script>
@@ -185,10 +185,10 @@ Bunları Umami panelinde **Events** bölümünde görürsünüz.
 
 | Key | Value |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | `https://animsatici.vercel.app` (4b'deki adres, başında `https://` ile, sonunda `/` olmadan) |
+| `NEXT_PUBLIC_SITE_URL` | `https://kampus30.vercel.app` (4b'deki adres, başında `https://` ile, sonunda `/` olmadan) |
 | `CONTACT_EMAIL` | Sitede görünecek iletişim e-postanız. İstemiyorsanız eklemeyin |
 | `GITHUB_TOKEN` | 6. adımdaki `github_pat_...` |
-| `GITHUB_REPO` | `suleyman-kara/animsatici` |
+| `GITHUB_REPO` | `suleyman-kara/kampus30` |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | 5. adımdaki Site Key |
 | `TURNSTILE_SECRET_KEY` | 5. adımdaki Secret Key |
 | `NEXT_PUBLIC_UMAMI_SRC` | 7. adımdaki script adresi |
@@ -310,7 +310,7 @@ Sponsorlar ve SEO için `kampus30.com` gibi kendi alan adınız daha güven veri
 | Turnstile Site Key | Cloudflare → Turnstile | Vercel: `NEXT_PUBLIC_TURNSTILE_SITE_KEY` |
 | Turnstile Secret Key | Cloudflare → Turnstile | Vercel: `TURNSTILE_SECRET_KEY` |
 | Fine-grained token (Issues: write) | GitHub → Developer settings | Vercel: `GITHUB_TOKEN` |
-| Repo adı | — | Vercel: `GITHUB_REPO` = `suleyman-kara/animsatici` |
+| Repo adı | — | Vercel: `GITHUB_REPO` = `suleyman-kara/kampus30` |
 | Umami script adresi + website ID | Umami → Tracking code | Vercel: `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID` |
 | İletişim e-postası | — | Vercel: `CONTACT_EMAIL` |
 
