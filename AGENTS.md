@@ -8,7 +8,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# KampüsRadar — Ajan ve geliştirici kuralları
+# Kampüs30 — Ajan ve geliştirici kuralları
 
 Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README.md](README.md).
 

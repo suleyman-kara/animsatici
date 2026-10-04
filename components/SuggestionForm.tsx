@@ -53,8 +53,8 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
 
   if (status.kind === "done") {
     return (
-      <div role="status" className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-6">
-        <h2 className="text-xl font-semibold">Teşekkürler!</h2>
+      <div role="status" className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-surface shadow-pop p-6">
+        <h2 className="font-display text-2xl font-extrabold">🎉 Teşekkürler!</h2>
         <p className="text-fg-muted">Öneriniz alındı. Otomatik bir inceleme yapılacak ve sonucu kayda yazılacak.</p>
         {status.issueUrl && (
           <a href={status.issueUrl} target="_blank" rel="noopener" className="font-medium underline">Önerinizi buradan takip edebilirsiniz ↗</a>
@@ -64,11 +64,11 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
     );
   }
 
-  const field = "rounded-lg border border-border bg-surface px-3 py-2";
+  const field = "rounded-xl border-2 border-border bg-surface px-3 py-2 shadow-pop-sm";
   return (
     <form onSubmit={submit} className="flex flex-col gap-5">
       {siteKey && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
-      <div role="tablist" aria-label="Öneri türü" className="grid grid-cols-2 gap-1 rounded-xl bg-surface-muted p-1 text-sm font-medium">
+      <div role="tablist" aria-label="Öneri türü" className="grid grid-cols-2 gap-2 font-display text-sm font-bold">
         {(
           [
             ["missing", "Eksik etkinlik"],
@@ -76,7 +76,7 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
           ] as const
         ).map(([value, label]) => (
           <button key={value} type="button" role="tab" aria-selected={type === value} onClick={() => setType(value)}
-            className={`rounded-lg px-3 py-2 ${type === value ? "bg-surface shadow-sm" : "text-fg-muted"}`}>
+            className={`pressable rounded-xl border-2 border-border px-3 py-2 shadow-pop-sm ${type === value ? "bg-pop-mint text-pop-fg" : "bg-surface text-fg-muted"}`}>
             {label}
           </button>
         ))}
@@ -134,8 +134,8 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
       {status.kind === "error" && <p role="alert" className="text-sm text-danger">{status.message}</p>}
 
       <button type="submit" disabled={status.kind === "sending"}
-        className="self-start rounded-lg bg-accent px-4 py-2 font-semibold text-accent-fg hover:opacity-90 disabled:opacity-60">
-        {status.kind === "sending" ? "Gönderiliyor…" : "Gönder"}
+        className="self-start pressable rounded-xl border-2 border-border bg-pop-yellow px-4 py-2 font-display font-bold text-pop-fg shadow-pop-sm disabled:opacity-60">
+        {status.kind === "sending" ? "Gönderiliyor…" : "Gönder 🚀"}
       </button>
     </form>
   );

@@ -12,6 +12,6 @@ export async function GET() {
   const since = Date.now() - MONTH_MS;
   const events = (await getEvents()).filter((e) => classify(e, since) !== "past");
   return new Response(buildIcs(events, { siteUrl: SITE_URL, name: SITE_NAME, since }), {
-    headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'inline; filename="kampusradar.ics"' },
+    headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'inline; filename="kampus30.ics"' },
   });
 }

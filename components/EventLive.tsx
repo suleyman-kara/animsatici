@@ -14,9 +14,9 @@ type Timing = Pick<Event, "startDate" | "endDate" | "deadline" | "status">;
 export function PhaseBadge({ event, builtAt }: { event: Timing; builtAt: number }) {
   const now = useNow(builtAt);
   if (event.status === "cancelled") {
-    return <span className="rounded-full bg-danger-soft px-2 py-0.5 font-semibold text-danger">İptal edildi</span>;
+    return <span className="rounded-full border-2 border-border bg-danger-soft px-2 py-0.5 font-display font-bold text-danger">🚫 İptal edildi</span>;
   }
-  return <span className="rounded-full bg-accent-soft px-2 py-0.5 font-semibold text-accent">{PHASE_LABELS[classify(event, now)]}</span>;
+  return <span className="rounded-full border-2 border-border bg-pop-mint px-2 py-0.5 font-display font-bold text-pop-fg">{PHASE_LABELS[classify(event, now)]}</span>;
 }
 
 type ActionsProps = {
@@ -35,13 +35,13 @@ export function EventActions({ id, url, sponsored, event, calendarUrls, builtAt 
   return (
     <div className="flex flex-wrap gap-2">
       <a href={url} target="_blank" rel="noopener" onClick={() => track("basvur-tikla", { event: id, sponsored })}
-        className="rounded-lg bg-accent px-4 py-2 font-semibold text-accent-fg hover:opacity-90">
+        className="pressable rounded-xl border-2 border-border bg-pop-yellow px-4 py-2 font-display font-bold text-pop-fg shadow-pop-sm">
         {phase === "open" ? "Başvur" : "Etkinlik sayfası"} ↗
       </a>
       {event.status !== "cancelled" && phase !== "past" && calendarUrl && (
         <a href={calendarUrl} target="_blank" rel="noopener" onClick={() => track("takvime-ekle", { event: id })}
-          className="rounded-lg border border-border bg-surface px-4 py-2 font-medium hover:bg-surface-muted">
-          Takvime ekle
+          className="pressable rounded-xl border-2 border-border bg-surface px-4 py-2 font-display font-bold shadow-pop-sm">
+          📌 Takvime ekle
         </a>
       )}
     </div>

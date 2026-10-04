@@ -1,4 +1,4 @@
-# KampüsRadar
+# Kampüs30
 
 Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ana sayfada **önümüzdeki 30 gün içinde** başvurusu kapanan ya da başlayan etkinlikler gösterilir, devam edenlerin ayrı bir sayfası vardır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
 
@@ -8,7 +8,8 @@ Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj pr
 GitHub Actions (her gün 19:00 TR) ──► npm run scan
    ├─ data/sources/*.json'daki sayfaları çeker, değişmemişse atlar (hash)
    ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
-   ├─ tarihi liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır (kaynak başına en fazla 10)
+   ├─ tarihi/yılı liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır
+   │  (kaynak başına en fazla 30, 4'er 4'er; sonuçsuz sayfalar 7 gün tekrar açılmaz)
    ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
    ├─ yıl tahmin edilmez: tarihlerin yılı sayfadan birebir alıntıda yazmıyorsa etkinlik alınmaz
    ├─ bitmiş etkinlikler alınmaz

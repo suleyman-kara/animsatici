@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS, type EventPhase } from "@/lib/dates";
-import { CATEGORY_LABELS, TYPE_LABELS } from "@/lib/labels";
+import { classify, endInstant, inWindow, startInstant, type EventPhase } from "@/lib/dates";
+import Link from "next/link";
+import { CATEGORY_EMOJI, CATEGORY_LABELS, CATEGORY_POP, TYPE_EMOJI, TYPE_LABELS } from "@/lib/labels";
 import { useNow } from "@/lib/use-now";
 import { EventCard, isSponsoredNow, type CardEvent } from "./EventCard";
 
@@ -50,12 +51,39 @@ function matches(e: CardEvent, f: Filters): boolean {
   return true;
 }
 
-const SECTIONS: { phase: EventPhase; title: string; empty: string }[] = [
-  { phase: "open", title: "Başvurusu açık", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başvurusu kapanan etkinlik yok.` },
-  { phase: "upcoming", title: "Yakında başlıyor", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başlayan etkinlik yok.` },
+const SECTIONS: { phase: EventPhase; emoji: string; title: string; hint: string }[] = [
+  { phase: "open", emoji: "✍️", title: "Başvurusu açık", hint: "Kapanmadan yetiş" },
+  { phase: "upcoming", emoji: "🚀", title: "Yakında başlıyor", hint: "Takvimine ekle, unutma" },
 ];
 
-const selectClass = "rounded-lg border border-border bg-surface px-3 py-2 text-sm";
+const fieldClass = "rounded-xl border-2 border-border bg-surface px-3 py-2 text-sm shadow-pop-sm";
+const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+function EmptyState({ filtered, onClear }: { filtered: boolean; onClear: () => void }) {
+  return (
+    <div className="rounded-2xl border-2 border-dashed border-border bg-surface/60 p-6 text-center">
+      <p className="text-3xl" aria-hidden>
+        {filtered ? "🔍" : "😴"}
+      </p>
+      <p className="mt-2 font-display font-bold">{filtered ? "Bu filtrelere uyan bir şey yok." : "Burası şimdilik sessiz."}</p>
+      <p className="mt-1 text-sm text-fg-muted">
+        {filtered ? (
+          <button type="button" className="underline" onClick={onClear}>
+            Filtreleri temizle
+          </button>
+        ) : (
+          <>
+            Bildiğin bir etkinlik mi var?{" "}
+            <Link href="/oneri" className="font-semibold underline">
+              Bize söyle
+            </Link>
+            .
+          </>
+        )}
+      </p>
+    </div>
+  );
+}
 
 export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt: number }) {
   // İlk çizim build anına göre (HTML ile birebir), ardından gerçek saate göre yeniden sınıflandırılır.
@@ -76,8 +104,8 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
   const phased = all.filter(({ e, phase }) => phase !== "ongoing" && inWindow(e, now));
   // Sponsorlu öne çıkarmalar pencereden bağımsızdır (süresini proje sahibi belirler).
   const featured = all.filter(({ e }) => isSponsoredNow(e, now));
-  const active = phased;
   const filtered = KEYS.some((k) => filters[k]);
+  const closingThisWeek = phased.filter(({ e, phase }) => phase === "open" && e.deadline && endInstant(e.deadline) - now <= WEEK_MS).length;
 
   const byPhase = (phase: EventPhase) => {
     const list = phased.filter((p) => p.phase === phase);
@@ -87,50 +115,74 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
 
   return (
     <div className="flex flex-col gap-8">
-      <form role="search" className="grid gap-2 sm:grid-cols-[1fr_auto_auto_auto]" onSubmit={(ev) => ev.preventDefault()}>
-        <label className="sr-only" htmlFor="q">Etkinlik ara</label>
-        <input
-          id="q"
-          type="search"
-          placeholder="Etkinlik, kurum veya şehir ara…"
-          value={filters.q}
-          onChange={(ev) => update({ q: ev.target.value })}
-          className="rounded-lg border border-border bg-surface px-3 py-2 text-sm"
-        />
-        <select aria-label="Kategori" className={selectClass} value={filters.kategori} onChange={(ev) => update({ kategori: ev.target.value })}>
-          <option value="">Tüm kategoriler</option>
-          {Object.entries(CATEGORY_LABELS).map(([v, l]) => (
-            <option key={v} value={v}>{l}</option>
-          ))}
-        </select>
-        <select aria-label="Tür" className={selectClass} value={filters.tur} onChange={(ev) => update({ tur: ev.target.value })}>
-          <option value="">Tüm türler</option>
-          {types.map((t) => (
-            <option key={t} value={t}>{TYPE_LABELS[t]}</option>
-          ))}
-        </select>
-        <select aria-label="Konum" className={selectClass} value={filters.konum} onChange={(ev) => update({ konum: ev.target.value })}>
-          <option value="">Tüm konumlar</option>
-          <option value="online">Online</option>
-          {cities.map((c) => (
-            <option key={c} value={c}>{c}</option>
-          ))}
-        </select>
-      </form>
+      <div className="flex flex-wrap gap-2 font-display text-sm font-bold">
+        <span className="rounded-full border-2 border-border bg-pop-mint px-3 py-1 text-pop-fg shadow-pop-sm">🗓️ 30 günde {phased.length} fırsat</span>
+        {closingThisWeek > 0 && (
+          <span className="rounded-full border-2 border-border bg-pop-pink px-3 py-1 text-pop-fg shadow-pop-sm">
+            🔥 {closingThisWeek} başvuru bu hafta kapanıyor
+          </span>
+        )}
+      </div>
 
-      {filtered && (
-        <p className="-mt-5 text-sm text-fg-muted">
-          {active.length} etkinlik bulundu ·{" "}
-          <button type="button" className="underline" onClick={() => update(EMPTY)}>
-            Filtreleri temizle
-          </button>
-        </p>
-      )}
+      <form role="search" className="flex flex-col gap-3" onSubmit={(ev) => ev.preventDefault()}>
+        <div className="grid gap-2 sm:grid-cols-[1fr_auto_auto]">
+          <label className="sr-only" htmlFor="q">
+            Etkinlik ara
+          </label>
+          <input
+            id="q"
+            type="search"
+            placeholder="🔎 Hackathon, şirket, şehir…"
+            value={filters.q}
+            onChange={(ev) => update({ q: ev.target.value })}
+            className={fieldClass}
+          />
+          <select aria-label="Tür" className={fieldClass} value={filters.tur} onChange={(ev) => update({ tur: ev.target.value })}>
+            <option value="">Her tür</option>
+            {types.map((t) => (
+              <option key={t} value={t}>
+                {TYPE_EMOJI[t]} {TYPE_LABELS[t]}
+              </option>
+            ))}
+          </select>
+          <select aria-label="Konum" className={fieldClass} value={filters.konum} onChange={(ev) => update({ konum: ev.target.value })}>
+            <option value="">Her yer</option>
+            <option value="online">💻 Online</option>
+            {cities.map((c) => (
+              <option key={c} value={c}>
+                📍 {c}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div role="group" aria-label="Kategori" className="flex flex-wrap gap-2">
+          {[["", "✨", "Hepsi"] as const, ...Object.entries(CATEGORY_LABELS).map(([v, l]) => [v, CATEGORY_EMOJI[v as keyof typeof CATEGORY_EMOJI], l] as const)].map(
+            ([value, emoji, label]) => {
+              const on = filters.kategori === value;
+              return (
+                <button
+                  key={value || "all"}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => update({ kategori: value })}
+                  className={`pressable rounded-full border-2 border-border px-3 py-1 font-display text-sm font-bold shadow-pop-sm ${
+                    on ? `${value ? CATEGORY_POP[value as keyof typeof CATEGORY_POP] : "bg-pop-yellow"} text-pop-fg` : "bg-surface"
+                  }`}
+                >
+                  {emoji} {label}
+                </button>
+              );
+            },
+          )}
+        </div>
+      </form>
 
       {featured.length > 0 && (
         <section aria-labelledby="featured">
-          <h2 id="featured" className="mb-3 text-sm font-semibold uppercase tracking-wide text-sponsor">Öne çıkanlar</h2>
-          <div className="grid gap-4 md:grid-cols-2">
+          <h2 id="featured" className="mb-3 font-display text-2xl font-extrabold">
+            ⭐ Öne çıkanlar
+          </h2>
+          <div className="grid gap-5 md:grid-cols-2">
             {featured.map(({ e, phase }) => (
               <EventCard key={e.id} event={e} phase={phase} now={now} />
             ))}
@@ -138,20 +190,21 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
         </section>
       )}
 
-      {SECTIONS.map(({ phase, title, empty }) => {
+      {SECTIONS.map(({ phase, emoji, title, hint }) => {
         const list = byPhase(phase);
-        if (list.length === 0 && !empty) return null;
         return (
           <section key={phase} aria-labelledby={`s-${phase}`}>
-            <h2 id={`s-${phase}`} className="mb-3 flex items-baseline gap-2 text-xl font-bold">
-              {title} <span className="text-sm font-normal text-fg-muted">{list.length}</span>
-            </h2>
+            <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <h2 id={`s-${phase}`} className="font-display text-2xl font-extrabold">
+                {emoji} {title}
+              </h2>
+              <span className="rounded-full border-2 border-border bg-surface px-2 font-display text-sm font-bold">{list.length}</span>
+              <span className="text-sm text-fg-muted">{hint}</span>
+            </div>
             {list.length === 0 ? (
-              <p className="rounded-2xl border border-dashed border-border p-6 text-center text-sm text-fg-muted">
-                {filtered ? "Bu filtrelere uyan etkinlik yok." : empty}
-              </p>
+              <EmptyState filtered={filtered} onClear={() => update(EMPTY)} />
             ) : (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-5 md:grid-cols-2">
                 {list.map(({ e, phase: p }) => (
                   <EventCard key={e.id} event={e} phase={p} now={now} />
                 ))}
@@ -160,7 +213,6 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
           </section>
         );
       })}
-
     </div>
   );
 }

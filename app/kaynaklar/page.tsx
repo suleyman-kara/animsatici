@@ -7,7 +7,7 @@ import type { SourceScanState } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Kaynaklar",
-  description: "KampüsRadar'ın her gün taradığı kaynaklar ve son tarama durumları.",
+  description: "Kampüs30'un her gün taradığı kaynaklar ve son tarama durumları.",
   alternates: { canonical: "/kaynaklar" },
 };
 
@@ -26,7 +26,7 @@ export default async function SourcesPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-3xl font-bold tracking-tight">Kaynaklar</h1>
+        <h1 className="font-display text-4xl font-extrabold tracking-tight">📡 Kaynaklar</h1>
         <p className="mt-2 max-w-2xl text-fg-muted">
           Bu sayfalar her gün 19:00&apos;da taranır. Etkinlikler yapay zeka ile çıkarılır ve yalnızca kaynak sayfada birebir
           geçen başlık ve tarihler kabul edilir. Eksik bir kaynak mı var? <Link href="/oneri" className="font-medium text-fg underline">Önerin</Link>.
@@ -42,7 +42,7 @@ export default async function SourcesPage() {
           const st = state[s.id];
           const status = st ? STATUS[st.lastStatus] : undefined;
           return (
-            <li key={s.id} className="flex flex-col gap-2 rounded-2xl border border-border bg-surface p-4">
+            <li key={s.id} className="flex flex-col gap-2 rounded-2xl border-2 border-border bg-surface shadow-pop p-4">
               <div className="flex items-start justify-between gap-3">
                 <a href={s.homepage ?? s.url} target="_blank" rel="noopener" className="font-semibold hover:underline">{s.title}</a>
                 {status && <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${status.className}`}>{status.label}</span>}

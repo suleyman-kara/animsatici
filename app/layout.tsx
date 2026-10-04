@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Analytics } from "@/components/Analytics";
+import { Logo } from "@/components/Logo";
 import { getLastScan } from "@/lib/data";
 import { formatDate } from "@/lib/dates";
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
@@ -18,16 +19,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#0e0f11" },
+    { media: "(prefers-color-scheme: light)", color: "#fff8ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#15111d" },
   ],
 };
 
 const NAV = [
-  { href: "/", label: "Etkinlikler" },
-  { href: "/devam-eden", label: "Devam eden" },
-  { href: "/kaynaklar", label: "Kaynaklar" },
-  { href: "/oneri", label: "Öner" },
+  { href: "/", label: "🗓️ 30 gün" },
+  { href: "/devam-eden", label: "🟢 Devam eden" },
+  { href: "/kaynaklar", label: "📡 Kaynaklar" },
+  { href: "/oneri", label: "💡 Öner" },
 ];
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
@@ -38,15 +39,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#icerik" className="sr-only focus:not-sr-only focus:absolute focus:p-2">
           İçeriğe geç
         </a>
-        <header className="border-b border-border bg-surface">
-          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-            <Link href="/" className="flex items-center gap-2 text-lg font-bold">
-              <span aria-hidden className="grid size-7 place-items-center rounded-full bg-accent text-sm text-accent-fg">◎</span>
-              {SITE_NAME}
+        <header className="sticky top-0 z-20 border-b-2 border-border bg-bg/90 backdrop-blur">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2.5">
+            <Link href="/" aria-label={`${SITE_NAME} ana sayfa`}>
+              <Logo />
             </Link>
-            <nav aria-label="Ana menü" className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <nav aria-label="Ana menü" className="-mx-4 flex w-[calc(100%+2rem)] gap-1 overflow-x-auto whitespace-nowrap px-4 font-display text-sm font-bold sm:mx-0 sm:w-auto sm:px-0">
               {NAV.map((item) => (
-                <Link key={item.href} href={item.href} className="text-fg-muted hover:text-fg">
+                <Link key={item.href} href={item.href} className="rounded-full px-3 py-1 hover:bg-surface-muted">
                   {item.label}
                 </Link>
               ))}
@@ -58,13 +58,16 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
 
-        <footer className="border-t border-border bg-surface text-sm text-fg-muted">
+        <footer className="mt-10 border-t-2 border-border bg-surface text-sm text-fg-muted">
           <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-6 sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              {lastScan ? <>Son güncelleme: {formatDate(lastScan.completedAt)}</> : "Henüz tarama yapılmadı"}
-              {" · "}
-              <Link href="/kaynaklar" className="underline-offset-2 hover:underline">Tarama durumu</Link>
-            </p>
+            <div className="flex flex-col gap-1">
+              <p className="font-display font-bold text-fg">Öğrenciler için, öğrencilerle ✌️</p>
+              <p>
+                {lastScan ? <>Son güncelleme: {formatDate(lastScan.completedAt)}</> : "Henüz tarama yapılmadı"}
+                {" · "}
+                <Link href="/kaynaklar" className="underline-offset-2 hover:underline">Tarama durumu</Link>
+              </p>
+            </div>
             <nav aria-label="Alt menü" className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/hakkinda" className="hover:text-fg">Hakkında</Link>
               <Link href="/gizlilik" className="hover:text-fg">Gizlilik</Link>

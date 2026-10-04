@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { OG_COLORS, OgFrame, OgLogo } from "@/components/OgCard";
 import { getEvent, getEvents } from "@/lib/data";
 import { formatDate, formatRange } from "@/lib/dates";
 import { locationText, TYPE_LABELS } from "@/lib/labels";
@@ -8,27 +9,37 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Etkinlik kartı";
 
+const CATEGORY_BG = { ceng: OG_COLORS.violet, career: "#6fd3ff", campus: "#ff9d4d", community: OG_COLORS.pink } as const;
+
 export async function generateStaticParams() {
   return (await getEvents()).map((e) => ({ id: e.id }));
 }
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const event = await getEvent((await params).id);
-  const when = event ? formatRange(event.startDate, event.endDate) || `Son başvuru: ${formatDate(event.deadline!)}` : "";
+  const deadline = event?.deadline ? `Son başvuru: ${formatDate(event.deadline)}` : "";
+  const when = event ? formatRange(event.startDate, event.endDate) : "";
   return new ImageResponse(
     (
-      <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", height: "100%", padding: 72, background: "#0e0f11", color: "#ececee" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 30, color: "#2dd4bf" }}>
-          <div style={{ display: "flex", width: 28, height: 28, borderRadius: 999, border: "6px solid #2dd4bf", marginRight: 0 }} />
-          <span>{SITE_NAME}</span>
-          {event && <span style={{ color: "#a1a1aa" }}>· {TYPE_LABELS[event.type]}</span>}
+      <OgFrame accent={event ? CATEGORY_BG[event.category] : OG_COLORS.violet}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <OgLogo />
+          {event && (
+            <span style={{ display: "flex", padding: "6px 18px", fontSize: 28, background: OG_COLORS.bg, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>
+              {TYPE_LABELS[event.type]}
+            </span>
+          )}
         </div>
-        <div style={{ display: "flex", fontSize: 68, fontWeight: 700, lineHeight: 1.1 }}>{event?.title ?? SITE_NAME}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 34, color: "#a1a1aa" }}>
-          <span>{when}</span>
-          {event && <span>{[event.organizer, locationText(event.location)].filter(Boolean).join(" · ")}</span>}
+        <div style={{ display: "flex", fontSize: 64, fontWeight: 800, lineHeight: 1.08 }}>{event?.title ?? SITE_NAME}</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 32 }}>
+          {deadline && (
+            <span style={{ display: "flex", width: "auto", alignSelf: "flex-start", padding: "4px 16px", background: OG_COLORS.yellow, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 14 }}>
+              {deadline}
+            </span>
+          )}
+          <span>{[when, event && [event.organizer, locationText(event.location)].filter(Boolean).join(" · ")].filter(Boolean).join("  ·  ")}</span>
         </div>
-      </div>
+      </OgFrame>
     ),
     size,
   );

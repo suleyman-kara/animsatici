@@ -13,7 +13,7 @@ export default async function SuggestPage() {
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-6">
       <header>
-        <h1 className="text-3xl font-bold tracking-tight">Etkinlik öner</h1>
+        <h1 className="font-display text-4xl font-extrabold tracking-tight">💡 Etkinlik öner</h1>
         <p className="mt-2 text-fg-muted">
           Listede olmayan bir etkinlik mi var, ya da bir bilgi yanlış mı? Etkinliğin adını yazmanız yeterli; gerisini biz
           araştırırız. Üyelik gerekmez.

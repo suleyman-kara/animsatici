@@ -16,7 +16,7 @@ export default async function OngoingPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-3xl font-bold tracking-tight">Devam eden etkinlikler</h1>
+        <h1 className="font-display text-4xl font-extrabold tracking-tight">🟢 Devam eden etkinlikler</h1>
         <p className="mt-2 max-w-2xl text-fg-muted">
           Şu anda sürmekte olan programlar, kamplar ve yarışmalar. Başvuruları çoğunlukla kapanmıştır; takip etmek ya da
           bir sonraki dönemi kaçırmamak için listeleniyorlar.

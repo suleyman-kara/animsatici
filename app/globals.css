@@ -1,42 +1,57 @@
 @import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
 
+/*
+ * Kampüs30 görsel dili: krem zemin, mürekkep çizgiler, canlı "çıkartma" renkleri ve
+ * kaydırılmış sert gölgeler. Koyu temada aynı renkler gece moruna taşınır.
+ */
 :root {
-  --bg: #f7f7f5;
+  --bg: #fff8ec;
   --surface: #ffffff;
-  --surface-muted: #f0f0ec;
-  --fg: #18181b;
-  --fg-muted: #57575f;
-  --border: #e4e4df;
-  --accent: #0f766e;
+  --surface-muted: #fff0d4;
+  --fg: #1a1325;
+  --fg-muted: #5b5368;
+  --border: #1a1325;
+  --ink: #1a1325;
+  --accent: #6d28d9;
   --accent-fg: #ffffff;
-  --accent-soft: #ccfbf1;
-  --warn: #b45309;
-  --warn-soft: #fef3c7;
-  --danger: #b91c1c;
-  --danger-soft: #fee2e2;
-  --sponsor: #92400e;
-  --sponsor-soft: #fffbeb;
-  --sponsor-border: #fcd34d;
+  --accent-soft: #ede4ff;
+  --warn: #8a4b00;
+  --warn-soft: #ffe7a3;
+  --danger: #b4123f;
+  --danger-soft: #ffd6e3;
+  --sponsor: #6b3a00;
+  --sponsor-soft: #fff4c7;
+  --sponsor-border: #1a1325;
+
+  --pop-yellow: #ffd23f;
+  --pop-pink: #ff7ab6;
+  --pop-mint: #3ee5b0;
+  --pop-sky: #6fd3ff;
+  --pop-orange: #ff9d4d;
+  --pop-violet: #b69cff;
+  --pop-fg: #1a1325;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0e0f11;
-    --surface: #17181b;
-    --surface-muted: #1f2024;
-    --fg: #ececee;
-    --fg-muted: #a1a1aa;
-    --border: #2a2b30;
-    --accent: #2dd4bf;
-    --accent-fg: #042f2e;
-    --accent-soft: #11332f;
-    --warn: #fbbf24;
-    --warn-soft: #3a2a0a;
-    --danger: #f87171;
-    --danger-soft: #3b1414;
-    --sponsor: #fcd34d;
-    --sponsor-soft: #241c08;
-    --sponsor-border: #78590f;
+    --bg: #15111d;
+    --surface: #211a2d;
+    --surface-muted: #2c2340;
+    --fg: #f6f1ff;
+    --fg-muted: #bdb2d1;
+    --border: #f6f1ff;
+    --ink: #000000;
+    --accent: #b69cff;
+    --accent-fg: #15111d;
+    --accent-soft: #352a52;
+    --warn: #ffd23f;
+    --warn-soft: #3d3110;
+    --danger: #ff8fb8;
+    --danger-soft: #45182b;
+    --sponsor: #ffd23f;
+    --sponsor-soft: #2f2610;
+    --sponsor-border: #ffd23f;
   }
 }
 
@@ -47,6 +62,7 @@
   --color-fg: var(--fg);
   --color-fg-muted: var(--fg-muted);
   --color-border: var(--border);
+  --color-ink: var(--ink);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
   --color-accent-soft: var(--accent-soft);
@@ -57,7 +73,41 @@
   --color-sponsor: var(--sponsor);
   --color-sponsor-soft: var(--sponsor-soft);
   --color-sponsor-border: var(--sponsor-border);
+  --color-pop-yellow: var(--pop-yellow);
+  --color-pop-pink: var(--pop-pink);
+  --color-pop-mint: var(--pop-mint);
+  --color-pop-sky: var(--pop-sky);
+  --color-pop-orange: var(--pop-orange);
+  --color-pop-violet: var(--pop-violet);
+  --color-pop-fg: var(--pop-fg);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Kaydırılmış sert gölge ("çıkartma" etkisi) */
+@utility shadow-pop {
+  box-shadow: 4px 4px 0 0 var(--ink);
+}
+@utility shadow-pop-sm {
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+@utility shadow-pop-lg {
+  box-shadow: 7px 7px 0 0 var(--ink);
+}
+
+/* Basılabilir öğeler: üzerine gelince kalkar, basınca yere iner */
+@utility pressable {
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 0 var(--ink);
+  }
+  &:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 0 var(--ink);
+  }
 }
 
 html {
@@ -65,11 +115,32 @@ html {
 }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 9%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
   color: var(--fg);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
 }

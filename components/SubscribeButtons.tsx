@@ -29,19 +29,19 @@ export function SubscribeButtons({ siteUrl }: { siteUrl: string }) {
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap gap-2 text-sm">
         <a href={google} target="_blank" rel="noopener" onClick={() => track("ics-abone", { via: "google" })}
-          className="rounded-lg bg-accent px-3 py-2 font-semibold text-accent-fg hover:opacity-90">
-          Google Takvim&apos;e abone ol
+          className="pressable rounded-xl border-2 border-border bg-pop-yellow px-3.5 py-2 font-display font-bold text-pop-fg shadow-pop-sm">
+          📆 Google Takvim&apos;e abone ol
         </a>
         <a href={webcal} onClick={() => track("ics-abone", { via: "webcal" })}
-          className="rounded-lg border border-border bg-surface px-3 py-2 font-medium hover:bg-surface-muted">
+          className="pressable rounded-xl border-2 border-border bg-surface px-3.5 py-2 font-display font-bold text-fg shadow-pop-sm">
           Apple / Outlook
         </a>
         <button type="button" onClick={copy}
-          className="rounded-lg border border-border bg-surface px-3 py-2 font-medium hover:bg-surface-muted">
+          className="pressable rounded-xl border-2 border-border bg-surface px-3.5 py-2 font-display font-bold text-fg shadow-pop-sm">
           {copied ? "Kopyalandı ✓" : "Takvim adresini kopyala"}
         </button>
       </div>
-      <p className="text-xs text-fg-muted">
+      <p className="max-w-2xl text-xs opacity-80">
         Google Takvim abone olunan takvimleri birkaç saatte bir günceller; ilk etkinliklerin görünmesi biraz sürebilir.
         Buton çalışmazsa adresi kopyalayıp Google Takvim&apos;de &quot;Diğer takvimler → + → URL ile&quot; seçeneğine yapıştırın.
       </p>
