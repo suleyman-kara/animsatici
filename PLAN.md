@@ -181,7 +181,7 @@ Kural: `startDate` veya `deadline`'dan en az biri dolu olmalı (`superRefine`).
 2. Kökte Next.js projesi kur (TypeScript, Tailwind, ESLint, App Router, `src/` YOK).
 3. `tsx`, `zod`, `vitest`, `@google/genai`, `cheerio` ekle. `axios` yerine yerleşik `fetch` kullan.
 4. `package.json` scriptleri: `dev`, `build`, `start`, `lint`, `typecheck` (`tsc --noEmit`), `test`, `validate`, `scan`, `healthcheck`, `agent`.
-5. `.env.example`'ı güncelle: `GEMINI_API_KEY`, `GEMINI_MODEL`, `GITHUB_TOKEN` (yalnızca /api/oneri için), `GITHUB_REPO` (`suleyman-kara/animsatici`), `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, `NEXT_PUBLIC_SITE_URL`, `CONTACT_EMAIL`.
+5. `.env.example`'ı güncelle: `GEMINI_API_KEY`, `GEMINI_MODEL`, `GITHUB_TOKEN` (yalnızca /api/oneri için), `GITHUB_REPO` (`suleyman-kara/kampus30`), `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID`, `NEXT_PUBLIC_SITE_URL`, `CONTACT_EMAIL`.
 6. `.github/workflows/ci.yml`: push ve PR'da `npm ci && npm run lint && npm run typecheck && npm test && npm run validate && npm run build`.
 
 **Kabul:** `npm run build` geçer, CI yeşil, eski kod `legacy/` altında duruyor.
