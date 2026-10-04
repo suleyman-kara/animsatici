@@ -1,22 +1,46 @@
 {
   "name": "kampus-radar",
-  "version": "1.0.0",
-  "description": "KampüsRadar - CENG ve Üniversite Öğrencileri için Akıllı Fırsat & Takvim Radarı",
-  "type": "module",
-  "scripts": {
-    "build:flutter": "cd app && C:\\Users\\suleyman\\flutter\\bin\\flutter.bat build web",
-    "deploy:hosting": "npx.cmd -y firebase-tools deploy --only hosting",
-    "deploy:functions": "npx.cmd -y firebase-tools deploy --only functions",
-    "deploy:rules": "npx.cmd -y firebase-tools deploy --only firestore:rules",
-    "deploy:all": "npm run build:flutter && npx.cmd -y firebase-tools deploy"
-  },
-  "keywords": [
-    "kampus-radar",
-    "flutter-web",
-    "firebase",
-    "gemini-ai",
-    "google-calendar"
-  ],
+  "version": "2.0.0",
+  "private": true,
+  "description": "KampüsRadar — üniversite öğrencileri için etkinlik radarı",
   "author": "Süleyman Kara",
-  "license": "MIT"
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "validate": "tsx scripts/validate.ts",
+    "scan": "tsx scripts/scan.ts",
+    "healthcheck": "tsx scripts/healthcheck.ts",
+    "agent": "tsx scripts/agent/index.ts",
+    "setup-labels": "tsx scripts/setup-labels.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "cheerio": "^1.2.0",
+    "next": "^16.3.8",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
 }

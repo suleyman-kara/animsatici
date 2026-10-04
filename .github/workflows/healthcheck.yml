@@ -1,0 +1,46 @@
+name: Sağlık kontrolü
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # 10:00 Türkiye saati
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Kontrol et
+        id: check
+        run: |
+          set +e
+          out=$(npm run -s healthcheck 2>&1)
+          code=$?
+          echo "$out"
+          {
+            echo "report<<EOF"
+            echo "$out"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+          exit $code
+      - name: Sorun bildir
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: ${{ steps.check.outputs.report }}
+        run: |
+          .github/scripts/report-issue.sh "Tarama sağlık kontrolü başarısız" \
+            "Sağlık kontrolü sorun buldu:
+
+          ${REPORT}
+
+          Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Actions sekmesinden \"Günlük tarama\" workflow'unu kontrol edin."

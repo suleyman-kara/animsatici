@@ -1,137 +1,90 @@
-# 📡 KampüsRadar (CENG & Kampüs Fırsat Radarı)
-### Türkiye'nin Üniversite Öğrencileri ve Genç Geliştiricileri İçin Akıllı Etkinlik & Kariyer Ajandası
+# KampüsRadar
 
-Web sitelerindeki hackathonları, kodlama kamplarını, staj/iş ilanlarını ve üniversite duyurularını senin yerine 7/24 izleyen; gelişmeleri yapay zeka (**Google Gemini 3.6 Flash**) ile süzüp yapılandıran ve doğrudan **Google Takvim'e tek tıkla işleyen** yeni nesil akıllı kariyer radarı.
+Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
 
-* 🌐 **Canlı Uygulama:** [https://kampus-radar.web.app](https://kampus-radar.web.app)
-* ☁️ **Altyapı:** %100 Sunucusuz (Serverless) Google Cloud Platform & Cloud Firestore
-* 🤖 **Yapay Zeka:** Google Gemini 3.6 Flash Engine
-* 📅 **Takvim Entegrasyonu:** Tek tıkla Google Takvim senkronizasyonu
-
----
-
-## 🎯 Projenin Temel Misyonu & Yaşanan Dönüşüm (The Strategic Pivot)
-
-Geleneksel web takip araçları kullanıcıya URL girdirir, sayfa kodunu seçtirir ve her ufak piksel/reklam değişiminde yüzlerce sahte spam alarm üretir. Öğrenciler web kazıma uzmanı değildir; URL peşinde koşmak, bozuk linklerle uğraşmak istemezler.
-
-**KampüsRadar**, bu sürtünmeyi tamamen ortadan kaldıran **"Küratörlü & Doğrulanmış Etkinlik Platformu"** modelini benimsemiştir:
-* **Öğrenci Açısından:** URL girmek veya teknik ayar yapmak yok. Tek tıkla ilgilendiği kanalları (*inzva, Coderspace, Techcareer, Baykar, Üniversite SKS*) takip eder; anında kişiselleştirilmiş, dopdolu bir etkinlik ajandasına sahip olur.
-* **Yönetici Açısından:** Kaynaklar merkezi Yönetici Panelinde izlenir; sitelerin sağlık durumları (200 OK / Hata) ve yapay zekanın çıkardığı takvim verileri anlık test edilir. Sıfır hatalı link, %100 güvenilir veri.
-
----
-
-## ✨ Temel Özellikler & Canlı Altyapı
-
-### 1. 🚀 %100 Sunucusuz (Serverless) 7/24 Bulut Mimarisi
-* Bilgisayarınızı açık tutmaya sıfır ihtiyaç; sistem Google Cloud altyapısında 7/24 bağımsız yaşar.
-* **Cloud Scheduler & Functions 2nd Gen:** Her gün saat **19:00'da (Türkiye Saati)** çalışan `centralRadarScanner`, tüm merkezi kaynakları arka planda otomatik olarak tarar.
-* **Akıllı SHA-256 Değişim Tespiti:** Sitede gerçek bir metin değişikliği yoksa yapay zekaya istek atılmaz ($0 gereksiz maliyet).
-
-### 2. 🧠 Gemini 3.6 Flash ile Akıllı Takvim Çıkarımı
-* Sayfadaki reklamlar, gezinme menüleri ve sayaçlar ayıklanarak salt içerik Gemini'ye teslim edilir.
-* Gemini; etkinlik başlığını, başlangıç-bitiş tarih ve saatlerini ve özetini doğal Türkçeyle JSON olarak yakalar.
-* Otomatik olarak **`[📅 Google Takvim'e Ekle]`** linki oluşturulur; tıklandığı an kullanıcının ajandasına işlenir.
-* **Anti-Halüsinasyon (1 Yıl Kuralı):** 1 yıldan eski arşiv/duyurular yapay zeka tarafından elenir, takvim daima güncel kalır.
-
-### 3. 👑 Yönetici Paneli (Admin Dashboard)
-* Yalnızca yetkili yönetici hesabına (`suleymankara600@gmail.com`) özel tam yetkili kontrol paneli.
-* **Kaynak Sağlık Durumu:** Sitelerin HTTP yanıt kodları (`🟢 200 OK`, `🔴 404/500/HATA`), gecikme süreleri (`ms`) ve son tarama zamanı.
-* **Hata İzleme & Canlı Simülasyon:** Herhangi bir kaynağı tek tıkla (`⚡ Test Et`) bulutta anında test etme ve hata detayını görme.
-* **Kataloğu Eşitle:** Tek tıkla hazır katalog kaynaklarını merkezi tarama havuzuna aktarma.
-* **Tarama Günlükleri (Scan Logs):** Geçmiş 19:00 tarama döngülerinin başarı oranları ve yakalanan fırsat istatistikleri.
-
-### 4. 🌟 Kesintisiz Açılış (Animasyonlu Radar Preloader)
-* Flutter Web motorunun ilk indirilme anında (canvaskit/wasm) yaşanan 3-4 saniyelik beyaz ekran beklemesi kaldırıldı.
-* Doğrudan HTML5/CSS3 ile çalışan dönen sonar/radar ışını, nabız dalgaları ve yükleme çubuğu ilk **15 milisaniyede** ekrana gelir; ilk Flutter karesi çizildiğinde pürüzsüzce kaybolur.
-
----
-
-## 🔮 Gelecek Vizyonu & Yeni Nesil Yol Haritası (Next-Gen Roadmap)
-
-### 🎙️ 1. Akıllı Tanışma & Kurulum Sihirbazı (Smart Onboarding)
-* İlk kez kayıt olan öğrenciyi boş ekran yerine çok modlu (multimodal) karşılama karşılar:
-  * **Sesle Konuşma:** Mikrofon butonuna basarak kendini anlatır: *"Ben İTÜ Bilgisayar 3. sınıfım, hackathon ve AI kampları arıyorum."*
-  * **Hazır Çipler:** `CENG`, `1. Sınıf`, `Yapay Zeka`, `Yaz Stajı`, `Ödüllü Hackathonlar` tek tıkla seçilir.
-  * **Serbest Metin:** Dileyen metin kutusuna hedeflerini yazar.
-* **Gemini Sıfırıncı Dakika Kurulumu:** Öğrencinin ilgi alanlarına en uygun 4-5 kanal otomatik takibe alınır ve takvimine yaklaşan etkinlikler saniyeler içinde doldurulur.
-
-### 📅 2. Üç Aşamalı Etkinlik Zaman Tüneli
-* **🟢 Güncel & Başvurusu Açık:** Kayıt olunabilen aktif fırsatlar (Örn: *"Son 3 Gün!"* geri sayımı).
-* **⏳ Gelecek Etkinlikler:** Tarihi duyurulmuş, yakında başlayacak hackathon ve kamplar.
-* **📁 Geçmiş / Arşiv:** Tamamlanmış etkinlikler. Öğrencilerin *"Geçen sene Baykar stajı hangi ay açılmıştı?"*, *"inzva kış kampı ne zamandı?"* gibi dönemsel planlama yapabilmesini sağlar.
-
-### 🏛️ 3. Topluluk Öneri Havuzu (Community Sourcing)
-* Kullanıcılar link kazıma zahmetine girmeden *"Topluluk / Kampüs Öner"* formuyla istedikleri sayfayı aday havuzuna iletir.
-* Yönetici panelinde çok talep alan kaynaklar tek tıkla test edilip merkezi sisteme alınır.
-
-### 🔔 4. İnce Ayarlı Bildirim Tercihleri
-* Kullanıcı bildirim e-postasını belirleyebilir veya kapatabilir.
-* Bildirim sıklığını seçebilir: ⚡ Anında, ⏰ Günlük Akşam Bülteni (19:00 / 21:00), 📅 Haftalık Özet veya 🔕 Sessiz mod.
-* Sadece takip ettiği kurumların bildirimlerini alır.
-
-### 🔍 5. Haftalık Kaynak Keşif Laboratuvarı (Admin Sandbox)
-* Yöneticinin haftalık rutininde yeni keşfettiği siteleri bir sandbox ortamında simüle edip, Gemini çıktısını canlı önizleyip onaylayarak sisteme dahil etmesi.
-
----
-
-## 🏗️ Sistem Mimarisi
+## Nasıl çalışır?
 
 ```
-                                [ KULLANICI ]
-                       ┌──────────────┴──────────────┐
-                       ▼                             ▼
-              [ Google ile Giriş ]           [ Akıllı Onboarding ]
-              (Firebase Google Auth)        (Ses / Çip / Metin ile Tanışma)
-                       │                             │
-                       └──────────────┬──────────────┘
-                                      ▼
-                           [ FLUTTER WEB / APP ]
-                           (https://kampus-radar.web.app)
-                                      │
-                 ┌────────────────────┼────────────────────┐
-                 ▼                    ▼                    ▼
-          [ Etkinlik Ajandası ]  [ Kanal Takibi ]   [ 👑 Yönetici Paneli ]
-          (Güncel/Gelecek/Arşiv) (inzva, Baykar..)   (Sağlık & 200 OK İzleme)
-                 │                    │                    │
-                 └────────────────────┼────────────────────┘
-                                      ▼
-                          [ CLOUD FIRESTORE ]
-              (users, sources, opportunities, scan_logs, candidatePool)
-                                      ▲
-                                      │ (7/24 Otonom Tarama & Sağlık)
-                        ┌─────────────┴─────────────┐
-                        │ CLOUD FUNCTIONS (2nd Gen) │
-                        │  - centralRadarScanner    │ ◄── Cloud Scheduler (19:00 Cron)
-                        │  - checkSourceNow         │ ◄── Anlık Canlı Test
-                        └─────────────┬─────────────┘
-                                      ▼
-                             [ GEMINI 3.6 FLASH ]
-                           - Doğal Türkçe Özetleme
-                           - Başlangıç/Bitiş Tarihi Çıkarımı
-                           - 1 Yıl Kuralı & Takvim URL Üretimi
+GitHub Actions (her gün 19:00 TR) ──► npm run scan
+   ├─ data/sources/*.json'daki sayfaları çeker, değişmemişse atlar (hash)
+   ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
+   ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
+   ├─ tekilleştirme + güvenlik eşikleri + şema doğrulaması
+   └─ data/ değişikliklerini commit eder → Vercel siteyi yeniden derler
+
+Ziyaretçi /oneri formu ──► /api/oneri ──► GitHub Issue (oneri | hata-bildirimi)
+   └─ GitHub Actions: npm run agent
+        ├─ arar, sayfaları çeker, tarayıcıyı yeniden çalıştırır, nedeni teşhis eder
+        ├─ issue'ya teşhis yorumu yazar
+        └─ AGENT_MODE=pr ise düzeltmeyi PR olarak açar → siz onaylarsınız
 ```
 
----
+- **Site:** Next.js 16 + Tailwind, Vercel'de statik. Tek sunucu fonksiyonu öneri formudur.
+- **Veri:** Veritabanı yok. Her etkinlik `data/events/<id>.json`, her kaynak `data/sources/<id>.json`. Tüm geçmiş git'te.
+- **Analitik:** Umami (çerezsiz). Etkinlik bazında "Başvur" ve "Takvime ekle" tıklamaları sayılır.
 
-## 🛠️ Geliştirici & Komut Başlangıç Rehberi
+Kararların gerekçeleri [PLAN.md](PLAN.md), geliştirme kuralları [AGENTS.md](AGENTS.md) dosyasında.
 
-Detaylı ajan talimatları ve operasyonel kurallar için lütfen [AGENT.md](file:///c:/Users/suleyman/Documents/repos/animsatici/AGENT.md) belgesini inceleyin.
+## Yerelde çalıştırma
 
-```powershell
-# Flutter Web Derleme
-npm.cmd run build:flutter
-
-# Firebase Hosting Dağıtımı (Web Canlıya Alma)
-npm.cmd run deploy:hosting
-
-# Cloud Functions Dağıtımı
-npx.cmd -y firebase-tools deploy --only functions
-
-# Firestore Güvenlik Kuralları Dağıtımı
-npx.cmd -y firebase-tools deploy --only firestore:rules
+```bash
+npm install
+DATA_ROOT=tests/fixtures/sample-data npm run dev   # örnek etkinliklerle
+npm run dev                                       # gerçek data/ ile
 ```
 
----
+Kontroller: `npm run lint && npm run typecheck && npm test && npm run validate && npm run build`
 
-## 📄 Lisans
-Bu proje MIT lisansı ile korunmaktadır.
+Tarayıcıyı elle denemek (`.env.local` içinde `GEMINI_API_KEY` gerekir):
+
+```bash
+npm run scan -- --dry-run                # hiçbir dosya yazmadan rapor
+npm run scan -- --source inzva-events    # tek kaynak
+npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden çıkar
+```
+
+## Kurulum (bir kez, elle)
+
+İlk kez kuruyorsanız adım adım rehber: **[docs/KURULUM.md](docs/KURULUM.md)**. Kısa özet:
+
+1. **Vercel:** Repoyu içe aktarın. Environment Variables: `NEXT_PUBLIC_SITE_URL`, `CONTACT_EMAIL`, `GITHUB_TOKEN`, `GITHUB_REPO`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (açıklamalar `.env.example`'da).
+2. **GitHub token (öneri formu için):** Settings → Developer settings → Fine-grained tokens → yalnızca bu repo, **Issues: Read and write**. Vercel'e `GITHUB_TOKEN` olarak girin.
+3. **Cloudflare Turnstile:** Site ekleyin (alan adınız + `*.vercel.app`), anahtarları Vercel'e girin. Bunlar ve token girilmeden form "henüz yapılandırılmadı" der.
+4. **Umami Cloud:** Site ekleyin, website ID'yi Vercel'e girin. Sponsorlara panelin herkese açık paylaşım linkini verebilirsiniz.
+5. **GitHub repo ayarları:**
+   - Secrets → Actions: `GEMINI_API_KEY`
+   - Variables → Actions: `AGENT_MODE=comment` (ajanın teşhislerine güvenince `pr` yapın), isteğe bağlı `GEMINI_MODEL`
+   - Settings → Actions → General → Workflow permissions: **Read and write**, ✅ **Allow GitHub Actions to create and approve pull requests**
+6. **İlk tarama:** Actions → "Günlük tarama" → Run workflow. Etkinlikler commit'lenince site kendiliğinden güncellenir.
+7. **Alan adı (önerilir):** Vercel'e bağlayıp `NEXT_PUBLIC_SITE_URL`'i güncelleyin.
+8. **Eski Firebase'i kapatın:** Firebase konsolunda `centralRadarScanner` ve `checkSourceNow` fonksiyonlarını silin (Cloud Scheduler işi de silinir). Aksi hâlde eski tarama Gemini maliyeti üretmeye devam eder.
+
+## Günlük işletme
+
+| İş | Nasıl |
+|---|---|
+| Kaynak eklemek | `data/sources/<id>.json` ekleyin (örnek için mevcut dosyalara bakın) ya da ajanın PR'ını onaylayın |
+| Hatalı etkinliği düzeltmek | `data/events/<id>.json`'u düzenleyin. Tamamen silip bir daha eklenmemesini istiyorsanız `dedupeKey`'ini `data/blocklist.json`'a ekleyin |
+| Sponsorlu etkinlik | Etkinlik dosyasına `"sponsored": { "until": "2026-11-30" }` ekleyin (isteğe bağlı `"label"`). Tarih geçince kendiliğinden düşer. Ajan ve tarayıcı bu alana dokunmaz |
+| Taramayı elle başlatmak | Actions → "Günlük tarama" → Run workflow (`source`, `force` seçenekleri var) |
+| Bir öneriyi yeniden incelemek | Actions → "Öneri ajanı" → Run workflow (issue numarası, `force`) |
+| Ajanın önerdiği değişiklik | `ajan` etiketli PR'ı Vercel önizlemesinden kontrol edip birleştirin |
+| İnsan bakması gereken öneriler | `insan-gerekli` etiketli issue'lar |
+| Tarama sorunları | `tarama-hatasi` etiketli issue (tarama veya günlük sağlık kontrolü açar) |
+
+Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Günlük tarama commit'leri bunu genelde önler; yine de "tarama-hatasi" issue'su gelirse Actions sekmesinden workflow'u yeniden etkinleştirin.
+
+## Güvenlik ve veri kalitesi
+
+- Tarayıcı ve ajan, kaynak sayfada **birebir geçmeyen** başlık/tarihleri kabul etmez.
+- Bir taramada kaynakların yarısından fazlası hata verirse ya da 40'tan fazla yeni etkinlik çıkarsa hiçbir şey yazılmaz. Önceden etkinlik veren bir kaynak birden sıfır verirse o kaynak atlanır.
+- Ajan yalnızca `data/` altına yazabilir, sponsorlu kayıtlara dokunamaz, PR açmadan önce doğrulama ve testleri çalıştırır. Issue metni ve web sayfaları ona güvenilmez veri olarak verilir.
+- Öneri formu kişisel veri istemez; Turnstile ve honeypot ile korunur. IP adresi kaydedilmez.
+
+## Eski sürüm
+
+Flutter + Firebase ile yazılmış ilk sürüm kaldırıldı; git geçmişinde duruyor.
+
+## Lisans
+
+Apache 2.0 — bkz. [LICENSE](LICENSE)

@@ -1,0 +1,13 @@
+{
+  "startedAt": "2026-10-01T19:00:00+03:00",
+  "completedAt": "2026-10-01T19:03:12+03:00",
+  "status": "partial",
+  "totalSources": 7,
+  "successCount": 5,
+  "unchangedCount": 1,
+  "errorCount": 1,
+  "newEvents": 3,
+  "updatedEvents": 1,
+  "warnings": [],
+  "rejected": []
+}

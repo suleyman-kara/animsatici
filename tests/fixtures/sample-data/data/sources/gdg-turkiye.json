@@ -1,0 +1,10 @@
+{
+  "id": "gdg-turkiye",
+  "title": "GDG (Google Developer Groups) DevFest",
+  "url": "https://gdg.community.dev",
+  "category": "community",
+  "kind": "listing",
+  "active": true,
+  "render": "static",
+  "notes": "Google geliştirici topluluklarının DevFest konferansları, Flutter ve Cloud buluşmaları."
+}

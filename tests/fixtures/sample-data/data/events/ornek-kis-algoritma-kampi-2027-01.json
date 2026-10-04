@@ -1,0 +1,32 @@
+{
+  "id": "ornek-kis-algoritma-kampi-2027-01",
+  "title": "Örnek Kış Algoritma Kampı",
+  "summary": "Rekabetçi programlamaya hazırlanan öğrenciler için iki haftalık yoğun algoritma kampı.",
+  "type": "camp",
+  "category": "ceng",
+  "organizer": "inzva",
+  "startDate": "2027-01-25",
+  "endDate": "2027-02-05",
+  "deadline": "2026-10-07",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://example.com/ornek-kis-algoritma-kampi-2027-01",
+  "sourceId": "inzva-events",
+  "alsoSeenAt": [],
+  "tags": [
+    "Algoritma",
+    "Kamp"
+  ],
+  "evidence": {
+    "titleQuote": "Örnek Kış Algoritma Kampı",
+    "pageUrl": "https://example.com/ornek-kis-algoritma-kampi-2027-01",
+    "fetchedAt": "2026-10-01T19:00:00+03:00"
+  },
+  "status": "active",
+  "origin": "manual",
+  "dedupeKey": "ornek-kis-algoritma-kampi|2027-01-25",
+  "firstSeenAt": "2026-10-01T19:00:00+03:00",
+  "lastSeenAt": "2026-10-01T19:00:00+03:00"
+}
