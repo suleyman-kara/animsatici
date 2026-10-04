@@ -1,13 +1,13 @@
 {
-  "startedAt": "2026-10-04T15:24:16+03:00",
-  "completedAt": "2026-10-04T15:30:37+03:00",
+  "startedAt": "2026-10-04T21:56:00+03:00",
+  "completedAt": "2026-10-04T21:56:57+03:00",
   "status": "success",
-  "totalSources": 10,
-  "successCount": 10,
-  "unchangedCount": 0,
+  "totalSources": 8,
+  "successCount": 2,
+  "unchangedCount": 6,
   "errorCount": 0,
-  "newEvents": 27,
-  "updatedEvents": 1,
+  "newEvents": 0,
+  "updatedEvents": 3,
   "warnings": [],
   "rejected": [
     {
@@ -21,261 +21,6 @@
       "reason": "tarih bilgisi yok; detay sayfasında: tarih bilgisi yok"
     },
     {
-      "sourceId": "patika-bootcamps",
-      "title": "IBM & AI Agents Bootcamp",
-      "reason": "tarih bilgisi yok; detay sayfasında: tarih bilgisi yok"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "5G & Yapay Zeka ile Akıllı Yol Güvenliği Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: tarih alıntısı sayfada bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Biyoteknoloji İnovasyon Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Çip Tasarım Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Yapay Zeka Destekli Lojistik Anahat Optimizasyonu Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Havacılıkta Yapay Zeka Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsansız Deniz Aracı Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsansız Su Altı Sistemleri Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsansız Su Altı Sistemleri Yıldızlar Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Jet Motor Tasarım Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Liseler Arası İnsansız Hava Araçları Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Lise Öğrencileri İklim Değişikliği Araştırma Projeleri Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Lise Öğrencileri Kutup Araştırma Projeleri Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Model Uydu Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Nükleer Enerji Teknolojileri Tasarım Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Pardus Hata Yakalama ve Öneri Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Robotaksi-Binek Otonom Araç Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Roket Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: etkinlik geçmişte kalmış"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Sanayide Robotik Uygulamalar Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Sürü İHA Yarışması",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Savaşan İHA Yıldızlar Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Savaşan İHA Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Savaşan İHA Avcı Drone Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Su Altı Roket Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Tarım Teknolojileri Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TEKNOFEST Drone Şampiyonası",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TEKNOFEST Mimari ve Görsel Tasarım Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TEKNOFEST Robolig Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "World Drone Cup",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsanlık Yararına Teknolojiler Yarışması - İlkokul Seviyesi",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsanlık Yararına Teknolojiler Yarışması - Ortaokul Seviyesi",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İnsanlık Yararına Teknolojiler Yarışması - Lise Seviyesi",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Uluslararası Elektrikli Araç Yarışları",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Uluslararası İnsansız Hava Aracı Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Üniversite Öğrencileri Araştırma Proje Yarışmaları",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Yapay Zeka Dil Ajanları Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Yapay Zeka Destekli Havayolu Optimizasyonu Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TÜBA-TEKNOFEST Doktora Bilim Ödülleri",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Sıfır Atık & Döngüsel Ekonomi Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TEKNOFEST Yapay Zeka Film Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "TEKNOFEST Mesleki Yetenek Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "NSOSYAL İnovasyon Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "HackMasters Güneydoğu",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "İleri Otonom Sistemler Tasarım ve Operasyon Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Mavi Vatan Resim Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "KÜRE TEKNOFEST Güneydoğu Madde Yazım Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Bağımlılıklarla Mücadelede Teknolojik Uygulamalar Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "FPV Drone İzleme (Tracking) Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "KÜRE TEKNOFEST Mavi Vatan Madde Yazım Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Elektronik Harp Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
-      "sourceId": "teknofest-yarismalar",
-      "title": "Maden Teknolojileri Yarışması",
-      "reason": "tarih bilgisi yok (detay sayfası sınırı aşıldı)"
-    },
-    {
       "sourceId": "youthall-etkinlikler",
       "title": "FinVision: Turning Insights to Impact",
       "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
@@ -287,13 +32,8 @@
     },
     {
       "sourceId": "youthall-etkinlikler",
-      "title": "Advanced Consultancy Training",
-      "reason": "tarih bilgisi yok; detay sayfasında: bulunamadı"
-    },
-    {
-      "sourceId": "youthall-etkinlikler",
       "title": "Data & Analytics Summit",
-      "reason": "tarih bilgisi yok; detay sayfasında: tarih bilgisi yok"
+      "reason": "tarih bilgisi yok; detay sayfasında: yıl alıntısı sayfada bulunamadı"
     },
     {
       "sourceId": "youthall-etkinlikler",

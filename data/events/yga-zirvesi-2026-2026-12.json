@@ -1,7 +1,7 @@
 {
   "id": "yga-zirvesi-2026-2026-12",
   "title": "YGA Zirvesi 2026",
-  "summary": "YGA tarafından Zorlu PSM'de gerçekleştirilecek olan yıllık liderlik zirvesi.",
+  "summary": "Zorlu PSM'de gerçekleşecek YGA Zirvesi'nde öğrenciler ilham verici liderlerle buluşuyor.",
   "type": "conference",
   "category": "career",
   "organizer": "YGA",
@@ -18,14 +18,14 @@
   "tags": [],
   "evidence": {
     "titleQuote": "YGA Zirvesi 2026",
-    "dateQuote": "19 Aralık Son Başvuru 01 Kasım",
+    "dateQuote": "19 Aralık",
     "yearQuote": "YGA Zirvesi 2026",
     "pageUrl": "https://www.youthall.com/tr/etkinlikler/",
-    "fetchedAt": "2026-10-04T15:30:37+03:00"
+    "fetchedAt": "2026-10-04T21:56:57+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "yga-zirvesi-2026|2026-12-19",
   "firstSeenAt": "2026-10-04T15:30:37+03:00",
-  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+  "lastSeenAt": "2026-10-04T21:56:57+03:00"
 }

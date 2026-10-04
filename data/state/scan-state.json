@@ -8,12 +8,16 @@
     "lastEventCount": 0
   },
   "coderspace-hackathons": {
-    "hash": "89855ed12ffbff64f62a3bb265ef9cfa3bc0f93d2daf29b8219769d0f28c528b",
-    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
+    "hash": "e8583f9adbca6253dc2005a2ca35d0b172e80bc05b90ef5e38e781858e912a37",
+    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 547,
-    "lastEventCount": 4
+    "latencyMs": 909,
+    "lastEventCount": 4,
+    "deadDetails": {
+      "https://coderspace.io/etkinlikler/ai-business-series/": "2026-10-04T21:56:16+03:00",
+      "https://coderspace.io/etkinlikler/women-in-tech-inspiring-career-stories/": "2026-10-04T21:56:16+03:00"
+    }
   },
   "gdg-turkiye": {
     "hash": "2f5a743e0c3168d6a80a21498a5785090824d1bb699c4dc86f47ddb6a129e99a",
@@ -25,58 +29,64 @@
   },
   "inzva-events": {
     "hash": "6072ded378c16349ed9594cab9a797783708408a3ccbda67fe9a44c8270d99b8",
-    "lastCheckedAt": "2026-10-04T15:24:16+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 215,
+    "latencyMs": 284,
     "lastEventCount": 1
   },
   "patika-bootcamps": {
     "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
-    "lastCheckedAt": "2026-10-04T15:24:19+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 759,
+    "latencyMs": 802,
     "lastEventCount": 1
   },
   "techcareer-events": {
     "hash": "419848b8083f9b1c49c2b51942c0c6cf560b04a6aab14dd4cdc3733fd63a38fd",
-    "lastCheckedAt": "2026-10-04T15:24:29+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 486,
+    "latencyMs": 1254,
     "lastEventCount": 1
   },
   "techcareer-bootcamp": {
     "hash": "7a6ea5be460827516955494081fe429f2ae0a0131acf793a111a9319b881cb97",
-    "lastCheckedAt": "2026-10-04T15:24:22+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 795,
+    "latencyMs": 1302,
     "lastEventCount": 1
   },
   "techcareer-hackathon": {
     "hash": "3fb48000df2d3e67dff48abe3d970a741c708fd345526be67059bdb94d628673",
-    "lastCheckedAt": "2026-10-04T15:24:30+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:01+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 686,
+    "latencyMs": 809,
     "lastEventCount": 1
   },
   "teknofest-yarismalar": {
     "hash": "009b0927f36228f0e0839c5073bc2be4ae235cf0e3518c6114ddd27d5a84b766",
-    "lastCheckedAt": "2026-10-04T15:24:37+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-04T21:56:01+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 2786,
+    "latencyMs": 3737,
     "lastEventCount": 61
   },
   "youthall-etkinlikler": {
-    "hash": "a46cf5e39660cd7231e3cedc05bb13e77b464cbca7707651b00f0d8076f106a6",
-    "lastCheckedAt": "2026-10-04T15:24:37+03:00",
+    "hash": "bde8d8afa6d307ea52211eeae0e30f5b4864c1cd6d9d940829f2b8cd52ead1a4",
+    "lastCheckedAt": "2026-10-04T21:56:02+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1071,
-    "lastEventCount": 18
+    "latencyMs": 1439,
+    "lastEventCount": 17,
+    "deadDetails": {
+      "https://www.youthall.com/tr/etkinlikler/finvision-turning-insights-to-impact/": "2026-10-04T21:56:40+03:00",
+      "https://www.youthall.com/tr/etkinlikler/akbank-fellowship-programi/": "2026-10-04T21:56:40+03:00",
+      "https://www.youthall.com/tr/etkinlikler/data-analytics-summit-4/": "2026-10-04T21:56:40+03:00",
+      "https://www.youthall.com/tr/etkinlikler/bogazici-biyoteknoloji-kongresi-1/": "2026-10-04T21:56:40+03:00"
+    }
   }
 }

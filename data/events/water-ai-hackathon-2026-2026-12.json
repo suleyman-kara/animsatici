@@ -1,7 +1,7 @@
 {
   "id": "water-ai-hackathon-2026-2026-12",
   "title": "Water AI Hackathon 2026",
-  "summary": "Wilo tarafından su teknolojileri ve yapay zeka çözümlerine yönelik düzenlenen hackathon.",
+  "summary": "Wilo sponsorluğunda su teknolojileri ve yapay zeka çözümleri geliştirmeyi amaçlayan yarışma.",
   "type": "hackathon",
   "category": "career",
   "organizer": "Wilo",
@@ -17,14 +17,14 @@
   "tags": [],
   "evidence": {
     "titleQuote": "Water AI Hackathon 2026",
-    "dateQuote": "05 Aralık Son Başvuru 30 Ekim",
+    "dateQuote": "05 Aralık",
     "yearQuote": "Water AI Hackathon 2026",
     "pageUrl": "https://www.youthall.com/tr/etkinlikler/",
-    "fetchedAt": "2026-10-04T15:30:37+03:00"
+    "fetchedAt": "2026-10-04T21:56:57+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "water-ai-hackathon-2026|2026-12-05",
   "firstSeenAt": "2026-10-04T15:30:37+03:00",
-  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+  "lastSeenAt": "2026-10-04T21:56:57+03:00"
 }
