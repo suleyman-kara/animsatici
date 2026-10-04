@@ -34,6 +34,20 @@ function normalizeUrl(url: string): string {
   }
 }
 
+const MAX_YEAR_WRAP_DAYS = 90;
+
+/**
+ * Bitiş başlangıçtan önceyse: "28 Aralık – 3 Ocak" gibi yıl dönen aralıklarda modelin bitişe
+ * yanlış yıl yazması olasıdır; bir yıl eklemek makul (≤90 gün) bir aralık veriyorsa düzeltilir.
+ * Düzeltilemiyorsa null döner (kayıt reddedilir).
+ */
+export function orderedEndDate(start: string | undefined, end: string | undefined): string | undefined | null {
+  if (!start || !end || startInstant(end) >= startInstant(start)) return end;
+  const bumped = `${Number(end.slice(0, 4)) + 1}${end.slice(4)}`;
+  const span = startInstant(bumped) - startInstant(start);
+  return span >= 0 && span <= MAX_YEAR_WRAP_DAYS * 24 * 60 * 60 * 1000 ? bumped : null;
+}
+
 export type Rejection = {
   title: string;
   reason: string;
@@ -63,7 +77,8 @@ export function verifyEvents(
       continue;
     }
     const dates = [event.startDate, event.endDate, event.deadline].filter((d): d is string => !!d);
-    if (dates.length === 0) {
+    if (!event.startDate && !event.deadline) {
+      // Yalnızca bitiş tarihi olan kayıt da şemaya uymaz; detay sayfasında tam tarih aranır.
       reject("tarih bilgisi yok", true);
       continue;
     }
@@ -85,8 +100,14 @@ export function verifyEvents(
       continue;
     }
 
+    const endDate = orderedEndDate(event.startDate, event.endDate);
+    if (endDate === null) {
+      reject(`bitiş tarihi başlangıçtan önce: ${event.startDate} → ${event.endDate}`);
+      continue;
+    }
+
     const linked = event.url ? linkSet.get(normalizeUrl(event.url)) : undefined;
-    result.accepted.push({ ...event, url: linked ?? page.finalUrl });
+    result.accepted.push({ ...event, endDate, url: linked ?? page.finalUrl });
   }
   return result;
 }

@@ -1,4 +1,4 @@
-import { EVENT_TYPES, LOCATION_MODES, type Blocklist, type Event, type Source } from "../schema";
+import { Event, EVENT_TYPES, LOCATION_MODES, type Blocklist, type Source } from "../schema";
 import { findMatch, isBlocked, makeDedupeKey, makeEventId } from "./dedupe";
 import type { ExtractedEvent } from "./extract";
 import type { Rejection } from "./verify";
@@ -69,7 +69,7 @@ export function mergeEvents({ source, pageUrl, accepted, existing, blocklist, no
 
     const match = (x.matchesExistingId && pool.find((e) => e.id === x.matchesExistingId)) || findMatch(candidate, pool);
     if (!match) {
-      const created: Event = {
+      const created = {
         id: makeEventId(candidate, taken),
         ...fields,
         sourceId: source.id,
@@ -79,8 +79,13 @@ export function mergeEvents({ source, pageUrl, accepted, existing, blocklist, no
         firstSeenAt: now,
         lastSeenAt: now,
       };
+      const valid = Event.safeParse(created);
+      if (!valid.success) {
+        rejected.push({ title: x.title, reason: `geçersiz kayıt: ${valid.error.issues[0]?.message}` });
+        continue;
+      }
       taken.add(created.id);
-      pool.push(created);
+      pool.push(valid.data);
       createdIds.add(created.id);
       continue;
     }
@@ -92,6 +97,10 @@ export function mergeEvents({ source, pageUrl, accepted, existing, blocklist, no
     const next: Event = ownsRecord
       ? { ...match, ...fields, title: match.title, url: match.url, sponsored: match.sponsored, alsoSeenAt, lastSeenAt: now }
       : { ...match, alsoSeenAt, lastSeenAt: now };
+    if (!Event.safeParse(next).success) {
+      rejected.push({ title: x.title, reason: "güncelleme geçersiz kayıt üretiyor, eski kayıt korundu" });
+      continue;
+    }
     pool[pool.indexOf(match)] = next;
     if (!createdIds.has(next.id)) updatedIds.add(next.id);
   }

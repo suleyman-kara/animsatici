@@ -7,7 +7,8 @@ import { verifyEvents, type Rejection } from "./verify";
 
 // Liste sayfasında tarihi yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır.
 
-export const MAX_DETAIL_PAGES_PER_SOURCE = 10;
+export const MAX_DETAIL_PAGES_PER_SOURCE = 30;
+const KNOWN_TITLE_SIMILARITY = 0.8;
 const MIN_TITLE_SIMILARITY = 0.4;
 
 export type DetailInput = {
@@ -20,17 +21,22 @@ export type DetailInput = {
   limit?: number;
 };
 
-export type DetailResult = { accepted: ExtractedEvent[]; rejected: Rejection[]; pagesFetched: number };
+export type DetailResult = { accepted: ExtractedEvent[]; rejected: Rejection[]; pagesFetched: number; skippedKnown: number };
 
 export async function followDetailPages(input: DetailInput): Promise<DetailResult> {
   const { llm, source, knownEvents, now, fetchImpl, limit = MAX_DETAIL_PAGES_PER_SOURCE } = input;
-  const result: DetailResult = { accepted: [], rejected: [], pagesFetched: 0 };
+  const result: DetailResult = { accepted: [], rejected: [], pagesFetched: 0, skippedKnown: 0 };
   const seenUrls = new Set<string>();
 
   for (const rejection of input.rejected) {
     const { detailUrl, ...rest } = rejection;
     if (!detailUrl || seenUrls.has(detailUrl)) {
       result.rejected.push(rest);
+      continue;
+    }
+    // Bu kaynaktan zaten bilinen (tarihleri kayıtlı) etkinlik için detay sayfası tekrar çekilmez.
+    if (knownEvents?.some((k) => titleSimilarity(k.title, rest.title) >= KNOWN_TITLE_SIMILARITY)) {
+      result.skippedKnown++;
       continue;
     }
     if (result.pagesFetched >= limit) {
