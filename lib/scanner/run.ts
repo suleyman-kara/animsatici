@@ -46,6 +46,12 @@ export type ScanReport = {
   outcomes: { sourceId: string; kind: SourceOutcome["kind"]; detail?: string }[];
 };
 
+/** Reddedilen ileri tarihli etkinliklerden en erken pencereye gireceğinin anı. */
+function nextRecheck(rejected: Rejection[]): string | undefined {
+  const times = rejected.map((r) => r.revisitAt).filter((t): t is number => typeof t === "number");
+  return times.length ? nowIso(Math.min(...times)) : undefined;
+}
+
 async function mapPool<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
   const results: R[] = new Array(items.length);
   let next = 0;
@@ -75,7 +81,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const outcomes = await mapPool(sources, CONCURRENCY, async (source): Promise<SourceOutcome> => {
     const prev = previousState[source.id];
     const started = clock();
-    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount };
+    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount, recheckAt: prev?.recheckAt };
 
     if (source.render === "browser") {
       const warning = `${source.id}: tarayıcı gerektiren kaynaklar henüz desteklenmiyor, atlandı`;
@@ -86,7 +92,8 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
       const page = await fetchPage(source.url, { fetchImpl });
       const latencyMs = Math.max(0, Math.round(clock() - started));
       const hash = computeHash(page.text);
-      if (!force && prev?.hash === hash) {
+      const recheckDue = !!prev?.recheckAt && Date.parse(prev.recheckAt) <= clock();
+      if (!force && prev?.hash === hash && !recheckDue) {
         log(`⚪ ${source.id}: değişiklik yok`);
         return { kind: "unchanged", source, state: { ...base, lastStatus: "unchanged", httpStatus: page.status, latencyMs } };
       }
@@ -125,7 +132,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         page,
         accepted,
         rejected,
-        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount },
+        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount, recheckAt: nextRecheck(rejected) },
       };
     } catch (err) {
       const message = (err as Error).message;

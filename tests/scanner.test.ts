@@ -27,7 +27,7 @@ describe("cleanHtml", () => {
 describe("verifyEvents", () => {
   it("birebir alıntıları kabul eder, sayfadaki linki korur", () => {
     const { accepted, rejected } = verifyEvents(
-      [x({ title: "Kış Algoritma Kampı", titleQuote: "kış algoritma kampı 2027", startDate: "2027-01-25", dateQuote: "25 Ocak – 5 Şubat 2027", url: "https://ornek.org/etkinlik/kis-kampi" })],
+      [x({ title: "Kış Algoritma Kampı", titleQuote: "kış algoritma kampı 2027", deadline: "2026-10-07", dateQuote: "Son başvuru: 7 Ekim 2026", url: "https://ornek.org/etkinlik/kis-kampi" })],
       page,
       NOW,
     );
@@ -59,7 +59,7 @@ describe("verifyEvents", () => {
         x({ title: "Yapay Zeka Hackathonu", titleQuote: "Yapay Zeka Hackathonu", startDate: "14.11.2026", dateQuote: "14-15 Kasım 2026" }),
       ],
       page,
-      NOW,
+      Date.parse("2026-10-20T12:00:00+03:00"), // 14 Kasım 30 günlük pencerede
     );
     expect(accepted.map((a) => a.url)).toEqual(["https://ornek.org/etkinlikler"]);
     expect(rejected).toHaveLength(2);

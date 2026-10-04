@@ -8,7 +8,7 @@ import { fakeFetch, fakeLlm, tempDataRoot } from "./helpers";
 import { rm, readdir } from "node:fs/promises";
 
 const html = await readFile(path.join(import.meta.dirname, "fixtures/pages/events-listing.html"), "utf8");
-const NOW = Date.parse("2026-10-04T19:00:00+03:00");
+const NOW = Date.parse("2026-10-20T19:00:00+03:00"); // 14 Kasım hackathonu 30 günlük pencerede
 const now = () => NOW;
 
 const gemini = {
@@ -36,11 +36,11 @@ describe("runScan", () => {
     expect(report.aborted).toBeUndefined();
     expect(report.created.map((e) => e.id)).toEqual(["yapay-zeka-hackathonu-2026-11"]);
     expect(report.lastScan.rejected).toEqual([{ sourceId: "inzva-events", title: "Uydurma Etkinlik", reason: "başlık alıntısı sayfada bulunamadı" }]);
-    expect(llm.calls[0].prompt).toContain("Bugünün tarihi (Türkiye): 2026-10-04");
+    expect(llm.calls[0].prompt).toContain("Bugünün tarihi (Türkiye): 2026-10-20");
 
     const events = await readEvents(root);
     expect(events).toHaveLength(1);
-    expect(events[0]).toMatchObject({ url: "https://ornek.org/hackathon", origin: "scan", firstSeenAt: "2026-10-04T19:00:00+03:00" });
+    expect(events[0]).toMatchObject({ url: "https://ornek.org/hackathon", origin: "scan", firstSeenAt: "2026-10-20T19:00:00+03:00" });
     const state = await readScanState(root);
     expect(state["inzva-events"]).toMatchObject({ lastStatus: "success", lastEventCount: 2, httpStatus: 200 }); // ham çıkarım sayısı
     expect((await readLastScan(root))?.status).toBe("success");
@@ -96,5 +96,31 @@ describe("runScan", () => {
     expect(report.lastScan.warnings[0]).toMatch(/sayfa yapısı değişmiş olabilir/);
     const after = (await readScanState(root))["inzva-events"];
     expect(after).toMatchObject({ lastStatus: "skipped", hash: prev.hash, lastEventCount: prev.lastEventCount });
+  });
+});
+
+describe("runScan ileri tarihli etkinlikler", () => {
+  it("30 günden ileri etkinliği almaz; pencereye gireceği gün sayfa değişmemiş olsa da yeniden tarar", async () => {
+    const root = await oneSourceRoot();
+    const fetchImpl = fakeFetch({ "https://inzva.com/events": { body: html } });
+    const OCT4 = Date.parse("2026-10-04T19:00:00+03:00"); // 14 Kasım 41 gün sonra → pencere dışı
+    const first = await runScan({ root, llm: fakeLlm(gemini), now: () => OCT4, fetchImpl });
+    expect(first.created).toEqual([]);
+    expect(first.lastScan.rejected.map((r) => r.reason)).toContain("30 günden daha ileri tarihli");
+    const state = (await readScanState(root))["inzva-events"];
+    expect(state.recheckAt).toBe("2026-10-15T00:00:00+03:00"); // 14 Kasım − 30 gün
+
+    // Bir hafta sonra: sayfa aynı, yeniden kontrol zamanı gelmedi → Gemini çağrılmaz
+    const OCT11 = Date.parse("2026-10-11T19:00:00+03:00");
+    const idle = fakeLlm();
+    expect((await runScan({ root, llm: idle, now: () => OCT11, fetchImpl })).outcomes[0].kind).toBe("unchanged");
+    expect(idle.calls).toHaveLength(0);
+    expect((await readScanState(root))["inzva-events"].recheckAt).toBe("2026-10-15T00:00:00+03:00"); // korunur
+
+    // İki hafta sonra: sayfa aynı ama yeniden kontrol zamanı geçti → çıkarım yapılır, etkinlik eklenir
+    const OCT18 = Date.parse("2026-10-18T19:00:00+03:00");
+    const third = await runScan({ root, llm: fakeLlm(gemini), now: () => OCT18, fetchImpl });
+    expect(third.created.map((e) => e.id)).toEqual(["yapay-zeka-hackathonu-2026-11"]);
+    expect((await readScanState(root))["inzva-events"].recheckAt).toBeUndefined();
   });
 });

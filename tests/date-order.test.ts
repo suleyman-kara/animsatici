@@ -42,11 +42,13 @@ describe("verifyEvents tarih sırası", () => {
       page,
       NOW,
     );
-    expect(accepted.map((a) => [a.title, a.endDate])).toEqual([
-      ["Kış Kampı", "2027-01-03"],
-      ["Güz Kampı", undefined],
+    expect(accepted.map((a) => a.title)).toEqual(["Güz Kampı"]);
+    // Kış Kampı'nın ters aralığı düzeltildi ve tarih sırası kontrolünü geçti; yalnızca 30 günden ileri olduğu için reddedildi.
+    expect(rejected.map((r) => r.reason)).toEqual([
+      "30 günden daha ileri tarihli",
+      expect.stringMatching(/bitiş tarihi başlangıçtan önce/),
+      "tarih bilgisi yok",
     ]);
-    expect(rejected.map((r) => r.reason)).toEqual([expect.stringMatching(/bitiş tarihi başlangıçtan önce/), "tarih bilgisi yok"]);
   });
 });
 

@@ -63,8 +63,24 @@ export function primaryCalendarEntry(event: Pick<Event, "title" | "startDate" | 
   return start ?? entries[0];
 }
 
+export type CalendarUrls = { deadline?: string; start?: string };
+
+/** Son başvuru ve başlangıç için ayrı "Takvime ekle" linkleri; hangisinin kullanılacağı tarayıcıda seçilir. */
+export function googleCalendarUrls(event: Event, pageUrl: string): CalendarUrls {
+  return Object.fromEntries(calendarEntries(event).map((entry) => [entry.kind, entryUrl(event, entry, pageUrl)]));
+}
+
+/** Son başvuru henüz geçmediyse onun, geçtiyse başlangıcın linki. */
+export function pickCalendarUrl(urls: CalendarUrls, deadline: string | undefined, now: number): string | undefined {
+  if (urls.deadline && (!urls.start || (deadline && endInstant(deadline) >= now))) return urls.deadline;
+  return urls.start ?? urls.deadline;
+}
+
 export function googleCalendarUrl(event: Event, pageUrl: string, now: number = Date.now()): string {
-  const entry = primaryCalendarEntry(event, now);
+  return entryUrl(event, primaryCalendarEntry(event, now), pageUrl);
+}
+
+function entryUrl(event: Event, entry: CalendarEntry, pageUrl: string): string {
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: entry.title,

@@ -1,6 +1,6 @@
 import "server-only";
 import type { CardEvent } from "@/components/EventCard";
-import { googleCalendarUrl } from "./calendar";
+import { googleCalendarUrls } from "./calendar";
 import { formatDate, formatRange } from "./dates";
 import type { Event } from "./schema";
 import { SITE_URL } from "./site";
@@ -24,6 +24,6 @@ export function toCardEvent(e: Event): CardEvent {
     dateText: formatRange(e.startDate, e.endDate),
     deadlineText: e.deadline ? formatDate(e.deadline) : undefined,
     sponsoredUntil: e.sponsored?.until,
-    calendarUrl: googleCalendarUrl(e, `${SITE_URL}/etkinlik/${e.id}`),
+    calendarUrls: googleCalendarUrls(e, `${SITE_URL}/etkinlik/${e.id}`),
   };
 }

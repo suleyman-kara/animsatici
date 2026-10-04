@@ -2,7 +2,7 @@ name: Sağlık kontrolü
 
 on:
   schedule:
-    - cron: "0 7 * * *" # 10:00 Türkiye saati
+    - cron: "0 7 * * 1" # Pazartesi 10:00 Türkiye saati (pazar taramasından sonra)
   workflow_dispatch:
 
 permissions:
@@ -43,4 +43,4 @@ jobs:
 
           ${REPORT}
 
-          Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Actions sekmesinden \"Günlük tarama\" workflow'unu kontrol edin."
+          Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Actions sekmesinden \"Haftalık tarama\" workflow'unu kontrol edin."

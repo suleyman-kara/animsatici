@@ -350,7 +350,7 @@ export const TOOLS: Tool[] = [
 
   tool(
     "propose_add_source",
-    "Düzenli etkinlik yayınlayan bir sayfayı günlük taramaya ekler. Önce run_extractor ile bu URL'de en az 1 geçerli etkinlik bulunmuş olmalı.",
+    "Düzenli etkinlik yayınlayan bir sayfayı haftalık taramaya ekler. Önce run_extractor ile bu URL'de en az 1 geçerli etkinlik bulunmuş olmalı.",
     z.object({ title: str("Kaynak adı"), url: str("Etkinlik listesi sayfası"), category: z.enum(CATEGORIES), kind: z.enum(["listing", "single"]), notes: optStr("Kısa açıklama") }),
     async (args, ctx) => {
       assertCanChange(ctx);

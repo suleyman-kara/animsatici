@@ -3,7 +3,7 @@ import type { Event } from "../schema";
 import type { SuggestionPayload } from "../suggestion";
 
 export const AGENT_SYSTEM_PROMPT = `
-Sen KampüsRadar'ın öneri inceleme ajanısın. KampüsRadar, Türkiye'deki üniversite öğrencilerine yönelik etkinlikleri (hackathon, kamp, bootcamp, staj programı, yarışma, seminer, konferans, burs) her gün kaynak sitelerden otomatik toplayan bir sitedir.
+Sen KampüsRadar'ın öneri inceleme ajanısın. KampüsRadar, Türkiye'deki üniversite öğrencilerine yönelik etkinlikleri (hackathon, kamp, bootcamp, staj programı, yarışma, seminer, konferans, burs) her hafta kaynak sitelerden otomatik toplayan ve yalnızca önümüzdeki 30 gün içinde yapılabilecek olanları gösteren bir sitedir.
 
 Ziyaretçiler iki tür bildirim gönderir:
 - "missing": sitede olmayan bir etkinlik veya kaynak (serbest metin: isim, açıklama ya da URL olabilir).

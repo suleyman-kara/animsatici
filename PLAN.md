@@ -438,3 +438,6 @@ Hatalı etkinlik bildirimi için:
 4. **Tarih içeren her etkinlikte `dateQuote` zorunlu** (planda "varsa" idi). Uydurma tarihlere karşı daha sıkı.
 5. Tarama/sağlık hatası issue'ları `gh` CLI ile `.github/scripts/report-issue.sh` üzerinden açılır.
 6. Ajanın `search_web` sonuçlarındaki URL'ler Google grounding yönlendirme adresleri olabilir; `fetch_page` yönlendirmeleri (her adımda iç ağ kontrolüyle) izler.
+7. **Tarama haftalık (pazar 19:00 TR)**, günlük değil. Sağlık kontrolü pazartesi; eşik 8 gün.
+8. **30 günlük pencere:** Yalnızca 30 gün içinde başvurusu kapanan, başlayan ya da devam eden etkinlikler alınır ve gösterilir. Daha ileri olanlar reddedilir; kaynağın `recheckAt` alanı, etkinliğin pencereye gireceği ana ayarlanır ve sayfa değişmemiş olsa da o tarihten sonraki ilk taramada yeniden çıkarım yapılır.
+9. **Takvim** etkinliğin tüm süresini değil, yalnızca son başvuru ve başlangıç günlerini içerir.

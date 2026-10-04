@@ -68,7 +68,8 @@ describe("runAgent", () => {
       ],
       [finish("source_missing")],
     ]);
-    const out = await runAgent({ ...deps, root, model, llm: fakeLlm(gemini), issue: issue({ type: "missing", text: "kasımdaki yapay zeka hackathonu" }) });
+    const OCT20 = Date.parse("2026-10-20T12:00:00+03:00"); // 14 Kasım 30 günlük pencerede
+    const out = await runAgent({ ...deps, now: OCT20, clock: () => OCT20, root, model, llm: fakeLlm(gemini), issue: issue({ type: "missing", text: "kasımdaki yapay zeka hackathonu" }) });
     expect(out.finish.diagnosis).toBe("source_missing");
     expect(out.changes.map((c) => c.action)).toEqual(["add_event", "add_source"]);
     const added = (await readEvents(root)).find((e) => e.id === "yapay-zeka-hackathonu-2026-2026-11");

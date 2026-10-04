@@ -3,6 +3,7 @@
 import { useMemo, useSyncExternalStore } from "react";
 import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS, type EventPhase } from "@/lib/dates";
 import { CATEGORY_LABELS, TYPE_LABELS } from "@/lib/labels";
+import { useNow } from "@/lib/use-now";
 import { EventCard, isSponsoredNow, type CardEvent } from "./EventCard";
 
 type Filters = { q: string; kategori: string; tur: string; konum: string };
@@ -34,13 +35,6 @@ function writeFilters(filters: Filters) {
   window.dispatchEvent(new Event(URL_EVENT));
 }
 
-// Saat de dakikalık bir "store": sunucuda build anı, tarayıcıda gerçek zaman.
-const MINUTE = 60_000;
-function subscribeClock(onChange: () => void) {
-  const id = window.setInterval(onChange, MINUTE);
-  return () => window.clearInterval(id);
-}
-const currentMinute = () => Math.floor(Date.now() / MINUTE) * MINUTE;
 
 const fold = (s: string) => s.toLocaleLowerCase("tr-TR").normalize("NFD").replace(/[̀-ͯ]/g, "");
 
@@ -66,7 +60,7 @@ const selectClass = "rounded-lg border border-border bg-surface px-3 py-2 text-s
 
 export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt: number }) {
   // İlk çizim build anına göre (HTML ile birebir), ardından gerçek saate göre yeniden sınıflandırılır.
-  const now = useSyncExternalStore(subscribeClock, currentMinute, () => builtAt);
+  const now = useNow(builtAt);
   const search = useSyncExternalStore(subscribeUrl, () => window.location.search, () => "");
   const filters = useMemo(() => parseFilters(search), [search]);
   const update = (patch: Partial<Filters>) => writeFilters({ ...filters, ...patch });
@@ -79,13 +73,11 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
 
   const visible = events.filter((e) => matches(e, filters));
   const all = visible.map((e) => ({ e, phase: classify(e, now) })).filter(({ phase }) => phase !== "past");
-  // Ana bölümler yalnızca önümüzdeki 30 güne odaklanır; daha ileri tarihliler en altta katlanır.
+  // Yalnızca önümüzdeki 30 gün içinde yapılabilecek etkinlikler gösterilir.
   const phased = all.filter(({ e }) => inWindow(e, now));
-  const later = all
-    .filter(({ e }) => !inWindow(e, now))
-    .sort((a, b) => startInstant(a.e.deadline ?? a.e.startDate!) - startInstant(b.e.deadline ?? b.e.startDate!));
+  // Sponsorlu öne çıkarmalar pencereden bağımsızdır (süresini proje sahibi belirler).
   const featured = all.filter(({ e }) => isSponsoredNow(e, now));
-  const active = all;
+  const active = phased;
   const filtered = KEYS.some((k) => filters[k]);
 
   const byPhase = (phase: EventPhase) => {
@@ -170,22 +162,6 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
         );
       })}
 
-      {later.length > 0 && (
-        <details className="group rounded-2xl border border-border bg-surface">
-          <summary className="cursor-pointer list-none p-4 font-semibold">
-            <span className="mr-1 inline-block transition-transform group-open:rotate-90">›</span> Daha ileri tarihli
-            etkinlikler <span className="text-sm font-normal text-fg-muted">{later.length}</span>
-            <span className="block text-sm font-normal text-fg-muted">
-              Son başvurusu ya da başlangıcı {WINDOW_DAYS} günden daha sonra olanlar.
-            </span>
-          </summary>
-          <div className="grid gap-4 p-4 pt-0 md:grid-cols-2">
-            {later.map(({ e, phase }) => (
-              <EventCard key={e.id} event={e} phase={phase} now={now} />
-            ))}
-          </div>
-        </details>
-      )}
     </div>
   );
 }

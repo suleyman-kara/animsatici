@@ -1,5 +1,5 @@
 import { EventDate } from "../schema";
-import { classify, startInstant } from "../dates";
+import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS } from "../dates";
 import type { Page } from "./fetch";
 import type { ExtractedEvent } from "./extract";
 
@@ -59,20 +59,35 @@ export function orderedEndDate(start: string | undefined, end: string | undefine
 
 type Dated = { startDate?: string; endDate?: string; deadline?: string; dateQuote?: string };
 
+export type RelevanceProblem = {
+  reason: string;
+  /** Etkinlik ileride 30 günlük pencereye gireceği için reddedildiyse, kaynağın yeniden taranacağı an. */
+  revisitAt?: number;
+};
+
 /**
- * Etkinlik siteye alınmaya uygun mu? Yalnızca başvurusu açık ya da henüz bitmemiş etkinlikler alınır;
- * alıntısında yıl olmayan ve çok uzak görünen tarihler (yılı yanlış tahmin edilmiş eski etkinlik) reddedilir.
+ * Etkinlik siteye alınmaya uygun mu? Yalnızca önümüzdeki 30 gün içinde yapılabilecek etkinlikler alınır:
+ * devam eden, son başvurusu 30 gün içinde kapanan ya da 30 gün içinde başlayan. Bitmiş etkinlikler ve
+ * alıntısında yıl olmayan uzak tarihler (yılı yanlış tahmin edilmiş eski etkinlik) reddedilir.
  */
-export function relevanceProblem(e: Dated, now: number): string | null {
-  if (!e.startDate && !e.deadline) return "tarih bilgisi yok";
-  if (classify({ startDate: e.startDate, endDate: e.endDate, deadline: e.deadline, status: "active" }, now) === "past") {
-    return "etkinlik geçmişte kalmış";
-  }
+export function relevanceProblem(e: Dated, now: number): RelevanceProblem | null {
+  if (!e.startDate && !e.deadline) return { reason: "tarih bilgisi yok" };
+  const dated = { startDate: e.startDate, endDate: e.endDate, deadline: e.deadline, status: "active" as const };
+  if (classify(dated, now) === "past") return { reason: "etkinlik geçmişte kalmış" };
   if (!quoteHasYear(e.dateQuote)) {
     const anchor = e.deadline ?? e.startDate!;
     if (startInstant(anchor) - now > MAX_YEARLESS_DAYS_AHEAD * DAY_MS) {
-      return `tarihte yıl yazmıyor ve ${anchor.slice(0, 10)} çok uzak; yılı yanlış tahmin edilmiş eski bir etkinlik olabilir`;
+      // Bilerek yeniden ziyaret edilmez: yılı tahmin edilmiş eski etkinlik, tarihi yaklaşınca yanlışlıkla kabul edilebilir.
+      return { reason: `tarihte yıl yazmıyor ve ${anchor.slice(0, 10)} çok uzak; yılı yanlış tahmin edilmiş eski bir etkinlik olabilir` };
     }
+  }
+  if (!inWindow(dated, now)) {
+    const window = WINDOW_DAYS * DAY_MS;
+    const upcoming = [e.deadline && endInstant(e.deadline), e.startDate && startInstant(e.startDate)].filter(
+      (t): t is number => typeof t === "number" && t > now,
+    );
+    const revisitAt = Math.max(now, Math.min(...upcoming) - window);
+    return { reason: `${WINDOW_DAYS} günden daha ileri tarihli`, revisitAt };
   }
   return null;
 }
@@ -82,6 +97,8 @@ export type Rejection = {
   reason: string;
   /** Tarihi liste sayfasında olmayan ama kendi sayfasına link verilen etkinlik: detay sayfasına bakılabilir. */
   detailUrl?: string;
+  /** İleri tarihli olduğu için reddedildi; bu anda (ms) kaynak sayfa değişmemiş olsa da yeniden taranmalı. */
+  revisitAt?: number;
 };
 export type VerifyResult = { accepted: ExtractedEvent[]; rejected: Rejection[] };
 
@@ -137,7 +154,7 @@ export function verifyEvents(
 
     const problem = relevanceProblem({ ...event, endDate }, now);
     if (problem) {
-      reject(problem);
+      result.rejected.push({ title: event.title, reason: problem.reason, ...(problem.revisitAt && { revisitAt: problem.revisitAt }) });
       continue;
     }
 

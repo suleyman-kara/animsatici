@@ -1,15 +1,17 @@
 # KampüsRadar
 
-Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
+Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her hafta kaynak sitelerden otomatik taranır ve yalnızca **önümüzdeki 30 gün içinde** başvurulabilecek ya da katılınabilecek olanlar gösterilir; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
 
 ## Nasıl çalışır?
 
 ```
-GitHub Actions (her gün 19:00 TR) ──► npm run scan
+GitHub Actions (her pazar 19:00 TR) ──► npm run scan
    ├─ data/sources/*.json'daki sayfaları çeker, değişmemişse atlar (hash)
    ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
    ├─ tarihi liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır (kaynak başına en fazla 10)
    ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
+   ├─ yalnızca 30 gün içinde başvurusu kapanan, başlayan ya da devam eden etkinlikler alınır;
+   │  daha ileri olanlar atlanır ve pencereye girdikleri hafta kaynak yeniden taranır
    ├─ tekilleştirme + güvenlik eşikleri + şema doğrulaması
    └─ data/ değişikliklerini commit eder → Vercel siteyi yeniden derler
 
@@ -56,7 +58,7 @@ npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden �
    - Secrets → Actions: `GEMINI_API_KEY`
    - Variables → Actions: `AGENT_MODE=comment` (ajanın teşhislerine güvenince `pr` yapın), isteğe bağlı `GEMINI_MODEL`
    - Settings → Actions → General → Workflow permissions: **Read and write**, ✅ **Allow GitHub Actions to create and approve pull requests**
-6. **İlk tarama:** Actions → "Günlük tarama" → Run workflow. Etkinlikler commit'lenince site kendiliğinden güncellenir.
+6. **İlk tarama:** Actions → "Haftalık tarama" → Run workflow. Etkinlikler commit'lenince site kendiliğinden güncellenir.
 7. **Alan adı (önerilir):** Vercel'e bağlayıp `NEXT_PUBLIC_SITE_URL`'i güncelleyin.
 8. **Eski Firebase'i kapatın:** Firebase konsolunda `centralRadarScanner` ve `checkSourceNow` fonksiyonlarını silin (Cloud Scheduler işi de silinir). Aksi hâlde eski tarama Gemini maliyeti üretmeye devam eder.
 
@@ -68,13 +70,13 @@ npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden �
 | Eski/geçersiz kayıtları temizlemek | `npm run prune -- --dry-run` ile listeleyin, `npm run prune` ile silin (yalnızca taramayla eklenmiş ve ilk görüldüğünde zaten bitmiş ya da yılı belirsiz kayıtlar) |
 | Hatalı etkinliği düzeltmek | `data/events/<id>.json`'u düzenleyin. Tamamen silip bir daha eklenmemesini istiyorsanız `dedupeKey`'ini `data/blocklist.json`'a ekleyin |
 | Sponsorlu etkinlik | Etkinlik dosyasına `"sponsored": { "until": "2026-11-30" }` ekleyin (isteğe bağlı `"label"`). Tarih geçince kendiliğinden düşer. Ajan ve tarayıcı bu alana dokunmaz |
-| Taramayı elle başlatmak | Actions → "Günlük tarama" → Run workflow (`source`, `force` seçenekleri var) |
+| Taramayı elle başlatmak | Actions → "Haftalık tarama" → Run workflow (`source`, `force` seçenekleri var) |
 | Bir öneriyi yeniden incelemek | Actions → "Öneri ajanı" → Run workflow (issue numarası, `force`) |
 | Ajanın önerdiği değişiklik | `ajan` etiketli PR'ı Vercel önizlemesinden kontrol edip birleştirin |
 | İnsan bakması gereken öneriler | `insan-gerekli` etiketli issue'lar |
 | Tarama sorunları | `tarama-hatasi` etiketli issue (tarama veya günlük sağlık kontrolü açar) |
 
-Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Günlük tarama commit'leri bunu genelde önler; yine de "tarama-hatasi" issue'su gelirse Actions sekmesinden workflow'u yeniden etkinleştirin.
+Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Haftalık tarama commit'leri bunu genelde önler; yine de "tarama-hatasi" issue'su gelirse Actions sekmesinden workflow'u yeniden etkinleştirin.
 
 ## Güvenlik ve veri kalitesi
 

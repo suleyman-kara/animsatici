@@ -7,7 +7,7 @@ import type { SourceScanState } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Kaynaklar",
-  description: "KampüsRadar'ın her gün taradığı kaynaklar ve son tarama durumları.",
+  description: "KampüsRadar'ın her hafta taradığı kaynaklar ve son tarama durumları.",
   alternates: { canonical: "/kaynaklar" },
 };
 
@@ -28,7 +28,7 @@ export default async function SourcesPage() {
       <header>
         <h1 className="text-3xl font-bold tracking-tight">Kaynaklar</h1>
         <p className="mt-2 max-w-2xl text-fg-muted">
-          Bu sayfalar her gün 19:00&apos;da taranır. Etkinlikler yapay zeka ile çıkarılır ve yalnızca kaynak sayfada birebir
+          Bu sayfalar her pazar 19:00&apos;da taranır. Etkinlikler yapay zeka ile çıkarılır ve yalnızca kaynak sayfada birebir
           geçen başlık ve tarihler kabul edilir. Eksik bir kaynak mı var? <Link href="/oneri" className="font-medium text-fg underline">Önerin</Link>.
         </p>
         {lastScan && (

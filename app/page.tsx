@@ -18,7 +18,7 @@ export default async function HomePage() {
         </h1>
         <p className="max-w-2xl text-fg-muted">
           Bu ay başvurabileceğin ve katılabileceğin hackathon, kamp, bootcamp, staj programı ve kampüs etkinlikleri. Her
-          gün otomatik taranır; üyelik yok — bak, başvur, takvimine ekle.
+          hafta otomatik taranır; üyelik yok — bak, başvur, takvimine ekle.
         </p>
         <SubscribeButtons siteUrl={SITE_URL} />
       </section>

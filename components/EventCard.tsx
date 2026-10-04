@@ -4,6 +4,7 @@ import Link from "next/link";
 import { daysUntil, endInstant, type EventPhase } from "@/lib/dates";
 import { locationText, TYPE_LABELS } from "@/lib/labels";
 import type { Event } from "@/lib/schema";
+import { pickCalendarUrl, type CalendarUrls } from "@/lib/calendar";
 import { track } from "@/lib/track";
 
 export type CardEvent = Pick<
@@ -14,7 +15,7 @@ export type CardEvent = Pick<
   dateText: string;
   deadlineText?: string;
   sponsoredUntil?: string;
-  calendarUrl: string;
+  calendarUrls: CalendarUrls;
 };
 
 export function isSponsoredNow(event: Pick<CardEvent, "sponsoredUntil">, now: number): boolean {
@@ -95,7 +96,7 @@ export function EventCard({ event, phase, now }: { event: CardEvent; phase: Even
         </a>
         {!cancelled && phase !== "past" && (
           <a
-            href={event.calendarUrl}
+            href={pickCalendarUrl(event.calendarUrls, event.deadline, now)}
             target="_blank"
             rel="noopener"
             onClick={() => track("takvime-ekle", { event: event.id })}

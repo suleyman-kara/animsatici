@@ -113,6 +113,8 @@ export const SourceScanState = z.object({
   latencyMs: z.number().int().nonnegative().optional(),
   /** Son çıkarımda sayfadan çıkarılan ham etkinlik sayısı (kabul/ret fark etmeksizin); bozulma koruması için. */
   lastEventCount: z.number().int().nonnegative().optional(),
+  /** Bu andan sonra sayfa değişmemiş olsa da yeniden çıkarım yapılır (ileri tarihli etkinlik pencereye girince). */
+  recheckAt: Timestamp.optional(),
 });
 export type SourceScanState = z.infer<typeof SourceScanState>;
 
