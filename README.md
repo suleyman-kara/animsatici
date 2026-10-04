@@ -92,4 +92,11 @@ Flutter + Firebase ile yazılmış ilk sürüm kaldırıldı; git geçmişinde d
 
 ## Lisans
 
-Apache 2.0 — bkz. [LICENSE](LICENSE)
+Kaynak kodu herkese açıktır ama **ticari kullanıma kapalıdır**: [PolyForm Noncommercial 1.0.0](LICENSE).
+
+- ✅ Kodu okuyabilir, öğrenmek için inceleyebilir, kişisel ya da kâr amacı gütmeyen projelerinizde (okul, öğrenci topluluğu, hobi) kullanabilir ve değiştirebilirsiniz. Dağıtırken lisans metnini ve `Required Notice` satırını eklemeniz gerekir.
+- ❌ Kodu ya da türevini para kazanmak için kullanamazsınız: ücretli/reklamlı bir site veya hizmet işletmek, sponsorlu içerik satmak, bir şirketin ticari ürününe katmak gibi.
+- 💼 Ticari kullanım için izin almak isterseniz iletişime geçin.
+- **"Kampüs30" adı ve logosu** lisansa dahil değildir; bunlarla aynı ya da karıştırılabilecek bir ad/logo kullanılamaz.
+
+Not: Bu lisans değişikliğinden önceki sürümler Apache 2.0 lisansıyla yayımlanmıştı; o sürümler için o lisans geçerliliğini korur.
