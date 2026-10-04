@@ -4,7 +4,7 @@
   "url": "https://gdg.community.dev",
   "category": "community",
   "kind": "listing",
-  "active": true,
+  "active": false,
   "render": "static",
-  "notes": "Google geliştirici topluluklarının DevFest konferansları, Flutter ve Cloud buluşmaları."
+  "notes": "Google geliştirici topluluklarının DevFest konferansları, Flutter ve Cloud buluşmaları. — Kapatıldı: içerik JavaScript ile yükleniyor, tarayıcı etkinlik çıkaramıyor."
 }

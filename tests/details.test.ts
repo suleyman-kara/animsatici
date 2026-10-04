@@ -6,7 +6,7 @@ import { cleanHtml } from "../lib/scanner/fetch";
 import { ExtractedEvent } from "../lib/scanner/extract";
 import { verifyEvents } from "../lib/scanner/verify";
 import { runScan } from "../lib/scanner/run";
-import { readEvents, writeSource } from "../lib/store";
+import { readEvents, readScanState, writeSource } from "../lib/store";
 import { fakeFetch, fakeLlm, tempDataRoot } from "./helpers";
 import { readdir, rm } from "node:fs/promises";
 
@@ -69,11 +69,13 @@ describe("followDetailPages", () => {
       fetchImpl: fakeFetch({ [DETAIL]: { body: detailHtml } }),
     });
     expect(r.accepted).toEqual([]);
-    expect(r.rejected.map((x) => x.reason)).toEqual([
-      "tarih bilgisi yok; detay sayfasında: bulunamadı",
-      expect.stringMatching(/detay sayfası çekilemedi/),
-      "tarih bilgisi yok",
-    ]);
+    const reasons = r.rejected.map((x) => x.reason);
+    expect(reasons).toHaveLength(3);
+    expect(reasons).toEqual(
+      expect.arrayContaining(["tarih bilgisi yok; detay sayfasında: bulunamadı", expect.stringMatching(/detay sayfası çekilemedi/), "tarih bilgisi yok"]),
+    );
+    // Sonuçsuz iki sayfa önbelleğe alınır
+    expect(Object.keys(r.deadDetails).sort()).toEqual([DETAIL, "https://ornek.org/yok"]);
     expect(r.rejected.every((x) => !("detailUrl" in x))).toBe(true);
   });
 
@@ -107,5 +109,64 @@ describe("runScan + detay sayfası", () => {
       deadline: "2026-10-07",
       evidence: { pageUrl: DETAIL, dateQuote: "Kamp tarihleri: 25 Ocak - 5 Şubat 2027" },
     });
+  });
+});
+
+describe("followDetailPages paralel ve sonuçsuz sayfa önbelleği", () => {
+  const rej = (i: number) => ({ title: `E${i}`, reason: "tarih bilgisi yok", detailUrl: `https://ornek.org/e${i}` });
+
+  it("en fazla 4 sayfayı aynı anda açar, hepsini işler", async () => {
+    let active = 0;
+    let peak = 0;
+    const slowFetch = (async (url: RequestInfo | URL) => {
+      active++;
+      peak = Math.max(peak, active);
+      await new Promise((r) => setTimeout(r, 15));
+      active--;
+      const res = new Response("<p>boş</p>", { headers: { "content-type": "text/html" } });
+      Object.defineProperty(res, "url", { value: String(url) });
+      return res;
+    }) as typeof fetch;
+    const llm = fakeLlm(...Array.from({ length: 10 }, () => ({ events: [] })));
+    const r = await followDetailPages({ rejected: Array.from({ length: 10 }, (_, i) => rej(i)), llm, source, now: NOW, fetchImpl: slowFetch });
+    expect(r.pagesFetched).toBe(10);
+    expect(llm.calls).toHaveLength(10);
+    expect(peak).toBe(4);
+  });
+
+  it("sonuçsuz sayfayı 7 gün açmaz, süre dolunca yeniden dener, bulunursa önbellekten çıkarır", async () => {
+    const day = 24 * 60 * 60 * 1000;
+    const deadDetails = { [DETAIL]: "2026-10-01T19:00:00+03:00" };
+    const input = { rejected: [{ title: "Kış Algoritma Kampı 2027", reason: "tarih bilgisi yok", detailUrl: DETAIL }], source, fetchImpl: fakeFetch({ [DETAIL]: { body: detailHtml } }) };
+
+    const skipped = await followDetailPages({ ...input, llm: fakeLlm(), now: NOW, deadDetails });
+    expect(skipped).toMatchObject({ pagesFetched: 0, skippedDead: 1, deadDetails });
+    expect(skipped.rejected[0].reason).toMatch(/son 7 günde sonuçsuzdu/);
+
+    const later = Date.parse("2026-10-01T19:00:00+03:00") + 8 * day;
+    const retried = await followDetailPages({ ...input, llm: fakeLlm(detailResponse), now: later, deadDetails });
+    expect(retried.pagesFetched).toBe(1);
+    expect(retried.accepted).toHaveLength(1);
+    expect(retried.deadDetails).toEqual({});
+  });
+});
+
+describe("runScan sonuçsuz sayfa önbelleği", () => {
+  it("önbelleği tarama durumuna yazar ve sonraki taramada kullanır", async () => {
+    const root = await tempDataRoot();
+    for (const f of await readdir(path.join(root, "data/sources"))) await rm(path.join(root, "data/sources", f));
+    for (const f of await readdir(path.join(root, "data/events"))) await rm(path.join(root, "data/events", f));
+    await rm(path.join(root, "data/state/scan-state.json"));
+    await writeSource({ id: "inzva-events", title: "inzva", url: LISTING, category: "ceng", kind: "listing", active: true, render: "static" }, root);
+    const fetchImpl = fakeFetch({ [LISTING]: { body: listingHtml }, [DETAIL]: { body: "<p>içerik yok</p>" } });
+
+    await runScan({ root, llm: fakeLlm({ events: [undatedKamp] }, { events: [] }), now: () => NOW, fetchImpl });
+    expect((await readScanState(root))["inzva-events"].deadDetails).toEqual({ [DETAIL]: "2026-10-04T19:00:00+03:00" });
+
+    // Ertesi gün sayfa değişmiş gibi zorla taranır: detay sayfası açılmaz, yalnızca liste için Gemini çağrılır
+    const llm = fakeLlm({ events: [undatedKamp] });
+    await runScan({ root, llm, now: () => NOW + 24 * 60 * 60 * 1000, fetchImpl, force: true });
+    expect(llm.calls).toHaveLength(1);
+    expect((await readScanState(root))["inzva-events"].deadDetails).toEqual({ [DETAIL]: "2026-10-04T19:00:00+03:00" });
   });
 });

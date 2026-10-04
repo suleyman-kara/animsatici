@@ -11,6 +11,7 @@ import {
   writeScanState,
 } from "../store";
 import { followDetailPages } from "./details";
+import { mapPool } from "./pool";
 import { extractEvents } from "./extract";
 import { FetchError, fetchPage, type FetchOptions, type Page } from "./fetch";
 import { suspiciousDrop, tooManyErrors, tooManyNewEvents } from "./guards";
@@ -46,18 +47,6 @@ export type ScanReport = {
   outcomes: { sourceId: string; kind: SourceOutcome["kind"]; detail?: string }[];
 };
 
-async function mapPool<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let next = 0;
-  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (next < items.length) {
-      const i = next++;
-      results[i] = await fn(items[i]);
-    }
-  });
-  await Promise.all(workers);
-  return results;
-}
 
 export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const { root, llm, fetchImpl, sourceId, force = false, dryRun = false, log = () => {} } = options;
@@ -75,7 +64,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
   const outcomes = await mapPool(sources, CONCURRENCY, async (source): Promise<SourceOutcome> => {
     const prev = previousState[source.id];
     const started = clock();
-    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount };
+    const base = { lastCheckedAt: nowIso(clock()), hash: prev?.hash, lastEventCount: prev?.lastEventCount, deadDetails: prev?.deadDetails };
 
     if (source.render === "browser") {
       const warning = `${source.id}: tarayıcı gerektiren kaynaklar henüz desteklenmiyor, atlandı`;
@@ -97,10 +86,24 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         .map(({ id, title, startDate, deadline }) => ({ id, title, startDate, deadline }));
       const { events, malformed } = await extractEvents(llm, { page, source, knownEvents, now: clock() });
       const listing = verifyEvents(events, page, clock());
-      const details = await followDetailPages({ rejected: listing.rejected, llm, source, knownEvents, now: clock(), fetchImpl });
+      const details = await followDetailPages({
+        rejected: listing.rejected,
+        llm,
+        source,
+        knownEvents,
+        now: clock(),
+        fetchImpl,
+        deadDetails: prev?.deadDetails,
+      });
+      const deadDetails = Object.keys(details.deadDetails).length ? details.deadDetails : undefined;
       const accepted = [...listing.accepted, ...details.accepted];
       const rejected = details.rejected;
-      if (details.pagesFetched) log(`  ↳ ${source.id}: ${details.pagesFetched} detay sayfası, ${details.accepted.length} etkinlik bulundu`);
+      if (details.pagesFetched || details.skippedDead) {
+        log(
+          `  ↳ ${source.id}: ${details.pagesFetched} detay sayfası, ${details.accepted.length} etkinlik bulundu` +
+            (details.skippedDead ? `, ${details.skippedDead} sonuçsuz sayfa atlandı` : ""),
+        );
+      }
       if (malformed) rejected.push({ title: "(biçimsiz yanıt)", reason: `${malformed} öğe şemaya uymadı` });
 
       // Koruma, sayfadan çıkarılan ham etkinlik sayısına bakar: ilanlarının hepsi bitmiş bir kaynak
@@ -125,7 +128,7 @@ export async function runScan(options: ScanOptions): Promise<ScanReport> {
         page,
         accepted,
         rejected,
-        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount },
+        state: { hash, lastCheckedAt: base.lastCheckedAt, lastStatus: "success", httpStatus: page.status, latencyMs, lastEventCount: extractedCount, deadDetails },
       };
     } catch (err) {
       const message = (err as Error).message;

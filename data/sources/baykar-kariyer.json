@@ -4,7 +4,7 @@
   "url": "https://kariyer.baykartech.com",
   "category": "career",
   "kind": "listing",
-  "active": true,
+  "active": false,
   "render": "static",
-  "notes": "Milli teknoloji hamlesi yarışmaları, staj programları ve teknoloji bursları."
+  "notes": "Milli teknoloji hamlesi yarışmaları, staj programları ve teknoloji bursları. — Kapatıldı: içerik JavaScript ile yükleniyor, tarayıcı etkinlik çıkaramıyor."
 }
