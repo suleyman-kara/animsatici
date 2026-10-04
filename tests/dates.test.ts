@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { classify, daysUntil, nowIso, trDay } from "../lib/dates";
+import { classify, daysUntil, inWindow, nowIso, trDay } from "../lib/dates";
 
 const at = (s: string) => Date.parse(s);
 const base = { status: "active" as const };
@@ -44,5 +44,23 @@ describe("yardımcılar", () => {
     expect(daysUntil("2026-10-04", now)).toBe(0);
     expect(daysUntil("2026-10-07", now)).toBe(3);
     expect(daysUntil("2026-10-03", now)).toBeLessThan(0);
+  });
+});
+
+describe("inWindow (30 gün)", () => {
+  const now = at("2026-10-04T12:00:00+03:00");
+  it("30 gün içinde başvurusu kapanan, başlayan ya da devam eden etkinlikleri içerir", () => {
+    expect(inWindow({ ...base, deadline: "2026-10-20" }, now)).toBe(true);
+    expect(inWindow({ ...base, startDate: "2026-10-30", deadline: "2026-09-01" }, now)).toBe(true);
+    expect(inWindow({ ...base, startDate: "2026-07-01", endDate: "2027-01-31" }, now)).toBe(true);
+    expect(inWindow({ ...base, startDate: "2026-11-02" }, now)).toBe(true); // 29 gün
+  });
+  it("daha ileri tarihli ve geçmiş etkinlikleri dışarıda bırakır", () => {
+    expect(inWindow({ ...base, deadline: "2026-12-31" }, now)).toBe(false);
+    expect(inWindow({ ...base, startDate: "2026-12-01", deadline: "2026-11-20" }, now)).toBe(false);
+    expect(inWindow({ ...base, startDate: "2026-09-01" }, now)).toBe(false);
+  });
+  it("son başvurusu ileride ama başlangıcı yakın olan etkinlik içeride", () => {
+    expect(inWindow({ ...base, startDate: "2026-10-25", deadline: "2026-12-01" }, now)).toBe(true);
   });
 });

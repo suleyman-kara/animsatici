@@ -8,9 +8,10 @@ export const dynamic = "force-static";
 const MONTH_MS = 30 * 24 * 60 * 60 * 1000;
 
 export async function GET() {
-  // Son 1 ayda biten etkinlikler de kalır ki takvimlerden aniden silinmesinler.
-  const events = (await getEvents()).filter((e) => classify(e, Date.now() - MONTH_MS) !== "past");
-  return new Response(buildIcs(events, { siteUrl: SITE_URL, name: SITE_NAME }), {
+  // Son 1 aydaki kayıtlar da kalır ki abonelerin takviminden aniden silinmesinler.
+  const since = Date.now() - MONTH_MS;
+  const events = (await getEvents()).filter((e) => classify(e, since) !== "past");
+  return new Response(buildIcs(events, { siteUrl: SITE_URL, name: SITE_NAME, since }), {
     headers: { "Content-Type": "text/calendar; charset=utf-8", "Content-Disposition": 'inline; filename="kampusradar.ics"' },
   });
 }

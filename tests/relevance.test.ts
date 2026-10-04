@@ -32,7 +32,9 @@ describe("relevanceProblem", () => {
   it("yılı yazmayan ve uzak görünen tarihleri reddeder, yakın olanları kabul eder", () => {
     expect(relevanceProblem({ deadline: "2027-05-13T23:59:00+03:00", dateQuote: "Son başvuru tarihi 13 Mayıs 23.59'tur." }, NOW)).toMatch(/yıl yazmıyor/);
     expect(relevanceProblem({ deadline: "2027-05-13", dateQuote: "13 Mayıs 2027" }, NOW)).toBeNull(); // yıl açıkça yazıyorsa sorun yok
-    expect(relevanceProblem({ startDate: "2026-12-28", endDate: "2027-01-03", dateQuote: "28 Aralık - 3 Ocak" }, NOW)).toBeNull();
+    expect(relevanceProblem({ deadline: "2026-11-02", dateQuote: "Son başvuru 2 Kasım" }, NOW)).toBeNull(); // 29 gün
+    expect(relevanceProblem({ deadline: "2026-11-05", dateQuote: "Son başvuru 5 Kasım" }, NOW)).toMatch(/yıl yazmıyor/); // 32 gün
+    expect(relevanceProblem({ startDate: "2026-12-28", endDate: "2027-01-03", dateQuote: "28 Aralık 2026 - 3 Ocak" }, NOW)).toBeNull();
   });
 });
 

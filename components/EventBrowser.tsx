@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useSyncExternalStore } from "react";
-import { classify, endInstant, startInstant, type EventPhase } from "@/lib/dates";
+import { classify, endInstant, inWindow, startInstant, WINDOW_DAYS, type EventPhase } from "@/lib/dates";
 import { CATEGORY_LABELS, TYPE_LABELS } from "@/lib/labels";
 import { EventCard, isSponsoredNow, type CardEvent } from "./EventCard";
 
@@ -57,9 +57,9 @@ function matches(e: CardEvent, f: Filters): boolean {
 }
 
 const SECTIONS: { phase: EventPhase; title: string; empty: string }[] = [
-  { phase: "open", title: "Başvurusu açık", empty: "Şu an başvurusu açık etkinlik yok." },
+  { phase: "open", title: "Başvurusu açık", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başvurusu kapanan etkinlik yok.` },
   { phase: "ongoing", title: "Devam eden", empty: "" },
-  { phase: "upcoming", title: "Yaklaşan", empty: "Yaklaşan etkinlik yok." },
+  { phase: "upcoming", title: "Yakında başlıyor", empty: `Önümüzdeki ${WINDOW_DAYS} gün içinde başlayan etkinlik yok.` },
 ];
 
 const selectClass = "rounded-lg border border-border bg-surface px-3 py-2 text-sm";
@@ -78,9 +78,14 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
   const types = useMemo(() => [...new Set(events.map((e) => e.type))], [events]);
 
   const visible = events.filter((e) => matches(e, filters));
-  const phased = visible.map((e) => ({ e, phase: classify(e, now) }));
-  const featured = phased.filter(({ e, phase }) => phase !== "past" && isSponsoredNow(e, now));
-  const active = phased.filter(({ phase }) => phase !== "past");
+  const all = visible.map((e) => ({ e, phase: classify(e, now) })).filter(({ phase }) => phase !== "past");
+  // Ana bölümler yalnızca önümüzdeki 30 güne odaklanır; daha ileri tarihliler en altta katlanır.
+  const phased = all.filter(({ e }) => inWindow(e, now));
+  const later = all
+    .filter(({ e }) => !inWindow(e, now))
+    .sort((a, b) => startInstant(a.e.deadline ?? a.e.startDate!) - startInstant(b.e.deadline ?? b.e.startDate!));
+  const featured = all.filter(({ e }) => isSponsoredNow(e, now));
+  const active = all;
   const filtered = KEYS.some((k) => filters[k]);
 
   const byPhase = (phase: EventPhase) => {
@@ -164,6 +169,23 @@ export function EventBrowser({ events, builtAt }: { events: CardEvent[]; builtAt
           </section>
         );
       })}
+
+      {later.length > 0 && (
+        <details className="group rounded-2xl border border-border bg-surface">
+          <summary className="cursor-pointer list-none p-4 font-semibold">
+            <span className="mr-1 inline-block transition-transform group-open:rotate-90">›</span> Daha ileri tarihli
+            etkinlikler <span className="text-sm font-normal text-fg-muted">{later.length}</span>
+            <span className="block text-sm font-normal text-fg-muted">
+              Son başvurusu ya da başlangıcı {WINDOW_DAYS} günden daha sonra olanlar.
+            </span>
+          </summary>
+          <div className="grid gap-4 p-4 pt-0 md:grid-cols-2">
+            {later.map(({ e, phase }) => (
+              <EventCard key={e.id} event={e} phase={phase} now={now} />
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }

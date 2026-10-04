@@ -37,7 +37,7 @@ function normalizeUrl(url: string): string {
 const MAX_YEAR_WRAP_DAYS = 90;
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Alıntıda yıl yoksa kabul edilen en uzak tarih: daha uzağı büyük ihtimalle yanlış yıla taşınmış eski bir etkinliktir. */
-export const MAX_YEARLESS_DAYS_AHEAD = 90;
+export const MAX_YEARLESS_DAYS_AHEAD = 30;
 
 /** Alıntıda yıl geçiyor mu? ("2026", "07.08.2026", "07/08/26") */
 export function quoteHasYear(quote: string | undefined): boolean {
