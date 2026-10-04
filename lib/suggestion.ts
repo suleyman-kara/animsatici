@@ -3,6 +3,7 @@ import { Slug } from "./schema";
 
 // Öneri formu → GitHub Issue. Ajan bu dosyadaki işaretçiyle issue gövdesini ayrıştırır.
 
+// İşaretçi eski adla kalır: daha önce açılmış öneri issue'ları ayrıştırılabilsin.
 export const ISSUE_MARKER = "<!-- kampusradar:v1 -->";
 export const LABELS = { missing: "oneri", wrong: "hata-bildirimi" } as const;
 
@@ -70,7 +71,7 @@ export function buildIssue(payload: SuggestionPayload): { title: string; body: s
     safeJson(payload),
     "```",
     "",
-    "_Bu kayıt KampüsRadar öneri formundan otomatik oluşturuldu. Ziyaretçiye ait kişisel bilgi tutulmaz._",
+    "_Bu kayıt Kampüs30 öneri formundan otomatik oluşturuldu. Ziyaretçiye ait kişisel bilgi tutulmaz._",
   ].join("\n");
   return { title, body, labels: [LABELS[payload.type]] };
 }
@@ -113,7 +114,7 @@ export async function createGithubIssue(
       Accept: "application/vnd.github+json",
       "X-GitHub-Api-Version": "2022-11-28",
       "Content-Type": "application/json",
-      "User-Agent": "kampusradar",
+      "User-Agent": "kampus30",
     },
     body: JSON.stringify(issue),
   });

@@ -1,5 +1,6 @@
 import type { AgentOutcome } from "./loop";
 
+// İşaretçi eski adla kalır: daha önce yorumlanmış issue'lar yeniden incelenmesin.
 export const AGENT_MARKER = "<!-- kampusradar-agent -->";
 
 const DIAGNOSIS_LABELS: Record<string, string> = {
@@ -43,7 +44,7 @@ export function formatComment(outcome: AgentOutcome, state: PublishState): strin
   if (state.kind === "pr") lines.push("", `➡️ Pull request: ${state.prUrl}`);
   if (state.kind === "checks_failed") lines.push("", `⚠️ Değişiklikler doğrulamadan geçemedi, PR açılmadı:\n\n\`\`\`\n${state.error.slice(0, 1500)}\n\`\`\``);
   if (finish.needsHuman) lines.push("", "👀 Bu öneriye proje sahibinin bakması gerekiyor.");
-  lines.push("", "_Bu yorum KampüsRadar öneri ajanı tarafından otomatik yazıldı._");
+  lines.push("", "_Bu yorum Kampüs30 öneri ajanı tarafından otomatik yazıldı._");
   return lines.join("\n");
 }
 

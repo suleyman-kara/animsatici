@@ -41,13 +41,13 @@ describe("googleCalendarUrl", () => {
 });
 
 describe("buildIcs", () => {
-  const ics = buildIcs(events, { siteUrl: "https://kampusradar.app", name: "KampüsRadar", now: Date.parse("2026-10-04T00:00:00Z") });
+  const ics = buildIcs(events, { siteUrl: "https://kampus30.app", name: "Kampüs30", now: Date.parse("2026-10-04T00:00:00Z") });
   it("geçerli bir ICS üretir; her etkinlik için başvuru/başlangıç kayıtları", () => {
     expect(ics.startsWith("BEGIN:VCALENDAR\r\n")).toBe(true);
     const expected = events.reduce((n, e) => n + (e.deadline ? 1 : 0) + (e.startDate ? 1 : 0), 0);
     expect(ics.match(/BEGIN:VEVENT/g)).toHaveLength(expected);
-    expect(ics).toContain("UID:ornek-yapay-zeka-hackathonu-2026-11-deadline@kampusradar.app");
-    expect(ics).toContain("UID:ornek-yapay-zeka-hackathonu-2026-11-start@kampusradar.app");
+    expect(ics).toContain("UID:ornek-yapay-zeka-hackathonu-2026-11-deadline@kampus30.app");
+    expect(ics).toContain("UID:ornek-yapay-zeka-hackathonu-2026-11-start@kampus30.app");
     expect(ics).toContain("STATUS:CANCELLED");
     for (const line of ics.split("\r\n")) expect(new TextEncoder().encode(line).length).toBeLessThanOrEqual(75);
   });

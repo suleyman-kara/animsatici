@@ -20,11 +20,38 @@ export const TYPE_LABELS: Record<Event["type"], string> = {
   other: "Diğer",
 };
 
+export const TYPE_EMOJI: Record<Event["type"], string> = {
+  hackathon: "🚀",
+  bootcamp: "🧑‍💻",
+  camp: "🏕️",
+  internship: "💼",
+  competition: "🏆",
+  seminar: "🎤",
+  scholarship: "💸",
+  conference: "🎟️",
+  other: "✨",
+};
+
+export const CATEGORY_EMOJI: Record<Source["category"], string> = {
+  ceng: "💻",
+  career: "📈",
+  campus: "🎓",
+  community: "🤝",
+};
+
+/** Kategori başına "çıkartma" rengi (Tailwind sınıfı). */
+export const CATEGORY_POP: Record<Source["category"], string> = {
+  ceng: "bg-pop-violet",
+  career: "bg-pop-sky",
+  campus: "bg-pop-orange",
+  community: "bg-pop-pink",
+};
+
 export const MODE_LABELS: Record<Event["location"]["mode"], string> = {
   online: "Online",
   "in-person": "Yüz yüze",
   hybrid: "Hibrit",
-  unknown: "Konum belirtilmemiş",
+  unknown: "Konum belli değil",
 };
 
 export const PHASE_LABELS: Record<EventPhase, string> = {

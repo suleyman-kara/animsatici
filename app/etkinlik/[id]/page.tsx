@@ -5,7 +5,7 @@ import { EventActions, PhaseBadge } from "@/components/EventLive";
 import { googleCalendarUrls } from "@/lib/calendar";
 import { buildTime, getEvent, getEvents, getSources } from "@/lib/data";
 import { endInstant, formatDate, formatRange, startInstant } from "@/lib/dates";
-import { CATEGORY_LABELS, locationText, TYPE_LABELS } from "@/lib/labels";
+import { CATEGORY_EMOJI, CATEGORY_LABELS, CATEGORY_POP, locationText, TYPE_EMOJI, TYPE_LABELS } from "@/lib/labels";
 import type { Event } from "@/lib/schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -80,17 +80,17 @@ export default async function EventPage({ params }: PageProps<"/etkinlik/[id]">)
     <article className="mx-auto flex max-w-3xl flex-col gap-6">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(event)).replace(/</g, "\\u003c") }} />
       <nav className="text-sm text-fg-muted">
-        <Link href="/" className="hover:underline">Etkinlikler</Link> / {TYPE_LABELS[event.type]}
+        <Link href="/" className="font-display font-bold hover:underline">← 30 gün</Link>
       </nav>
 
       <header className="flex flex-col gap-3">
         <div className="flex flex-wrap gap-2 text-xs">
-          <span className="rounded-full bg-surface-muted px-2 py-0.5 font-medium text-fg-muted">{TYPE_LABELS[event.type]}</span>
-          <span className="rounded-full bg-surface-muted px-2 py-0.5 font-medium text-fg-muted">{CATEGORY_LABELS[event.category]}</span>
+          <span className={`rounded-full border-2 border-border px-2 py-0.5 font-display font-bold text-pop-fg ${CATEGORY_POP[event.category]}`}>{TYPE_EMOJI[event.type]} {TYPE_LABELS[event.type]}</span>
+          <span className="rounded-full border-2 border-border bg-surface px-2 py-0.5 font-display font-bold">{CATEGORY_EMOJI[event.category]} {CATEGORY_LABELS[event.category]}</span>
           {sponsored && <span className="rounded-full bg-warn-soft px-2 py-0.5 font-semibold text-sponsor">{event.sponsored?.label ?? "Sponsorlu"}</span>}
           <PhaseBadge event={event} builtAt={buildTime()} />
         </div>
-        <h1 className={`text-3xl font-bold tracking-tight ${cancelled ? "line-through decoration-2 opacity-70" : ""}`}>{event.title}</h1>
+        <h1 className={`font-display text-4xl font-extrabold tracking-tight ${cancelled ? "line-through decoration-2 opacity-70" : ""}`}>{event.title}</h1>
         {event.organizer && <p className="text-lg text-fg-muted">{event.organizer}</p>}
       </header>
 
@@ -126,7 +126,7 @@ export default async function EventPage({ params }: PageProps<"/etkinlik/[id]">)
         </Row>
       </dl>
 
-      <aside className="rounded-2xl border border-border bg-surface p-4 text-sm text-fg-muted">
+      <aside className="rounded-2xl border-2 border-dashed border-border bg-surface p-4 text-sm text-fg-muted">
         Bilgiler kaynak sayfadan otomatik olarak derlenir; başvurmadan önce lütfen etkinliğin kendi sayfasını kontrol edin.{" "}
         <Link href={`/oneri?tur=hata&etkinlik=${event.id}`} className="font-medium text-fg underline">Bir hata mı var? Bildir.</Link>
       </aside>

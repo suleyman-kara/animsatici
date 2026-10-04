@@ -73,7 +73,7 @@ export const EXTRACTION_JSON_SCHEMA = {
 };
 
 export const EXTRACTION_SYSTEM_PROMPT = `
-Sen "KampüsRadar" adlı, Türkiye'deki üniversite öğrencilerine yönelik etkinlik sitesinin veri çıkarım motorusun.
+Sen "Kampüs30" adlı, Türkiye'deki üniversite öğrencilerine yönelik etkinlik sitesinin veri çıkarım motorusun.
 Görevin: Verilen web sayfası metnindeki, öğrencilerin katılabileceği veya başvurabileceği TÜM etkinlikleri (hackathon, kamp, bootcamp, staj programı, yarışma, seminer, konferans, burs vb.) eksiksiz listelemek.
 
 Kurallar:

@@ -1,4 +1,4 @@
-# KampüsRadar v2 — Uygulama Planı
+# Kampüs30 (eski adıyla KampüsRadar) v2 — Uygulama Planı
 
 > Bu belge, projeyi Flutter + Firebase mimarisinden **Next.js + GitHub Actions + JSON veri** mimarisine taşımak için uygulanacak plandır.
 > Uygulayacak ajan: aşamaları **sırayla** uygula, her aşamanın "Kabul kriterleri" sağlanmadan sonrakine geçme.

@@ -23,7 +23,7 @@ export function githubClient(options: { token?: string; repo?: string; fetchImpl
         Authorization: `Bearer ${token}`,
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "kampusradar",
+        "User-Agent": "kampus30",
         ...(body ? { "Content-Type": "application/json" } : {}),
       },
       body: body ? JSON.stringify(body) : undefined,

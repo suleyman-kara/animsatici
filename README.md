@@ -1,4 +1,4 @@
-# KampüsRadar
+# Kampüs30
 
 Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ana sayfada **önümüzdeki 30 gün içinde** başvurusu kapanan ya da başlayan etkinlikler gösterilir, devam edenlerin ayrı bir sayfası vardır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
 

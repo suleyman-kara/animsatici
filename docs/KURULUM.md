@@ -1,4 +1,4 @@
-# KampüsRadar Kurulum Rehberi (ilk kez kuranlar için)
+# Kampüs30 Kurulum Rehberi (ilk kez kuranlar için)
 
 Bu rehber, sıfırdan siteyi yayına alıp günlük taramayı ve öneri ajanını çalıştırmanızı adım adım anlatır. Toplam süre yaklaşık **45–60 dakika**. Kullanılan servislerin hepsinin ücretsiz planı başlangıç için yeterlidir.
 
@@ -126,7 +126,7 @@ Proje sayfasında **"Domains"** altında `animsatici.vercel.app` gibi bir adres 
 1. https://dash.cloudflare.com/sign-up adresinden hesap açın (veya giriş yapın).
 2. Sol menüde **Turnstile**'a tıklayın. Göremiyorsanız üstteki arama kutusuna "Turnstile" yazın.
 3. **"Add widget"** (veya "Add site"):
-   - **Widget name:** `KampusRadar`
+   - **Widget name:** `Kampus30`
    - **Hostnames:** 4b'deki adres, ör. `animsatici.vercel.app`. `https://` olmadan yazın. Kendi alan adınız olursa onu da ekleyin.
    - **Widget mode:** **Managed**
 4. **"Create"**. İki değer gösterilir:
@@ -144,7 +144,7 @@ Form, ziyaretçinin önerisini GitHub issue olarak açar. Bunun için **sadece b
 2. Sol menünün en altında **Developer settings**'e tıklayın.
 3. **Personal access tokens** → **Fine-grained tokens** → **"Generate new token"**.
 4. Formu doldurun:
-   - **Token name:** `kampusradar-oneri-formu`
+   - **Token name:** `kampus30-oneri-formu`
    - **Expiration:** en uzun seçenek (ör. 1 yıl). Süresi dolunca form çalışmaz; takviminize "token yenile" hatırlatması koyun.
    - **Repository access:** **"Only select repositories"** → `suleyman-kara/animsatici`
    - **Permissions** → **Repository permissions** → **Issues** satırını **"Read and write"** yapın. Başka hiçbir izne dokunmayın; **Metadata: Read-only** kendiliğinden eklenir.
@@ -158,7 +158,7 @@ Kaç kişinin girdiğini ve hangi etkinliğe kaç kez "Başvur" tıklandığın�
 
 1. https://cloud.umami.is/signup adresinden ücretsiz hesap açın.
 2. **Settings** → **Websites** → **"Add website"**:
-   - **Name:** `KampüsRadar`
+   - **Name:** `Kampüs30`
    - **Domain:** 4b'deki adres, ör. `animsatici.vercel.app`
 3. Kaydettikten sonra web sitesinin yanındaki **Edit** (veya ayarlar) → **Tracking code** sekmesine gidin. Şuna benzer bir kod görürsünüz:
    ```html
@@ -269,7 +269,7 @@ Gemini anahtarınız aynı projedeyse bu bütçe onu da kapsar.
 
 ## 12. İsteğe bağlı: kendi alan adınız
 
-Sponsorlar ve SEO için `kampusradar.com` gibi kendi alan adınız daha güven verir.
+Sponsorlar ve SEO için `kampus30.com` gibi kendi alan adınız daha güven verir.
 
 1. Bir alan adı satın alın (ör. Cloudflare Registrar, Namecheap, isimtescil).
 2. Vercel → projeniz → **Settings** → **Domains** → alan adınızı yazın → **Add**.
