@@ -107,7 +107,7 @@ Kullanıcı formu (/oneri) ──► /api/oneri (Vercel fonksiyonu) ──► Gi
 │  ├─ healthcheck.yml
 │  └─ agent.yml
 ├─ PLAN.md
-└─ AGENT.md
+└─ AGENTS.md
 ```
 
 ## 5. Veri Şemaları (`lib/schema.ts`)
@@ -412,3 +412,29 @@ Hatalı etkinlik bildirimi için:
 - Her aşama sonunda: `npm run lint && npm run typecheck && npm test && npm run validate && npm run build`.
 - Gemini'ye bağlı kod gerçek API olmadan test edilebilmeli (fixture/mock).
 - Plandan sapmak gerekirse sapmayı bu dosyanın sonuna "Sapmalar" başlığıyla, gerekçesiyle yaz.
+
+---
+
+## Durum (2026-10-04)
+
+| Aşama | Durum |
+|---|---|
+| 0 — İskelet | ✅ Eski kod `legacy/` altında; CI eklendi |
+| 1 — Veri modeli | ✅ 7 kaynak `data/sources/`'a taşındı |
+| 2 — Tarayıcı | ✅ Fixture'larla test edildi. **Gerçek sitelerde ve gerçek Gemini ile henüz çalıştırılmadı** (geliştirme ortamında dış ağ ve API anahtarı yoktu) |
+| 3 — Ön yüz | ✅ Mobil/masaüstü, açık/koyu tema ekran görüntüleriyle kontrol edildi. Lighthouse ölçümü yapılmadı |
+| 4 — Workflow'lar | ✅ Yazıldı; ilk gerçek çalıştırma GitHub'da yapılacak |
+| 5 — Analitik | ✅ |
+| 6 — Öneri formu | ✅ Route testleri mock'lu; gerçek Turnstile/GitHub token ile denenmedi |
+| 7 — Ajan | ✅ Senaryo testleri mock'lu; varsayılan mod `comment` |
+| 8 — Sponsorlu | ✅ |
+| 9 — Temizlik | ⏳ README ve AGENTS.md yazıldı. `legacy/` silinmesi kullanıcı onayı bekliyor |
+
+## Sapmalar
+
+1. **Örnek etkinlikler `data/` yerine `tests/fixtures/sample-data/` altında.** Doğrulanmış gerçek etkinlik çekilemediği için canlı siteye uydurma kayıt koymamak adına. Geliştirmede `DATA_ROOT=tests/fixtures/sample-data npm run dev`.
+2. **`AGENT.md` → `AGENTS.md`** (+ `CLAUDE.md` → `@AGENTS.md`). Next.js 16 kendi ajan kurallarını `AGENTS.md`'ye yazdığı için iki ayrı dosya yerine tek dosya.
+3. **`lastSeenAt` yalnızca sayfa değişip yeniden çıkarım yapıldığında güncellenir.** Her gün tüm etkinlik dosyalarının değişip gürültülü commit'ler oluşmaması için. Kaynağın son kontrol zamanı `/kaynaklar` sayfasında ayrıca görünür.
+4. **Tarih içeren her etkinlikte `dateQuote` zorunlu** (planda "varsa" idi). Uydurma tarihlere karşı daha sıkı.
+5. Tarama/sağlık hatası issue'ları `gh` CLI ile `.github/scripts/report-issue.sh` üzerinden açılır.
+6. Ajanın `search_web` sonuçlarındaki URL'ler Google grounding yönlendirme adresleri olabilir; `fetch_page` yönlendirmeleri (her adımda iç ağ kontrolüyle) izler.
