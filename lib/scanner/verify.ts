@@ -1,5 +1,5 @@
 import { EventDate } from "../schema";
-import { classify, startInstant } from "../dates";
+import { classify, endInstant, startInstant } from "../dates";
 import type { Page } from "./fetch";
 import type { ExtractedEvent } from "./extract";
 
@@ -49,9 +49,10 @@ export function yearsIn(text: string): Set<number> {
  * bir yıl eklemek makul (≤90 gün) bir aralık veriyorsa düzeltilir. Düzeltilemiyorsa null döner (kayıt reddedilir).
  */
 export function orderedEndDate(start: string | undefined, end: string | undefined): string | undefined | null {
-  if (!start || !end || startInstant(end) >= startInstant(start)) return end;
+  // Tarih-only bitiş günün sonuna kadar sürer: "14 Kasım 10:00 – 14 Kasım" geçerli bir aralıktır.
+  if (!start || !end || endInstant(end) >= startInstant(start)) return end;
   const bumped = `${Number(end.slice(0, 4)) + 1}${end.slice(4)}`;
-  const span = startInstant(bumped) - startInstant(start);
+  const span = endInstant(bumped) - startInstant(start);
   return span >= 0 && span <= MAX_YEAR_WRAP_DAYS * 24 * 60 * 60 * 1000 ? bumped : null;
 }
 

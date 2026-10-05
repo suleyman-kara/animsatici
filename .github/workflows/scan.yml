@@ -24,7 +24,7 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45 # tarama 20 dk sonra yeni kaynağa başlamaz (SCAN_BUDGET_MS); kalan süre işlemdekilerin bitmesi için
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

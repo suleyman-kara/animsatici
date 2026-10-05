@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 
 // Dakikalık saat "store"u: sunucuda/ilk çizimde build anı, tarayıcıda gerçek zaman.
-// Site haftada bir derlendiği için zamana bağlı her şey tarayıcıda yeniden hesaplanır.
+// Site yalnızca tarama değiştiğinde derlendiği için zamana bağlı her şey tarayıcıda yeniden hesaplanır.
 const MINUTE = 60_000;
 
 function subscribeClock(onChange: () => void) {

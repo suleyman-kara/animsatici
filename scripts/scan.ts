@@ -23,12 +23,14 @@ const report = await runScan({
 const s = report.lastScan;
 console.log(
   `\nÖzet: ${s.totalSources} kaynak · ${s.successCount} tarandı · ${s.unchangedCount} değişmedi · ${s.errorCount} hata · ` +
-    `${s.newEvents} yeni · ${s.updatedEvents} güncellendi · ${s.rejected.length} red`,
+    `${s.newEvents} yeni · ${s.updatedEvents} güncellendi · ${s.removedEvents ?? 0} silindi · ${s.deferredCount ?? 0} ertelendi · ` +
+    `${s.rejected.length} red`,
 );
 for (const w of s.warnings) console.log(`⚠️ ${w}`);
 for (const r of s.rejected) console.log(`✗ [${r.sourceId}] ${r.title}: ${r.reason}`);
 for (const e of report.created) console.log(`+ ${e.id} (${e.startDate ?? e.deadline})`);
 for (const e of report.updated) console.log(`~ ${e.id}`);
+for (const e of report.removed) console.log(`- ${e.id} (geçmiş)`);
 
 if (report.aborted) {
   console.error(`\n⛔ Tarama durduruldu, hiçbir dosya yazılmadı: ${report.aborted}`);

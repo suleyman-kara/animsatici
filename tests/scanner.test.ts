@@ -122,7 +122,11 @@ describe("guards", () => {
     expect(tooManyErrors(4, 7)).toBe(true);
     expect(tooManyErrors(3, 7)).toBe(false);
     expect(tooManyErrors(1, 1)).toBe(false);
-    expect(tooManyNewEvents(41)).toBe(true);
+    expect(tooManyNewEvents(100, undefined)).toBe(false); // ilk tarama: kanıt doğrulaması yeterli
+    expect(tooManyNewEvents(26, 3)).toBe(true);
+    expect(tooManyNewEvents(25, 3)).toBe(false);
+    expect(tooManyNewEvents(60, 40)).toBe(false); // büyük kaynakta eşik önceki çıkarımla ölçeklenir
+    expect(tooManyNewEvents(81, 40)).toBe(true);
     expect(suspiciousDrop(5, 0)).toBe(true);
     expect(suspiciousDrop(2, 0)).toBe(false);
     expect(suspiciousDrop(5, 1)).toBe(false);

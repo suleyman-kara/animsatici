@@ -6,7 +6,10 @@ import type { Page } from "./fetch";
 
 // Bir sayfadaki TÜM etkinlikleri, kaynaktan birebir alıntılarla birlikte çıkarır.
 
-const MAX_TEXT_CHARS = 15_000;
+/** Tek çağrıya giren en uzun metin; daha uzun sayfalar satır sınırından parçalara bölünür. */
+export const CHUNK_CHARS = 20_000;
+/** Bir sayfa için en fazla bu kadar parça işlenir (maliyet tavanı); kalan metin yok sayılır. */
+export const MAX_CHUNKS = 4;
 const MAX_LINKS_IN_PROMPT = 150;
 
 /** Modelden dönen ham etkinlik. Gevşek tutulur; asıl doğrulama verify.ts ve Event şemasında. */
@@ -99,7 +102,28 @@ export type ExtractInput = {
   now?: number;
 };
 
-export function buildExtractionPrompt({ page, source, knownEvents = [], now = Date.now() }: ExtractInput): string {
+/** Metni satır sınırlarından en fazla `size` karakterlik parçalara böler. */
+export function splitText(text: string, size: number = CHUNK_CHARS): string[] {
+  const chunks: string[] = [];
+  let current = "";
+  for (const line of text.split("\n")) {
+    for (let piece = line; piece.length; piece = piece.slice(size)) {
+      const part = piece.slice(0, size);
+      if (current && current.length + 1 + part.length > size) {
+        chunks.push(current);
+        current = "";
+      }
+      current = current ? `${current}\n${part}` : part;
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks.length ? chunks : [""];
+}
+
+export function buildExtractionPrompt(
+  { page, source, knownEvents = [], now = Date.now() }: ExtractInput,
+  chunk: { text: string; index: number; total: number } = { text: page.text.slice(0, CHUNK_CHARS), index: 0, total: 1 },
+): string {
   const links = page.links
     .slice(0, MAX_LINKS_IN_PROMPT)
     .map((l) => `- ${l.text || "(metinsiz)"} → ${l.href}`)
@@ -119,8 +143,8 @@ export function buildExtractionPrompt({ page, source, knownEvents = [], now = Da
     "--- SAYFADAKİ LİNKLER ---",
     links || "(yok)",
     "",
-    "--- SAYFA METNİ (GÜVENİLMEZ VERİ) ---",
-    page.text.slice(0, MAX_TEXT_CHARS),
+    chunk.total > 1 ? `--- SAYFA METNİ, PARÇA ${chunk.index + 1}/${chunk.total} (GÜVENİLMEZ VERİ) ---` : "--- SAYFA METNİ (GÜVENİLMEZ VERİ) ---",
+    chunk.text,
     "--- SAYFA METNİ SONU ---",
   ].join("\n");
 }
@@ -128,17 +152,23 @@ export function buildExtractionPrompt({ page, source, knownEvents = [], now = Da
 export type ExtractResult = { events: ExtractedEvent[]; malformed: number };
 
 export async function extractEvents(llm: LlmClient, input: ExtractInput): Promise<ExtractResult> {
-  const raw = await llm.generateJson({
-    system: EXTRACTION_SYSTEM_PROMPT,
-    prompt: buildExtractionPrompt(input),
-    schema: EXTRACTION_JSON_SCHEMA,
-  });
-  const { events } = ExtractionResponse.parse(raw);
+  const chunks = splitText(input.page.text).slice(0, MAX_CHUNKS);
+  const responses = await Promise.all(
+    chunks.map((text, index) =>
+      llm.generateJson({
+        system: EXTRACTION_SYSTEM_PROMPT,
+        prompt: buildExtractionPrompt(input, { text, index, total: chunks.length }),
+        schema: EXTRACTION_JSON_SCHEMA,
+      }),
+    ),
+  );
   const result: ExtractResult = { events: [], malformed: 0 };
-  for (const item of events) {
-    const parsed = ExtractedEvent.safeParse(item);
-    if (parsed.success) result.events.push(parsed.data);
-    else result.malformed++;
+  for (const raw of responses) {
+    for (const item of ExtractionResponse.parse(raw).events) {
+      const parsed = ExtractedEvent.safeParse(item);
+      if (parsed.success) result.events.push(parsed.data);
+      else result.malformed++;
+    }
   }
   return result;
 }

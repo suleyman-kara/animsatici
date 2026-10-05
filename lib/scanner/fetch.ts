@@ -104,9 +104,36 @@ export async function assertPublicUrl(url: string): Promise<URL> {
   return parsed;
 }
 
-export type FetchOptions = { timeoutMs?: number; fetchImpl?: typeof fetch; checkPublic?: boolean };
+export type FetchOptions = {
+  timeoutMs?: number;
+  fetchImpl?: typeof fetch;
+  checkPublic?: boolean;
+  /** Ağ hatası, zaman aşımı, 429 ve 5xx'te kaç kez daha denenecek. */
+  retries?: number;
+  retryDelayMs?: number;
+};
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function isRetryable(err: unknown): boolean {
+  if (!(err instanceof FetchError)) return false;
+  return err.status === undefined ? !/Geçersiz URL|Yalnızca http|İç ağ/.test(err.message) : err.status === 429 || err.status >= 500;
+}
+
+/** Sayfayı çeker; geçici hatalarda (ağ, zaman aşımı, 429, 5xx) varsayılan olarak bir kez daha dener. */
 export async function fetchPage(url: string, options: FetchOptions = {}): Promise<Page> {
+  const { retries = 1, retryDelayMs = 1000 } = options;
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await fetchOnce(url, options);
+    } catch (err) {
+      if (attempt >= retries || !isRetryable(err)) throw err;
+      await sleep(retryDelayMs * (attempt + 1));
+    }
+  }
+}
+
+async function fetchOnce(url: string, options: FetchOptions): Promise<Page> {
   const { timeoutMs = DEFAULT_TIMEOUT_MS, fetchImpl = fetch, checkPublic = false } = options;
   const signal = AbortSignal.timeout(timeoutMs);
 

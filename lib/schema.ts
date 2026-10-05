@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { endInstant, startInstant } from "./dates";
 
 // Tek şema kaynağı: site, tarayıcı (scan), doğrulayıcı ve ajan bu dosyayı kullanır.
 
@@ -100,7 +101,7 @@ export const Event = z
     if (!e.startDate && !e.deadline) {
       ctx.addIssue({ code: "custom", message: "startDate veya deadline'dan en az biri dolu olmalı", path: ["startDate"] });
     }
-    if (e.startDate && e.endDate && Date.parse(e.endDate) < Date.parse(e.startDate)) {
+    if (e.startDate && e.endDate && endInstant(e.endDate) < startInstant(e.startDate)) {
       ctx.addIssue({ code: "custom", message: "endDate, startDate'ten önce olamaz", path: ["endDate"] });
     }
   });
@@ -133,6 +134,10 @@ export const LastScan = z.object({
   errorCount: z.number().int().nonnegative(),
   newEvents: z.number().int().nonnegative(),
   updatedEvents: z.number().int().nonnegative(),
+  /** Süre bütçesi dolduğu için bu taramada sırası gelmeyen kaynaklar (bir sonraki taramada önce taranır). */
+  deferredCount: z.number().int().nonnegative().optional(),
+  /** Bitişinin üzerinden saklama süresi geçtiği için silinen etkinlikler. */
+  removedEvents: z.number().int().nonnegative().optional(),
   warnings: z.array(z.string()),
   rejected: z.array(z.object({ sourceId: z.string(), title: z.string(), reason: z.string() })),
 });

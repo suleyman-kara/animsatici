@@ -1,5 +1,5 @@
 import { Event, EVENT_TYPES, LOCATION_MODES, type Blocklist, type Source } from "../schema";
-import { findMatch, isBlocked, makeDedupeKey, makeEventId } from "./dedupe";
+import { findMatch, isBlocked, makeDedupeKey, makeEventId, titleSimilarity } from "./dedupe";
 import type { ExtractedEvent } from "./extract";
 import type { Rejection } from "./verify";
 
@@ -9,6 +9,9 @@ function clip(text: string, max: number): string {
   const t = text.replace(/\s+/g, " ").trim();
   return t.length <= max ? t : `${t.slice(0, max - 1).replace(/\s+\S*$/, "")}…`;
 }
+
+/** Modelin "bu, bilinen şu etkinlik" ipucunun kabulü için gereken en düşük başlık benzerliği. */
+const HINT_TITLE_SIMILARITY = 0.5;
 
 function asEnum<T extends string>(values: readonly T[], value: string | undefined, fallback: T): T {
   return values.includes(value as T) ? (value as T) : fallback;
@@ -67,7 +70,10 @@ export function mergeEvents({ source, pageUrl, accepted, existing, blocklist, no
       continue;
     }
 
-    const match = (x.matchesExistingId && pool.find((e) => e.id === x.matchesExistingId)) || findMatch(candidate, pool);
+    // Modelin eşleştirme ipucu doğrulanmadan kullanılmaz: yanlış ipucu başka bir etkinliğin tarihlerini ezerdi.
+    const hinted = x.matchesExistingId ? pool.find((e) => e.id === x.matchesExistingId) : undefined;
+    const hintOk = hinted && hinted.sourceId === source.id && titleSimilarity(hinted.title, fields.title) >= HINT_TITLE_SIMILARITY;
+    const match = (hintOk ? hinted : undefined) || findMatch(candidate, pool);
     if (!match) {
       const created = {
         id: makeEventId(candidate, taken),

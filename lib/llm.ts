@@ -16,16 +16,53 @@ export function isTransientError(err: unknown): boolean {
   return e.status === 429 || e.status === 503 || e.status === 500 || /\b(429|500|503)\b|UNAVAILABLE|RESOURCE_EXHAUSTED/.test(e.message ?? "");
 }
 
-/** Geçici hatalarda artan beklemeyle yeniden dener (3 deneme). */
-export async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+const MAX_RETRY_DELAY_MS = 60_000;
+
+/** Gemini kota hatalarında önerilen bekleme ("retryDelay": "37s" ya da "retry in 37.2s"). */
+export function suggestedDelayMs(err: unknown): number | undefined {
+  const message = (err as { message?: string }).message ?? "";
+  const m = message.match(/retryDelay"?\s*:\s*"(\d+(?:\.\d+)?)s"/) ?? message.match(/retry in (\d+(?:\.\d+)?)\s*s/i);
+  return m ? Math.min(MAX_RETRY_DELAY_MS, Math.ceil(Number(m[1]) * 1000)) : undefined;
+}
+
+/**
+ * Geçici hatalarda yeniden dener. Sunucu bir bekleme süresi önerdiyse ona uyar; yoksa üstel bekler
+ * (2, 4, 8, 16 sn). Dakikalık kota aşımları birkaç saniyelik beklemeyle geçmez.
+ */
+export async function withRetry<T>(fn: () => Promise<T>, attempts = 5, wait: (ms: number) => Promise<unknown> = sleep): Promise<T> {
   for (let attempt = 1; ; attempt++) {
     try {
       return await fn();
     } catch (err) {
       if (attempt >= attempts || !isTransientError(err)) throw err;
-      await sleep(attempt * 2000);
+      await wait(suggestedDelayMs(err) ?? Math.min(MAX_RETRY_DELAY_MS, 2000 * 2 ** (attempt - 1)));
     }
   }
+}
+
+/** Aynı anda en fazla `limit` iş çalıştıran basit semafor. */
+export function createLimiter(limit: number) {
+  let active = 0;
+  const queue: (() => void)[] = [];
+  return async function run<T>(fn: () => Promise<T>): Promise<T> {
+    if (active >= limit) await new Promise<void>((resolve) => queue.push(resolve));
+    active++;
+    try {
+      return await fn();
+    } finally {
+      active--;
+      queue.shift()?.();
+    }
+  };
+}
+
+/**
+ * Bir LlmClient'ın tüm çağrılarını tek bir eşzamanlılık sınırından geçirir. Kaynak ve detay sayfası
+ * havuzları iç içe olduğundan sınır, çağrıların toplandığı bu noktada uygulanır.
+ */
+export function limitLlm(client: LlmClient, limit: number): LlmClient {
+  const run = createLimiter(limit);
+  return { generateJson: (args) => run(() => client.generateJson(args)) };
 }
 
 export function geminiModel(): string {

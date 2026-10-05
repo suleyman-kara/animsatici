@@ -15,7 +15,7 @@ Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README
 ## Mimari özeti
 - **Site:** Next.js 16 (App Router) + Tailwind 4, Vercel'de. Tüm sayfalar build zamanında statik üretilir; tek dinamik route `app/api/oneri`.
 - **Veri:** Veritabanı yok. `data/` altındaki JSON dosyaları tek doğruluk kaynağıdır (etkinlik ve kaynak başına bir dosya).
-- **Tarama:** `.github/workflows/scan.yml` her gün 19:00 TR'de `npm run scan` çalıştırır ve `data/` değişikliklerini `main`'e commit eder.
+- **Tarama:** `.github/workflows/scan.yml` her gün 19:00 TR'de `npm run scan` çalıştırır ve `data/` değişikliklerini `main`'e commit eder. Ölçek için: tüm Gemini çağrıları tek bir eşzamanlılık sınırından geçer (`LLM_CONCURRENCY`), 20 dk süre bütçesi dolunca kalan kaynaklar ertelenir (en eski taranan önce), bozulma eşikleri kaynak bazındadır ve bitişinin üzerinden 30 günden fazla geçen sponsorsuz etkinlikler silinir (`RETENTION_DAYS`, `lib/scanner/run.ts`).
 - **Ajan:** `.github/workflows/agent.yml`, `oneri`/`hata-bildirimi` etiketli issue'larda `npm run agent` çalıştırır; yalnızca yorum yazar (`AGENT_MODE=comment`) ya da PR açar (`AGENT_MODE=pr`). Asla `main`'e yazmaz.
 
 ## Değişmez kurallar
