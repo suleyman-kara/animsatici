@@ -1,0 +1,29 @@
+{
+  "id": "ai-destekli-web-uygulamasi-gelistirme-atolyesi-2026-10",
+  "title": "AI Destekli Web Uygulaması Geliştirme Atölyesi",
+  "summary": "Yapay zeka destekli chatbotlar geliştirerek web projelerinizi hayata geçirmeyi amaçlayan online eğitim atölyesidir.",
+  "type": "bootcamp",
+  "category": "ceng",
+  "organizer": "Techcareer.net",
+  "deadline": "2026-10-14",
+  "isAllDay": true,
+  "location": {
+    "mode": "online"
+  },
+  "url": "https://go.techcareer.net/bzqY1x",
+  "sourceId": "techcareer-bootcamp",
+  "alsoSeenAt": [],
+  "tags": [],
+  "evidence": {
+    "titleQuote": "AI Destekli Web Uygulaması Geliştirme Atölyesi",
+    "dateQuote": "14.10.2026",
+    "yearQuote": "14.10.2026",
+    "pageUrl": "https://www.techcareer.net/bootcamp",
+    "fetchedAt": "2026-10-06T01:17:24+03:00"
+  },
+  "status": "active",
+  "origin": "scan",
+  "dedupeKey": "ai-destekli-web-uygulamasi-gelistirme-atolyesi|2026-10-14",
+  "firstSeenAt": "2026-10-06T01:17:24+03:00",
+  "lastSeenAt": "2026-10-06T01:17:24+03:00"
+}

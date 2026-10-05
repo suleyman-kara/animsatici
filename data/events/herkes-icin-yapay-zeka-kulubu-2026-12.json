@@ -1,7 +1,7 @@
 {
   "id": "herkes-icin-yapay-zeka-kulubu-2026-12",
   "title": "Herkes İçin Yapay Zeka Kulübü",
-  "summary": "Yapay zeka teknolojileriyle hızla şekillenen dünyada yerinizi almanızı sağlayan, topluluk odaklı ve pratik eğitimler sunan ücretsiz bootcamp programı.",
+  "summary": "Herkes İçin Yapay Zeka Kulübü, yapay zekanın dönüştürdüğü dünyada yer edinmek isteyenlere yönelik ücretsiz bir eğitim topluluğudur.",
   "type": "bootcamp",
   "category": "ceng",
   "organizer": "Techcareer.net",
@@ -17,12 +17,13 @@
   "evidence": {
     "titleQuote": "Herkes İçin Yapay Zeka Kulübü",
     "dateQuote": "31.12.2026",
+    "yearQuote": "31.12.2026",
     "pageUrl": "https://www.techcareer.net/bootcamp",
-    "fetchedAt": "2026-10-04T15:30:37+03:00"
+    "fetchedAt": "2026-10-06T01:17:24+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "herkes-icin-yapay-zeka-kulubu|2026-12-31",
   "firstSeenAt": "2026-10-04T15:30:37+03:00",
-  "lastSeenAt": "2026-10-04T15:30:37+03:00"
+  "lastSeenAt": "2026-10-06T01:17:24+03:00"
 }

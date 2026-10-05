@@ -8,12 +8,12 @@
     "lastEventCount": 0
   },
   "coderspace-hackathons": {
-    "hash": "e8583f9adbca6253dc2005a2ca35d0b172e80bc05b90ef5e38e781858e912a37",
-    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "hash": "f40e950d4c7c195cf10051b2c404abbddbac642e43d111d0ec1cbf265d5b9d97",
+    "lastCheckedAt": "2026-10-06T01:17:08+03:00",
     "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 909,
-    "lastEventCount": 4,
+    "latencyMs": 922,
+    "lastEventCount": 3,
     "deadDetails": {
       "https://coderspace.io/etkinlikler/ai-business-series/": "2026-10-04T21:56:16+03:00",
       "https://coderspace.io/etkinlikler/women-in-tech-inspiring-career-stories/": "2026-10-04T21:56:16+03:00"
@@ -29,58 +29,58 @@
   },
   "inzva-events": {
     "hash": "6072ded378c16349ed9594cab9a797783708408a3ccbda67fe9a44c8270d99b8",
-    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastCheckedAt": "2026-10-06T01:17:08+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 284,
+    "latencyMs": 664,
     "lastEventCount": 1
   },
   "patika-bootcamps": {
     "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
-    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
+    "lastCheckedAt": "2026-10-06T01:17:08+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 802,
+    "latencyMs": 1085,
     "lastEventCount": 1
   },
   "techcareer-events": {
-    "hash": "419848b8083f9b1c49c2b51942c0c6cf560b04a6aab14dd4cdc3733fd63a38fd",
-    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
-    "lastStatus": "unchanged",
+    "hash": "4c054e6b235c30c4c6829930488056476705a71cc13561f474cea6d7fdadf53a",
+    "lastCheckedAt": "2026-10-06T01:17:09+03:00",
+    "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1254,
-    "lastEventCount": 1
+    "latencyMs": 1220,
+    "lastEventCount": 5
   },
   "techcareer-bootcamp": {
-    "hash": "7a6ea5be460827516955494081fe429f2ae0a0131acf793a111a9319b881cb97",
-    "lastCheckedAt": "2026-10-04T21:56:00+03:00",
-    "lastStatus": "unchanged",
+    "hash": "1d6ba966a3554af0b20cf34bd4578936a7d8b0040b42645918f96f033e46ebb1",
+    "lastCheckedAt": "2026-10-06T01:17:08+03:00",
+    "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 1302,
-    "lastEventCount": 1
+    "latencyMs": 1247,
+    "lastEventCount": 5
   },
   "techcareer-hackathon": {
-    "hash": "3fb48000df2d3e67dff48abe3d970a741c708fd345526be67059bdb94d628673",
-    "lastCheckedAt": "2026-10-04T21:56:01+03:00",
-    "lastStatus": "unchanged",
+    "hash": "a74155bc24373ee7c291163657d8b74e616d721cabba3b13a25e493df50ab789",
+    "lastCheckedAt": "2026-10-06T01:17:09+03:00",
+    "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 809,
-    "lastEventCount": 1
+    "latencyMs": 1020,
+    "lastEventCount": 5
   },
   "teknofest-yarismalar": {
     "hash": "009b0927f36228f0e0839c5073bc2be4ae235cf0e3518c6114ddd27d5a84b766",
-    "lastCheckedAt": "2026-10-04T21:56:01+03:00",
+    "lastCheckedAt": "2026-10-06T01:17:21+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 3737,
+    "latencyMs": 2560,
     "lastEventCount": 61
   },
   "youthall-etkinlikler": {
     "hash": "bde8d8afa6d307ea52211eeae0e30f5b4864c1cd6d9d940829f2b8cd52ead1a4",
-    "lastCheckedAt": "2026-10-04T21:56:02+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-06T01:17:22+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 1439,
+    "latencyMs": 1348,
     "lastEventCount": 17,
     "deadDetails": {
       "https://www.youthall.com/tr/etkinlikler/finvision-turning-insights-to-impact/": "2026-10-04T21:56:40+03:00",
