@@ -1,7 +1,7 @@
 {
   "id": "yga-zirvesi-2026-2026-12",
   "title": "YGA Zirvesi 2026",
-  "summary": "Zorlu PSM'de gerçekleşecek YGA Zirvesi'nde öğrenciler ilham verici liderlerle buluşuyor.",
+  "summary": "YGA tarafından Zorlu PSM'de düzenlenecek olan yıllık liderlik ve zirve etkinliği.",
   "type": "conference",
   "category": "career",
   "organizer": "YGA",
@@ -10,7 +10,7 @@
   "isAllDay": true,
   "location": {
     "mode": "in-person",
-    "venue": "Zorlu Performans Sanatları Merkezi"
+    "venue": "Zorlu Performans Sanatları M..."
   },
   "url": "https://www.youthall.com/tr/etkinlikler/yga-zirvesi-2026/",
   "sourceId": "youthall-etkinlikler",
@@ -21,11 +21,11 @@
     "dateQuote": "19 Aralık",
     "yearQuote": "YGA Zirvesi 2026",
     "pageUrl": "https://www.youthall.com/tr/etkinlikler/",
-    "fetchedAt": "2026-10-04T21:56:57+03:00"
+    "fetchedAt": "2026-10-06T23:44:36+03:00"
   },
   "status": "active",
   "origin": "scan",
   "dedupeKey": "yga-zirvesi-2026|2026-12-19",
   "firstSeenAt": "2026-10-04T15:30:37+03:00",
-  "lastSeenAt": "2026-10-04T21:56:57+03:00"
+  "lastSeenAt": "2026-10-06T23:44:36+03:00"
 }

@@ -1,49 +1,44 @@
 {
-  "startedAt": "2026-10-06T01:17:08+03:00",
-  "completedAt": "2026-10-06T01:17:24+03:00",
+  "startedAt": "2026-10-06T23:43:35+03:00",
+  "completedAt": "2026-10-06T23:44:36+03:00",
   "status": "success",
   "totalSources": 8,
-  "successCount": 4,
-  "unchangedCount": 4,
+  "successCount": 1,
+  "unchangedCount": 7,
   "errorCount": 0,
-  "newEvents": 4,
-  "updatedEvents": 1,
+  "newEvents": 1,
+  "updatedEvents": 3,
   "warnings": [],
   "rejected": [
     {
-      "sourceId": "coderspace-hackathons",
-      "title": "AI Business Series",
+      "sourceId": "youthall-etkinlikler",
+      "title": "FinVision: Turning Insights to Impact",
       "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
     },
     {
-      "sourceId": "coderspace-hackathons",
-      "title": "Women in Tech: Inspiring Career Stories",
+      "sourceId": "youthall-etkinlikler",
+      "title": "Akbank Fellowship Programı",
       "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
     },
     {
-      "sourceId": "techcareer-hackathon",
-      "title": "Herkes İçin Yapay Zeka Kulübü",
-      "reason": "tarih bilgisi yok"
+      "sourceId": "youthall-etkinlikler",
+      "title": "Data & Analytics Summit",
+      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
     },
     {
-      "sourceId": "techcareer-hackathon",
-      "title": "AI ile 10× Üretkenlik: Ekiplerin Gerçek Akışları",
-      "reason": "tarih bilgisi yok"
+      "sourceId": "youthall-etkinlikler",
+      "title": "Boğaziçi Biyoteknoloji Kongresi",
+      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
     },
     {
-      "sourceId": "techcareer-hackathon",
-      "title": "AI Destekli Web Uygulaması Geliştirme Atölyesi",
-      "reason": "tarih bilgisi yok"
+      "sourceId": "youthall-etkinlikler",
+      "title": "ebebek Kariyer Buluşması: Geleceğine Bir Adım At",
+      "reason": "tarih bilgisi yok; detay sayfasında: tarih alıntısı sayfada bulunamadı"
     },
     {
-      "sourceId": "techcareer-hackathon",
-      "title": "Yapay Zekâ ile Mobil Uygulama Geliştirme: Neler Mümkün?",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "techcareer-hackathon",
-      "title": "Chatbot ve Konuşma AI Geliştirme Bootcamp",
-      "reason": "tarih bilgisi yok"
+      "sourceId": "youthall-etkinlikler",
+      "title": "Fast & Curious Ideathon",
+      "reason": "tarih bilgisi yok; detay sayfasında: yıl alıntısı sayfada bulunamadı"
     }
   ]
 }
