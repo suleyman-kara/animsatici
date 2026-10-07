@@ -1,44 +1,39 @@
 {
-  "startedAt": "2026-10-06T23:43:35+03:00",
-  "completedAt": "2026-10-06T23:44:36+03:00",
-  "status": "success",
+  "startedAt": "2026-10-07T23:56:29+03:00",
+  "completedAt": "2026-10-07T23:56:54+03:00",
+  "status": "partial",
   "totalSources": 8,
-  "successCount": 1,
-  "unchangedCount": 7,
-  "errorCount": 0,
+  "successCount": 2,
+  "unchangedCount": 5,
+  "errorCount": 1,
   "newEvents": 1,
-  "updatedEvents": 3,
+  "updatedEvents": 1,
   "warnings": [],
   "rejected": [
     {
-      "sourceId": "youthall-etkinlikler",
-      "title": "FinVision: Turning Insights to Impact",
-      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
+      "sourceId": "coderspace-hackathons",
+      "title": "Oksijen Future Forum 2026 | AFTER AI",
+      "reason": "tarih bilgisi yok"
     },
     {
-      "sourceId": "youthall-etkinlikler",
-      "title": "Akbank Fellowship Programı",
-      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
+      "sourceId": "coderspace-hackathons",
+      "title": "AI Business Series",
+      "reason": "tarih bilgisi yok"
     },
     {
-      "sourceId": "youthall-etkinlikler",
-      "title": "Data & Analytics Summit",
-      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
+      "sourceId": "coderspace-hackathons",
+      "title": "ING Hubs Türkiye Agentic AI Hiring Day",
+      "reason": "tarih bilgisi yok"
     },
     {
-      "sourceId": "youthall-etkinlikler",
-      "title": "Boğaziçi Biyoteknoloji Kongresi",
-      "reason": "tarih bilgisi yok; detay sayfası son 7 günde sonuçsuzdu"
+      "sourceId": "coderspace-hackathons",
+      "title": "Women in Tech: Inspiring Career Stories",
+      "reason": "tarih bilgisi yok"
     },
     {
-      "sourceId": "youthall-etkinlikler",
-      "title": "ebebek Kariyer Buluşması: Geleceğine Bir Adım At",
-      "reason": "tarih bilgisi yok; detay sayfasında: tarih alıntısı sayfada bulunamadı"
-    },
-    {
-      "sourceId": "youthall-etkinlikler",
-      "title": "Fast & Curious Ideathon",
-      "reason": "tarih bilgisi yok; detay sayfasında: yıl alıntısı sayfada bulunamadı"
+      "sourceId": "coderspace-hackathons",
+      "title": "ING Hubs Türkiye Agentic AI Hackathon",
+      "reason": "tarih bilgisi yok"
     }
   ]
 }
