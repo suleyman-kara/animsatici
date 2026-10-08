@@ -1,39 +1,13 @@
 {
-  "startedAt": "2026-10-07T23:56:29+03:00",
-  "completedAt": "2026-10-07T23:56:54+03:00",
+  "startedAt": "2026-10-08T23:58:09+03:00",
+  "completedAt": "2026-10-08T23:59:14+03:00",
   "status": "partial",
   "totalSources": 8,
-  "successCount": 2,
-  "unchangedCount": 5,
-  "errorCount": 1,
-  "newEvents": 1,
-  "updatedEvents": 1,
+  "successCount": 1,
+  "unchangedCount": 4,
+  "errorCount": 3,
+  "newEvents": 0,
+  "updatedEvents": 4,
   "warnings": [],
-  "rejected": [
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Oksijen Future Forum 2026 | AFTER AI",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "AI Business Series",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "ING Hubs Türkiye Agentic AI Hiring Day",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "Women in Tech: Inspiring Career Stories",
-      "reason": "tarih bilgisi yok"
-    },
-    {
-      "sourceId": "coderspace-hackathons",
-      "title": "ING Hubs Türkiye Agentic AI Hackathon",
-      "reason": "tarih bilgisi yok"
-    }
-  ]
+  "rejected": []
 }

@@ -9,10 +9,10 @@
   },
   "coderspace-hackathons": {
     "hash": "81cda8c07a70f892787f5f28c996d7a8dea7287b90fe4713eef324c4379f7ab0",
-    "lastCheckedAt": "2026-10-07T23:56:29+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-08T23:58:09+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 616,
+    "latencyMs": 1145,
     "lastEventCount": 5,
     "deadDetails": {
       "https://coderspace.io/etkinlikler/ai-business-series/": "2026-10-04T21:56:16+03:00",
@@ -29,59 +29,58 @@
   },
   "inzva-events": {
     "hash": "ad98e719486b7aeebc8721e373a0c133ba6d46bfce3c77351e913029c1046dc7",
-    "lastCheckedAt": "2026-10-07T23:56:29+03:00",
-    "lastStatus": "success",
+    "lastCheckedAt": "2026-10-08T23:58:09+03:00",
+    "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 205,
+    "latencyMs": 508,
     "lastEventCount": 4
   },
   "patika-bootcamps": {
     "hash": "bfdf3110c39153c8b2a455e6faf0f231b861f06706c7fb8bfbca6fa1f660e525",
-    "lastCheckedAt": "2026-10-07T23:56:29+03:00",
+    "lastCheckedAt": "2026-10-08T23:58:09+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 959,
+    "latencyMs": 1246,
     "lastEventCount": 1
   },
   "techcareer-events": {
-    "hash": "4c054e6b235c30c4c6829930488056476705a71cc13561f474cea6d7fdadf53a",
-    "lastCheckedAt": "2026-10-07T23:56:30+03:00",
-    "lastStatus": "unchanged",
+    "hash": "6dab55479095a252b920066088b1a591b6b210c82809e0c40fa17801a1f6775b",
+    "lastCheckedAt": "2026-10-08T23:58:10+03:00",
+    "lastStatus": "success",
     "httpStatus": 200,
-    "latencyMs": 728,
-    "lastEventCount": 5
+    "latencyMs": 1229,
+    "lastEventCount": 4
   },
   "techcareer-bootcamp": {
     "hash": "1d6ba966a3554af0b20cf34bd4578936a7d8b0040b42645918f96f033e46ebb1",
-    "lastCheckedAt": "2026-10-07T23:56:29+03:00",
-    "lastStatus": "unchanged",
-    "httpStatus": 200,
-    "latencyMs": 1067,
+    "lastCheckedAt": "2026-10-08T23:58:09+03:00",
+    "lastStatus": "error",
+    "lastError": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+    "latencyMs": 13608,
     "lastEventCount": 5
   },
   "techcareer-hackathon": {
     "hash": "a74155bc24373ee7c291163657d8b74e616d721cabba3b13a25e493df50ab789",
-    "lastCheckedAt": "2026-10-07T23:56:30+03:00",
-    "lastStatus": "unchanged",
-    "httpStatus": 200,
-    "latencyMs": 770,
+    "lastCheckedAt": "2026-10-08T23:58:10+03:00",
+    "lastStatus": "error",
+    "lastError": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+    "latencyMs": 64198,
     "lastEventCount": 5
   },
   "teknofest-yarismalar": {
     "hash": "009b0927f36228f0e0839c5073bc2be4ae235cf0e3518c6114ddd27d5a84b766",
-    "lastCheckedAt": "2026-10-07T23:56:30+03:00",
+    "lastCheckedAt": "2026-10-08T23:58:10+03:00",
     "lastStatus": "unchanged",
     "httpStatus": 200,
-    "latencyMs": 2498,
+    "latencyMs": 3010,
     "lastEventCount": 61
   },
   "youthall-etkinlikler": {
     "hash": "29de3207a5b311bf85755388b8e73078157d46403b75d4ba6711df83c39a3900",
-    "lastCheckedAt": "2026-10-07T23:56:31+03:00",
+    "lastCheckedAt": "2026-10-08T23:58:13+03:00",
     "lastStatus": "error",
-    "httpStatus": 503,
-    "lastError": "HTTP 503 Service Unavailable: https://www.youthall.com/tr/events/",
-    "latencyMs": 414,
+    "lastError": "{\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}",
+    "latencyMs": 25532,
     "lastEventCount": 20,
     "deadDetails": {
       "https://www.youthall.com/tr/etkinlikler/finvision-turning-insights-to-impact/": "2026-10-04T21:56:40+03:00",
