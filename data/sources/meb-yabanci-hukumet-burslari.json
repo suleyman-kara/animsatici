@@ -13,7 +13,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "tr",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası yapay zeka asistanlarının sayfayı okumasını engelliyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Sayfa akademik yıla göre yenilenir; güncel yıl için MEB ABDİGM burs sayfalarına bak.",
   "active": true
