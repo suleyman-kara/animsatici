@@ -14,7 +14,8 @@
   "scope": "international",
   "kind": "aggregator",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "active": true
 }

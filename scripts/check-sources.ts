@@ -13,8 +13,11 @@ import { SITE_URL } from "../lib/site";
 import { parseIssueBody } from "../lib/suggestion";
 
 export const USER_AGENT = `Kampus30Bot/3.0 (+${SITE_URL}/hakkinda)`;
-/** robots.txt'de kontrol edilen yapay zeka tarayıcıları (`*` her zaman kontrol edilir). */
-export const AI_AGENTS = ["ClaudeBot", "Claude-User", "GPTBot", "ChatGPT-User", "Google-Extended", "PerplexityBot"];
+/** Kullanıcının isteğiyle sayfa okuyan asistan ajanları. Bunları engelleyen site aiFetch: false olmalı. */
+export const USER_AGENTS = ["Claude-User", "ChatGPT-User", "Perplexity-User"];
+/** Model eğitimi için veri toplayan tarayıcılar. Engellemeleri kullanıcı isteğiyle okumayı yasaklamaz; yalnızca not düşülür. */
+export const TRAINING_AGENTS = ["ClaudeBot", "GPTBot", "Google-Extended", "PerplexityBot"];
+export const AI_AGENTS = [...USER_AGENTS, ...TRAINING_AGENTS];
 
 export interface CheckResult {
   url: string;
@@ -124,8 +127,11 @@ export async function checkUrl(raw: string, options: { source?: Source; fetchImp
     result.blockedFor = ["*", ...AI_AGENTS].filter((agent) => !isAllowed(robots, agent, path));
     if (aiFetch && result.blockedFor.includes("*")) {
       result.warnings.push("robots.txt tüm tarayıcıları engelliyor; aiFetch false yapılmalı.");
-    } else if (aiFetch && result.blockedFor.length) {
-      result.warnings.push(`robots.txt şu yapay zeka tarayıcılarını engelliyor: ${result.blockedFor.join(", ")}. aiFetch değerini gözden geçir.`);
+    } else if (aiFetch) {
+      const users = result.blockedFor.filter((a) => USER_AGENTS.includes(a));
+      const training = result.blockedFor.filter((a) => TRAINING_AGENTS.includes(a));
+      if (users.length) result.warnings.push(`robots.txt asistanların sayfa okumasını engelliyor: ${users.join(", ")}. aiFetch false yapılmalı.`);
+      if (training.length) result.notes.push(`robots.txt eğitim tarayıcılarını engelliyor: ${training.join(", ")} (kullanıcı isteğiyle okumayı etkilemez).`);
     }
   }
   return result;

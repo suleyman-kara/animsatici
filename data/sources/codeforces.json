@@ -13,7 +13,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor ve robots.txt tüm tarayıcıları kapatıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "active": true
 }

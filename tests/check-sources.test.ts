@@ -21,14 +21,21 @@ describe("kaynak kontrolü", () => {
     expect(result.blockedFor).toEqual([]);
   });
 
-  it("yapay zeka tarayıcılarını engelleyen siteyi uyarır", async () => {
+  it("asistan ajanlarını engelleyen siteyi uyarır, yalnızca eğitim tarayıcılarını engelleyende not düşer", async () => {
     const fetchImpl = fakeFetch({
       "https://ornek.org/e": page(),
-      "https://ornek.org/robots.txt": robots("User-agent: ClaudeBot\nDisallow: /\n\nUser-agent: *\nAllow: /"),
+      "https://ornek.org/robots.txt": robots("User-agent: Claude-User\nDisallow: /\n\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: *\nAllow: /"),
     });
     const result = await checkUrl("https://ornek.org/e", { fetchImpl });
-    expect(result.blockedFor).toEqual(["ClaudeBot"]);
-    expect(result.warnings[0]).toMatch(/ClaudeBot/);
+    expect(result.blockedFor).toEqual(["Claude-User", "GPTBot"]);
+    expect(result.warnings).toEqual(["robots.txt asistanların sayfa okumasını engelliyor: Claude-User. aiFetch false yapılmalı."]);
+    expect(result.notes).toEqual(["robots.txt eğitim tarayıcılarını engelliyor: GPTBot (kullanıcı isteğiyle okumayı etkilemez)."]);
+
+    const trainingOnly = await checkUrl("https://ornek.org/e", {
+      fetchImpl: fakeFetch({ "https://ornek.org/e": page(), "https://ornek.org/robots.txt": robots("User-agent: Google-Extended\nDisallow: /") }),
+    });
+    expect(trainingOnly.warnings).toEqual([]);
+    expect(trainingOnly.notes[0]).toMatch(/Google-Extended/);
 
     // aiFetch zaten false ise uyarı gerekmez
     const closed = await checkUrl("https://ornek.org/e", { fetchImpl, source: makeSource({ aiFetch: false, aiFetchNote: "x" }) });

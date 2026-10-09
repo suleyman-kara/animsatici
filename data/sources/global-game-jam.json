@@ -14,7 +14,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Türkiye'deki etkinlik yerleri sitenin konum (jam site) listesinde yer alır.",
   "active": true

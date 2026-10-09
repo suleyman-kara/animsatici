@@ -1,0 +1,19 @@
+{
+  "id": "codechef-contests",
+  "title": "CodeChef yarışmaları",
+  "url": "https://www.codechef.com/contests",
+  "organizer": "CodeChef",
+  "description": "Haftalık algoritmik programlama yarışmaları (Starters) ve yarışma takvimi.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}
