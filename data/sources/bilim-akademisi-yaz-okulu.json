@@ -14,7 +14,8 @@
   "scope": "national",
   "kind": "organizer",
   "lang": "tr",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Sayfa 2026 yaz okulunu anlatır; sonraki yılın duyurusu için Bilim Akademisi haberlerine bak.",
   "active": true
