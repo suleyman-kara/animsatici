@@ -1,0 +1,21 @@
+{
+  "id": "stm-starteam",
+  "title": "STM StarTeaM Staj ve Aday Çalışan Programı",
+  "url": "https://www.stm.com.tr/en/starteam-internship-and-candidate-employee-program",
+  "organizer": "STM",
+  "description": "3. ve 4. sınıf lisans öğrencileri için STM'de staj ve ardından yarı zamanlı aday çalışanlık sunan program.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvurular Savunma Kariyer platformu üzerinden yapılır.",
+  "active": true
+}

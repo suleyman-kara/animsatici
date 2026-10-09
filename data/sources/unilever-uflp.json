@@ -1,0 +1,21 @@
+{
+  "id": "unilever-uflp",
+  "title": "Unilever Geleceğin Liderleri Programı",
+  "url": "https://landmark.unilever.com.tr/uflp/",
+  "organizer": "Unilever Türkiye",
+  "description": "Yeni mezunlar için üç yıllık yönetici adayı programı; başvuru adımları ve bölümler sayfada anlatılıyor. Landmark etkinlik sayfalarına da bağlantı var.",
+  "fields": [
+    "business",
+    "engineering"
+  ],
+  "types": [
+    "internship",
+    "career-event"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "tcmb-tanitim-programi",
+  "title": "TCMB Tanıtım Programı",
+  "url": "https://tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Banka+Hakkinda/Egitim-Akademik/TCMB+Tanitim/Tcmb+Tanitim+Programi",
+  "organizer": "Türkiye Cumhuriyet Merkez Bankası",
+  "description": "3. ve 4. sınıf öğrencilerine yönelik iki günlük Merkez Bankası tanıtım programı; duyuru her yıl mayıs ayında yayımlanır.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

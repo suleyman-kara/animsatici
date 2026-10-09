@@ -1,0 +1,19 @@
+{
+  "id": "vkv-universite-burslari",
+  "title": "Vehbi Koç Vakfı Üniversite Bursları",
+  "url": "https://www.vkv.org.tr/tr/burslar/universite-burslari-75",
+  "organizer": "Vehbi Koç Vakfı",
+  "description": "Maddi desteğe ihtiyacı olan lisans öğrencileri için Vehbi Koç Vakfı'nın karşılıksız burs programı ve başvuru koşulları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

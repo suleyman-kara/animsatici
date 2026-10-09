@@ -1,0 +1,21 @@
+{
+  "id": "akbank-gelisim-programlari",
+  "title": "Akbank Kariyer Gelişim Programları",
+  "url": "https://kariyer.akbank.com/CareerDevelopment",
+  "organizer": "Akbank",
+  "description": "Akbank'ın gelişim programlarını ve kariyer olanaklarını tanıtan sayfa.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Açık staj pozisyonları için kariyer sitesindeki iş arama bölümünde stajyer filtresi kullan.",
+  "active": true
+}

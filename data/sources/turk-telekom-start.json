@@ -1,0 +1,21 @@
+{
+  "id": "turk-telekom-start",
+  "title": "Türk Telekom START Stajım",
+  "url": "https://turktelekomkariyer.com.tr/start",
+  "organizer": "Türk Telekom",
+  "description": "Üçüncü sınıf öğrencileri için dört haftalık staj ve sonrasında yarı zamanlı çalışma imkânı sunan genç yetenek programı.",
+  "fields": [
+    "software",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

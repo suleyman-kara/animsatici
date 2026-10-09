@@ -1,0 +1,21 @@
+{
+  "id": "aselsan-a-yetenek",
+  "title": "ASELSAN a Yetenek Programları",
+  "url": "https://www.aselsan.com/en/ayetenek4",
+  "organizer": "ASELSAN",
+  "description": "Mühendislik öğrencileri için ASELSAN'ın a Yetenek serisi; son sınıf programının takvimi ve koşulları sayfada, diğer a Yetenek sayfalarına bağlantılar var.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "a Yetenek 3, a Yetenek Yaz Stajı ve MYO programları için aselsan.com'daki ilgili a Yetenek sayfalarına bak.",
+  "active": true
+}

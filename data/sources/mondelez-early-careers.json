@@ -1,0 +1,20 @@
+{
+  "id": "mondelez-early-careers",
+  "title": "Mondelēz Early Careers",
+  "url": "https://www.mondelezinternational.com/careers/early-careers/",
+  "organizer": "Mondelēz International",
+  "description": "Mondelēz'in staj ve yeni mezun programlarını bölge bölge listeleyen küresel erken kariyer sayfası; Türkiye'deki fırsatlar için Türkiye bölümüne bak.",
+  "fields": [
+    "business",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

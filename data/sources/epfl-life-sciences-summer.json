@@ -1,0 +1,19 @@
+{
+  "id": "epfl-life-sciences-summer",
+  "title": "EPFL Yaşam Bilimleri Yaz Araştırma Programı",
+  "url": "https://www.epfl.ch/schools/sv/education/summer-research-program/",
+  "organizer": "EPFL",
+  "description": "Yaşam bilimlerinde uluslararası lisans ve ilk yıl yüksek lisans öğrencileri için sekiz haftalık laboratuvar araştırma programı.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

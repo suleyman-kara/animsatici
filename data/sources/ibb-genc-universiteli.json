@@ -1,0 +1,20 @@
+{
+  "id": "ibb-genc-universiteli",
+  "title": "İBB Genç Üniversiteli Eğitim Desteği",
+  "url": "https://gencuniversiteli.ibb.istanbul/BasvuruKosullari.aspx",
+  "organizer": "İstanbul Büyükşehir Belediyesi",
+  "description": "İstanbul'da yaşayan devlet üniversitesi öğrencilerine yönelik İBB eğitim desteğinin başvuru koşulları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "city",
+  "city": "İstanbul",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

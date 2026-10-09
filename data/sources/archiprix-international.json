@@ -1,0 +1,21 @@
+{
+  "id": "archiprix-international",
+  "title": "Archiprix International",
+  "url": "https://www.archiprix.org/2021/archiprix",
+  "organizer": "Archiprix International",
+  "description": "Mimarlık, kentsel tasarım ve peyzaj mezuniyet projelerinin yarıştığı iki yılda bir düzenlenen uluslararası ödül; adayı üniversite belirler.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Bireysel başvuru yoktur; bölüm hocalarına danışarak üniversitenin aday göstermesi gerekir.",
+  "active": true
+}

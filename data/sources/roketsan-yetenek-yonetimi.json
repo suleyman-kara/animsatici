@@ -1,0 +1,21 @@
+{
+  "id": "roketsan-yetenek-yonetimi",
+  "title": "Roketsan Yetenek Yönetimi ve Staj",
+  "url": "https://www.roketsan.com.tr/tr/insan-kaynaklari/yetenek-yonetimi",
+  "organizer": "Roketsan",
+  "description": "Roketsan'ın genç yetenek (R-Force), aday mühendis ve staj programlarını anlatan insan kaynakları sayfası.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Açık staj ve program ilanları için sayfadaki kariyer portalı bağlantısına bak.",
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "savunma-kariyer",
+  "title": "Savunma Kariyer (SSB Savunma Gelişim)",
+  "url": "https://www.ssb.gov.tr/proje/savunma-gelisim-savunma-kariyer",
+  "organizer": "Savunma Sanayii Başkanlığı",
+  "description": "Gençleri savunma sanayii şirketlerinin staj ve iş ilanlarıyla buluşturan Savunma Kariyer platformunu tanıtan SSB sayfası.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "İlanlar savunmakariyer.com üzerinde yayımlanır; staj başvuruları çoğunlukla bu platformdan yapılır.",
+  "active": true
+}

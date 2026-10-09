@@ -1,0 +1,19 @@
+{
+  "id": "tbd-yarismalar-oduller",
+  "title": "Türkiye Bilişim Derneği Yarışmalar ve Ödüller",
+  "url": "https://www.tbd.org.tr/sayfa/yarismalar-ve-oduller",
+  "organizer": "Türkiye Bilişim Derneği",
+  "description": "TBD'nin Türkçe yazılım yarışması ve diğer bilişim yarışmaları ile ödüllerinin listelendiği sayfa.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

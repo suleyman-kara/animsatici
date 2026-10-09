@@ -1,0 +1,20 @@
+{
+  "id": "siemens-turkiye-staj",
+  "title": "Siemens Türkiye Staj Olanakları",
+  "url": "https://www.siemens.com/tr/tr/sirket/is-kariyer/staj-olanaklari.html",
+  "organizer": "Siemens Türkiye",
+  "description": "Siemens A.Ş.'nin yaz dönemi staj koşullarını, başvuru ve seçim sürecini anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "anadolu-kariyer-merkezi",
+  "title": "Anadolu Üniversitesi Kariyer Merkezi",
+  "url": "https://www.anadolu.edu.tr/arastirma/birimler/kariyer-merkezi-mudurlugu",
+  "organizer": "Anadolu Üniversitesi",
+  "description": "Anadolu Üniversitesi kariyer merkezinin kariyer planlama ve danışmanlık hizmetlerini anlatan sayfa.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "university",
+  "city": "Eskişehir",
+  "university": "Anadolu Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

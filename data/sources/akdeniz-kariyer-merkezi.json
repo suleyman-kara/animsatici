@@ -1,0 +1,22 @@
+{
+  "id": "akdeniz-kariyer-merkezi",
+  "title": "Akdeniz Üniversitesi Kariyer Merkezi Duyuruları",
+  "url": "https://kariyermerkezi.akdeniz.edu.tr/tr/duyurular",
+  "organizer": "Akdeniz Üniversitesi",
+  "description": "Akdeniz Üniversitesi kariyer merkezinin kariyer buluşmaları, söyleşileri ve staj programı duyuruları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event",
+    "internship"
+  ],
+  "scope": "university",
+  "city": "Antalya",
+  "university": "Akdeniz Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

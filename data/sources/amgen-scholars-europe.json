@@ -1,0 +1,20 @@
+{
+  "id": "amgen-scholars-europe",
+  "title": "Amgen Scholars Europe",
+  "url": "https://amgenscholars.com/europe-programme/",
+  "organizer": "Amgen Scholars",
+  "description": "Avrupa'daki üniversitelerde yaşam bilimlerinde sekiz haftalık yaz araştırma programı; Avrupa üniversitesi kaydı gerekir.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru kapanışı genellikle şubat başıdır; Avrupa'da kayıtlı öğrenci olma şartı var.",
+  "active": true
+}

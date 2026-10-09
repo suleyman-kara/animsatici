@@ -1,0 +1,21 @@
+{
+  "id": "cactus-tubingen",
+  "title": "CaCTüS Tübingen Yaz Araştırma Stajı",
+  "url": "https://www.projects.tuebingen.mpg.de/",
+  "organizer": "Max Planck Institute for Intelligent Systems",
+  "description": "Biliş ve yapay zekâ alanında, düşük ve orta gelirli ülkelerin öğrencilerine yönelik tam finanse edilen üç aylık yaz araştırması.",
+  "fields": [
+    "science",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Ülke uygunluğunu sayfadaki koşullardan kontrol et.",
+  "active": true
+}

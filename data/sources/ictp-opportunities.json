@@ -1,0 +1,20 @@
+{
+  "id": "ictp-opportunities",
+  "title": "ICTP Fırsatlar",
+  "url": "https://www.ictp.it/home/opportunities-overview",
+  "organizer": "ICTP",
+  "description": "Uluslararası Teorik Fizik Merkezi'nin yaz okulu, staj ve burs fırsatlarına genel bakış; çoğu okul yüksek lisans düzeyine yöneliktir.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "workshop",
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

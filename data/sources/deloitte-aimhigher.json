@@ -1,0 +1,20 @@
+{
+  "id": "deloitte-aimhigher",
+  "title": "Deloitte Türkiye AimHigher Staj Programı",
+  "url": "https://www2.deloitte.com/tr/tr/pages/careers/articles/aimhigher-staj-programi.html",
+  "organizer": "Deloitte Türkiye",
+  "description": "İktisat, işletme ve mühendislik öğrencileri için Deloitte Türkiye'nin AimHigher staj programı.",
+  "fields": [
+    "business",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

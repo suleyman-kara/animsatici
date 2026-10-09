@@ -1,0 +1,20 @@
+{
+  "id": "wege-prize",
+  "title": "Wege Prize",
+  "url": "https://www.wegeprize.org/",
+  "organizer": "Kendall College of Art and Design",
+  "description": "Farklı disiplinlerden beş kişilik öğrenci takımlarının döngüsel ekonomi çözümleri tasarladığı uluslararası yarışma.",
+  "fields": [
+    "design",
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "max-planck-cs-internships",
+  "title": "Max Planck Bilgisayar Bilimi Stajları",
+  "url": "https://www.cis.mpg.de/internships/",
+  "organizer": "Max Planck Enstitüleri",
+  "description": "Saarbrücken, Kaiserslautern ve Bochum'daki Max Planck enstitülerinde dünya genelinden öğrencilere yönelik araştırma stajı.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Yaz stajı için başvuru son tarihi bir önceki yılın 1 Kasım'ıdır.",
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "red-dot-design-concept",
+  "title": "Red Dot Design Concept – Next Gen",
+  "url": "https://www.red-dot.org/design-concept/participate",
+  "organizer": "Red Dot",
+  "description": "Tasarım öğrencileri ve 30 yaşın altındaki genç tasarımcılar için uluslararası konsept tasarım ödülü; katılım koşulları ve takvim sayfada.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Next Gen kategorisi öğrenciler ve genç tasarımcılar içindir; katılım ücreti ve son tarih için sayfaya bak.",
+  "active": true
+}

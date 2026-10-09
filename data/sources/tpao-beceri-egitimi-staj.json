@@ -1,0 +1,20 @@
+{
+  "id": "tpao-beceri-egitimi-staj",
+  "title": "TPAO Beceri Eğitimi ve Staj",
+  "url": "https://www.tpao.gov.tr/beceri-egitimi-ve-staj",
+  "organizer": "Türkiye Petrolleri",
+  "description": "TPAO'da petrol, jeoloji, jeofizik, makine, elektrik-elektronik ve bilgisayar mühendisliği öğrencileri için staj ve beceri eğitimi bilgileri.",
+  "fields": [
+    "engineering",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

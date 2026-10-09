@@ -1,0 +1,20 @@
+{
+  "id": "otokar-yetenek-kazanimi",
+  "title": "Otokar Yetenek Kazanımı (OtoKariyer)",
+  "url": "https://www.otokar.com.tr/insan-kaynaklari-kariyer/yetenek-kazanimi",
+  "organizer": "Otokar",
+  "description": "Otokar'ın 10 aylık ücretli OtoKariyer Genç Yetenek Programı ve GearUP gibi öğrenci programlarını anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

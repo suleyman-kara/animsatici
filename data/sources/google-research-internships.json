@@ -1,0 +1,21 @@
+{
+  "id": "google-research-internships",
+  "title": "Google Araştırma Stajları",
+  "url": "https://www.google.com/about/careers/applications/research-internships",
+  "organizer": "Google",
+  "description": "Lisans, yüksek lisans ve doktora öğrencileri için Google Research ve DeepMind araştırma stajı çağrıları; ilanlara göre ülke şartı değişir.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Her ilanda lokasyon ve izin şartı yazar; EMEA ilanları Türkiye'deki öğrenciler için daha uygundur.",
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mke-universite-staj",
+  "title": "MKE Üniversite Staj Programları",
+  "url": "https://kariyer.mke.gov.tr/staj-programlari/universite-staj-programlari",
+  "organizer": "Makine ve Kimya Endüstrisi Kurumu",
+  "description": "MKE'nin üniversite öğrencilerine yönelik zorunlu yaz staj programının koşullarını anlatan kariyer sayfası.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "bilkent-kariyer-merkezi",
+  "title": "Bilkent Kariyer Merkezi Etkinlikleri",
+  "url": "http://kariyer.bilkent.edu.tr/en/activities/",
+  "organizer": "Bilkent Üniversitesi",
+  "description": "Bilkent Kariyer Merkezi'nin kariyer fuarı ve diğer kariyer etkinliklerini listeleyen sayfa.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "Bilkent Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

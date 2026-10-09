@@ -1,0 +1,20 @@
+{
+  "id": "pwc-turkiye-ogrenci",
+  "title": "PwC Türkiye Öğrenci ve Yeni Mezun",
+  "url": "https://www.pwc.com.tr/ogrenci-yeni-mezun",
+  "organizer": "PwC Türkiye",
+  "description": "PwC Türkiye'nin Pearl Circle ve Diamond Circle staj programları ile yeni mezun işe alımını anlatan sayfa.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

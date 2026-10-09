@@ -1,0 +1,19 @@
+{
+  "id": "fnss-kariyer",
+  "title": "FNSS Kariyer ve Staj",
+  "url": "https://www.fnss.com.tr/tr/kariyer/basvuru-surecimiz",
+  "organizer": "FNSS",
+  "description": "FNSS'in staj, yeni mezun ve üniversite-sanayi programlarına başvuru sürecini anlatan sayfa.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

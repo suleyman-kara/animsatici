@@ -1,0 +1,21 @@
+{
+  "id": "microsoft-university-internships",
+  "title": "Microsoft Üniversite Stajları",
+  "url": "https://careers.microsoft.com/v2/global/en/universityinternship",
+  "organizer": "Microsoft",
+  "description": "Lisans, yüksek lisans ve doktora öğrencileri için Microsoft'un küresel staj programlarını anlatan sayfa.",
+  "fields": [
+    "software",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

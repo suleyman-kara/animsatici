@@ -1,0 +1,20 @@
+{
+  "id": "bilim-agaci-burslar",
+  "title": "Bilim Ağacı Vakfı Bursları",
+  "url": "https://www.bilimagaci.org.tr/burslar/burs-yonergesi",
+  "organizer": "Bilim Ağacı Vakfı",
+  "description": "Ankara'da okuyan başarılı ve ihtiyaç sahibi öğrencilere burs veren vakfın burs yönergesi; duyurular her Eylül yayımlanır.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "city",
+  "city": "Ankara",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

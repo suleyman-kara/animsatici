@@ -1,0 +1,20 @@
+{
+  "id": "international-velux-award",
+  "title": "International VELUX Award",
+  "url": "https://press.velux.com/worlds-no-1-daylight-award-for-students-of-architecture-is-kicking-off/",
+  "organizer": "VELUX",
+  "description": "Mimarlık öğrencilerine yönelik gün ışığı temalı uluslararası tasarım ödülü; öğretmen eşliğinde katılınır ve iki yılda bir düzenlenir.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

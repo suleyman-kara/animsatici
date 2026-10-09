@@ -1,0 +1,21 @@
+{
+  "id": "enerjisa-kariyer",
+  "title": "Enerjisa Kariyer ve Genç Yetenek Programları",
+  "url": "https://www.enerjisa.com.tr/en/about-enerjisa/career/career-at-enerjisa",
+  "organizer": "Enerjisa",
+  "description": "Enerjisa'nın Young Energy, ITalent, Retail-X ve ENTER gibi genç yetenek programlarını tanıtan kariyer sayfası.",
+  "fields": [
+    "engineering",
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

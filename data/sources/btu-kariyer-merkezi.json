@@ -1,0 +1,22 @@
+{
+  "id": "btu-kariyer-merkezi",
+  "title": "Bursa Teknik Üniversitesi Kariyer Geliştirme Merkezi",
+  "url": "https://bukagem.btu.edu.tr/",
+  "organizer": "Bursa Teknik Üniversitesi",
+  "description": "Bursa Teknik Üniversitesi kariyer merkezinin kariyer buluşmaları ve atölye duyuruları.",
+  "fields": [
+    "general",
+    "engineering"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "university",
+  "city": "Bursa",
+  "university": "Bursa Teknik Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

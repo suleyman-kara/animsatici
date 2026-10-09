@@ -1,0 +1,20 @@
+{
+  "id": "erasmus-staj-hareketliligi",
+  "title": "Erasmus+ Yükseköğretimde Staj Hareketliliği",
+  "url": "https://www.ua.gov.tr/programlar/firsatlar/ka1-ka131-hed-program-ulkelerinde-staj/",
+  "organizer": "Türkiye Ulusal Ajansı",
+  "description": "Üniversite öğrencilerinin Avrupa'da 2–12 ay staj yapmasını sağlayan Erasmus+ staj hareketliliğinin koşulları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru bireysel değil, üniversitenin Erasmus ofisi üzerinden yapılır.",
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "ford-otosan-staj",
+  "title": "Ford Otosan Staj Programları",
+  "url": "https://www.fordotosan.com.tr/tr/kariyer/kariyer-firsatlari/staj-programlari",
+  "organizer": "Ford Otosan",
+  "description": "Otomotiv alanındaki üniversite öğrencileri için Ford Otosan'ın yaz stajı ve staj koşullarını anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

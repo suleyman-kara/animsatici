@@ -1,0 +1,20 @@
+{
+  "id": "aselsan-bootcamp",
+  "title": "ASELSAN Bootcamp",
+  "url": "https://www.aselsan.com/en/bootcamp",
+  "organizer": "ASELSAN",
+  "description": "ASELSAN'ın kariyer bölümünde yer alan bootcamp programının tanıtım sayfası.",
+  "fields": [
+    "software",
+    "engineering"
+  ],
+  "types": [
+    "bootcamp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

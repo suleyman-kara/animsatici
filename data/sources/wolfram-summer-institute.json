@@ -1,0 +1,20 @@
+{
+  "id": "wolfram-summer-institute",
+  "title": "Wolfram Summer Research Institute",
+  "url": "https://education.wolfram.com/summer-school",
+  "organizer": "Wolfram Research",
+  "description": "Lisans düzeyinden doktora sonrasına kadar katılımcılara açık, hesaplamalı araştırma projeleri yapılan yaz programı.",
+  "fields": [
+    "science",
+    "software"
+  ],
+  "types": [
+    "camp"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

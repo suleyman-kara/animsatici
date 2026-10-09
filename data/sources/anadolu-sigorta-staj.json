@@ -1,0 +1,19 @@
+{
+  "id": "anadolu-sigorta-staj",
+  "title": "Anadolu Sigorta Staj İmkânları",
+  "url": "https://www.anadolusigorta.com.tr/insan-kaynaklari/anadolu-sigortada-staj-imkanlari",
+  "organizer": "Anadolu Sigorta",
+  "description": "3. ve 4. sınıf öğrencilerine mentorluk ve atölyeler sunan Anadolu Sigorta yaz stajı ve staj imkânları.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

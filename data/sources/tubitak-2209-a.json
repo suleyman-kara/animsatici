@@ -1,0 +1,21 @@
+{
+  "id": "tubitak-2209-a",
+  "title": "TÜBİTAK 2209-A Üniversite Öğrencileri Araştırma Projeleri",
+  "url": "https://www.tubitak.gov.tr/tr/burslar/lisans/burs-programlari/icerik-2209-a-universite-ogrencileri-arastirma-projeleri-destekleme-programi",
+  "organizer": "TÜBİTAK BİDEB",
+  "description": "Lisans ve ön lisans öğrencilerinin danışman eşliğinde yürüttüğü araştırma projelerine bütçe desteği veren program.",
+  "fields": [
+    "science",
+    "engineering"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Çağrı yılda bir ya da iki kez açılır; sayfa çağrı duyurularına bağlantı verir.",
+  "active": true
+}

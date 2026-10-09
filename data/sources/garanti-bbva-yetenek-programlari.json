@@ -1,0 +1,22 @@
+{
+  "id": "garanti-bbva-yetenek-programlari",
+  "title": "Garanti BBVA Yetenek Programları",
+  "url": "https://kariyer.garantibbva.com.tr/ilk-adiminda-garanti-bbva",
+  "organizer": "Garanti BBVA",
+  "description": "Talent Camp ve diğer öğrenci ve yeni mezun programlarını bir araya getiren Garanti BBVA kariyer sayfası.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship",
+    "camp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası yapay zeka asistanlarının sayfayı okumasını engelliyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

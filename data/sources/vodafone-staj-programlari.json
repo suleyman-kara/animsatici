@@ -1,0 +1,21 @@
+{
+  "id": "vodafone-staj-programlari",
+  "title": "Vodafone Staj Programları",
+  "url": "https://www.vodafone.com.tr/hakkimizda/insan-kaynaklari/staj-programlarimiz",
+  "organizer": "Vodafone Türkiye",
+  "description": "Vodafone Türkiye'nin kısa ve uzun dönem staj programlarını anlatan insan kaynakları sayfası.",
+  "fields": [
+    "software",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

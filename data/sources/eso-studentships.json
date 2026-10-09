@@ -1,0 +1,21 @@
+{
+  "id": "eso-studentships",
+  "title": "ESO Staj ve Studentship Programları",
+  "url": "https://www.eso.org/sci/activities/fellowships-and-studentships/engstudentfellow.html",
+  "organizer": "European Southern Observatory",
+  "description": "Avrupa Güney Gözlemevi'nde mühendislik stajı ve doktora düzeyi studentship fırsatlarını anlatan sayfa.",
+  "fields": [
+    "science",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Açık çağrılar için sayfadaki ESO Recruitment Portal bağlantısına bak.",
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "oracle-students-grads",
+  "title": "Oracle Öğrenci ve Mezun Programları (Türkiye)",
+  "url": "https://www.oracle.com/tr/careers/students-grads/",
+  "organizer": "Oracle",
+  "description": "Oracle'ın Türkiye sayfasında yeni mezun ve erken kariyer programı Generation Oracle ile staj bilgileri.",
+  "fields": [
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

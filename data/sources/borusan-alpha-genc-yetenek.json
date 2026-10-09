@@ -1,0 +1,20 @@
+{
+  "id": "borusan-alpha-genc-yetenek",
+  "title": "Borusan Alpha Genç Yetenek Programı",
+  "url": "https://careers.borusan.com/content/borusan-alpha-genc-yetenek-programi/",
+  "organizer": "Borusan",
+  "description": "Yaklaşık iki yıllık Borusan genç yetenek programı; ilan iki yılda bir şubat ayında açılır.",
+  "fields": [
+    "business",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

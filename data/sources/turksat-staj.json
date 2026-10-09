@@ -1,0 +1,20 @@
+{
+  "id": "turksat-staj",
+  "title": "Türksat Staj Olanakları",
+  "url": "https://www.turksat.com.tr/en/corporate/internship",
+  "organizer": "Türksat",
+  "description": "Türksat'ın Ulusal Staj Programı üzerinden aldığı 3. ve 4. sınıf staj başvurularını anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

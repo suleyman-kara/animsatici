@@ -1,0 +1,21 @@
+{
+  "id": "peak-internships",
+  "title": "Peak Staj Programları",
+  "url": "https://peak.com/internships",
+  "organizer": "Peak",
+  "description": "Oyun şirketi Peak'in yaz ve uzun dönem staj bilgilerinin bulunduğu sayfa.",
+  "fields": [
+    "software",
+    "design"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası yapay zeka asistanlarının sayfayı okumasını engelliyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

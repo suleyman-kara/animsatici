@@ -1,0 +1,20 @@
+{
+  "id": "dandad-new-blood",
+  "title": "D&AD New Blood Awards",
+  "url": "https://www.dandad.org/awards/new-blood-awards",
+  "organizer": "D&AD",
+  "description": "Öğrencilere ve yeni yaratıcılara yönelik reklam, tasarım ve iletişim yarışması; markaların brief'lerine bireysel ya da ekip olarak yanıt verilir.",
+  "fields": [
+    "design",
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "henkel-ogrenciler-mezunlar",
+  "title": "Henkel Türkiye Öğrenciler ve Mezunlar",
+  "url": "https://www.henkel.com.tr/kariyer/ogrenciler-ve-mezunlar",
+  "organizer": "Henkel Türkiye",
+  "description": "Henkel Türkiye'nin staj programı ve yeni mezun fırsatlarının tanıtıldığı kariyer sayfası.",
+  "fields": [
+    "business",
+    "engineering",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

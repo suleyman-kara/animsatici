@@ -1,0 +1,19 @@
+{
+  "id": "siemens-energy-early-careers",
+  "title": "Siemens Energy Early Careers",
+  "url": "https://www.siemens-energy.com/global/en/home/careers/early-career-programs.html",
+  "organizer": "Siemens Energy",
+  "description": "Siemens Energy'nin yaz stajı, co-op ve mezun programlarını anlatan küresel sayfa; Türkiye ilanları kariyer portalında aranabilir.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

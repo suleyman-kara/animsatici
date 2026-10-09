@@ -1,0 +1,20 @@
+{
+  "id": "egekaf-ege-bolgesi-kariyer-fuari",
+  "title": "Ege Bölgesi Kariyer Fuarı (EGEKAF)",
+  "url": "https://iyte.edu.tr/etkinlikler/ege-bolgesi-kariyer-fuari/",
+  "organizer": "İzmir Yüksek Teknoloji Enstitüsü",
+  "description": "İzmir'deki üniversitelerin ortak düzenlediği Ege Bölgesi Kariyer Fuarı'nın etkinlik sayfası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "city",
+  "city": "İzmir",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

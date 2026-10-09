@@ -1,0 +1,22 @@
+{
+  "id": "bosch-turkiye-ogrenciler",
+  "title": "Bosch Türkiye Öğrenciler ve Mezunlar",
+  "url": "https://www.bosch.com.tr/kariyer/oegrenciler-ve-mezunlar/",
+  "organizer": "Bosch Türkiye",
+  "description": "Bosch Türkiye'nin Summer School yaz stajı, Smart Start yarı zamanlı çalışma ve diğer öğrenci programlarının anlatıldığı sayfa.",
+  "fields": [
+    "engineering",
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvurular genellikle Mart–Nisan aylarında kariyer sitesi ve kariyer.net üzerinden alınır.",
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "eth-student-summer-research-fellowship",
+  "title": "ETH Zürih Student Summer Research Fellowship",
+  "url": "https://ethz.ch/en/studies/non-degree-courses/summer-offers/summer-projects/ssr-fellowship.html",
+  "organizer": "ETH Zürih",
+  "description": "Bilgisayar bilimi ve yakın alanlardaki lisans ve yüksek lisans öğrencileri için ETH araştırma gruplarında burslu yaz araştırması.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "internship",
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "meb-yabanci-hukumet-burslari",
+  "title": "MEB Yabancı Hükûmet Bursları",
+  "url": "https://abdigm.meb.gov.tr/www/yabanci-hukmet-burslari-2026-2027/icerik/2676",
+  "organizer": "Milli Eğitim Bakanlığı",
+  "description": "İkili anlaşmalar kapsamında yabancı hükûmetlerin Türk öğrencilere verdiği lisans, yüksek lisans ve doktora bursları ile dil kursu burslarının listesi.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası yapay zeka asistanlarının sayfayı okumasını engelliyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "hints": "Sayfa akademik yıla göre yenilenir; güncel yıl için MEB ABDİGM burs sayfalarına bak.",
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "loreal-turkiye-kariyer",
+  "title": "L'Oréal Türkiye Kariyer",
+  "url": "https://careers.loreal.com/en_US/content/Turkey",
+  "organizer": "L'Oréal",
+  "description": "L'Oréal Türkiye'nin WINtern staj ve LEAD yönetici adayı programlarını tanıtan sayfa.",
+  "fields": [
+    "business",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

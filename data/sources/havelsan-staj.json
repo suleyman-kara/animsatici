@@ -1,0 +1,20 @@
+{
+  "id": "havelsan-staj",
+  "title": "HAVELSAN Staj Programı",
+  "url": "https://www.havelsan.com.tr/kariyer/havelsan-da-calismak/staj",
+  "organizer": "HAVELSAN",
+  "description": "Bilişim, elektrik-elektronik ve endüstri mühendisliği öğrencileri için HAVELSAN yaz stajı koşulları; aday mühendislik sayfasına bağlantı var.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

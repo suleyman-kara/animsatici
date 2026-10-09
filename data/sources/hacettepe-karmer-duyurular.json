@@ -1,0 +1,22 @@
+{
+  "id": "hacettepe-karmer-duyurular",
+  "title": "Hacettepe Kariyer Merkezi Duyuruları",
+  "url": "https://karmer.hacettepe.edu.tr/en/category/duyurular/",
+  "organizer": "Hacettepe Üniversitesi",
+  "description": "Hacettepe Kariyer Merkezi'nin staj, Ulusal Staj Programı ve kariyer etkinliği duyuruları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event",
+    "internship"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "Hacettepe Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "tubitak-1812-bigg",
+  "title": "TÜBİTAK 1812 BiGG Yatırım Programı",
+  "url": "https://tubitak.gov.tr/en/funds/industrial/national-support-programs/1812-investment-based-entrepreneurship-support-program-bigg-investment",
+  "organizer": "TÜBİTAK",
+  "description": "Teknoloji tabanlı girişim fikirleri için hızlandırma ve ilk yatırım desteği sağlayan TÜBİTAK programı.",
+  "fields": [
+    "business",
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Çağrılar yılda birkaç kez açılır; güncel çağrı duyurusu TÜBİTAK duyurular sayfasında.",
+  "active": true
+}

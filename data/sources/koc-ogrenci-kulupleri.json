@@ -1,0 +1,23 @@
+{
+  "id": "koc-ogrenci-kulupleri",
+  "title": "Koç Üniversitesi Öğrenci Kulüpleri",
+  "url": "https://www.ku.edu.tr/en/explore/about-us/administrative-offices/dean-of-students/student-clubs/",
+  "organizer": "Koç Üniversitesi",
+  "description": "Koç Üniversitesi'ndeki 80'den fazla öğrenci kulübünün listesi; kulüplerin yarışma ve etkinlik duyuruları için başlangıç noktası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "workshop",
+    "competition"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "Koç Üniversitesi",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

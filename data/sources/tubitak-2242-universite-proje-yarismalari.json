@@ -1,0 +1,21 @@
+{
+  "id": "tubitak-2242-universite-proje-yarismalari",
+  "title": "TÜBİTAK 2242 Üniversite Öğrencileri Araştırma Proje Yarışmaları",
+  "url": "https://www.tubitak.gov.tr/tr/yarismalar/oncelikli-alanlarda-universite-ogrencileri-proje-yarismasi",
+  "organizer": "TÜBİTAK",
+  "description": "Ön lisans ve lisans öğrencilerinin enerji, sağlık, savunma, uzay ve sosyal yenilikçilik ve girişimcilik gibi alanlarda proje sunduğu yarışma.",
+  "fields": [
+    "science",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

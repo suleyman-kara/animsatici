@@ -1,0 +1,19 @@
+{
+  "id": "un-internships",
+  "title": "Birleşmiş Milletler Staj Programı",
+  "url": "https://www.un.org/en/academic-impact/page/internships",
+  "organizer": "Birleşmiş Milletler",
+  "description": "Lisans, yüksek lisans ve doktora öğrencileri ile yeni mezunlar için BM Sekretaryası staj programının koşulları ve başvuru yolu.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}
