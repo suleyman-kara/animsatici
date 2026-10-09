@@ -24,6 +24,19 @@ export interface CheckResult {
   blockedFor?: string[];
   errors: string[];
   warnings: string[];
+  /** Bilgi notları: sorun sayılmaz (ör. zaten "yalnızca link" olan bir sitenin otomatik istekleri engellemesi). */
+  notes: string[];
+}
+
+/** Bot korumasının ya da erişim kısıtlamasının döndürdüğü durum kodları. */
+const BLOCKED_STATUSES = new Set([401, 403, 429]);
+
+/** fetch hatasının okunabilir nedeni (undici "fetch failed" mesajının altındaki kod). */
+export function describeFetchError(err: unknown): string {
+  const e = err as Error & { cause?: { code?: string; message?: string } };
+  if (e.name === "TimeoutError") return "zaman aşımı";
+  const cause = e.cause?.code ?? e.cause?.message;
+  return cause ? `${e.message}: ${cause}` : e.message;
 }
 
 /** Yerel ağ adreslerine istek atılmasını engeller (öneri formundan gelen adresler için). */
@@ -53,7 +66,8 @@ async function fetchRobots(url: URL, fetchImpl: typeof fetch): Promise<Robots | 
 
 export async function checkUrl(raw: string, options: { source?: Source; fetchImpl?: typeof fetch } = {}): Promise<CheckResult> {
   const fetchImpl = options.fetchImpl ?? fetch;
-  const result: CheckResult = { url: raw, sourceId: options.source?.id, errors: [], warnings: [] };
+  const result: CheckResult = { url: raw, sourceId: options.source?.id, errors: [], warnings: [], notes: [] };
+  const aiFetch = options.source?.aiFetch ?? true;
   if (!isPublicHttpUrl(raw)) {
     result.errors.push("Geçerli, herkese açık bir http(s) adresi değil.");
     return result;
@@ -64,18 +78,26 @@ export async function checkUrl(raw: string, options: { source?: Source; fetchImp
     const res = await fetchImpl(url, { headers: { "User-Agent": USER_AGENT }, redirect: "follow", signal: AbortSignal.timeout(20_000) });
     result.httpStatus = res.status;
     await res.body?.cancel();
-    if (!res.ok) result.errors.push(`Sayfa HTTP ${res.status} döndürüyor.`);
+    if (BLOCKED_STATUSES.has(res.status)) {
+      const msg = `Site otomatik istekleri engelliyor (HTTP ${res.status}); yapay zeka asistanları da okuyamayabilir.`;
+      if (aiFetch) result.warnings.push(`${msg} aiFetch false yapılmalı.`);
+      else result.notes.push(msg);
+    } else if (!res.ok) {
+      result.errors.push(`Sayfa HTTP ${res.status} döndürüyor.`);
+    }
   } catch (err) {
-    result.errors.push(`Sayfaya ulaşılamadı (${(err as Error).name === "TimeoutError" ? "zaman aşımı" : (err as Error).message}).`);
+    const msg = `Sayfaya ulaşılamadı (${describeFetchError(err)}).`;
+    // "Yalnızca link" kaynaklarda asistan sayfayı zaten okumaz; erişim kısıtı (ör. yurt dışı engeli) not olarak kalır.
+    if (aiFetch) result.errors.push(msg);
+    else result.notes.push(msg);
   }
 
   const robots = await fetchRobots(url, fetchImpl);
   if (!robots) {
-    result.warnings.push("robots.txt okunamadı.");
+    (aiFetch ? result.warnings : result.notes).push("robots.txt okunamadı.");
   } else {
     const path = url.pathname + url.search;
     result.blockedFor = ["*", ...AI_AGENTS].filter((agent) => !isAllowed(robots, agent, path));
-    const aiFetch = options.source?.aiFetch ?? true;
     if (aiFetch && result.blockedFor.includes("*")) {
       result.warnings.push("robots.txt tüm tarayıcıları engelliyor; aiFetch false yapılmalı.");
     } else if (aiFetch && result.blockedFor.length) {
@@ -88,10 +110,10 @@ export async function checkUrl(raw: string, options: { source?: Source; fetchImp
 export function formatReport(title: string, results: CheckResult[]): string {
   const lines = [`## ${title}`, ""];
   for (const r of results) {
-    const icon = r.errors.length ? "❌" : r.warnings.length ? "⚠️" : "✅";
+    const icon = r.errors.length ? "❌" : r.warnings.length ? "⚠️" : r.notes.length ? "ℹ️" : "✅";
     const name = r.sourceId ? `\`${r.sourceId}\` ` : "";
     lines.push(`- ${icon} ${name}${r.url}${r.httpStatus ? ` (HTTP ${r.httpStatus})` : ""}`);
-    for (const msg of [...r.errors, ...r.warnings]) lines.push(`  - ${msg}`);
+    for (const msg of [...r.errors, ...r.warnings, ...r.notes]) lines.push(`  - ${msg}`);
   }
   return lines.join("\n");
 }
@@ -133,7 +155,11 @@ async function main(argv: string[]): Promise<number> {
       results.push(await checkUrl(source.url, { source }));
     }
     const problems = results.filter((r) => r.errors.length || r.warnings.length);
-    report = formatReport(problems.length ? `Kaynak kontrolü: ${problems.length} kaynakta sorun var` : "Kaynak kontrolü: sorun yok", problems.length ? problems : results);
+    const noted = results.filter((r) => !r.errors.length && !r.warnings.length && r.notes.length);
+    report = formatReport(
+      problems.length ? `Kaynak kontrolü: ${problems.length} kaynakta sorun var` : "Kaynak kontrolü: sorun yok",
+      problems.length ? [...problems, ...noted] : results,
+    );
     failed = problems.length > 0;
   }
 
