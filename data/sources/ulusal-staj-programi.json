@@ -1,0 +1,20 @@
+{
+  "id": "ulusal-staj-programi",
+  "title": "Ulusal Staj Programı",
+  "url": "https://ulusalstajprogrami.iskur.gov.tr/",
+  "organizer": "Türkiye İş Kurumu (İŞKUR)",
+  "description": "Kamu ve özel sektördeki işverenlerin staj ilanlarını üniversite öğrencileriyle buluşturan devlet programı.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Program tanıtımı ve başvuru takvimi herkese açık; başvurunun kendisi e-Devlet girişi ister, giriş yapmaya çalışma. Başvurular genellikle ocak–mart arasında alınır.",
+  "active": true
+}
