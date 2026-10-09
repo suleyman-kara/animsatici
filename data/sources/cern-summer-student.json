@@ -1,0 +1,22 @@
+{
+  "id": "cern-summer-student",
+  "title": "CERN Summer Student Programme",
+  "url": "https://careers.cern/summer",
+  "organizer": "CERN",
+  "description": "Fizik, mühendislik, bilgisayar bilimi ve matematik öğrencileri için CERN'de 8–13 haftalık yaz programı; tüm uyruklara açık.",
+  "fields": [
+    "science",
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru dönemi genellikle sonbaharda açılıp ocak ayında kapanır; güncel çağrı ve son tarih sayfada yazar.",
+  "active": true
+}

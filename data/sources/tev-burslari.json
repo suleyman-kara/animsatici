@@ -1,0 +1,20 @@
+{
+  "id": "tev-burslari",
+  "title": "TEV burs programları",
+  "url": "https://www.tev.org.tr/",
+  "organizer": "Türk Eğitim Vakfı",
+  "description": "Türk Eğitim Vakfı'nın üniversite eğitim bursu, üstün başarı bursu ve lisansüstü burs programları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru takvimi duyurularda yazar; başvurular Obigenç mobil uygulamasından yapılır.",
+  "active": true
+}

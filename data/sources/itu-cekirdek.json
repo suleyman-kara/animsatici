@@ -1,0 +1,21 @@
+{
+  "id": "itu-cekirdek",
+  "title": "İTÜ Çekirdek",
+  "url": "https://itucekirdek.com/",
+  "organizer": "İTÜ Çekirdek",
+  "description": "İTÜ'nün erken aşama kuluçka merkezi: girişimcilik programları, yarışmalar ve yatırım destekleri; öğrenci girişimcilere de açık.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "competition",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

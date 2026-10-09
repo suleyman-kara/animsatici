@@ -1,0 +1,21 @@
+{
+  "id": "girisimcilik-vakfi",
+  "title": "Girişimcilik Vakfı gençlik programları",
+  "url": "https://girisimcilikvakfi.org/",
+  "organizer": "Girişimcilik Vakfı (GİRVAK)",
+  "description": "Üniversite öğrencileri için Fellow ve Challenger girişimcilik programları, ekosistem buluşmaları ve etkinlikler.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "workshop",
+    "career-event"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru dönemi genellikle mayıs–temmuz arasıdır; güncel çağrı programlar sayfasında yazar.",
+  "active": true
+}

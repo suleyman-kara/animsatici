@@ -1,0 +1,20 @@
+{
+  "id": "imagine-cup",
+  "title": "Microsoft Imagine Cup",
+  "url": "https://imaginecup.microsoft.com/",
+  "organizer": "Microsoft",
+  "description": "16 yaş üstü öğrenci ekipleri için yapay zeka odaklı uluslararası teknoloji girişimi yarışması.",
+  "fields": [
+    "software",
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

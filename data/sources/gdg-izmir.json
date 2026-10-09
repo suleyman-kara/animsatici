@@ -1,0 +1,23 @@
+{
+  "id": "gdg-izmir",
+  "title": "GDG İzmir",
+  "url": "https://gdg.community.dev/gdg-izmir/",
+  "organizer": "Google Developer Groups",
+  "description": "İzmir merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "city",
+  "city": "İzmir",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

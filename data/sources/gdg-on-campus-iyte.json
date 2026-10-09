@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-iyte",
+  "title": "GDG on Campus İYTE",
+  "url": "https://gdg.community.dev/gdg-on-campus-izmir-institute-of-technology-izmir-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "İzmir Yüksek Teknoloji Enstitüsü merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "İzmir",
+  "university": "İzmir Yüksek Teknoloji Enstitüsü",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}
