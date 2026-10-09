@@ -14,7 +14,8 @@
   "scope": "national",
   "kind": "organizer",
   "lang": "tr",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site yurt dışından gelen isteklere kararsız yanıt veriyor (zaman aşımı, eksik TLS zinciri); yapay zeka asistanları okuyamayabilir. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Öğrenim ve staj hareketliliği başvuruları üniversitelerin uluslararası ilişkiler ofisleri üzerinden yapılır; ajans duyuruları sitede.",
   "active": true
