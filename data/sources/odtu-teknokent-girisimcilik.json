@@ -16,7 +16,8 @@
   "city": "Ankara",
   "kind": "organizer",
   "lang": "tr",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası okunamadı; yapay zeka asistanlarının erişimi doğrulanamadı. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "active": true
 }
