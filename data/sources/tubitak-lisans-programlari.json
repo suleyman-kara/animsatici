@@ -1,0 +1,23 @@
+{
+  "id": "tubitak-lisans-programlari",
+  "title": "TÜBİTAK lisans burs ve destek programları",
+  "url": "https://tubitak.gov.tr/en/scholarships/degree",
+  "homepage": "https://tubitak.gov.tr",
+  "organizer": "TÜBİTAK BİDEB",
+  "description": "Lisans öğrencileri için 2205 lisans bursu, 2209-A/B araştırma projesi destekleri ve 2247-C stajyer araştırmacı bursu.",
+  "fields": [
+    "science",
+    "engineering"
+  ],
+  "types": [
+    "scholarship",
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Program listesi sayfası; çağrı tarihleri her programın kendi sayfasında ve TÜBİTAK duyurularında yazar. Türkçe sürüm için dil seçeneğini kullan.",
+  "active": true
+}

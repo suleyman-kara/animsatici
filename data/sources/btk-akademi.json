@@ -1,0 +1,21 @@
+{
+  "id": "btk-akademi",
+  "title": "BTK Akademi",
+  "url": "https://www.btkakademi.gov.tr/",
+  "organizer": "Bilgi Teknolojileri ve İletişim Kurumu",
+  "description": "Ücretsiz çevrim içi ve yüz yüze yazılım, yapay zeka ve siber güvenlik eğitimleri; zaman zaman hackathon ve yarışmalar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "bootcamp",
+    "hackathon"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

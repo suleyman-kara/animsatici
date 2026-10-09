@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-tobb-etu",
+  "title": "GDG on Campus TOBB ETÜ",
+  "url": "https://gdg.community.dev/gdg-on-campus-tobb-university-of-economics-technology-ankara-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "TOBB ETÜ merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "TOBB ETÜ",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

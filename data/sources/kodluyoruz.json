@@ -1,0 +1,20 @@
+{
+  "id": "kodluyoruz",
+  "title": "Kodluyoruz",
+  "url": "https://www.kodluyoruz.org/",
+  "organizer": "Kodluyoruz Derneği",
+  "description": "Gençlere yönelik ücretsiz web, mobil ve veri bilimi bootcamp'leri ile kodlama atölyeleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "bootcamp",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

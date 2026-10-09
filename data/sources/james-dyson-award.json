@@ -1,0 +1,21 @@
+{
+  "id": "james-dyson-award",
+  "title": "James Dyson Award",
+  "url": "https://www.jamesdysonaward.org/",
+  "organizer": "James Dyson Foundation",
+  "description": "Mühendislik ve tasarım öğrencileri ile son dört yılda mezun olanlar için uluslararası tasarım yarışması; Türkiye'den de başvurulabilir.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvurular genellikle mart–temmuz arasında açıktır; ülke sayfasında yerel kurallar yazar.",
+  "active": true
+}
