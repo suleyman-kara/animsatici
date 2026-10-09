@@ -1,0 +1,21 @@
+{
+  "id": "turkiye-ulusal-ajansi",
+  "title": "Türkiye Ulusal Ajansı (Erasmus+)",
+  "url": "https://www.ua.gov.tr/",
+  "organizer": "Türkiye Ulusal Ajansı",
+  "description": "Erasmus+ ve Avrupa Dayanışma Programı: yurt dışında öğrenim ve staj hareketliliği, gençlik değişimleri ve gönüllülük.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship",
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Öğrenim ve staj hareketliliği başvuruları üniversitelerin uluslararası ilişkiler ofisleri üzerinden yapılır; ajans duyuruları sitede.",
+  "active": true
+}

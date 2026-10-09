@@ -1,0 +1,22 @@
+{
+  "id": "nasa-space-apps",
+  "title": "NASA Space Apps Challenge",
+  "url": "https://www.spaceappschallenge.org/",
+  "organizer": "NASA",
+  "description": "NASA'nın uluslararası hackathon'u; Türkiye'de birçok şehirde yerel etkinliklerle her yıl ekim ayında düzenlenir.",
+  "fields": [
+    "software",
+    "science",
+    "engineering"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Yerel etkinlikler (İstanbul, Ankara, Kocaeli vb.) sitenin konum listesinde yer alır.",
+  "active": true
+}

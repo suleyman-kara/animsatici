@@ -1,0 +1,21 @@
+{
+  "id": "tusas-kariyer",
+  "title": "TUSAŞ kariyer ve SKY Discover stajı",
+  "url": "https://kariyer.tusas.com/",
+  "organizer": "TUSAŞ",
+  "description": "Türk Havacılık ve Uzay Sanayii'nin SKY Discover yaz stajı ve mühendislik öğrencilerine yönelik yetenek programları.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "SKY Discover yaz stajı başvuruları genellikle mart ayında açılır.",
+  "active": true
+}

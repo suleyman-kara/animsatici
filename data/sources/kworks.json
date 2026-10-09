@@ -1,0 +1,21 @@
+{
+  "id": "kworks",
+  "title": "KWORKS",
+  "url": "https://kworks.ku.edu.tr/",
+  "organizer": "Koç Üniversitesi",
+  "description": "Koç Üniversitesi'nin girişimcilik merkezi: hızlandırma ve ön hızlandırma programları, BiGG destekleri ve etkinlikler.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "bootcamp",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

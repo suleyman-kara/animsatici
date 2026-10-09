@@ -1,0 +1,21 @@
+{
+  "id": "mlh-hackathons",
+  "title": "MLH hackathonları",
+  "url": "https://mlh.io/",
+  "organizer": "Major League Hacking",
+  "description": "Dünya genelindeki öğrenci hackathonlarını düzenleyen ve destekleyen lig; çevrim içi ve yüz yüze etkinlik takvimi.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon",
+    "workshop"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Güncel sezonun etkinlik listesine ana sayfadaki Events bağlantısından ulaşılır.",
+  "active": true
+}

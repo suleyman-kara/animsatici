@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-pau",
+  "title": "GDG on Campus Pamukkale",
+  "url": "https://gdg.community.dev/gdg-on-campus-pamukkale-university-denizli-turkey/",
+  "organizer": "Google Developer Groups",
+  "description": "Pamukkale Üniversitesi merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "Denizli",
+  "university": "Pamukkale Üniversitesi",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

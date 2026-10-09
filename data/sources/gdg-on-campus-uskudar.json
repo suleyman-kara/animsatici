@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-uskudar",
+  "title": "GDG on Campus Üsküdar",
+  "url": "https://gdg.community.dev/gdg-on-campus-uskudar-university-istanbul-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "Üsküdar Üniversitesi merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "Üsküdar Üniversitesi",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

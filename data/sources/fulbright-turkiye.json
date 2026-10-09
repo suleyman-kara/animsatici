@@ -1,0 +1,19 @@
+{
+  "id": "fulbright-turkiye",
+  "title": "Türkiye Fulbright Eğitim Komisyonu",
+  "url": "https://www.fulbright.org.tr/",
+  "organizer": "Türkiye Fulbright Eğitim Komisyonu",
+  "description": "ABD'de yüksek lisans ve doktora bursları; üniversite 3. ve 4. sınıf öğrencileri de başvurabilir.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

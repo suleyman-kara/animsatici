@@ -1,0 +1,20 @@
+{
+  "id": "google-summer-of-code",
+  "title": "Google Summer of Code",
+  "url": "https://summerofcode.withgoogle.com/",
+  "organizer": "Google",
+  "description": "Açık kaynak projelerde mentorlu, ücretli 12 haftalık uzaktan program; öğrencilere ve açık kaynağa yeni başlayanlara açık.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Program takvimi (kuruluş ilanı, başvuru tarihleri) sayfada yazar; başvurular genellikle mart–nisan arasındadır.",
+  "active": true
+}

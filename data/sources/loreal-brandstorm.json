@@ -1,0 +1,21 @@
+{
+  "id": "loreal-brandstorm",
+  "title": "L'Oréal Brandstorm",
+  "url": "https://www.loreal.com/en/brandstorm/",
+  "organizer": "L'Oréal",
+  "description": "30 yaş altı gençler için uluslararası inovasyon yarışması; Türkiye elemesinin kazananı Paris'teki finale katılır.",
+  "fields": [
+    "business",
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Kayıtlar genellikle sonbaharda açılıp yılbaşından sonra kapanır.",
+  "active": true
+}

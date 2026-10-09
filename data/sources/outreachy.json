@@ -1,0 +1,21 @@
+{
+  "id": "outreachy",
+  "title": "Outreachy",
+  "url": "https://www.outreachy.org/",
+  "organizer": "Software Freedom Conservancy",
+  "description": "Teknoloji sektöründe yeterince temsil edilmeyen kişiler için açık kaynakta ücretli, 3 aylık uzaktan staj programı.",
+  "fields": [
+    "software",
+    "design"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Yılda iki dönem (mayıs ve aralık başlangıçlı) vardır; başvuru tarihleri ana sayfada yazar.",
+  "active": true
+}
