@@ -1,0 +1,21 @@
+{
+  "id": "young-architects-competitions",
+  "title": "Young Architects Competitions",
+  "url": "https://www.youngarchitectscompetitions.com/",
+  "organizer": "Young Architects Competitions",
+  "description": "Genç mimar ve öğrencilere yönelik uluslararası fikir yarışmaları; her yarışmanın ayrı teması ve takvimi var.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Anasayfadaki açık yarışmalar listesinden güncel olanı seç; takımda 18–35 yaş aralığında en az bir kişi şartı olabilir.",
+  "active": true
+}

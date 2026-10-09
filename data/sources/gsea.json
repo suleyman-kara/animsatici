@@ -1,0 +1,19 @@
+{
+  "id": "gsea",
+  "title": "Global Student Entrepreneur Awards (GSEA)",
+  "url": "https://gsea.org/",
+  "organizer": "Entrepreneurs' Organization",
+  "description": "Okurken şirketini yürüten öğrenci girişimciler için yerel, ulusal ve küresel finalleri olan yarışma.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

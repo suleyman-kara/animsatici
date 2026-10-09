@@ -1,0 +1,19 @@
+{
+  "id": "qnb-yeni-mezun-ogrenci",
+  "title": "QNB Yeni Mezun ve Öğrenciler",
+  "url": "https://www.qnb.com.tr/insan-kaynaklari/ailemize-katilin/yeni-mezun-ve-ogrenciler",
+  "organizer": "QNB",
+  "description": "QNB'nin şube ve genel müdürlük yaz stajı ile yeni mezun programlarını anlatan insan kaynakları sayfası.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

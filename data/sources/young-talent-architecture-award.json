@@ -1,0 +1,21 @@
+{
+  "id": "young-talent-architecture-award",
+  "title": "Young Talent Architecture Award (Mies van der Rohe)",
+  "url": "https://miesarch.com/about-the-prize/young-talent",
+  "organizer": "Fundació Mies van der Rohe",
+  "description": "Yeni mezun mimar, kent plancısı ve peyzaj mimarlarının mezuniyet projeleri için okulların aday gösterdiği ödül.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru okul üzerinden yapılır.",
+  "active": true
+}

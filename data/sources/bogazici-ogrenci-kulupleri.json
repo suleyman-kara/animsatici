@@ -1,0 +1,22 @@
+{
+  "id": "bogazici-ogrenci-kulupleri",
+  "title": "Boğaziçi Üniversitesi Öğrenci Kulüpleri",
+  "url": "https://www.boun.edu.tr/Default.aspx?SectionID=959",
+  "organizer": "Boğaziçi Üniversitesi",
+  "description": "Boğaziçi'ndeki bilim, bilişim ve diğer öğrenci kulüplerinin listesi; kulüplerin etkinlik ve yarışma duyuruları için başlangıç noktası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "workshop",
+    "competition"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "Boğaziçi Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

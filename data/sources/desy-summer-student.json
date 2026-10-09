@@ -14,7 +14,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Sitenin robots.txt dosyası yapay zeka asistanlarının sayfayı okumasını engelliyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Başvuru turu genellikle yıl sonuna doğru açılır; koşullar ve ücret bilgisi sayfada.",
   "active": true

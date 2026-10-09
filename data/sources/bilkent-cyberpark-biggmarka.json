@@ -1,0 +1,21 @@
+{
+  "id": "bilkent-cyberpark-biggmarka",
+  "title": "Bilkent CYBERPARK BİGG MARKA",
+  "url": "https://biggmarka.cyberpark.com.tr/",
+  "organizer": "Bilkent CYBERPARK",
+  "description": "Girişim fikirlerini iş planına dönüştüren mentorluklu BİGG MARKA programı; Bilkent CYBERPARK'ın girişimcilik desteği.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "Ankara",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

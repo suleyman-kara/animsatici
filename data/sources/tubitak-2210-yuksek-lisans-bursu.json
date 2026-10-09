@@ -1,0 +1,20 @@
+{
+  "id": "tubitak-2210-yuksek-lisans-bursu",
+  "title": "TÜBİTAK 2210 Yurt İçi Yüksek Lisans Bursu",
+  "url": "https://tubitak.gov.tr/en/scholarships/postgraduate/research-scholarship-programs/2210-national-mscma-scholarship-programs",
+  "organizer": "TÜBİTAK BİDEB",
+  "description": "Türkiye'de yüksek lisans yapan öğrenciler için TÜBİTAK'ın yurt içi burs programının koşulları; çağrı yılda iki dönem açılır.",
+  "fields": [
+    "science",
+    "engineering"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

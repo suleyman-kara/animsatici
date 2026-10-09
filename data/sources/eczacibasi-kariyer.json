@@ -1,9 +1,9 @@
 {
   "id": "eczacibasi-kariyer",
-  "title": "Eczacıbaşı Kariyer Staj Programları",
-  "url": "https://www.eczacibasi.com.tr/en/live-the-career",
+  "title": "Eczacıbaşı Kariyer Test Sürüşü Proje Stajı",
+  "url": "https://eczacibasikariyer.com.tr/proje-staji",
   "organizer": "Eczacıbaşı",
-  "description": "Eczacıbaşı Topluluğu'nun staj ve kariyer yaklaşımını anlatan sayfa; başvurular topluluğun kariyer sitesinden yapılıyor.",
+  "description": "Eczacıbaşı Topluluğu şirketlerinde 3. ve 4. sınıf öğrencilerine yönelik proje stajı Kariyer Test Sürüşü ve açık staj ilanları.",
   "fields": [
     "business",
     "engineering",
@@ -14,7 +14,7 @@
   ],
   "scope": "national",
   "kind": "organizer",
-  "lang": "en",
+  "lang": "tr",
   "aiFetch": true,
   "needsJs": false,
   "active": true

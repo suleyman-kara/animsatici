@@ -1,0 +1,21 @@
+{
+  "id": "odtu-kariyer-planlama-merkezi",
+  "title": "ODTÜ Kariyer Planlama Merkezi",
+  "url": "https://kampus.metu.edu.tr/destek-birimlerimiz/kariyer-planlama-uygulama-ve-arastirma-merkezi",
+  "organizer": "ODTÜ",
+  "description": "ODTÜ'nün yılda iki kez kariyer fuarı düzenleyen, mülakat simülasyonu ve CV desteği sunan kariyer merkezi sayfası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "ODTÜ",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

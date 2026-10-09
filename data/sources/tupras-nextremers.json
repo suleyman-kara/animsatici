@@ -1,0 +1,21 @@
+{
+  "id": "tupras-nextremers",
+  "title": "Tüpraş Nextremers Genç Yetenek Programı",
+  "url": "https://www.tupras.com.tr/tr/nextremers",
+  "organizer": "Tüpraş",
+  "description": "3. ve 4. sınıf ile yüksek lisans öğrencilerine yönelik, rotasyonlarla ilerleyen 11 aylık Tüpraş genç yetenek programı; kısa dönem staj duyuruları da burada izlenebilir.",
+  "fields": [
+    "engineering",
+    "science",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

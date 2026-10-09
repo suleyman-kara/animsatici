@@ -1,0 +1,22 @@
+{
+  "id": "odtu-ogrenci-topluluklari",
+  "title": "ODTÜ Öğrenci Toplulukları",
+  "url": "https://kim.metu.edu.tr/tr/ogrenci-topluluklari",
+  "organizer": "ODTÜ Kültür İşleri Müdürlüğü",
+  "description": "ODTÜ'deki öğrenci topluluklarının listesi; topluluk etkinlikleri ve yarışmaları için başlangıç noktası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "workshop",
+    "competition"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "ODTÜ",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

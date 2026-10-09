@@ -1,0 +1,22 @@
+{
+  "id": "odtu-teknokent-girisimcilik",
+  "title": "ODTÜ Teknokent Girişimcilik Programları (YFYİ)",
+  "url": "https://odtuteknokent.com.tr/tr/programlar/girisimcilik.php",
+  "organizer": "ODTÜ Teknokent",
+  "description": "Üniversite öğrencilerini hedefleyen Yeni Fikirler Yeni İşler girişimcilik programı ve diğer ODTÜ Teknokent girişimcilik desteklerini anlatan sayfa.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "competition",
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "Ankara",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

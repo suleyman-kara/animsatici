@@ -1,0 +1,21 @@
+{
+  "id": "bee-breeders",
+  "title": "Bee Breeders Mimarlık Yarışmaları",
+  "url": "https://beebreeders.com/",
+  "organizer": "Buildner",
+  "description": "Öğrencilerin ayrı kayıtla katılabildiği açık uluslararası mimari fikir yarışmaları.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Her yarışmanın ücreti ve son tarihi ayrı; öğrenci kaydı için sayfadaki kayıt türlerine bak.",
+  "active": true
+}

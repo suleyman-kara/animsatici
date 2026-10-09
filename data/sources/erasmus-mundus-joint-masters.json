@@ -1,0 +1,20 @@
+{
+  "id": "erasmus-mundus-joint-masters",
+  "title": "Erasmus Mundus Joint Masters (öğrenci sayfası)",
+  "url": "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters",
+  "organizer": "Avrupa Komisyonu",
+  "description": "Birden fazla Avrupa üniversitesinde yapılan ortak yüksek lisans programları ve tam burs koşullarını anlatan resmi AB sayfası.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru Ekim–Ocak aralığında doğrudan her programın konsorsiyumuna yapılır.",
+  "active": true
+}

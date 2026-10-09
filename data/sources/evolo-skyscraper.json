@@ -1,0 +1,20 @@
+{
+  "id": "evolo-skyscraper",
+  "title": "eVolo Gökdelen Yarışması",
+  "url": "https://www.evolo.us/category/competition/",
+  "organizer": "eVolo",
+  "description": "Mimarlık ve tasarım öğrencilerinin de katıldığı, fikir odaklı yıllık gökdelen tasarım yarışması.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

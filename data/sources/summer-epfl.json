@@ -1,0 +1,20 @@
+{
+  "id": "summer-epfl",
+  "title": "Summer@EPFL",
+  "url": "https://summer.epfl.ch/",
+  "organizer": "EPFL",
+  "description": "Bilgisayar, haberleşme ve elektrik-elektronik öğrencileri için EPFL laboratuvarlarında yaz araştırma stajı.",
+  "fields": [
+    "software",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

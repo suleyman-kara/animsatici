@@ -1,0 +1,21 @@
+{
+  "id": "nestle-ogrenciler-mezunlar",
+  "title": "Nestlé Türkiye Öğrenciler ve Mezunlar",
+  "url": "https://www.nestle.com.tr/isler/ogrenciler-mezunlar",
+  "organizer": "Nestlé Türkiye",
+  "description": "Nestlé Türkiye'nin Talent Nest yaz stajı, NestLéaders ve diğer öğrenci ve yeni mezun programlarının tanıtıldığı kariyer sayfası.",
+  "fields": [
+    "business",
+    "engineering",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

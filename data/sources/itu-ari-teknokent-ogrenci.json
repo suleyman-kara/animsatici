@@ -1,0 +1,22 @@
+{
+  "id": "itu-ari-teknokent-ogrenci",
+  "title": "İTÜ ARI Teknokent Öğrencilere Avantajlar",
+  "url": "https://www.ariteknokent.com.tr/tr/olanaklar/ogrencilere-avantajlar",
+  "organizer": "İTÜ ARI Teknokent",
+  "description": "Öğrenci girişimlerinin Akademik Kuluçka Merkezi'ne başvurma olanaklarını ve öğrencilere sunulan avantajları anlatan sayfa.",
+  "fields": [
+    "business",
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "İstanbul",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

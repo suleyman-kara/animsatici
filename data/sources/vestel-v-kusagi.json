@@ -1,0 +1,21 @@
+{
+  "id": "vestel-v-kusagi",
+  "title": "Vestel V Kuşağı (Öğrenci Programları)",
+  "url": "https://www.vestelkariyer.com/ik-uygulamalari/v-kusagi-nedir?kisi=ogrenci",
+  "organizer": "Vestel",
+  "description": "Vestel Şirketler Grubu'nun öğrencilere yönelik staj ve kariyer programlarını anlatan Vestel Kariyer sayfası.",
+  "fields": [
+    "engineering",
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

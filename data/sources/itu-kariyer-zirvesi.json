@@ -1,0 +1,22 @@
+{
+  "id": "itu-kariyer-zirvesi",
+  "title": "İTÜ Kariyer Zirvesi",
+  "url": "https://itukariyerzirvesi.itu.edu.tr/",
+  "organizer": "İTÜ",
+  "description": "İTÜ'nün her yıl şubat ayında düzenlediği, şirketlerin öğrenci ve mezunlarla buluştuğu kariyer zirvesi.",
+  "fields": [
+    "general",
+    "engineering"
+  ],
+  "types": [
+    "career-event"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "İTÜ",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

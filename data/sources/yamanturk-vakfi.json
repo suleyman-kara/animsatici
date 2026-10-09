@@ -1,0 +1,20 @@
+{
+  "id": "yamanturk-vakfi",
+  "title": "Yamantürk Vakfı Bursları",
+  "url": "https://www.yamanturkvakfi.org.tr/",
+  "organizer": "Yamantürk Vakfı",
+  "description": "Üniversite bursu ile kız öğrenci ve mesleki eğitim burs fonlarını yürüten vakıf; başvurular Ağustos ayında alınıyor.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Burs programları ve güncel başvuru duyurusu için ana sayfadaki burs bölümüne bak.",
+  "active": true
+}

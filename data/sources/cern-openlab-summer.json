@@ -1,0 +1,20 @@
+{
+  "id": "cern-openlab-summer",
+  "title": "CERN openlab Summer Student Programme",
+  "url": "https://openlab.cern/cern-openlab-summer-student-programme/",
+  "organizer": "CERN openlab",
+  "description": "Bilişim ağırlıklı lisans ve yüksek lisans öğrencileri için CERN'de dokuz haftalık yaz programı; başvuru ocak ayı sonunda kapanır.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mpiib-isi",
+  "title": "Max Planck Enfeksiyon Biyolojisi Stajı (MPIIB-ISI)",
+  "url": "https://www.mpiib-berlin.mpg.de/mpiib-isi",
+  "organizer": "Max Planck Institute for Infection Biology",
+  "description": "Berlin'de üç aylık burslu araştırma stajı; uluslararası lisans ve yüksek lisans öğrencilerine açık.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

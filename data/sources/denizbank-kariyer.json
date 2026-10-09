@@ -1,0 +1,20 @@
+{
+  "id": "denizbank-kariyer",
+  "title": "Denizbank Kariyer",
+  "url": "https://kariyer.denizbank.com/",
+  "organizer": "Denizbank",
+  "description": "Denizbank'ın sınıf düzeyine göre ayrılmış staj programlarını (Deniz'in İncileri vb.) ve Deniz Akademi'yi tanıtan kariyer sitesi.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

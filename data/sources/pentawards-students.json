@@ -1,0 +1,19 @@
+{
+  "id": "pentawards-students",
+  "title": "Pentawards Öğrenci Kategorileri",
+  "url": "https://pentawards.com/live/en/page/students",
+  "organizer": "Pentawards",
+  "description": "Ambalaj ve marka kimliği tasarımında öğrenci konsept kategorileri ve öğrencilere açık ücretsiz marka brief'leri.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}
