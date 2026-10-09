@@ -3,33 +3,24 @@
 import Link from "next/link";
 import Script from "next/script";
 import { useState, useSyncExternalStore } from "react";
-import { WRONG_REASONS } from "@/lib/suggestion";
 import { track } from "@/lib/track";
 
-type EventOption = { id: string; title: string };
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done"; issueUrl?: string } | { kind: "error"; message: string };
 
 const noop = () => () => {};
 
-export function SuggestionForm({ events, siteKey }: { events: EventOption[]; siteKey?: string }) {
+export function SuggestionForm({ siteKey }: { siteKey?: string }) {
   const search = useSyncExternalStore(noop, () => window.location.search, () => "");
-  const params = new URLSearchParams(search);
-  const initialType = params.get("tur") === "hata" ? "wrong" : "missing";
-  const initialEvent = params.get("etkinlik") ?? "";
-
-  const [chosenType, setType] = useState<"missing" | "wrong" | null>(null);
-  const [chosenEvent, setEventId] = useState<string | null>(null);
+  const initialType = new URLSearchParams(search).get("tur") === "geri-bildirim" ? "feedback" : "source";
+  const [chosenType, setType] = useState<"source" | "feedback" | null>(null);
   const type = chosenType ?? initialType;
-  const eventId = chosenEvent ?? initialEvent;
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   async function submit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     const form = new FormData(ev.currentTarget);
-    const payload =
-      type === "missing"
-        ? { type, text: String(form.get("text") ?? ""), url: String(form.get("url") ?? "") }
-        : { type, eventId, reason: String(form.get("reason") ?? "other"), text: String(form.get("text") ?? "") || undefined };
+    const text = String(form.get("text") ?? "");
+    const payload = type === "source" ? { type, url: String(form.get("url") ?? ""), text: text || undefined } : { type, text };
     setStatus({ kind: "sending" });
     try {
       const res = await fetch("/api/oneri", {
@@ -55,11 +46,15 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
     return (
       <div role="status" className="flex flex-col gap-3 rounded-2xl border-2 border-border bg-surface shadow-pop p-6">
         <h2 className="font-display text-2xl font-extrabold">🎉 Teşekkürler!</h2>
-        <p className="text-fg-muted">Öneriniz alındı. Otomatik bir inceleme yapılacak ve sonucu kayda yazılacak.</p>
+        <p className="text-fg-muted">
+          {type === "source"
+            ? "Önerin alındı. Bağlantı otomatik olarak kontrol edilecek, uygunsa kaynak listesine eklenecek."
+            : "Geri bildirimin alındı."}
+        </p>
         {status.issueUrl && (
-          <a href={status.issueUrl} target="_blank" rel="noopener" className="font-medium underline">Önerinizi buradan takip edebilirsiniz ↗</a>
+          <a href={status.issueUrl} target="_blank" rel="noopener" className="font-medium underline">Buradan takip edebilirsin ↗</a>
         )}
-        <Link href="/" className="text-sm text-fg-muted underline">Etkinliklere dön</Link>
+        <Link href="/kaynaklar" className="text-sm text-fg-muted underline">Kaynaklara dön</Link>
       </div>
     );
   }
@@ -71,8 +66,8 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
       <div role="tablist" aria-label="Öneri türü" className="grid grid-cols-2 gap-2 font-display text-sm font-bold">
         {(
           [
-            ["missing", "Eksik etkinlik"],
-            ["wrong", "Hatalı etkinlik"],
+            ["source", "Kaynak öner"],
+            ["feedback", "Geri bildirim"],
           ] as const
         ).map(([value, label]) => (
           <button key={value} type="button" role="tab" aria-selected={type === value} onClick={() => setType(value)}
@@ -82,42 +77,24 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
         ))}
       </div>
 
-      {type === "missing" ? (
+      {type === "source" ? (
         <>
           <label className="flex flex-col gap-1.5">
-            <span className="font-medium">Hangi etkinlik veya sayfa eksik?</span>
-            <textarea name="text" required minLength={10} maxLength={1000} rows={4} className={field}
-              placeholder="Örn. &quot;ODTÜ'deki yapay zeka zirvesi&quot;, &quot;inzva kış kampı&quot; ya da etkinlikleri listeleyen bir topluluk sayfası" />
+            <span className="font-medium">Fırsatların listelendiği sayfa</span>
+            <input name="url" type="url" required inputMode="url" placeholder="https://…" maxLength={500} className={field} />
           </label>
           <label className="flex flex-col gap-1.5">
-            <span className="font-medium">Bağlantı <span className="font-normal text-fg-muted">(isteğe bağlı)</span></span>
-            <input name="url" type="url" inputMode="url" placeholder="https://…" maxLength={500} className={field} />
+            <span className="font-medium">Bu sayfada ne var? <span className="font-normal text-fg-muted">(isteğe bağlı)</span></span>
+            <textarea name="text" maxLength={1000} rows={3} className={field}
+              placeholder="Örn. &quot;Kulübümüzün hackathon ve atölye duyuruları&quot;, &quot;X şirketinin staj ilanları&quot;" />
           </label>
         </>
       ) : (
-        <>
-          <label className="flex flex-col gap-1.5">
-            <span className="font-medium">Etkinlik</span>
-            <select required value={eventId} onChange={(e) => setEventId(e.target.value)} className={field}>
-              <option value="" disabled>Etkinlik seçin</option>
-              {events.map((e) => (
-                <option key={e.id} value={e.id}>{e.title}</option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1.5">
-            <span className="font-medium">Sorun nedir?</span>
-            <select name="reason" required defaultValue="wrong-date" className={field}>
-              {Object.entries(WRONG_REASONS).map(([value, label]) => (
-                <option key={value} value={value}>{label}</option>
-              ))}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1.5">
-            <span className="font-medium">Not <span className="font-normal text-fg-muted">(isteğe bağlı)</span></span>
-            <textarea name="text" maxLength={1000} rows={3} className={field} placeholder="Doğru tarih, kaynak linki vb." />
-          </label>
-        </>
+        <label className="flex flex-col gap-1.5">
+          <span className="font-medium">Mesajın</span>
+          <textarea name="text" required minLength={10} maxLength={1000} rows={5} className={field}
+            placeholder="Bir kaynak bozuk mu, MCP aracı beklediğin gibi çalışmıyor mu? Yaz." />
+        </label>
       )}
 
       {/* Honeypot: ekran okuyucular ve insanlar için gizli */}
@@ -128,7 +105,7 @@ export function SuggestionForm({ events, siteKey }: { events: EventOption[]; sit
       {siteKey && <div className="cf-turnstile" data-sitekey={siteKey} data-language="tr" />}
 
       <p className="rounded-lg bg-warn-soft p-3 text-sm text-warn">
-        Öneriniz herkese açık olarak yayınlanır. Lütfen ad, e-posta veya telefon gibi kişisel bilgi yazmayın.
+        Önerin herkese açık olarak yayınlanır. Lütfen ad, e-posta veya telefon gibi kişisel bilgi yazma.
       </p>
 
       {status.kind === "error" && <p role="alert" className="text-sm text-danger">{status.message}</p>}

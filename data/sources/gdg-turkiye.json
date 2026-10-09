@@ -1,10 +1,21 @@
 {
   "id": "gdg-turkiye",
-  "title": "GDG (Google Developer Groups) DevFest",
+  "title": "Google Developer Groups etkinlikleri",
   "url": "https://gdg.community.dev",
-  "category": "community",
-  "kind": "listing",
-  "active": false,
-  "render": "static",
-  "notes": "Google geliştirici topluluklarının DevFest konferansları, Flutter ve Cloud buluşmaları. — Kapatıldı: içerik JavaScript ile yükleniyor, tarayıcı etkinlik çıkaramıyor."
+  "organizer": "Google Developer Groups",
+  "description": "Google geliştirici topluluklarının DevFest konferansları, Flutter, Cloud ve yapay zeka buluşmaları.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "conference",
+    "workshop"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Dünya geneli topluluk sitesi; Türkiye'deki etkinlikler için şehir adıyla süz. İçerik JavaScript ile yükleniyor.",
+  "active": true
 }

@@ -1,0 +1,22 @@
+{
+  "id": "anbean-kampus",
+  "title": "anbean KAMPÜS",
+  "url": "https://anbeankampus.co/",
+  "description": "Öğrencilere yönelik etkinlikler, eğitim programları, staj ve iş ilanları.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event",
+    "internship",
+    "bootcamp",
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "aggregator",
+  "lang": "tr",
+  "aiFetch": false,
+  "aiFetchNote": "anbean KAMPÜS'ün kullanıcı sözleşmesi site içeriğinin kopyalanmasını yasaklıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
+}

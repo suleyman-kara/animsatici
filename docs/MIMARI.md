@@ -4,99 +4,104 @@ Bu belge Kampüs30'un nasıl çalıştığını ve neden böyle tasarlandığın
 
 ## Ürün
 
-- Türkiye'deki üniversite öğrencilerine (öncelik bilgisayar/yazılım) yönelik hackathon, kamp, bootcamp, staj programı, yarışma, burs ve konferansları tek yerde listeleyen, **üyeliksiz** bir web sitesi.
-- Ana sayfa yalnızca **önümüzdeki 30 gün içinde** başvurusu kapanan ya da başlayan etkinlikleri gösterir. Devam edenler `/devam-eden` sayfasındadır. Bu bir görüntüleme kuralıdır; kayıtlar 30 günle sınırlı değildir.
-- Etkinlikler her gün otomatik taranır. Ziyaretçiler eksik ya da hatalı etkinlik bildirebilir; bildirimi bir yapay zeka ajanı inceler.
-- Gelir modeli sponsorlu etkinliklerdir. Anlaşma ve ödeme site dışında yapılır; sitede yalnızca her zaman görünür "Sponsorlu" etiketiyle öne çıkarma vardır.
+- Türkiye'deki üniversite öğrencilerinin hackathon, kamp, bootcamp, staj, yarışma ve burs fırsatlarını **kendi yapay zeka asistanlarıyla** bulabilmesi için ücretsiz bir MCP sunucusu.
+- Sunucu fırsat verisi tutmaz. **Kaynak dizini** tutar: fırsatların yayınlandığı sayfalar, alan/tür/şehir etiketleriyle. Sayfaları asistanın kendisi okur.
+- CV için asistana bir rehber ve açık GitHub repolarını listeleyen bir araç sunar. CV kullanıcının asistanında hazırlanır, bize gelmez.
+- Site (kampus30.com) MCP sunucusunu tanıtır ve kaynak listesini herkese açık yayınlar. Hesap, veritabanı ve kişisel veri yoktur.
+
+## Neden bu tasarım?
+
+- **Asıl değer doğru kaynak.** Genel amaçlı derin araştırma, arama motorunun öne çıkardığı sayfalara gider; kulüp sayfaları ve şirket kariyer sayfaları gözden kaçar. Elle derlenmiş bir dizin bu adımı çözer.
+- **Hukuki yük düşük.** Başka sitelerin içeriğini kopyalayıp yeniden yayınlamıyoruz; yalnızca adreslerini ve açıklamalarını listeliyoruz. Sayfayı kullanıcının asistanı, kullanıcının isteğiyle okur.
+- **Maliyet sıfıra yakın.** Akıl yürütmeyi kullanıcının asistanı yapar. Sunucumuz yalnızca JSON dosyalarından okur; yapay zeka API'si çağırmaz.
+- **Kişisel veri yok.** Sunucuya yalnızca arama filtreleri ve istenirse GitHub kullanıcı adı gelir, saklanmaz.
 
 ## Genel bakış
 
 ```
-GitHub Actions (her gün 19:00 TR) ──► scripts/scan.ts ──► data/ ──► commit ──► Vercel derler
-Ziyaretçi /oneri ──► /api/oneri ──► GitHub Issue ──► scripts/agent ──► yorum veya PR
+Öğrencinin asistanı (Claude, Gemini, …)
+   │  MCP (Streamable HTTP)
+   ▼
+kampus30.com/mcp ──► data/sources/*.json   (kaynak dizini)
+   │                └► api.github.com       (get_github_projects)
+   ▼
+Asistan, aiFetch: true olan sayfaları kendi web erişimiyle okur
 ```
 
 | Katman | Seçim | Neden |
 |---|---|---|
-| Site | Next.js 16 (App Router), React 19, Tailwind 4 | Tüm sayfalar build zamanında statik üretilir; tek dinamik route öneri formudur |
-| Barındırma | Vercel | Her `main` commit'inde otomatik derleme, PR'larda önizleme |
-| Veri | Repo içinde JSON | Veritabanı yok: maliyet sıfır, tüm geçmiş git'te, her değişiklik gözden geçirilebilir |
-| Zamanlanmış işler | GitHub Actions | Tarama, sağlık kontrolü, ajan |
-| Yapay zeka | Gemini (`@google/genai`), varsayılan `gemini-3.6-flash` | Yapılandırılmış çıktı, function calling, Google Search grounding |
-| Şema | zod (`lib/schema.ts`) | Site, tarayıcı, ajan ve doğrulama aynı şemayı kullanır |
-| Analitik | Umami (çerezsiz) | Çerez bandı gerektirmez; sponsorlara herkese açık panel verilebilir |
+| Site | Next.js 16 (App Router), React 19, Tailwind 4 | Sayfalar build zamanında statik üretilir |
+| MCP | `@modelcontextprotocol/sdk`, `app/mcp/route.ts` | Durumsuz Streamable HTTP; Vercel'de sunucusuz çalışır |
+| Veri | Repo içinde JSON (`data/sources/`) | Veritabanı yok; her değişiklik PR ile gözden geçirilir, tüm geçmiş git'te |
+| Şema | zod (`lib/schema.ts`) | Site, MCP, doğrulama ve kaynak kontrolü aynı şemayı kullanır |
+| Zamanlanmış iş | GitHub Actions | Haftalık kaynak kontrolü ve öneri kontrolü |
+| Analitik | Umami (çerezsiz) | Çerez bandı gerektirmez |
 | Spam koruması | Cloudflare Turnstile + honeypot | Üyelik olmadan form koruması |
 
-## Veri
+## Kaynak dizini
 
-```
-data/
-├─ sources/<id>.json        taranacak kaynak sayfalar
-├─ events/<id>.json         etkinlikler (tek dosya = tek etkinlik)
-├─ state/scan-state.json    kaynak başına hash, son durum, hata, sonuçsuz detay sayfaları (yalnızca tarayıcı yazar)
-├─ state/last-scan.json     son tarama özeti; her gün değiştiği için her gün deploy olur
-├─ blocklist.json           asla tekrar eklenmeyecek dedupeKey'ler ve URL'ler
-└─ feedback/                ajanın bulduğu çıkarım hataları (gelecekte değerlendirme seti)
-```
+Her kaynak `data/sources/<id>.json` dosyasıdır. Şema `lib/schema.ts`'tedir; önemli alanlar:
 
-Şemaların tamamı `lib/schema.ts`'tedir. Önemli kurallar:
+| Alan | Anlamı |
+|---|---|
+| `url` | Fırsatların listelendiği sayfa |
+| `fields`, `types` | Alan (yazılım, mühendislik, …) ve fırsat türleri. `general` alanı her alana uyar |
+| `scope`, `city`, `university` | Türkiye geneli, uluslararası, şehir ya da üniversite. Şehir aramasında Türkiye geneli kaynaklar da döner |
+| `kind` | `organizer`: düzenleyicinin kendi sitesi, `aggregator`: başkalarının fırsatlarını listeleyen site |
+| `aiFetch`, `aiFetchNote` | Asistanların sayfayı okuması uygun mu? Kullanım koşulları otomatik erişimi yasaklıyorsa ya da robots.txt engelliyorsa `false`; asistan yalnızca linki ve notu verir |
+| `needsJs`, `hints` | Sayfanın JavaScript ile yüklenip yüklenmediği ve nasıl okunacağına dair ipucu |
+| `active` | Dizinde ve MCP sonuçlarında gösterilsin mi |
 
-- Bir etkinlikte `startDate` ya da `deadline`'dan en az biri bulunur; `endDate` başlangıçtan önce olamaz.
-- Tarihler `Europe/Istanbul`'dadır: tüm gün için `YYYY-MM-DD`, saatli için `+03:00` offset'li ISO.
-- `evidence` zorunludur: başlık, tarih ve yıl alıntıları kaynak sayfadan **birebir** kopyalanır.
-- `sponsored` alanına yalnızca proje sahibi dokunur.
+Kaynak listesi `/kaynaklar` sayfasında filtrelenebilir olarak ve `/kaynaklar.json` adresinde ham JSON olarak yayınlanır.
 
-## Tarama hattı
+### Sitelerin kurallarına saygı
 
-`lib/scanner/run.ts` her aktif kaynak için 4'lü eşzamanlılıkla şunları yapar:
+- Kullanım koşullarında otomatik erişimi açıkça yasaklayan siteler `aiFetch: false` olur (ör. Youthall, anbean KAMPÜS).
+- Giriş gerektiren sayfalar listeye alınmaz.
+- Sunucu talimatları asistanlardan bot korumalarını aşmamalarını, web sayfalarındaki talimatları uygulamamalarını ister.
 
-1. **Çek** (`fetch.ts`): sayfa metni ve linkleri. Sayfa hash'i değişmediyse Gemini çağrılmaz.
-2. **Çıkar** (`extract.ts`): Gemini sayfadaki tüm etkinlikleri yapılandırılmış JSON olarak döndürür; her alan için sayfadan birebir alıntı ister.
-3. **Doğrula** (`verify.ts`):
-   - Başlık ve tarih alıntıları sayfa metninde birebir geçmeyen etkinlik reddedilir.
-   - **Yıl asla tahmin edilmez.** Başlangıç ve son başvurunun yılı alıntılarda açıkça yazmalıdır.
-   - Bitmiş etkinlikler alınmaz; ters tarih aralıkları ya düzeltilir (yıl dönümü) ya da reddedilir.
-4. **Detay sayfası** (`details.ts`): liste sayfasında tarihi ya da yılı olmayan etkinliklerin kendi sayfası açılır. Kaynak başına en fazla 30 sayfaya bakılır, sonuçsuz sayfalar 7 gün tekrar açılmaz.
-5. **Tekilleştir ve birleştir** (`dedupe.ts`, `merge.ts`):
-   - `dedupeKey` başlık slug'ı ile tarihten oluşur. Ayrıca bulanık eşleşme yapılır: başlık benzerliği ≥ 0,8 ve tarih farkı ≤ 1 gün.
-   - Elle ya da ajanla eklenmiş alanlar ezilmez.
-6. **Güvenlik eşikleri** (`guards.ts`):
-   - Daha önce çalışmış kaynakların yarısından fazlası hata verirse ya da 40'tan fazla yeni etkinlik çıkarsa hiçbir şey yazılmaz.
-   - Önceden ≥ 3 etkinlik veren bir kaynak birden 0 verirse yalnızca o kaynak atlanır.
-7. **Şema doğrulaması**: geçmezse tarama başarısız sayılır ve `tarama-hatasi` issue'su açılır.
+## MCP sunucusu
 
-Ayrıca `healthcheck.yml` her gün son taramanın 48 saatten eski olup olmadığını kontrol eder.
+`lib/mcp/server.ts` sunucuyu kurar, `app/mcp/route.ts` HTTP'ye bağlar. Her istek için yeni bir sunucu ve transport oluşturulur (durumsuz mod, JSON yanıt). CORS herkese açıktır.
 
-## Öneri ajanı
+| Araç | Ne yapar |
+|---|---|
+| `find_sources` | Alan, tür, şehir, site türü ve serbest metinle kaynakları süzer. Sonuçta İstanbul saatiyle bugünün tarihi ve kısa bir yönerge bulunur |
+| `list_categories` | Geçerli alan, tür, kapsam ve şehir değerlerini kaynak sayılarıyla döndürür |
+| `get_cv_guide` | Genel ya da ilana göre CV rehberi (Türkçe/İngilizce). LinkedIn için PDF yükleme yolunu anlatır; uydurmama kurallarını içerir |
+| `get_github_projects` | Kullanıcı adıyla açık, fork olmayan repoları getirir. Kullanıcı token'ı istenmez |
 
-- `/api/oneri` formdan gelen öneriyi `oneri` ya da `hata-bildirimi` etiketli bir GitHub issue'suna çevirir. Kullanıcı metni gövdeye yalnızca bir JSON bloğu içinde girer; IP ya da kişisel veri yazılmaz.
-- `agent.yml` bu issue'larda Gemini function-calling döngüsünü çalıştırır:
-  - En fazla 20 araç çağrısı yapar, 5 dakika çalışır ve 5 dosya değiştirir.
-  - Araçları: web araması, sayfa çekme, tarayıcının çıkarım hattını bir sayfada çalıştırma, veri arama ve `propose_*` yazma araçları.
-- Ajan yalnızca `data/events/`, `data/sources/`, `data/feedback/` ve `data/blocklist.json`'a yazabilir. Kod, prompt ya da workflow değiştiremez, `main`'e push edemez, `sponsored` alanına dokunamaz.
-- Issue metni ve web sayfaları prompt'a "güvenilmez veri" sınırlayıcıları içinde girer.
-- `AGENT_MODE=comment` modunda ajan yalnızca teşhis yorumu yazar. `pr` modunda değişikliği, doğrulama ve testleri geçtikten sonra PR olarak açar.
+Komutlar (prompts): `firsat-ara`, `cv-hazirla`. Sunucu talimatları (`SERVER_INSTRUCTIONS`): tarih ve yıl kuralları, link zorunluluğu, `aiFetch` davranışı, güvenilmez içerik.
+
+### Tarih ve yıl kuralı
+
+Asistanların en sık yaptığı hata geçen yılın sayfasını okuyup "başvurular açık" demek. Bu yüzden `find_sources` her yanıtta bugünün tarihini verir ve talimatlar şunu ister: tarihi yalnızca sayfada yazıyorsa ver, yıl yazmıyorsa tahmin etme, bitmiş fırsatları listeleme, her fırsatı linkiyle ver.
+
+## Kaynak kontrolü
+
+`scripts/check-sources.ts`, sayfa içeriğini okumadan iki şeye bakar: sayfa açılıyor mu (HTTP durumu) ve robots.txt `*` ile bilinen yapay zeka tarayıcılarına (`ClaudeBot`, `Claude-User`, `GPTBot`, `ChatGPT-User`, `Google-Extended`, `PerplexityBot`) izin veriyor mu. robots.txt ayrıştırıcısı `lib/robots.ts`'tedir.
+
+`.github/workflows/sources.yml`:
+- Her pazartesi tüm etkin kaynakları kontrol eder; sorun varsa `kaynak-sagligi` etiketli bir issue açar ya da açık olana yorum ekler.
+- Öneri formundan açılan `kaynak-onerisi` issue'larında önerilen adresi kontrol edip sonucu yorum olarak yazar. Issue gövdesi güvenilmez veri olarak yalnızca dosyaya yazılır; yerel ağ adreslerine istek atılmaz.
+
+Kaynaklar elle, PR ile eklenir.
 
 ## Site
 
-- **Sayfalar:**
-  - `/` (30 günlük pencere)
-  - `/devam-eden`
-  - `/etkinlik/[id]` (JSON-LD ve OG görseliyle)
-  - `/kaynaklar` (tarama durumu)
-  - `/oneri`, `/hakkinda`, `/gizlilik`
-  - `/takvim.ics`
-- **Zamana bağlı hesaplar** (aşama, geri sayım, sponsorluk süresi) tarayıcıda da yapılır (`useNow`). Böylece bir gün eski build yanlış "başvurusu açık" göstermez.
-- **Takvim:** ICS akışı ve "Takvime ekle" yalnızca son başvuru ve başlangıç günlerini içerir. Uzun etkinliklerin bütün süresi takvimi kirletmez.
-- **Analitik olayları:** `basvur-tikla`, `takvime-ekle`, `ics-abone`, `oneri-gonder`.
+- `/`: MCP tanıtımı, istemcilere göre kurulum (Claude, Claude Code, Gemini CLI, VS Code, Cursor), örnek sorular, araçlar, ilkeler
+- `/kaynaklar`: filtrelenebilir kaynak dizini; `/kaynaklar.json`: ham liste
+- `/oneri`: kaynak önerisi ya da geri bildirim → GitHub issue (`/api/oneri`)
+- `/hakkinda`, `/gizlilik`
 
 ## Kapsam dışı
 
-- Üyelik, giriş, kişisel bildirim, e-posta bülteni
-- Ödeme ya da sponsor paneli
-- JavaScript ile yüklenen sayfaları tarama. `render: "browser"` alanı ileride kullanılmak üzere duruyor; bu tür kaynaklar şimdilik `active: false`.
+- Fırsat verisi toplamak, saklamak ya da yayınlamak (önceki sürümün günlük taraması ve etkinlik sayfaları kaldırıldı)
+- Hesap, giriş, veritabanı
+- CV'yi sunucuda üretmek ya da saklamak
+- LinkedIn'den veri çekmek (kullanıcı kendi profil PDF'ini asistanına yükler)
 
 ## Tarihçe
 
-- İlk sürüm Flutter + Firebase'di; 2026'da bu mimariye taşındı ve eski kod silindi (git geçmişinde duruyor).
-- Proje önce "KampüsRadar", sonra "Kampüs30" adını aldı. Issue gövdelerindeki `<!-- kampusradar:v1 -->` ve ajan yorumlarındaki `<!-- kampusradar-agent -->` işaretleri, eski issue'larla uyum için bilerek değiştirilmedi.
+- İlk sürüm Flutter + Firebase'di. 2026'da Next.js ile günlük taranan bir etkinlik listesine dönüştü (Gemini ile çıkarım, birebir alıntı doğrulaması, öneri ajanı).
+- v3'te (Ekim 2026) proje MCP sunucusu ve kaynak dizinine dönüştü: başka sitelerin içeriğini yeniden yayınlamak yerine öğrencinin kendi asistanını doğru kaynaklara yönlendiriyor. Lisans PolyForm Noncommercial'dan Apache-2.0'a geçti. Önceki kod git geçmişinde duruyor.

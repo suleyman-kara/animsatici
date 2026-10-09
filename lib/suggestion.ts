@@ -1,39 +1,19 @@
 import { z } from "zod";
-import { Slug } from "./schema";
 
-// Öneri formu → GitHub Issue. Ajan bu dosyadaki işaretçiyle issue gövdesini ayrıştırır.
+// Öneri formu → GitHub Issue. Kaynak kontrolü workflow'u bu dosyadaki işaretçiyle issue gövdesini ayrıştırır.
 
-// İşaretçi eski adla kalır: daha önce açılmış öneri issue'ları ayrıştırılabilsin.
-export const ISSUE_MARKER = "<!-- kampusradar:v1 -->";
-export const LABELS = { missing: "oneri", wrong: "hata-bildirimi" } as const;
-
-export const WRONG_REASONS = {
-  "wrong-date": "Tarih yanlış",
-  past: "Etkinlik geçmişte kaldı",
-  cancelled: "Etkinlik iptal edildi",
-  irrelevant: "Öğrencilerle ilgisi yok",
-  duplicate: "Aynı etkinlik iki kez listelenmiş",
-  other: "Diğer",
-} as const;
-
-const optionalUrl = z
-  .string()
-  .trim()
-  .max(500)
-  .transform((s) => s || undefined)
-  .pipe(z.url({ protocol: /^https?$/ }).optional());
+export const ISSUE_MARKER = "<!-- kampus30:oneri:v2 -->";
+export const LABELS = { source: "kaynak-onerisi", feedback: "geri-bildirim" } as const;
 
 export const SuggestionPayload = z.discriminatedUnion("type", [
   z.object({
-    type: z.literal("missing"),
-    text: z.string().trim().min(10, "En az 10 karakter yazın").max(1000, "En fazla 1000 karakter"),
-    url: optionalUrl.optional(),
+    type: z.literal("source"),
+    url: z.string().trim().max(500).pipe(z.url({ protocol: /^https?$/, message: "Geçerli bir bağlantı girin (https://…)" })),
+    text: z.string().trim().max(1000, "En fazla 1000 karakter").optional(),
   }),
   z.object({
-    type: z.literal("wrong"),
-    eventId: Slug,
-    reason: z.enum(Object.keys(WRONG_REASONS) as [keyof typeof WRONG_REASONS, ...(keyof typeof WRONG_REASONS)[]]),
-    text: z.string().trim().max(1000).optional(),
+    type: z.literal("feedback"),
+    text: z.string().trim().min(10, "En az 10 karakter yazın").max(1000, "En fazla 1000 karakter"),
   }),
 ]);
 export type SuggestionPayload = z.infer<typeof SuggestionPayload>;
@@ -55,12 +35,17 @@ function preview(text: string, max: number): string {
 }
 
 export function buildIssue(payload: SuggestionPayload): { title: string; body: string; labels: string[] } {
-  const title =
-    payload.type === "missing" ? `[Öneri] ${preview(payload.text, 60)}` : `[Hata] ${payload.eventId}: ${WRONG_REASONS[payload.reason]}`;
+  let title: string;
+  if (payload.type === "source") {
+    const url = new URL(payload.url);
+    title = `[Kaynak] ${preview(url.host + url.pathname, 70)}`;
+  } else {
+    title = `[Geri bildirim] ${preview(payload.text, 60)}`;
+  }
   const intro =
-    payload.type === "missing"
-      ? "Bir ziyaretçi sitede eksik olduğunu düşündüğü bir etkinlik/kaynak önerdi."
-      : `Bir ziyaretçi \`${payload.eventId}\` etkinliğinin hatalı olduğunu bildirdi (${WRONG_REASONS[payload.reason]}).`;
+    payload.type === "source"
+      ? "Bir ziyaretçi kaynak listesine yeni bir sayfa önerdi. Kaynak kontrolü workflow'u bağlantıyı ve robots.txt'yi kontrol edip sonucu yorum olarak yazar."
+      : "Bir ziyaretçi geri bildirim gönderdi.";
   const body = [
     intro,
     "",
@@ -76,7 +61,7 @@ export function buildIssue(payload: SuggestionPayload): { title: string; body: s
   return { title, body, labels: [LABELS[payload.type]] };
 }
 
-/** Issue gövdesindeki öneri bloğunu ayrıştırır (ajan kullanır). */
+/** Issue gövdesindeki öneri bloğunu ayrıştırır. */
 export function parseIssueBody(body: string): SuggestionPayload | null {
   const at = body.indexOf(ISSUE_MARKER);
   if (at === -1) return null;

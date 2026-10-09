@@ -1,10 +1,19 @@
 {
   "id": "patika-bootcamps",
-  "title": "Patika.dev Eğitim & İşe Alım",
+  "title": "Patika.dev bootcamp'leri",
   "url": "https://www.patika.dev/bootcamp",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Yazılım geliştirici kohortları, hızlandırılmış eğitimler ve şirket sponsorlu programlar."
+  "organizer": "Patika.dev",
+  "description": "Yazılım geliştirici kohortları, hızlandırılmış eğitimler ve şirket sponsorlu işe alım programları.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "bootcamp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
 }

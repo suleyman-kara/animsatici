@@ -12,12 +12,12 @@ export default function Image() {
       <OgFrame>
         <OgLogo scale={1.4} />
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.05 }}>Önümüzdeki 30 gün seni neler bekliyor?</div>
+          <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.05 }}>Fırsatları ve CV&apos;ni yapay zekana sor</div>
           <div style={{ display: "flex", gap: 16, fontSize: 32 }}>
             <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.mint, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>Hackathon</span>
-            <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.yellow, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>Kamp</span>
+            <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.yellow, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>MCP</span>
             <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.pink, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>Staj</span>
-            <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.bg, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>Yarışma</span>
+            <span style={{ display: "flex", padding: "6px 18px", background: OG_COLORS.bg, border: `4px solid ${OG_COLORS.ink}`, borderRadius: 999 }}>CV</span>
           </div>
         </div>
       </OgFrame>

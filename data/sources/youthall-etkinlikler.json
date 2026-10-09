@@ -1,10 +1,22 @@
 {
   "id": "youthall-etkinlikler",
-  "title": "Youthall Etkinlikler",
+  "title": "Youthall etkinlikleri",
   "url": "https://www.youthall.com/tr/events/",
-  "category": "career",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Kariyer zirveleri, şirket etkinlikleri, sertifika programları ve yarışmalar."
+  "homepage": "https://www.youthall.com",
+  "description": "Kariyer zirveleri, şirket etkinlikleri, sertifika programları ve yarışmalar.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event",
+    "competition",
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "aggregator",
+  "lang": "tr",
+  "aiFetch": false,
+  "aiFetchNote": "Youthall'un kullanıcı sözleşmeleri otomatik veri toplamayı yasaklıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "active": true
 }

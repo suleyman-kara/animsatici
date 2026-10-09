@@ -23,5 +23,3 @@ npm-debug.log*
 # vercel
 .vercel
 
-# agent scratch
-/.agent-tmp/

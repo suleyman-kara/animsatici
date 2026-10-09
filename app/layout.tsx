@@ -2,9 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Analytics } from "@/components/Analytics";
 import { Logo } from "@/components/Logo";
-import { getLastScan } from "@/lib/data";
-import { formatDate } from "@/lib/dates";
-import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL, GITHUB_REPO, SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,7 +10,7 @@ export const metadata: Metadata = {
   title: { default: `${SITE_NAME} — ${SITE_TAGLINE}`, template: `%s · ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  alternates: { canonical: "/", types: { "text/calendar": "/takvim.ics" } },
+  alternates: { canonical: "/" },
   openGraph: { type: "website", siteName: SITE_NAME, locale: "tr_TR", url: "/" },
   twitter: { card: "summary_large_image" },
 };
@@ -25,14 +23,12 @@ export const viewport: Viewport = {
 };
 
 const NAV = [
-  { href: "/", label: "🗓️ 30 gün" },
-  { href: "/devam-eden", label: "🟢 Devam eden" },
-  { href: "/kaynaklar", label: "📡 Kaynaklar" },
+  { href: "/#baglan", label: "🔌 Bağlan" },
+  { href: "/kaynaklar", label: "📚 Kaynaklar" },
   { href: "/oneri", label: "💡 Öner" },
 ];
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const lastScan = await getLastScan();
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="tr" className="h-full antialiased">
       <body className="flex min-h-full flex-col font-sans">
@@ -63,15 +59,15 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             <div className="flex flex-col gap-1">
               <p className="font-display font-bold text-fg">Öğrenciler için, öğrencilerle ✌️</p>
               <p>
-                {lastScan ? <>Son güncelleme: {formatDate(lastScan.completedAt)}</> : "Henüz tarama yapılmadı"}
-                {" · "}
-                <Link href="/kaynaklar" className="underline-offset-2 hover:underline">Tarama durumu</Link>
+                Açık kaynak ·{" "}
+                <a href={`https://github.com/${GITHUB_REPO}`} target="_blank" rel="noopener" className="underline-offset-2 hover:underline">GitHub</a>
+                {" · "}Apache-2.0
               </p>
             </div>
             <nav aria-label="Alt menü" className="flex flex-wrap gap-x-4 gap-y-1">
               <Link href="/hakkinda" className="hover:text-fg">Hakkında</Link>
               <Link href="/gizlilik" className="hover:text-fg">Gizlilik</Link>
-              <Link href="/oneri" className="hover:text-fg">Etkinlik öner</Link>
+              <Link href="/oneri" className="hover:text-fg">Kaynak öner</Link>
               {CONTACT_EMAIL && <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-fg">İletişim</a>}
             </nav>
           </div>
