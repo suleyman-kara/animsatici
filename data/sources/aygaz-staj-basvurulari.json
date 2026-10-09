@@ -1,0 +1,20 @@
+{
+  "id": "aygaz-staj-basvurulari",
+  "title": "Aygaz Staj Başvuruları",
+  "url": "https://kurumsal.aygaz.com.tr/kurumsal/staj-basvurulari",
+  "organizer": "Aygaz",
+  "description": "Aygaz'ın Key yaz stajı ve Key+ uzun dönem staj programlarının başvuru bilgileri.",
+  "fields": [
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

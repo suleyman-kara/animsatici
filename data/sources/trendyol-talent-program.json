@@ -1,0 +1,20 @@
+{
+  "id": "trendyol-talent-program",
+  "title": "Trendyol Talent Program",
+  "url": "https://careers.trendyol.com/talent-program",
+  "organizer": "Trendyol",
+  "description": "Trendyol'un genç yetenek işe alım sürecini anlatan kariyer sayfası.",
+  "fields": [
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "marmara-kariyer-merkezi",
+  "title": "Marmara Üniversitesi Kariyer Merkezi (MARKAM)",
+  "url": "https://kariyermerkezi.marmara.edu.tr/",
+  "organizer": "Marmara Üniversitesi",
+  "description": "Marmara Üniversitesi'nin kariyer günleri, duyuruları ve staj bilgilerini yayımladığı kariyer merkezi sitesi.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "career-event",
+    "internship"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "Marmara Üniversitesi",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

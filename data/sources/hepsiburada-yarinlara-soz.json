@@ -1,0 +1,21 @@
+{
+  "id": "hepsiburada-yarinlara-soz",
+  "title": "Hepsiburada Yarınlara Söz",
+  "url": "https://www.hepsiburada.com/yarinlara-soz",
+  "organizer": "Hepsiburada",
+  "description": "Anadolu'daki devlet üniversitelerinin mühendislik öğrencilerine yönelik çevrim içi eğitim programı; başarılı olanlar Hepsiburada'da staj hakkı kazanıyor.",
+  "fields": [
+    "software",
+    "engineering"
+  ],
+  "types": [
+    "workshop",
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

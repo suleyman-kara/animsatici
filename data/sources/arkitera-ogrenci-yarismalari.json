@@ -1,0 +1,19 @@
+{
+  "id": "arkitera-ogrenci-yarismalari",
+  "title": "Arkitera Öğrenci Yarışmaları",
+  "url": "https://www.arkitera.com/kategori/yarisma/ogrenci/",
+  "organizer": "Arkitera",
+  "description": "Mimarlık ve iç mimarlık öğrencilerine açık ulusal ve uluslararası yarışmaların duyurulduğu Arkitera listesi.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "aggregator",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

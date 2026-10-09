@@ -1,0 +1,20 @@
+{
+  "id": "fibabanka-fintern",
+  "title": "Fibabanka Fintern Future Talent Programı",
+  "url": "https://www.fibabanka.com.tr/hakkimizda/insan-kaynaklari/fintern-future-talent-programi",
+  "organizer": "Fibabanka",
+  "description": "3. sınıf öğrencileri için beş aylık gelişim programı içeren Fibabanka uzun dönem staj programı.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

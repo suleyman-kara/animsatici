@@ -1,0 +1,20 @@
+{
+  "id": "iskur-staj-portali",
+  "title": "İŞKUR Staj Portalı",
+  "url": "https://staj.iskur.gov.tr/",
+  "organizer": "İŞKUR",
+  "description": "Lise, üniversite ve lisansüstü öğrencilerin özel sektör işyerlerindeki açık staj pozisyonlarını görebildiği İŞKUR portalı.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Başvuru için e-Devlet girişi gerekebilir; ilanları görmek için sayfayı kendin gez.",
+  "active": true
+}

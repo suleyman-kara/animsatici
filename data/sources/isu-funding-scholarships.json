@@ -1,0 +1,21 @@
+{
+  "id": "isu-funding-scholarships",
+  "title": "International Space University Burslar",
+  "url": "https://www.isunet.edu/funding-and-scholarships/",
+  "organizer": "International Space University",
+  "description": "Uzay çalışmaları yaz programı ve yüksek lisansı için ISU'nun burs ve finansman seçenekleri; SGAC üyelerine ek burs olanakları var.",
+  "fields": [
+    "engineering",
+    "science",
+    "business"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

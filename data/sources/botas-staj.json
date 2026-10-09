@@ -1,0 +1,19 @@
+{
+  "id": "botas-staj",
+  "title": "BOTAŞ Staj",
+  "url": "https://www.botas.gov.tr/Sayfa/staj/130",
+  "organizer": "BOTAŞ",
+  "description": "BOTAŞ'ta staj yapmak isteyen üniversite ve lise öğrencilerine başvuru yolunu anlatan sayfa.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

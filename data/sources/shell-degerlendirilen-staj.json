@@ -1,0 +1,20 @@
+{
+  "id": "shell-degerlendirilen-staj",
+  "title": "Shell Türkiye Öğrenci ve Yeni Mezun Stajları",
+  "url": "https://www.shell.com.tr/kariyer/ogrenciler-ve-yeni-mezunlar/assessed-internships.html",
+  "organizer": "Shell Türkiye",
+  "description": "Gerçek proje çalışması ve değerlendirmeyle ilerleyen Shell staj programını anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

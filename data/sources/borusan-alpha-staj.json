@@ -1,0 +1,20 @@
+{
+  "id": "borusan-alpha-staj",
+  "title": "Borusan Alpha Staj Programı",
+  "url": "https://careers.borusan.com/content/borusan-alpha-staj-programi/",
+  "organizer": "Borusan",
+  "description": "3. ve 4. sınıf ya da yüksek lisans öğrencileri için haftada 2–3 gün çalışılan uzun dönem Borusan staj programı.",
+  "fields": [
+    "business",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

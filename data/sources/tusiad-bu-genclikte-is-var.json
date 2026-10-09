@@ -1,0 +1,19 @@
+{
+  "id": "tusiad-bu-genclikte-is-var",
+  "title": "TÜSİAD Bu Gençlikte İŞ Var!",
+  "url": "https://bugenclikteisvar.com/hakkinda",
+  "organizer": "TÜSİAD",
+  "description": "18–30 yaş üniversite öğrencilerinin ekiplerle iş fikriyle katıldığı, girişimcilik kampı ve TÜSİAD üyesi mentorluğu içeren fikir yarışması.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

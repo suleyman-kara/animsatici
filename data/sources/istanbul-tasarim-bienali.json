@@ -1,0 +1,21 @@
+{
+  "id": "istanbul-tasarim-bienali",
+  "title": "İstanbul Tasarım Bienali",
+  "url": "https://tasarimbienali.iksv.org/tr/camekan/program-icerigi",
+  "organizer": "İKSV",
+  "description": "İstanbul Tasarım Bienali'nin program içeriği; bienal açık çağrıları ve genç tasarımcılara yönelik atölye ve programlar buradan izlenebilir.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "workshop",
+    "conference"
+  ],
+  "scope": "city",
+  "city": "İstanbul",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "yapay-zeka-ve-teknoloji-akademisi",
+  "title": "Yapay Zekâ ve Teknoloji Akademisi (YZTA)",
+  "url": "https://yapayzekaveteknolojiakademisi.com/programlar",
+  "organizer": "T3 Girişim Merkezi, Türkiye Girişimcilik Vakfı ve Google Türkiye",
+  "description": "18–29 yaş üniversite öğrencileri ve mezunları için yapay zekâ, veri bilimi ve düşük kodlu geliştirme alanlarında ücretsiz, 500+ saatlik eğitim programı.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "bootcamp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

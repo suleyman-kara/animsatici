@@ -1,0 +1,20 @@
+{
+  "id": "sap-students-graduates",
+  "title": "SAP Öğrenci ve Yeni Mezun Programları",
+  "url": "https://jobs.sap.com/en/students-and-graduates/",
+  "organizer": "SAP",
+  "description": "SAP'nin staj, akademi ve genç profesyonel programlarını listeleyen küresel erken kariyer sayfası; İstanbul ilanları da burada aranabilir.",
+  "fields": [
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

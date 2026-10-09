@@ -1,0 +1,20 @@
+{
+  "id": "spo-yarismalar",
+  "title": "Şehir Plancıları Odası Yarışmalar",
+  "url": "https://www.spo.org.tr/genel/bizden_listele.php?bizden_kod=44",
+  "organizer": "TMMOB Şehir Plancıları Odası",
+  "description": "Şehir Plancıları Odası'nın yarışma duyuruları; öğrencilere yönelik bitirme projesi yarışması TUPOB da buradan izlenir.",
+  "fields": [
+    "design",
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

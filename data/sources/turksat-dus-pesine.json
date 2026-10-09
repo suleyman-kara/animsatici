@@ -1,0 +1,20 @@
+{
+  "id": "turksat-dus-pesine",
+  "title": "Türksat Düş Peşine Aday Mühendis Programı",
+  "url": "https://duspesine.turksat.com.tr/",
+  "organizer": "Türksat",
+  "description": "Protokollü üniversitelerin son sınıf mühendislik öğrencileri için haftada en az bir gün çalışılan Düş Peşine aday mühendis programı.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

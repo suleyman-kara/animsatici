@@ -1,0 +1,19 @@
+{
+  "id": "borsa-istanbul-ogrenci-egitim",
+  "title": "Borsa İstanbul Öğrenci Eğitim Programı",
+  "url": "https://www.borsaistanbul.com/kurumsal/insan-kaynaklari/egitim/ogrenci-egitim-programi",
+  "organizer": "Borsa İstanbul",
+  "description": "3. ve 4. sınıf öğrencilerine sermaye piyasalarını anlatan 10 iş günlük eğitim programı; zorunlu stajın yerine geçmez.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

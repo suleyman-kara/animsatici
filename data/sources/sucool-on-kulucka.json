@@ -1,0 +1,21 @@
+{
+  "id": "sucool-on-kulucka",
+  "title": "SUCool Ön Kuluçka Programı",
+  "url": "https://sucool.sabanciuniv.edu/on-kulucka-programi",
+  "organizer": "Sabancı Üniversitesi SUCool",
+  "description": "Teknoloji tabanlı iş fikirlerini 12 haftada ölçeklenebilir modele dönüştüren hibrit ön kuluçka programı.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "İstanbul",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}
