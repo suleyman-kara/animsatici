@@ -1,10 +1,19 @@
 {
   "id": "techcareer-bootcamp",
-  "title": "Techcareer Bootcamp'ler",
+  "title": "Techcareer bootcamp'leri",
   "url": "https://www.techcareer.net/bootcamp",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Ücretsiz yazılım bootcamp'leri ve başvuru tarihleri."
+  "organizer": "Techcareer.net",
+  "description": "Ücretsiz yazılım bootcamp'leri ve başvuru tarihleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "bootcamp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
 }

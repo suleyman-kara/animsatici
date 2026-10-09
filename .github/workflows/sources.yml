@@ -1,0 +1,59 @@
+name: Kaynak kontrolü
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Her pazartesi 09:00 Türkiye saati
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  weekly:
+    if: github.event_name != 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Kontrol et
+        run: npm run -s check-sources -- --out report.md
+      - name: Sorun bildir
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -f report.md || echo "Kaynak kontrolü çalışırken hata oluştu; Actions kaydına bakın." > report.md
+          .github/scripts/report-issue.sh "Kaynak kontrolü sorun buldu" "$(cat report.md)"
+
+  suggestion:
+    # Öneri formundan açılan issue'lar: önerilen adresi kontrol edip sonucu yorum olarak yazar.
+    if: github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'kaynak-onerisi')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Önerilen adresi kontrol et
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }} # güvenilmez veri: yalnızca dosyaya yazılır
+        run: |
+          printf '%s' "$ISSUE_BODY" > issue-body.txt
+          npm run -s check-sources -- --issue-body-file issue-body.txt --out report.md || true
+      - name: Sonucu yaz
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          if [ -f report.md ]; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file report.md
+          fi

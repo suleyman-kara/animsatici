@@ -1,10 +1,23 @@
 {
   "id": "baykar-kariyer",
-  "title": "Baykar & T3 Vakfı Yarışmaları",
+  "title": "Baykar Kariyer",
   "url": "https://kariyer.baykartech.com",
-  "category": "career",
-  "kind": "listing",
-  "active": false,
-  "render": "static",
-  "notes": "Milli teknoloji hamlesi yarışmaları, staj programları ve teknoloji bursları. — Kapatıldı: içerik JavaScript ile yükleniyor, tarayıcı etkinlik çıkaramıyor."
+  "organizer": "Baykar",
+  "description": "Baykar'ın staj programları, teknoloji bursları ve milli teknoloji yarışmaları.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "internship",
+    "scholarship",
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "İçerik JavaScript ile yükleniyor; sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
 }

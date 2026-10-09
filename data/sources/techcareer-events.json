@@ -1,10 +1,21 @@
 {
   "id": "techcareer-events",
-  "title": "Techcareer Bootcamp & Etkinlikler",
+  "title": "Techcareer etkinlikleri",
   "url": "https://www.techcareer.net/events",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Ücretsiz yazılım bootcamp'leri, webinarlar ve teknoloji yarışmaları."
+  "organizer": "Techcareer.net",
+  "description": "Webinarlar, kariyer etkinlikleri ve teknoloji yarışmaları.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "career-event",
+    "workshop",
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
 }

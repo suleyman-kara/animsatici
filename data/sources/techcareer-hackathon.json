@@ -1,10 +1,19 @@
 {
   "id": "techcareer-hackathon",
-  "title": "Techcareer Hackathonlar",
+  "title": "Techcareer hackathonları",
   "url": "https://www.techcareer.net/hackathon",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Techcareer'ın hackathon listesi (etkinlik sayfasından ayrı)."
+  "organizer": "Techcareer.net",
+  "description": "Techcareer'ın düzenlediği ve duyurduğu hackathonlar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
 }

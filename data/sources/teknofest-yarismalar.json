@@ -1,10 +1,22 @@
 {
   "id": "teknofest-yarismalar",
-  "title": "TEKNOFEST Teknoloji Yarışmaları",
+  "title": "TEKNOFEST yarışmaları",
   "url": "https://www.teknofest.org/tr/yarismalar/",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "TEKNOFEST yarışmaları ve başvuru tarihleri."
+  "organizer": "T3 Vakfı",
+  "description": "TEKNOFEST teknoloji yarışmaları: roket, insansız araçlar, yapay zeka, biyoteknoloji ve daha fazlası; başvuru takvimleriyle.",
+  "fields": [
+    "engineering",
+    "software",
+    "science"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Her yarışmanın kendi sayfasında başvuru ve rapor teslim tarihleri yazar.",
+  "active": true
 }

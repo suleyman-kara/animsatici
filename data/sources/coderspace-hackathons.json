@@ -1,10 +1,22 @@
 {
   "id": "coderspace-hackathons",
-  "title": "Coderspace Hackathon & Maratonlar",
+  "title": "Coderspace Hackathon ve Bootcamp'ler",
   "url": "https://coderspace.io/etkinlikler",
-  "category": "ceng",
-  "kind": "listing",
-  "active": true,
-  "render": "static",
-  "notes": "Şirketlerin ödüllü hackathonları, kodlama maratonları ve işe alım challenge'ları."
+  "organizer": "Coderspace",
+  "description": "Şirketlerin ödüllü hackathonları, kodlama maratonları, bootcamp'leri ve işe alım challenge'ları.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon",
+    "bootcamp",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Liste sayfası; her etkinliğin son başvuru tarihi kendi sayfasında yazar.",
+  "active": true
 }

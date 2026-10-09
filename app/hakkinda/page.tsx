@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Prose } from "@/components/Prose";
-import { CONTACT_EMAIL, SITE_NAME } from "@/lib/site";
+import { CONTACT_EMAIL, GITHUB_REPO, SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Hakkında", alternates: { canonical: "/hakkinda" } };
 
@@ -10,22 +10,30 @@ export default function AboutPage() {
     <Prose>
       <h1>Hakkında</h1>
       <p>
-        {SITE_NAME}, Türkiye&apos;deki üniversite öğrencilerinin kaçırmaması gereken hackathon, kamp, bootcamp, staj programı,
-        yarışma ve kampüs etkinliklerini tek bir yerde toplar. Üyelik gerekmez.
+        {SITE_NAME}, Türkiye&apos;deki üniversite öğrencilerinin hackathon, kamp, bootcamp, staj, yarışma ve burs fırsatlarını
+        kendi yapay zeka asistanlarıyla bulabilmesi için yapılmış ücretsiz, açık kaynak bir projedir.
       </p>
       <h2>Nasıl çalışır?</h2>
       <ul>
-        <li>Her gün 19:00&apos;da <Link href="/kaynaklar">kaynak sayfalar</Link> taranır. Ana sayfada önümüzdeki 30 gün içinde başvurusu kapanan ya da başlayan etkinlikler gösterilir.</li>
-        <li>Tarih ve yıl kaynak sayfada açıkça yazmıyorsa etkinlik alınmaz; yıl asla tahmin edilmez.</li>
-        <li>Sayfadaki etkinlikler yapay zeka ile çıkarılır. Başlık ve tarih kaynak sayfada birebir geçmiyorsa etkinlik yayınlanmaz.</li>
-        <li>Etkinlik özetleri bizim tarafımızdan yazılır; ayrıntılar ve başvuru için her zaman etkinliğin kendi sayfasına yönlendirilirsiniz.</li>
-        <li>Eksik veya hatalı bir etkinlik gördüğünüzde <Link href="/oneri">bildirebilirsiniz</Link>; her bildirim incelenir.</li>
+        <li>Fırsatların yayınlandığı sayfaları alan, tür ve şehre göre etiketleyip <Link href="/kaynaklar">herkese açık bir listede</Link> tutarız.</li>
+        <li>Asistanın bir MCP sunucusu üzerinden bu listeye bakar, isteğine uygun sayfaları kendi web erişimiyle okur ve fırsatları linkleriyle getirir.</li>
+        <li>Biz fırsat verisi toplamayız ya da yayınlamayız; listede yalnızca sayfaların adresi ve açıklaması bulunur.</li>
+        <li>CV hazırlamak için asistanına bir rehber ve açık GitHub projelerini listeleyen bir araç sunarız. CV senin asistanında hazırlanır.</li>
       </ul>
-      <h2>Etkinliğinizi öne çıkarın</h2>
+      <h2>Sitelerin kurallarına saygı</h2>
+      <ul>
+        <li>Kullanım koşullarında otomatik erişimi yasaklayan siteler &quot;yalnızca link&quot; olarak işaretlenir; asistanlardan bu sayfaları okumamaları istenir.</li>
+        <li>Giriş gerektiren sayfalar listeye alınmaz. Asistanlardan bot korumalarını aşmaya çalışmamaları istenir.</li>
+        <li>Kaynak listesi haftada bir kontrol edilir: sayfa açılıyor mu, robots.txt ne diyor.</li>
+        <li>
+          Sitenizin listede yer almasını istemiyorsanız ya da bilgisi yanlışsa{" "}
+          {CONTACT_EMAIL ? <a href={`mailto:${CONTACT_EMAIL}`}>bize yazın</a> : <Link href="/oneri?tur=geri-bildirim">geri bildirim gönderin</Link>}; hemen düzeltiriz.
+        </li>
+      </ul>
+      <h2>Katkı</h2>
       <p>
-        Bootcamp, hackathon, staj programı veya kampüs etkinliğinizi öğrencilere ulaştırmak isterseniz etkinliğiniz
-        &quot;Öne çıkanlar&quot; alanında, açıkça &quot;Sponsorlu&quot; etiketiyle gösterilebilir.
-        {CONTACT_EMAIL ? <> İletişim: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></> : null}
+        Kod ve kaynak listesi <a href={`https://github.com/${GITHUB_REPO}`} target="_blank" rel="noopener">GitHub&apos;da</a>, Apache-2.0
+        lisansıyla. Yeni kaynakları <Link href="/oneri">öneri formundan</Link> ya da doğrudan pull request ile ekleyebilirsin.
       </p>
     </Prose>
   );
