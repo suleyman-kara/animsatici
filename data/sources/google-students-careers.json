@@ -1,0 +1,21 @@
+{
+  "id": "google-students-careers",
+  "title": "Google öğrenci stajları",
+  "url": "https://www.google.com/about/careers/applications/students/",
+  "organizer": "Google",
+  "description": "Google'ın öğrencilere yönelik staj ve yeni mezun programları; konuma göre süzülebilir.",
+  "fields": [
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "İlanları konum ve iş türüne göre süz; Türkiye ve uzaktan ilanlar için konum filtresini kullan.",
+  "active": true
+}

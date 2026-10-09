@@ -1,0 +1,22 @@
+{
+  "id": "gdg-konya",
+  "title": "GDG Konya",
+  "url": "https://gdg.community.dev/gdg-konya/",
+  "organizer": "Google Developer Groups",
+  "description": "Konya merkezli Google geliştirici topluluğu: DevFest, Google I/O Extended, atölyeler ve teknik buluşmalar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "conference",
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "Konya",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

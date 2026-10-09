@@ -1,0 +1,20 @@
+{
+  "id": "sabanci-vakfi-burslari",
+  "title": "Sabancı Vakfı bursları",
+  "url": "https://www.sabancivakfi.org/",
+  "organizer": "Sabancı Vakfı",
+  "description": "Anlaşmalı üniversitelerdeki lisans öğrencilerine karşılıksız burs; başvurular üniversitelerin burs birimleri üzerinden.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru dönemi genellikle eylül–ekim arasıdır.",
+  "active": true
+}

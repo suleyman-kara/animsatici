@@ -1,0 +1,22 @@
+{
+  "id": "gdg-ankara",
+  "title": "GDG Ankara",
+  "url": "https://gdg.community.dev/gdg-ankara/",
+  "organizer": "Google Developer Groups",
+  "description": "Ankara merkezli Google geliştirici topluluğu: DevFest, Google I/O Extended, atölyeler ve teknik buluşmalar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "conference",
+    "workshop"
+  ],
+  "scope": "city",
+  "city": "Ankara",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

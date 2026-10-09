@@ -1,0 +1,19 @@
+{
+  "id": "anatolian-rover-challenge",
+  "title": "Anatolian Rover Challenge",
+  "url": "https://anatolianrover.space/",
+  "organizer": "Anatolian Rover Challenge",
+  "description": "Türkiye'de düzenlenen uluslararası öğrenci Mars gezgini (rover) yarışması.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

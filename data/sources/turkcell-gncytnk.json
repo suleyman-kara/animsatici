@@ -1,0 +1,23 @@
+{
+  "id": "turkcell-gncytnk",
+  "title": "Turkcell GNÇYTNK",
+  "url": "https://kariyerim.turkcell.com.tr/",
+  "organizer": "Turkcell",
+  "description": "Turkcell'in 3. ve 4. sınıf öğrencileriyle yeni mezunlara yönelik genç yetenek, staj ve kamp programları.",
+  "fields": [
+    "software",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship",
+    "camp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvurular genellikle ocak–mart arasında açılır; genç yetenek bölümüne bak.",
+  "active": true
+}

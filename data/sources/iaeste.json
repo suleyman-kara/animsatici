@@ -1,0 +1,23 @@
+{
+  "id": "iaeste",
+  "title": "IAESTE",
+  "url": "https://iaeste.org/",
+  "organizer": "IAESTE",
+  "description": "Mühendislik ve fen öğrencileri için ücretli yurt dışı staj değişim programı; Türkiye'de üniversiteler üzerinden başvurulur.",
+  "fields": [
+    "engineering",
+    "science",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "hints": "Başvurular üniversitelerin IAESTE temsilcilikleri üzerinden yapılır; dönem genellikle sonbaharda açılır.",
+  "active": true
+}

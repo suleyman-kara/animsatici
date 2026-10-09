@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-ataturk",
+  "title": "GDG on Campus Atatürk Üniversitesi",
+  "url": "https://gdg.community.dev/gdg-on-campus-ataturk-university-erzurum-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "Atatürk Üniversitesi merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "Erzurum",
+  "university": "Atatürk Üniversitesi",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

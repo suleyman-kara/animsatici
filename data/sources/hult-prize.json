@@ -1,0 +1,19 @@
+{
+  "id": "hult-prize",
+  "title": "Hult Prize",
+  "url": "https://www.hultprize.org/",
+  "organizer": "Hult Prize Foundation",
+  "description": "Üniversite öğrencileri için dünyanın en büyük sosyal girişimcilik yarışması; kampüs elemeleriyle başlar.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

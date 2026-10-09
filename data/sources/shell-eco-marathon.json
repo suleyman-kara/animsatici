@@ -1,0 +1,19 @@
+{
+  "id": "shell-eco-marathon",
+  "title": "Shell Eco-marathon",
+  "url": "https://www.shellecomarathon.com/",
+  "organizer": "Shell",
+  "description": "Üniversite takımlarının enerji verimli araç tasarlayıp yarıştığı uluslararası mühendislik yarışması.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

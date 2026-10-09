@@ -1,0 +1,19 @@
+{
+  "id": "european-rover-challenge",
+  "title": "European Rover Challenge",
+  "url": "https://roverchallenge.eu/",
+  "organizer": "European Space Foundation",
+  "description": "Polonya'da düzenlenen uluslararası öğrenci Mars gezgini ve robotik yarışması.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

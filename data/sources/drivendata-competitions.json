@@ -1,0 +1,20 @@
+{
+  "id": "drivendata-competitions",
+  "title": "DrivenData yarışmaları",
+  "url": "https://www.drivendata.org/competitions/",
+  "organizer": "DrivenData",
+  "description": "Sosyal fayda odaklı veri bilimi ve makine öğrenmesi yarışmaları.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

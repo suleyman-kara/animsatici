@@ -1,0 +1,19 @@
+{
+  "id": "core77-design-awards",
+  "title": "Core77 Design Awards",
+  "url": "https://designawards.core77.com/",
+  "organizer": "Core77",
+  "description": "Öğrenci kategorileri de bulunan uluslararası tasarım ödülleri: ürün, etkileşim, grafik ve hizmet tasarımı.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

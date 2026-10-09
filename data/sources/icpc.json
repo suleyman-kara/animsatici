@@ -1,0 +1,20 @@
+{
+  "id": "icpc",
+  "title": "ICPC",
+  "url": "https://icpc.global/",
+  "organizer": "ICPC Foundation",
+  "description": "Üniversite takımları için uluslararası programlama yarışması; bölgesel elemelerden Dünya Finali'ne uzanır.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Bölgesel yarışmaların takvimi ve kayıtları sitede; Türkiye takımları Güneydoğu Avrupa bölgesinde yarışır.",
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "aiesec",
+  "title": "AIESEC",
+  "url": "https://aiesec.org/",
+  "organizer": "AIESEC",
+  "description": "Gençler için yurt dışı gönüllülük ve staj programları; Türkiye'de birçok üniversitede yerel komitesi var.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

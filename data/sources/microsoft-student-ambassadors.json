@@ -1,0 +1,20 @@
+{
+  "id": "microsoft-student-ambassadors",
+  "title": "Microsoft Learn Student Ambassadors",
+  "url": "https://mvp.microsoft.com/studentambassadors",
+  "organizer": "Microsoft",
+  "description": "Teknoloji topluluklarına liderlik eden öğrenciler için Microsoft'un elçi programı; eğitimler ve etkinlikler.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "career-event"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

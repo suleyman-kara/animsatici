@@ -1,0 +1,19 @@
+{
+  "id": "formula-student-germany",
+  "title": "Formula Student Germany",
+  "url": "https://www.formulastudent.de/",
+  "organizer": "Formula Student Germany",
+  "description": "Üniversite takımlarının yarış aracı tasarlayıp ürettiği uluslararası yarışma; Türk takımları da katılır.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

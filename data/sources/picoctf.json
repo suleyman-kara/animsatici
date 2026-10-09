@@ -1,0 +1,20 @@
+{
+  "id": "picoctf",
+  "title": "picoCTF",
+  "url": "https://picoctf.org/",
+  "organizer": "Carnegie Mellon University",
+  "description": "Öğrencilere yönelik ücretsiz siber güvenlik yarışması (CTF) ve yıl boyu açık pratik platformu.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Yıllık yarışma genellikle ilkbaharda düzenlenir; tarihler ana sayfada duyurulur.",
+  "active": true
+}

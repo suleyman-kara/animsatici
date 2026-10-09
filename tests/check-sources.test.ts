@@ -21,14 +21,21 @@ describe("kaynak kontrolü", () => {
     expect(result.blockedFor).toEqual([]);
   });
 
-  it("yapay zeka tarayıcılarını engelleyen siteyi uyarır", async () => {
+  it("asistan ajanlarını engelleyen siteyi uyarır, yalnızca eğitim tarayıcılarını engelleyende not düşer", async () => {
     const fetchImpl = fakeFetch({
       "https://ornek.org/e": page(),
-      "https://ornek.org/robots.txt": robots("User-agent: ClaudeBot\nDisallow: /\n\nUser-agent: *\nAllow: /"),
+      "https://ornek.org/robots.txt": robots("User-agent: Claude-User\nDisallow: /\n\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: *\nAllow: /"),
     });
     const result = await checkUrl("https://ornek.org/e", { fetchImpl });
-    expect(result.blockedFor).toEqual(["ClaudeBot"]);
-    expect(result.warnings[0]).toMatch(/ClaudeBot/);
+    expect(result.blockedFor).toEqual(["Claude-User", "GPTBot"]);
+    expect(result.warnings).toEqual(["robots.txt asistanların sayfa okumasını engelliyor: Claude-User. aiFetch false yapılmalı."]);
+    expect(result.notes).toEqual(["robots.txt eğitim tarayıcılarını engelliyor: GPTBot (kullanıcı isteğiyle okumayı etkilemez)."]);
+
+    const trainingOnly = await checkUrl("https://ornek.org/e", {
+      fetchImpl: fakeFetch({ "https://ornek.org/e": page(), "https://ornek.org/robots.txt": robots("User-agent: Google-Extended\nDisallow: /") }),
+    });
+    expect(trainingOnly.warnings).toEqual([]);
+    expect(trainingOnly.notes[0]).toMatch(/Google-Extended/);
 
     // aiFetch zaten false ise uyarı gerekmez
     const closed = await checkUrl("https://ornek.org/e", { fetchImpl, source: makeSource({ aiFetch: false, aiFetchNote: "x" }) });
@@ -66,6 +73,32 @@ describe("kaynak kontrolü", () => {
     expect(closed.errors).toEqual([]);
     expect(closed.notes).toEqual(["Sayfaya ulaşılamadı (fetch failed: ENOTFOUND).", "robots.txt okunamadı."]);
     expect(describeFetchError(Object.assign(new Error("x"), { name: "TimeoutError" }))).toBe("zaman aşımı");
+  });
+
+  it("geçici ağ hatasında bir kez yeniden dener", async () => {
+    let calls = 0;
+    const flaky = (async (input: RequestInfo | URL) => {
+      if (String(input).endsWith("/robots.txt")) return new Response("", { status: 404 });
+      calls += 1;
+      if (calls === 1) throw Object.assign(new TypeError("fetch failed"), { cause: { code: "ECONNRESET" } });
+      return new Response("ok");
+    }) as typeof fetch;
+    const result = await checkUrl("https://ornek.org/e", { fetchImpl: flaky });
+    expect(calls).toBe(2);
+    expect(result).toMatchObject({ httpStatus: 200, errors: [], warnings: [] });
+  });
+
+  it("eksik sertifika zincirini bozuk link saymaz", async () => {
+    let calls = 0;
+    const tls = (async () => {
+      calls += 1;
+      throw Object.assign(new TypeError("fetch failed"), { cause: { code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE" } });
+    }) as typeof fetch;
+    const result = await checkUrl("https://ornek.org/e", { fetchImpl: tls });
+    expect(calls).toBe(1);
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toEqual([]);
+    expect(result.notes[0]).toMatch(/sertifika zincirini eksik/);
   });
 
   it("yerel ağ adreslerine istek atmaz", async () => {

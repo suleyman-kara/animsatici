@@ -79,7 +79,12 @@ Asistanların en sık yaptığı hata geçen yılın sayfasını okuyup "başvur
 
 ## Kaynak kontrolü
 
-`scripts/check-sources.ts`, sayfa içeriğini okumadan iki şeye bakar: sayfa açılıyor mu (HTTP durumu) ve robots.txt `*` ile bilinen yapay zeka tarayıcılarına (`ClaudeBot`, `Claude-User`, `GPTBot`, `ChatGPT-User`, `Google-Extended`, `PerplexityBot`) izin veriyor mu. robots.txt ayrıştırıcısı `lib/robots.ts`'tedir.
+`scripts/check-sources.ts`, sayfa içeriğini okumadan iki şeye bakar: sayfa açılıyor mu (HTTP durumu) ve robots.txt ne diyor. robots.txt ayrıştırıcısı `lib/robots.ts`'tedir.
+
+- `*` ya da kullanıcı isteğiyle sayfa okuyan asistan ajanları (`Claude-User`, `ChatGPT-User`, `Perplexity-User`) engelleniyorsa kaynak `aiFetch: false` yapılmalıdır (uyarı).
+- Yalnızca model eğitimi için veri toplayan tarayıcılar (`ClaudeBot`, `GPTBot`, `Google-Extended`, `PerplexityBot`) engelleniyorsa bu, kullanıcının isteğiyle okumayı yasaklamaz; bilgi notu düşülür.
+- HTTP 401/403/429 "otomatik istekleri engelliyor" sayılır. Geçici ağ hatalarında bir kez yeniden denenir. Sunucunun TLS sertifika zincirini eksik göndermesi bozuk link sayılmaz.
+- `aiFetch: false` kaynaklarda engel ve erişim sorunları kontrolü kırmaz; 404 ve 5xx her zaman hatadır.
 
 `.github/workflows/sources.yml`:
 - Her pazartesi tüm etkin kaynakları kontrol eder; sorun varsa `kaynak-sagligi` etiketli bir issue açar ya da açık olana yorum ekler.

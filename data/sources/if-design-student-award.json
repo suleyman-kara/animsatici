@@ -1,0 +1,21 @@
+{
+  "id": "if-design-student-award",
+  "title": "iF Design Student Award",
+  "url": "https://ifdesign.com/en/if-design-student-award",
+  "organizer": "iF International Forum Design",
+  "description": "Öğrenciler ve son iki yılda mezun olanlar için ücretsiz uluslararası tasarım yarışması; 50.000 avro ödül havuzu.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
+  "needsJs": false,
+  "hints": "Başvurular genellikle sonbaharda açılıp ocak–şubat arasında kapanır.",
+  "active": true
+}

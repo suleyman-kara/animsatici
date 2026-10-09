@@ -1,0 +1,19 @@
+{
+  "id": "eu-youth-traineeships",
+  "title": "Avrupa Gençlik Portalı stajları",
+  "url": "https://youth.europa.eu/go-abroad/traineeships_en",
+  "organizer": "Avrupa Komisyonu",
+  "description": "Avrupa'da staj programları ve fırsatları; AB kurumlarının staj programları ve ülke rehberleri.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

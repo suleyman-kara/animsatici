@@ -1,0 +1,21 @@
+{
+  "id": "kaggle-competitions",
+  "title": "Kaggle yarışmaları",
+  "url": "https://www.kaggle.com/competitions",
+  "organizer": "Kaggle",
+  "description": "Veri bilimi ve makine öğrenmesi yarışmaları; ödüllü, eğitim amaçlı ve topluluk yarışmaları.",
+  "fields": [
+    "software",
+    "science"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Her yarışmanın son katılım tarihi kendi sayfasında yazar.",
+  "active": true
+}

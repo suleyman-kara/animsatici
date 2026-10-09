@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-iuc",
+  "title": "GDG on Campus İÜ-Cerrahpaşa",
+  "url": "https://gdg.community.dev/gdg-on-campus-istanbul-university-cerrahpasa-istanbul-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "İstanbul Üniversitesi-Cerrahpaşa merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "İstanbul",
+  "university": "İstanbul Üniversitesi-Cerrahpaşa",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

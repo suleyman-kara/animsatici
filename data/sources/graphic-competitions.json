@@ -1,0 +1,19 @@
+{
+  "id": "graphic-competitions",
+  "title": "Graphic Competitions",
+  "url": "https://graphiccompetitions.com/",
+  "organizer": "Graphic Competitions",
+  "description": "Grafik tasarım, illüstrasyon, tipografi ve fotoğraf yarışmaları; öğrencilere özel bölümüyle.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}
