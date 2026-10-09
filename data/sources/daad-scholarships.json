@@ -14,7 +14,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": true,
   "hints": "Menşe ülke olarak Türkiye'yi ve öğrenim düzeyini seçerek süz.",
   "active": true
