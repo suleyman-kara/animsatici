@@ -14,7 +14,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Başvurular genellikle mart–temmuz arasında açıktır; ülke sayfasında yerel kurallar yazar.",
   "active": true
