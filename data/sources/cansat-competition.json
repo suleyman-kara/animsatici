@@ -1,0 +1,20 @@
+{
+  "id": "cansat-competition",
+  "title": "CanSat Competition",
+  "url": "https://www.cansatcompetition.com/",
+  "organizer": "AAS ve AIAA",
+  "description": "Üniversite takımlarının roketle fırlatılan küçük uydu yükü tasarladığı uluslararası yarışma; Türk takımları düzenli katılır.",
+  "fields": [
+    "engineering",
+    "science"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "erasmus-mundus",
+  "title": "Erasmus Mundus burslu yüksek lisans",
+  "url": "https://www.eacea.ec.europa.eu/scholarships/erasmus-mundus-catalogue_en",
+  "organizer": "Avrupa Komisyonu (EACEA)",
+  "description": "Avrupa'da birden çok üniversitede okunan burslu ortak yüksek lisans programları kataloğu; son sınıf öğrencileri başvurabilir.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru tarihleri her programın kendi sitesinde yazar; çoğu ekim–ocak arasında kapanır.",
+  "active": true
+}

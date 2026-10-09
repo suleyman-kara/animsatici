@@ -1,0 +1,20 @@
+{
+  "id": "hackerearth-challenges",
+  "title": "HackerEarth yarışmaları",
+  "url": "https://www.hackerearth.com/challenges/",
+  "organizer": "HackerEarth",
+  "description": "Hackathon, programlama ve işe alım yarışmalarının listesi.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon",
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -68,6 +68,32 @@ describe("kaynak kontrolü", () => {
     expect(describeFetchError(Object.assign(new Error("x"), { name: "TimeoutError" }))).toBe("zaman aşımı");
   });
 
+  it("geçici ağ hatasında bir kez yeniden dener", async () => {
+    let calls = 0;
+    const flaky = (async (input: RequestInfo | URL) => {
+      if (String(input).endsWith("/robots.txt")) return new Response("", { status: 404 });
+      calls += 1;
+      if (calls === 1) throw Object.assign(new TypeError("fetch failed"), { cause: { code: "ECONNRESET" } });
+      return new Response("ok");
+    }) as typeof fetch;
+    const result = await checkUrl("https://ornek.org/e", { fetchImpl: flaky });
+    expect(calls).toBe(2);
+    expect(result).toMatchObject({ httpStatus: 200, errors: [], warnings: [] });
+  });
+
+  it("eksik sertifika zincirini bozuk link saymaz", async () => {
+    let calls = 0;
+    const tls = (async () => {
+      calls += 1;
+      throw Object.assign(new TypeError("fetch failed"), { cause: { code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE" } });
+    }) as typeof fetch;
+    const result = await checkUrl("https://ornek.org/e", { fetchImpl: tls });
+    expect(calls).toBe(1);
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toEqual([]);
+    expect(result.notes[0]).toMatch(/sertifika zincirini eksik/);
+  });
+
   it("yerel ağ adreslerine istek atmaz", async () => {
     for (const url of ["http://localhost:3000", "http://127.0.0.1/", "http://[::1]/", "http://10.0.0.5/x", "file:///etc/passwd", "kopuk"]) {
       expect(isPublicHttpUrl(url), url).toBe(false);

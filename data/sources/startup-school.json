@@ -1,0 +1,19 @@
+{
+  "id": "startup-school",
+  "title": "YC Startup School",
+  "url": "https://www.startupschool.org/",
+  "organizer": "Y Combinator",
+  "description": "Y Combinator'ın girişim kurmak isteyenler için ücretsiz çevrim içi programı ve kurucu ortak eşleştirmesi.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "workshop"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

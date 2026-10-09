@@ -1,0 +1,19 @@
+{
+  "id": "devpost-hackathons",
+  "title": "Devpost hackathonları",
+  "url": "https://devpost.com/hackathons",
+  "organizer": "Devpost",
+  "description": "Dünya genelindeki çevrim içi ve yüz yüze hackathonların listesi; son başvuru tarihleri ve ödüllerle.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

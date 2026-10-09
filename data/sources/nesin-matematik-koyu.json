@@ -1,0 +1,20 @@
+{
+  "id": "nesin-matematik-koyu",
+  "title": "Nesin Matematik Köyü",
+  "url": "https://www.nesinkoyleri.org/",
+  "organizer": "Nesin Vakfı",
+  "description": "Şirince'de üniversite öğrencilerine yönelik matematik yaz okulları ve dersler.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "camp",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

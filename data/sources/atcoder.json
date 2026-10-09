@@ -1,0 +1,19 @@
+{
+  "id": "atcoder",
+  "title": "AtCoder yarışmaları",
+  "url": "https://atcoder.jp/contests/",
+  "organizer": "AtCoder",
+  "description": "Haftalık algoritmik programlama yarışmaları (ABC, ARC, AGC) ve takvimi.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

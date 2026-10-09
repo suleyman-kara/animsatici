@@ -13,7 +13,8 @@
   "scope": "international",
   "kind": "organizer",
   "lang": "en",
-  "aiFetch": true,
+  "aiFetch": false,
+  "aiFetchNote": "Site otomatik istekleri engelliyor (HTTP 403); yapay zeka asistanları okuyamıyor. Sayfayı kendin ziyaret et.",
   "needsJs": false,
   "hints": "Başvurular genellikle sonbaharda açılıp ocak–şubat arasında kapanır.",
   "active": true

@@ -31,6 +31,26 @@ export interface CheckResult {
 /** Bot korumasının ya da erişim kısıtlamasının döndürdüğü durum kodları. */
 const BLOCKED_STATUSES = new Set([401, 403, 429]);
 
+/**
+ * Sunucunun sertifika zincirini eksik gönderdiği durumlar. Tarayıcılar eksik ara sertifikayı kendisi
+ * tamamladığı için sayfa açılır; bu yüzden bozuk link sayılmaz, yalnızca not düşülür.
+ */
+const INCOMPLETE_CHAIN_CODES = new Set(["UNABLE_TO_VERIFY_LEAF_SIGNATURE", "UNABLE_TO_GET_ISSUER_CERT_LOCALLY", "UNABLE_TO_GET_ISSUER_CERT"]);
+
+function causeCode(err: unknown): string | undefined {
+  return (err as { cause?: { code?: string } }).cause?.code;
+}
+
+/** Geçici ağ hatalarında bir kez daha dener (zaman aşımı, bağlantı kopması). */
+async function fetchWithRetry(fetchImpl: typeof fetch, url: URL, init: RequestInit, timeoutMs: number): Promise<Response> {
+  try {
+    return await fetchImpl(url, { ...init, signal: AbortSignal.timeout(timeoutMs) });
+  } catch (err) {
+    if (INCOMPLETE_CHAIN_CODES.has(causeCode(err) ?? "")) throw err;
+    return fetchImpl(url, { ...init, signal: AbortSignal.timeout(timeoutMs) });
+  }
+}
+
 /** fetch hatasının okunabilir nedeni (undici "fetch failed" mesajının altındaki kod). */
 export function describeFetchError(err: unknown): string {
   const e = err as Error & { cause?: { code?: string; message?: string } };
@@ -75,7 +95,7 @@ export async function checkUrl(raw: string, options: { source?: Source; fetchImp
   const url = new URL(raw);
 
   try {
-    const res = await fetchImpl(url, { headers: { "User-Agent": USER_AGENT }, redirect: "follow", signal: AbortSignal.timeout(20_000) });
+    const res = await fetchWithRetry(fetchImpl, url, { headers: { "User-Agent": USER_AGENT }, redirect: "follow" }, 20_000);
     result.httpStatus = res.status;
     await res.body?.cancel();
     if (BLOCKED_STATUSES.has(res.status)) {
@@ -86,6 +106,10 @@ export async function checkUrl(raw: string, options: { source?: Source; fetchImp
       result.errors.push(`Sayfa HTTP ${res.status} döndürüyor.`);
     }
   } catch (err) {
+    if (INCOMPLETE_CHAIN_CODES.has(causeCode(err) ?? "")) {
+      result.notes.push("Sunucu TLS sertifika zincirini eksik gönderiyor; tarayıcılar açar, bazı otomatik araçlar açamayabilir.");
+      return result;
+    }
     const msg = `Sayfaya ulaşılamadı (${describeFetchError(err)}).`;
     // "Yalnızca link" kaynaklarda asistan sayfayı zaten okumaz; erişim kısıtı (ör. yurt dışı engeli) not olarak kalır.
     if (aiFetch) result.errors.push(msg);

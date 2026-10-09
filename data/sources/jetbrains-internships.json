@@ -1,0 +1,19 @@
+{
+  "id": "jetbrains-internships",
+  "title": "JetBrains stajları",
+  "url": "https://internship.jetbrains.com/",
+  "organizer": "JetBrains",
+  "description": "JetBrains'in yazılım ve araştırma projelerinde öğrenci stajları.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

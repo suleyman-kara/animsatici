@@ -1,0 +1,20 @@
+{
+  "id": "suas-competition",
+  "title": "SUAS Competition",
+  "url": "https://suas-competition.org/",
+  "organizer": "RoboNation",
+  "description": "Üniversite takımları için otonom insansız hava aracı yarışması.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

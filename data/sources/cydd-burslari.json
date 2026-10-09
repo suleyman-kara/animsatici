@@ -1,0 +1,19 @@
+{
+  "id": "cydd-burslari",
+  "title": "ÇYDD burs programları",
+  "url": "https://www.cydd.org.tr/",
+  "organizer": "Çağdaş Yaşamı Destekleme Derneği",
+  "description": "Üniversite öğrencilerine burs ve gençlik programları; özellikle kız öğrencilere yönelik destekler.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

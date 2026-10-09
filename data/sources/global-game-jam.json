@@ -1,0 +1,21 @@
+{
+  "id": "global-game-jam",
+  "title": "Global Game Jam",
+  "url": "https://globalgamejam.org/",
+  "organizer": "Global Game Jam",
+  "description": "Her yıl ocak sonunda dünya genelinde 48 saatlik oyun geliştirme maratonu; İstanbul başta olmak üzere Türkiye'de yerel etkinlikler.",
+  "fields": [
+    "software",
+    "design"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Türkiye'deki etkinlik yerleri sitenin konum (jam site) listesinde yer alır.",
+  "active": true
+}

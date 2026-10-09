@@ -1,0 +1,21 @@
+{
+  "id": "startup-weekend",
+  "title": "Techstars Startup Weekend",
+  "url": "https://www.techstars.com/communities/startup-weekend",
+  "organizer": "Techstars",
+  "description": "54 saatte fikirden girişime giden hafta sonu etkinlikleri; Türkiye dahil birçok şehirde düzenlenir.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "hackathon",
+    "workshop"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

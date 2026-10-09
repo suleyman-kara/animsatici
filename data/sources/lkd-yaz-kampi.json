@@ -1,0 +1,21 @@
+{
+  "id": "lkd-yaz-kampi",
+  "title": "Özgür Yazılım ve Linux Yaz Kampı",
+  "url": "https://kamp.linux.org.tr/",
+  "organizer": "Linux Kullanıcıları Derneği",
+  "description": "Linux Kullanıcıları Derneği'nin yaz ve kış kampları: Linux, programlama, ağ ve güvenlik eğitimleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "camp",
+    "workshop"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Kamp dönemleri ve başvuru tarihleri ana sayfada duyurulur.",
+  "active": true
+}

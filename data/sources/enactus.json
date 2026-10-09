@@ -1,0 +1,19 @@
+{
+  "id": "enactus",
+  "title": "Enactus",
+  "url": "https://enactus.org/",
+  "organizer": "Enactus",
+  "description": "Üniversite öğrencilerinin sosyal girişimcilik projeleriyle yarıştığı uluslararası ağ; ulusal finaller ve Dünya Kupası.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

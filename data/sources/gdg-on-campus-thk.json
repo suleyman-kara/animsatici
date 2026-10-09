@@ -1,0 +1,24 @@
+{
+  "id": "gdg-on-campus-thk",
+  "title": "GDG on Campus THK Üniversitesi",
+  "url": "https://gdg.community.dev/gdg-on-campus-turkish-aeronautical-association-university-ankara-turkiye/",
+  "organizer": "Google Developer Groups",
+  "description": "Türk Hava Kurumu Üniversitesi merkezli Google geliştirici topluluğu: atölyeler, teknik konuşmalar, DevFest ve hackathon etkinlikleri.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "workshop",
+    "conference",
+    "hackathon"
+  ],
+  "scope": "university",
+  "city": "Ankara",
+  "university": "Türk Hava Kurumu Üniversitesi",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Topluluk sayfası; yaklaşan etkinlikler üstte listelenir. İçerik JavaScript ile yükleniyor, sayfa boş görünürse kullanıcıya linki ver.",
+  "active": true
+}

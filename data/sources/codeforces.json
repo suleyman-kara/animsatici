@@ -1,0 +1,19 @@
+{
+  "id": "codeforces",
+  "title": "Codeforces yarışmaları",
+  "url": "https://codeforces.com/contests",
+  "organizer": "Codeforces",
+  "description": "Haftalık algoritmik programlama yarışmaları (Codeforces Round, Educational Round) ve yarışma takvimi.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

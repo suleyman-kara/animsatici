@@ -1,0 +1,20 @@
+{
+  "id": "topcoder-challenges",
+  "title": "Topcoder yarışmaları",
+  "url": "https://www.topcoder.com/challenges",
+  "organizer": "Topcoder",
+  "description": "Ödüllü yazılım geliştirme, tasarım ve veri bilimi yarışmaları.",
+  "fields": [
+    "software",
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

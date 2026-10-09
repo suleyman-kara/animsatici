@@ -1,0 +1,19 @@
+{
+  "id": "lablab-ai",
+  "title": "lablab.ai hackathonları",
+  "url": "https://lablab.ai/event",
+  "organizer": "lablab.ai",
+  "description": "Yapay zeka odaklı çevrim içi hackathonlar ve yarışmalar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

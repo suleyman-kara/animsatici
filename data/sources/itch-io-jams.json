@@ -1,0 +1,21 @@
+{
+  "id": "itch-io-jams",
+  "title": "itch.io game jam'leri",
+  "url": "https://itch.io/jams",
+  "organizer": "itch.io",
+  "description": "Çevrim içi oyun geliştirme jam'lerinin takvimi; başlangıç ve bitiş tarihleriyle.",
+  "fields": [
+    "software",
+    "design"
+  ],
+  "types": [
+    "hackathon",
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "daad-scholarships",
+  "title": "DAAD burs veritabanı",
+  "url": "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/",
+  "organizer": "DAAD",
+  "description": "Almanya'da yaz okulu, araştırma stajı ve lisansüstü burslarının veritabanı; ülke ve öğrenim düzeyine göre süzülebilir.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship",
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Menşe ülke olarak Türkiye'yi ve öğrenim düzeyini seçerek süz.",
+  "active": true
+}

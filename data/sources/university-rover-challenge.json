@@ -1,0 +1,19 @@
+{
+  "id": "university-rover-challenge",
+  "title": "University Rover Challenge",
+  "url": "https://urc.marssociety.org/",
+  "organizer": "The Mars Society",
+  "description": "ABD'de düzenlenen, üniversite takımlarının Mars gezgini tasarladığı uluslararası yarışma.",
+  "fields": [
+    "engineering"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

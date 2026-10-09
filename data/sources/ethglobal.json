@@ -1,0 +1,19 @@
+{
+  "id": "ethglobal",
+  "title": "ETHGlobal hackathonları",
+  "url": "https://ethglobal.com/events",
+  "organizer": "ETHGlobal",
+  "description": "Blokzincir ve Web3 odaklı çevrim içi ve yüz yüze hackathonlar.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

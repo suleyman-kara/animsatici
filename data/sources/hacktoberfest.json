@@ -1,0 +1,19 @@
+{
+  "id": "hacktoberfest",
+  "title": "Hacktoberfest",
+  "url": "https://hacktoberfest.com/",
+  "organizer": "DigitalOcean",
+  "description": "Her ekim ayı boyunca açık kaynak projelere katkı yapılan dünya çapında etkinlik.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "hackathon"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "ctftime",
+  "title": "CTFtime etkinlik takvimi",
+  "url": "https://ctftime.org/event/list/upcoming",
+  "organizer": "CTFtime",
+  "description": "Dünya genelindeki siber güvenlik yarışmalarının (CTF) takvimi; çevrim içi ve yüz yüze etkinlikler.",
+  "fields": [
+    "software"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "aggregator",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}
