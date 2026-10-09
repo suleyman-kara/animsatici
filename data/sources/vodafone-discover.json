@@ -1,0 +1,21 @@
+{
+  "id": "vodafone-discover",
+  "title": "Vodafone Discover Genç Yetenek Programı",
+  "url": "https://www.vodafone.com.tr/hakkimizda/insan-kaynaklari/discover-yetenek-programi",
+  "organizer": "Vodafone Türkiye",
+  "description": "Son sınıf öğrencileri ve yeni mezunlar için tam zamanlı çalışmaya açılan Vodafone genç yetenek programı.",
+  "fields": [
+    "software",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

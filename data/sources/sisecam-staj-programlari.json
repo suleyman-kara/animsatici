@@ -1,0 +1,20 @@
+{
+  "id": "sisecam-staj-programlari",
+  "title": "Şişecam Staj Programları",
+  "url": "https://careers.sisecam.com/go/Staj-Programlar%C4%B1/4501801/",
+  "organizer": "Şişecam",
+  "description": "Şişecam'ın uzun dönem Together ve yaz dönemi First Step staj programlarının yer aldığı kariyer sayfası.",
+  "fields": [
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "koc-gelecegin-yetenekleri",
+  "title": "Koç Topluluğu Geleceğin Yetenekleri",
+  "url": "https://www.koc.com.tr/surdurulebilirlik/insan-icin-birlikte/gelecegin-yetenekleri",
+  "organizer": "Koç Holding",
+  "description": "Koç Topluluğu şirketlerindeki staj programlarını ve Ctrl+ Future gibi genç yetenek girişimlerini anlatan sayfa.",
+  "fields": [
+    "general",
+    "engineering",
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

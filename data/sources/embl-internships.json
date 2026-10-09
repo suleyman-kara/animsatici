@@ -1,0 +1,19 @@
+{
+  "id": "embl-internships",
+  "title": "EMBL Stajyer ve Trainee Programları",
+  "url": "https://www.embl.org/careers/internships/",
+  "organizer": "EMBL",
+  "description": "Biyoloji, kimya, fizik, bilişim ve mühendislik öğrencileri için Avrupa Moleküler Biyoloji Laboratuvarı'ndaki staj ve araştırma yerleştirmeleri.",
+  "fields": [
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

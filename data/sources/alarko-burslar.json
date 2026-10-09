@@ -1,0 +1,20 @@
+{
+  "id": "alarko-burslar",
+  "title": "Alarko Eğitim ve Kültür Vakfı Burslar",
+  "url": "https://www.alarko.com.tr/surdurulebilirlik/sosyal-sorumluluk/alarko-egitim-kultur-vakfi-ve-burslar/burslarimiz/",
+  "organizer": "Alarko Eğitim ve Kültür Vakfı",
+  "description": "Lise, lisans ve lisansüstü öğrencilere karşılıksız burs veren Alarko vakfının burs bilgileri.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru vakfa değil, öğrencinin üniversitesinin burs ofisi üzerinden yapılıyor.",
+  "active": true
+}

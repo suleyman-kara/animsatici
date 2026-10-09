@@ -1,0 +1,20 @@
+{
+  "id": "yapi-kredi-digitalent",
+  "title": "Yapı Kredi Digitalent Genç Yetenek Programı",
+  "url": "https://www.yapikredi.com.tr/yapi-kredi-hakkinda/insan-kaynaklari/digital-genc-yetenek-programi",
+  "organizer": "Yapı Kredi",
+  "description": "3. ve 4. sınıf öğrencileri için part-time staj ve mentorluk içeren, başvurusu genellikle Ekim ayında alınan genç yetenek programı.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "is-bankasi-masterclass",
+  "title": "İş Bankası MasterClass Staj Programı",
+  "url": "https://ik.isbank.com.tr/staj-detayi/masterclass-staj-programi-110",
+  "organizer": "Türkiye İş Bankası",
+  "description": "İş Bankası'nın hibrit ücretli yaz staj programı; İş Bankası kariyer sitesinde Future Hub gibi diğer program sayfalarına bağlantı var.",
+  "fields": [
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "active": true
+}

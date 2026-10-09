@@ -1,0 +1,21 @@
+{
+  "id": "eczacibasi-kariyer",
+  "title": "Eczacıbaşı Kariyer Staj Programları",
+  "url": "https://www.eczacibasi.com.tr/en/live-the-career",
+  "organizer": "Eczacıbaşı",
+  "description": "Eczacıbaşı Topluluğu'nun staj ve kariyer yaklaşımını anlatan sayfa; başvurular topluluğun kariyer sitesinden yapılıyor.",
+  "fields": [
+    "business",
+    "engineering",
+    "science"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

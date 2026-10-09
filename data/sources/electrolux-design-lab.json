@@ -1,0 +1,19 @@
+{
+  "id": "electrolux-design-lab",
+  "title": "Electrolux Design Lab",
+  "url": "https://www.electroluxgroup.com/en/event/design-lab/",
+  "organizer": "Electrolux",
+  "description": "Endüstriyel tasarım öğrencilerinin geleceğin ev aletleri için konsept sunduğu yıllık yarışma; ödüller arasında staj fırsatı olabiliyor.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

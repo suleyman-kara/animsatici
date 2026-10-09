@@ -1,0 +1,21 @@
+{
+  "id": "tofas-bize-katil",
+  "title": "Tofaş Bize Katıl (Staj Programları)",
+  "url": "https://www.tofas.com.tr/Kariyer/BizeKatil",
+  "organizer": "Tofaş",
+  "description": "Tofaş'ın Prova+ uzun dönem stajı, First Drive yaz stajı ve öğrenci kariyer programlarının toplandığı sayfa.",
+  "fields": [
+    "engineering",
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

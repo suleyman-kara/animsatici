@@ -1,0 +1,20 @@
+{
+  "id": "cfa-research-challenge",
+  "title": "CFA Institute Research Challenge",
+  "url": "https://www.cfainstitute.org/insights/events/research-challenge/students",
+  "organizer": "CFA Institute",
+  "description": "Üniversite takımlarının bir şirketi analiz edip rapor ve sunum hazırladığı küresel finans araştırma yarışması.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Üniversite katılıyorsa yerel elemeler genelde Eylül–Şubat arasındadır; yoksa bir öğretim üyesi danışman olabilir.",
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "sabanci-gelisim-programlari",
+  "title": "Sabancı Kariyer Gelişim Programları",
+  "url": "https://kariyer.sabanci.com/en/development-programs",
+  "organizer": "Sabancı Holding",
+  "description": "Sabancı Grubu'nun genç yetenek ve staj programlarının, SEED ve öğrenci deneyim programının listelendiği kariyer sayfası.",
+  "fields": [
+    "business",
+    "software",
+    "engineering"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

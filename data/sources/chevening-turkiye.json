@@ -1,0 +1,19 @@
+{
+  "id": "chevening-turkiye",
+  "title": "Chevening Türkiye Bursu",
+  "url": "https://www.chevening.org/scholarship/turkey/",
+  "organizer": "Chevening",
+  "description": "Birleşik Krallık'ta bir yıllık yüksek lisans için tam burs; en az iki yıl iş deneyimi aranır, TEV iki ortak burs sunar.",
+  "fields": [
+    "general"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

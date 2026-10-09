@@ -1,0 +1,22 @@
+{
+  "id": "thy-ogrenci-kariyer",
+  "title": "Türk Hava Yolları Öğrenci ve Yeni Mezun Kariyeri",
+  "url": "https://careers.turkishairlines.com/tecrubesiz-birim-calisani-yeni-mezunogrenci",
+  "organizer": "Türk Hava Yolları",
+  "description": "Öğrenci ve yeni mezunlara yönelik THY pozisyonları ile staj bilgilerinin bulunduğu kariyer sayfası.",
+  "fields": [
+    "general",
+    "engineering",
+    "business"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": true,
+  "hints": "Staj alımı Ulusal Staj Programı üzerinden yapılabiliyor; duyuru için THY kariyer sitesindeki duyurular bölümüne bak.",
+  "active": true
+}

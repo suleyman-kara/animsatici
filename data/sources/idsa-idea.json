@@ -1,0 +1,19 @@
+{
+  "id": "idsa-idea",
+  "title": "IDSA International Design Excellence Awards",
+  "url": "https://www.idsa.org/awards-recognitions/idea/",
+  "organizer": "Industrial Designers Society of America",
+  "description": "Endüstriyel tasarım ödülü; ders çalışması olarak hazırlanan lisans ve lisansüstü projeler için ayrı öğrenci kategorisi var.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

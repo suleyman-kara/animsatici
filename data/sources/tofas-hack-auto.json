@@ -1,0 +1,20 @@
+{
+  "id": "tofas-hack-auto",
+  "title": "Tofaş Hack-Auto Kariyer Kampı",
+  "url": "https://www.tofas.com.tr/Kariyer/BizeKatil/Pages/HackAutoKariyerKampi.aspx",
+  "organizer": "Tofaş",
+  "description": "Tofaş'ın öğrencilere yönelik kariyer kampı sayfası.",
+  "fields": [
+    "engineering",
+    "software"
+  ],
+  "types": [
+    "camp"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

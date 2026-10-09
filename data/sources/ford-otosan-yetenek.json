@@ -1,0 +1,22 @@
+{
+  "id": "ford-otosan-yetenek",
+  "title": "Ford Otosan Yetenek Programları",
+  "url": "https://fordotosan.com.tr/tr/kariyer/kariyer-firsatlari/yetenek-programlarimiz",
+  "organizer": "Ford Otosan",
+  "description": "Ford Otosan'ın öğrenci ve yeni mezunlara yönelik yetenek programlarının, mühendislik vaka yarışmasının ve diğer girişimlerin listelendiği sayfa.",
+  "fields": [
+    "engineering",
+    "software",
+    "business"
+  ],
+  "types": [
+    "internship",
+    "competition"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

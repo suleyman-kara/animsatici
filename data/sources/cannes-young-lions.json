@@ -1,0 +1,21 @@
+{
+  "id": "cannes-young-lions",
+  "title": "Cannes Lions Young Lions",
+  "url": "https://www.canneslions.com/learning/competitions",
+  "organizer": "Cannes Lions",
+  "description": "31 yaşın altındaki yaratıcılar için tasarım, dijital, film ve medya dallarında 24 saatlik kampanya yarışması; önce ulusal eleme kazanılır.",
+  "fields": [
+    "design",
+    "business"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Türkiye elemesini yürüten kuruluşun duyurusu için sayfadaki bölgesel temsilci bilgisine bak.",
+  "active": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "mercedes-benz-turk-kariyer",
+  "title": "Mercedes-Benz Türkiye Kariyer",
+  "url": "https://www.mercedes-benz.com.tr/passengercars/brand/career.html?abtest-menu_ice_bev=control",
+  "organizer": "Mercedes-Benz Türkiye",
+  "description": "Mercedes-Benz Otomotiv'in uzun dönem staj programı DRIVE UP ve diğer öğrenci kariyer programlarını anlatan sayfa.",
+  "fields": [
+    "engineering",
+    "business",
+    "software"
+  ],
+  "types": [
+    "internship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "active": true
+}

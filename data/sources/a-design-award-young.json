@@ -1,0 +1,20 @@
+{
+  "id": "a-design-award-young",
+  "title": "A' Young Design Award",
+  "url": "https://competition.adesignaward.com/competitions/young.html",
+  "organizer": "A' Design Award & Competition",
+  "description": "Öğrenci, yeni mezun ve genç tasarımcıların portfolyoyla katıldığı uluslararası tasarım yarışması.",
+  "fields": [
+    "design"
+  ],
+  "types": [
+    "competition"
+  ],
+  "scope": "international",
+  "kind": "organizer",
+  "lang": "en",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Katılım ücretlidir; Design Ambassador ve burs (scholarship) sayfalarında ücret muafiyeti yolları anlatılır.",
+  "active": true
+}

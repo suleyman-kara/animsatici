@@ -1,0 +1,20 @@
+{
+  "id": "kosgeb-girisimci-destek",
+  "title": "KOSGEB Girişimci Destek Programı",
+  "url": "https://www.kosgeb.gov.tr/site/tr/genel/destekdetay/1231/girisimci-destek-programi",
+  "organizer": "KOSGEB",
+  "description": "Yeni iş kuran girişimciler için iş kurma hibesi ve iş geliştirme desteğini anlatan resmi program sayfası; kadın ve genç girişimcilere ek destek var.",
+  "fields": [
+    "business"
+  ],
+  "types": [
+    "scholarship"
+  ],
+  "scope": "national",
+  "kind": "organizer",
+  "lang": "tr",
+  "aiFetch": true,
+  "needsJs": false,
+  "hints": "Başvuru çağrıları dönemsel açılır; güncel çağrı duyurusu KOSGEB ana sayfasında yayımlanır.",
+  "active": true
+}
