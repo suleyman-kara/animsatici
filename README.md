@@ -1,102 +1,141 @@
+<div align="center">
+
+<img src="app/icon.svg" width="72" alt="Kampüs30 logosu">
+
 # Kampüs30
 
-Türkiye'deki üniversite öğrencileri için hackathon, kamp, bootcamp, staj programı ve kampüs etkinliklerini **tek yerde** toplayan, üyelik gerektirmeyen web sitesi. Etkinlikler her gün kaynak sitelerden otomatik taranır; ana sayfada **önümüzdeki 30 gün içinde** başvurusu kapanan ya da başlayan etkinlikler gösterilir, devam edenlerin ayrı bir sayfası vardır; ziyaretçiler eksik ya da hatalı etkinlikleri bildirebilir ve bir yapay zeka ajanı bu bildirimleri inceler.
+**Önümüzdeki 30 gün içinde başvurabileceğin hackathon, kamp, bootcamp, staj ve yarışmalar. Tek sayfada.**
+
+[![CI](https://github.com/suleyman-kara/kampus30/actions/workflows/ci.yml/badge.svg)](https://github.com/suleyman-kara/kampus30/actions/workflows/ci.yml)
+[![Günlük tarama](https://github.com/suleyman-kara/kampus30/actions/workflows/scan.yml/badge.svg)](https://github.com/suleyman-kara/kampus30/actions/workflows/scan.yml)
+[![Lisans: PolyForm Noncommercial](https://img.shields.io/badge/lisans-PolyForm%20Noncommercial-yellow)](LICENSE)
+
+[kampus30.vercel.app](https://kampus30.vercel.app)
+
+</div>
+
+---
+
+Kampüs30, Türkiye'deki üniversite öğrencilerine yönelik fırsatları dağınık sitelerden toplayıp tek bir yerde sunar. Üyelik, giriş ya da uygulama gerektirmez. Etkinlikler her gün yapay zeka ile taranır. Her kayıt kaynak sayfadaki birebir alıntılarla doğrulanır, böylece uydurma bir tarih ya da etkinlik siteye giremez.
+
+## Özellikler
+
+- **30 günlük pencere:** Ana sayfada yalnızca başvurusu ya da başlangıcı önümüzdeki 30 güne denk gelen etkinlikler var. Şu an süren etkinlikler [Devam eden](https://kampus30.vercel.app/devam-eden) sayfasında.
+- **Günlük otomatik tarama:** Kaynak siteler her akşam taranır. Değişen sayfalardan Gemini etkinlikleri çıkarır, gerekirse etkinliğin kendi sayfasına da bakar.
+- **Halüsinasyon koruması:**
+  - Başlık, tarih ve yıl kaynak sayfada birebir geçmiyorsa etkinlik alınmaz.
+  - Yıl asla tahmin edilmez.
+  - Bitmiş etkinlikler alınmaz.
+- **Takvim:**
+  - Her etkinlik tek tıkla Google Takvim'e eklenir.
+  - Bütün etkinliklere ICS akışıyla abone olunabilir.
+  - Takvime yalnızca son başvuru ve başlangıç günleri düşer.
+- **Topluluk katkısı:** Ziyaretçiler eksik ya da hatalı etkinliği kişisel bilgi vermeden bildirir. Bir yapay zeka ajanı her bildirimi araştırır, teşhisini yazar ve gerekiyorsa düzeltmeyi PR olarak açar.
+- **Şeffaflık:** Hangi kaynakların tarandığı ve son durumları [Kaynaklar](https://kampus30.vercel.app/kaynaklar) sayfasında. Verinin tüm geçmişi git'te.
+- **Gizlilik:** Çerez yok, hesap yok, kişisel veri toplanmaz. Analitik için çerezsiz Umami kullanılır.
 
 ## Nasıl çalışır?
 
-```
-GitHub Actions (her gün 19:00 TR) ──► npm run scan
-   ├─ data/sources/*.json'daki sayfaları çeker, değişmemişse atlar (hash)
-   ├─ Gemini sayfadaki TÜM etkinlikleri çıkarır
-   ├─ tarihi/yılı liste sayfasında yazmayan etkinlikler için etkinliğin kendi sayfasına bakılır
-   │  (kaynak başına en fazla 30, 4'er 4'er; sonuçsuz sayfalar 7 gün tekrar açılmaz)
-   ├─ başlık/tarih alıntısı sayfada birebir geçmeyen etkinlikler reddedilir
-   ├─ yıl tahmin edilmez: tarihlerin yılı sayfadan birebir alıntıda yazmıyorsa etkinlik alınmaz
-   ├─ bitmiş etkinlikler alınmaz
-   ├─ tekilleştirme + güvenlik eşikleri + şema doğrulaması
-   └─ data/ değişikliklerini commit eder → Vercel siteyi yeniden derler
-
-Ziyaretçi /oneri formu ──► /api/oneri ──► GitHub Issue (oneri | hata-bildirimi)
-   └─ GitHub Actions: npm run agent
-        ├─ arar, sayfaları çeker, tarayıcıyı yeniden çalıştırır, nedeni teşhis eder
-        ├─ issue'ya teşhis yorumu yazar
-        └─ AGENT_MODE=pr ise düzeltmeyi PR olarak açar → siz onaylarsınız
+```mermaid
+flowchart LR
+    subgraph actions["GitHub Actions"]
+        scan["Günlük tarama<br/>19:00 TR"]
+        agent["Öneri ajanı"]
+    end
+    sources[("Kaynak siteler")] --> scan
+    scan -- "çıkar · doğrula · tekilleştir" --> data[("data/*.json")]
+    data -- commit --> vercel["Vercel<br/>statik site"]
+    user(["Ziyaretçi"]) -- "/oneri" --> issue["GitHub Issue"]
+    issue --> agent
+    agent -- "yorum veya PR" --> data
 ```
 
-- **Site:** Next.js 16 + Tailwind, Vercel'de statik. Tek sunucu fonksiyonu öneri formudur.
-- **Veri:** Veritabanı yok. Her etkinlik `data/events/<id>.json`, her kaynak `data/sources/<id>.json`. Tüm geçmiş git'te.
-- **Analitik:** Umami (çerezsiz). Etkinlik bazında "Başvur" ve "Takvime ekle" tıklamaları sayılır.
+Veritabanı yoktur. Her etkinlik ve kaynak `data/` altında ayrı bir JSON dosyasıdır. Tarama bu dosyaları günceller ve commit'ler, Vercel de siteyi yeniden derler. Ajanın önerdiği her değişiklik bir PR'dır ve birleştirilmeden önce gözden geçirilir.
 
-Kararların gerekçeleri [PLAN.md](PLAN.md), geliştirme kuralları [AGENTS.md](AGENTS.md) dosyasında.
+Ayrıntılı mimari ve tasarım kararları: **[docs/MIMARI.md](docs/MIMARI.md)**
+
+## Teknolojiler
+
+| | |
+|---|---|
+| Site | Next.js 16 (App Router), React 19, Tailwind CSS 4, TypeScript |
+| Veri ve şema | Repo içinde JSON, zod |
+| Yapay zeka | Google Gemini (`@google/genai`): yapılandırılmış çıktı, function calling, arama |
+| Otomasyon | GitHub Actions: günlük tarama, sağlık kontrolü, öneri ajanı, CI |
+| Barındırma | Vercel |
+| Diğer | Cloudflare Turnstile, Umami, cheerio, vitest |
 
 ## Yerelde çalıştırma
 
+Gereksinim: Node.js 22+
+
 ```bash
 npm install
-DATA_ROOT=tests/fixtures/sample-data npm run dev   # örnek etkinliklerle
-npm run dev                                       # gerçek data/ ile
+DATA_ROOT=tests/fixtures/sample-data npm run dev   # örnek veriyle
+npm run dev                                       # canlı data/ ile
 ```
 
-Kontroller: `npm run lint && npm run typecheck && npm test && npm run validate && npm run build`
+| Komut | Ne yapar |
+|---|---|
+| `npm run lint && npm run typecheck` | ESLint ve TypeScript kontrolü |
+| `npm test` | Birim testleri (ağa çıkmaz, Gemini sahte istemciyle) |
+| `npm run validate` | `data/` altındaki tüm dosyaları şemaya göre doğrular |
+| `npm run build` | Statik üretim |
+| `npm run scan -- --dry-run` | Taramayı dosya yazmadan çalıştırır (`GEMINI_API_KEY` gerekir) |
+| `npm run scan -- --source <id> --force` | Tek kaynağı, sayfa değişmemiş olsa da tarar |
+| `npm run agent -- --issue <n>` | Ajanı bir issue üzerinde çalıştırır |
+| `npm run prune -- --dry-run` | Geçersiz eski kayıtları listeler (bayraksız çalıştırınca siler) |
 
-Tarayıcıyı elle denemek (`.env.local` içinde `GEMINI_API_KEY` gerekir):
+Ortam değişkenleri `.env.example` dosyasında açıklanmıştır. Sıfırdan kurulum için adım adım rehber: **[docs/KURULUM.md](docs/KURULUM.md)**
 
-```bash
-npm run scan -- --dry-run                # hiçbir dosya yazmadan rapor
-npm run scan -- --source inzva-events    # tek kaynak
-npm run scan -- --force                  # sayfa değişmemiş olsa da yeniden çıkar
+## Proje yapısı
+
+```
+app/            sayfalar, OG görselleri, takvim akışı, /api/oneri
+components/     arayüz bileşenleri
+lib/
+  scanner/      çekme, çıkarım, doğrulama, detay sayfaları, tekilleştirme, güvenlik eşikleri
+  agent/        öneri ajanının döngüsü, araçları ve prompt'u
+  schema.ts     tüm veri biçimlerinin tek kaynağı
+scripts/        scan, agent, validate, healthcheck, prune, setup-labels
+data/
+  sources/      taranan kaynaklar
+  events/       etkinlikler
+  state/        tarama durumu
+tests/          testler ve örnek veri
+.github/        workflow'lar
 ```
 
-## Kurulum (bir kez, elle)
-
-İlk kez kuruyorsanız adım adım rehber: **[docs/KURULUM.md](docs/KURULUM.md)**. Kısa özet:
-
-1. **Vercel:** Repoyu içe aktarın. Environment Variables: `NEXT_PUBLIC_SITE_URL`, `CONTACT_EMAIL`, `GITHUB_TOKEN`, `GITHUB_REPO`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_UMAMI_SRC`, `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (açıklamalar `.env.example`'da).
-2. **GitHub token (öneri formu için):** Settings → Developer settings → Fine-grained tokens → yalnızca bu repo, **Issues: Read and write**. Vercel'e `GITHUB_TOKEN` olarak girin.
-3. **Cloudflare Turnstile:** Site ekleyin (alan adınız + `*.vercel.app`), anahtarları Vercel'e girin. Bunlar ve token girilmeden form "henüz yapılandırılmadı" der.
-4. **Umami Cloud:** Site ekleyin, website ID'yi Vercel'e girin. Sponsorlara panelin herkese açık paylaşım linkini verebilirsiniz.
-5. **GitHub repo ayarları:**
-   - Secrets → Actions: `GEMINI_API_KEY`
-   - Variables → Actions: `AGENT_MODE=comment` (ajanın teşhislerine güvenince `pr` yapın), isteğe bağlı `GEMINI_MODEL`
-   - Settings → Actions → General → Workflow permissions: **Read and write**, ✅ **Allow GitHub Actions to create and approve pull requests**
-6. **İlk tarama:** Actions → "Günlük tarama" → Run workflow. Etkinlikler commit'lenince site kendiliğinden güncellenir.
-7. **Alan adı (önerilir):** Vercel'e bağlayıp `NEXT_PUBLIC_SITE_URL`'i güncelleyin.
-8. **Eski Firebase'i kapatın:** Firebase konsolunda `centralRadarScanner` ve `checkSourceNow` fonksiyonlarını silin (Cloud Scheduler işi de silinir). Aksi hâlde eski tarama Gemini maliyeti üretmeye devam eder.
-
-## Günlük işletme
+## İşletme
 
 | İş | Nasıl |
 |---|---|
-| Kaynak eklemek | `data/sources/<id>.json` ekleyin (örnek için mevcut dosyalara bakın) ya da ajanın PR'ını onaylayın |
-| Eski/geçersiz kayıtları temizlemek | `npm run prune -- --dry-run` ile listeleyin, `npm run prune` ile silin (yalnızca taramayla eklenmiş ve ilk görüldüğünde zaten bitmiş ya da yılı belirsiz kayıtlar) |
-| Hatalı etkinliği düzeltmek | `data/events/<id>.json`'u düzenleyin. Tamamen silip bir daha eklenmemesini istiyorsanız `dedupeKey`'ini `data/blocklist.json`'a ekleyin |
-| Sponsorlu etkinlik | Etkinlik dosyasına `"sponsored": { "until": "2026-11-30" }` ekleyin (isteğe bağlı `"label"`). Tarih geçince kendiliğinden düşer. Ajan ve tarayıcı bu alana dokunmaz |
-| Taramayı elle başlatmak | Actions → "Günlük tarama" → Run workflow (`source`, `force` seçenekleri var) |
-| Bir öneriyi yeniden incelemek | Actions → "Öneri ajanı" → Run workflow (issue numarası, `force`) |
-| Ajanın önerdiği değişiklik | `ajan` etiketli PR'ı Vercel önizlemesinden kontrol edip birleştirin |
-| İnsan bakması gereken öneriler | `insan-gerekli` etiketli issue'lar |
-| Tarama sorunları | `tarama-hatasi` etiketli issue (tarama veya günlük sağlık kontrolü açar) |
+| Kaynak eklemek | `data/sources/<id>.json` ekleyin ya da ajanın açtığı PR'ı birleştirin |
+| Etkinliği düzeltmek | `data/events/<id>.json` dosyasını düzenleyin |
+| Etkinliği kalıcı olarak engellemek | Dosyayı silip `dedupeKey`'ini `data/blocklist.json`'a ekleyin |
+| Sponsorlu etkinlik | Etkinliğe `"sponsored": { "until": "YYYY-MM-DD" }` ekleyin. Süre dolunca kendiliğinden düşer; "Sponsorlu" etiketi her zaman görünür |
+| Taramayı elle başlatmak | Actions → **Günlük tarama** → Run workflow |
+| Bir öneriyi yeniden incelemek | Actions → **Öneri ajanı** → Run workflow |
+| Takip edilecek etiketler | `ajan` (ajanın PR'ları), `insan-gerekli` (ajanın emin olamadıkları), `tarama-hatasi` (tarama ya da sağlık kontrolü sorunları) |
 
-Not: GitHub, 60 gün aktivite olmayan public repolarda zamanlanmış workflow'ları devre dışı bırakabilir. Günlük tarama commit'leri bunu genelde önler; yine de "tarama-hatasi" issue'su gelirse Actions sekmesinden workflow'u yeniden etkinleştirin.
+Bir taramada daha önce çalışmış kaynakların yarısından fazlası hata verirse ya da 40'tan fazla yeni etkinlik çıkarsa hiçbir şey yazılmaz ve bir `tarama-hatasi` issue'su açılır. Ajan yalnızca `data/` altına yazabilir; kodu, workflow'ları ve sponsorlu kayıtları değiştiremez.
 
-## Güvenlik ve veri kalitesi
+## Katkı
 
-- Tarayıcı ve ajan, kaynak sayfada **birebir geçmeyen** başlık/tarihleri kabul etmez.
-- Bir taramada kaynakların yarısından fazlası hata verirse ya da 40'tan fazla yeni etkinlik çıkarsa hiçbir şey yazılmaz. Önceden etkinlik veren bir kaynak birden sıfır verirse o kaynak atlanır.
-- Ajan yalnızca `data/` altına yazabilir, sponsorlu kayıtlara dokunamaz, PR açmadan önce doğrulama ve testleri çalıştırır. Issue metni ve web sayfaları ona güvenilmez veri olarak verilir.
-- Öneri formu kişisel veri istemez; Turnstile ve honeypot ile korunur. IP adresi kaydedilmez.
-
-## Eski sürüm
-
-Flutter + Firebase ile yazılmış ilk sürüm kaldırıldı; git geçmişinde duruyor.
+- Eksik ya da hatalı bir etkinlik gördüyseniz en hızlı yol sitedeki **[öneri formu](https://kampus30.vercel.app/oneri)**.
+- Kod katkıları için önce [AGENTS.md](AGENTS.md)'deki kurallara göz atın.
+- Her PR CI'da `lint`, `typecheck`, `test`, `validate` ve `build` adımlarından geçer.
 
 ## Lisans
 
 Kaynak kodu herkese açıktır ama **ticari kullanıma kapalıdır**: [PolyForm Noncommercial 1.0.0](LICENSE).
 
-- ✅ Kodu okuyabilir, öğrenmek için inceleyebilir, kişisel ya da kâr amacı gütmeyen projelerinizde (okul, öğrenci topluluğu, hobi) kullanabilir ve değiştirebilirsiniz. Dağıtırken lisans metnini ve `Required Notice` satırını eklemeniz gerekir.
-- ❌ Kodu ya da türevini para kazanmak için kullanamazsınız: ücretli/reklamlı bir site veya hizmet işletmek, sponsorlu içerik satmak, bir şirketin ticari ürününe katmak gibi.
-- 💼 Ticari kullanım için izin almak isterseniz iletişime geçin.
-- **"Kampüs30" adı ve logosu** lisansa dahil değildir; bunlarla aynı ya da karıştırılabilecek bir ad/logo kullanılamaz.
+- ✅ **Serbest:**
+  - Okumak ve öğrenmek için incelemek.
+  - Kişisel ya da kâr amacı gütmeyen projelerde (okul, öğrenci topluluğu, hobi) kullanmak ve değiştirmek.
+  - Dağıtmak. Dağıtırken lisans metni ve `Required Notice` satırı eklenmelidir.
+- ❌ **Yasak:** Kodu ya da türevini para kazanmak için kullanmak. Örneğin ücretli ya da reklamlı bir site veya hizmet işletmek, sponsorlu içerik satmak ya da bir şirketin ticari ürününe katmak.
+- 💼 **Ticari kullanım:** İzin için iletişime geçin.
+- **Ad ve logo:** "Kampüs30" adı ve logosu lisansa dahil değildir.
 
-Not: Bu lisans değişikliğinden önceki sürümler Apache 2.0 lisansıyla yayımlanmıştı; o sürümler için o lisans geçerliliğini korur.
+Lisans değişikliğinden önceki sürümler Apache 2.0 ile yayımlanmıştı; o sürümler için o lisans geçerliliğini korur.

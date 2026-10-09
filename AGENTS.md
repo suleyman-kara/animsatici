@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Kampüs30 — Ajan ve geliştirici kuralları
 
-Mimari ve kararların gerekçesi için [PLAN.md](PLAN.md), kurulum için [README.md](README.md).
+Mimari ve kararların gerekçesi için [docs/MIMARI.md](docs/MIMARI.md), kurulum için [README.md](README.md).
 
 ## Mimari özeti
 - **Site:** Next.js 16 (App Router) + Tailwind 4, Vercel'de. Tüm sayfalar build zamanında statik üretilir; tek dinamik route `app/api/oneri`.

@@ -16,9 +16,8 @@ Bu rehber, sıfırdan siteyi yayına alıp günlük taramayı ve öneri ajanın�
 8. [Tüm ayarları Vercel'e girmek](#8-tüm-ayarları-vercele-girmek)
 9. [Her şeyi test etmek](#9-her-şeyi-test-etmek)
 10. [Ajanı PR moduna almak](#10-ajanı-pr-moduna-almak-birkaç-gün-sonra)
-11. [Eski Firebase sistemini kapatmak](#11-eski-firebase-sistemini-kapatmak)
-12. [İsteğe bağlı: kendi alan adınız](#12-isteğe-bağlı-kendi-alan-adınız)
-13. [Sorun giderme](#13-sorun-giderme)
+11. [İsteğe bağlı: kendi alan adınız](#11-isteğe-bağlı-kendi-alan-adınız)
+12. [Sorun giderme](#12-sorun-giderme)
 
 Sonunda tüm değerlerin nereye girildiğini gösteren bir [özet tablo](#özet-hangi-değer-nereye) var.
 
@@ -30,10 +29,9 @@ Tarayıcı ve ajan, sayfalardan etkinlik çıkarmak için Gemini kullanır.
 
 1. https://aistudio.google.com/apikey adresine gidin ve Google hesabınızla giriş yapın.
 2. **"Create API key"** butonuna tıklayın.
-3. Proje sorulursa eski Firebase projeniz olan **kampus-radar**'ı seçebilirsiniz.
-4. Oluşan anahtarı (`AIza...` ile başlar) kopyalayıp not dosyanıza yazın.
+3. Oluşan anahtarı (`AIza...` ile başlar) kopyalayıp not dosyanıza yazın.
 
-> Eski sistemde kullandığınız anahtar hâlâ duruyorsa onu da kullanabilirsiniz. Günde 7–30 sayfa taramak çok düşük bir kullanımdır; yine de Google Cloud'da faturalandırma açıksa küçük bir bütçe uyarısı kurmanız iyi olur (bkz. [11. adım](#11-eski-firebase-sistemini-kapatmak)).
+> Günde birkaç düzine sayfa taramak çok düşük bir kullanımdır. Yine de Google Cloud'da faturalandırma açıksa küçük bir bütçe uyarısı kurun: https://console.cloud.google.com/billing → **Budgets & alerts** → **Create budget** → ör. aylık 5 USD, %50 ve %100'de e-posta uyarısı.
 
 ---
 
@@ -89,7 +87,7 @@ Siteyi yayına almadan önce veriyi doldurmak iyi olur, böylece site ilk açıl
    - En sonda `Özet: ...` satırı.
 5. Bittiğinde yeşil ✓ görmelisiniz. Repoda `chore(data): günlük tarama ...` adlı yeni bir commit oluşur ve `data/events/` klasörü dolar.
 
-Kırmızı ✗ görürseniz [Sorun giderme](#13-sorun-giderme) bölümüne bakın. Bu durumda otomatik olarak `tarama-hatasi` etiketli bir issue da açılır.
+Kırmızı ✗ görürseniz [Sorun giderme](#12-sorun-giderme) bölümüne bakın. Bu durumda otomatik olarak `tarama-hatasi` etiketli bir issue da açılır.
 
 > Bundan sonra tarama **her gün 19:00'da** kendiliğinden çalışır. Ayrıca her sabah 10:00'da bir sağlık kontrolü yapılır.
 
@@ -234,40 +232,7 @@ Ajan emin olamadığı durumlarda issue'ya `insan-gerekli` etiketi koyar. Bunlar
 
 ---
 
-## 11. Eski Firebase sistemini kapatmak
-
-Eski Cloud Functions hâlâ her gün çalışıp Gemini'yi çağırıyor olabilir ve eski Flutter sitesi `kampus-radar.web.app`'te yayında.
-
-### 11a. Fonksiyonları silmek (önemli: maliyeti durdurur)
-
-1. https://console.firebase.google.com → **kampus-radar** projesi.
-2. Sol menüde **Build** → **Functions**.
-3. `centralRadarScanner` satırının sağındaki **⋮** → **Delete function** → onaylayın.
-4. Aynısını `checkSourceNow` için yapın.
-
-Zamanlanmış fonksiyon silinince ona bağlı Cloud Scheduler işi de silinir.
-
-### 11b. Eski siteyi kapatmak
-
-Firebase CLI ile, bilgisayarınızdaki terminalden:
-
-```bash
-npx firebase-tools login
-npx firebase-tools hosting:disable --project kampus-radar
-```
-
-### 11c. Faturalandırma
-
-Fonksiyonları sildikten sonra proje artık ücretli bir şey çalıştırmaz. Yine de içiniz rahat etsin istiyorsanız:
-
-1. https://console.cloud.google.com/billing → **Budgets & alerts** → **Create budget**.
-2. Ör. aylık 5 USD bütçe ve %50 / %100 e-posta uyarısı kurun.
-
-Gemini anahtarınız aynı projedeyse bu bütçe onu da kapsar.
-
----
-
-## 12. İsteğe bağlı: kendi alan adınız
+## 11. İsteğe bağlı: kendi alan adınız
 
 Sponsorlar ve SEO için `kampus30.com` gibi kendi alan adınız daha güven verir.
 
@@ -281,7 +246,7 @@ Sponsorlar ve SEO için `kampus30.com` gibi kendi alan adınız daha güven veri
 
 ---
 
-## 13. Sorun giderme
+## 12. Sorun giderme
 
 | Belirti | Olası neden ve çözüm |
 |---|---|
